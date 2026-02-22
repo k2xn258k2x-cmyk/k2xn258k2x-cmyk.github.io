@@ -167,7 +167,7 @@ a.nav-link.plain{ cursor:pointer; }
 .nav-link:focus{ outline:none; box-shadow: 0 0 0 4px var(--focus); }
 
 .site-header .nav-cta .btn.btn-primary{
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .nav-cta{ display:flex; align-items:center; gap: 12px; }

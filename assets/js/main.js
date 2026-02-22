@@ -82,6 +82,16 @@
       });
     });
 
+    // Close mega menus when hovering other top-level items (Enterprise, Pricing, etc.)
+var closeOnHover = qsa(".nav-link.plain, .nav-cta a, .nav-cta button", root.parentElement || document);
+closeOnHover.forEach(function(el){
+  el.addEventListener("mouseenter", function(){
+    if(window.matchMedia("(hover: hover)").matches){
+      closeAll();
+    }
+  });
+});
+
     panels.forEach(function(panel){
       panel.addEventListener("mouseenter", function(){
         if(window.matchMedia("(hover: hover)").matches){

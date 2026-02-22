@@ -1,0 +1,28 @@
+---
+layout: default
+title: Blog
+description: VaultBook updates, workflows, and deep dives.
+---
+<section class="page">
+  <div class="container narrow">
+    <header class="page-head" data-reveal>
+      <h1 class="page-title">Blog</h1>
+      <p class="page-subtitle">Workflows, product updates, and deep dives into offline-first knowledge management.</p>
+    </header>
+
+    <div class="blog-list" data-reveal>
+      {% for post in site.posts %}
+        <a class="blog-card" href="{{ post.url | relative_url }}">
+          <div class="blog-card-top">
+            <div class="blog-title">{{ post.title }}</div>
+            <div class="blog-date muted">{{ post.date | date: "%b %d, %Y" }}</div>
+          </div>
+          <div class="blog-excerpt muted">{{ post.excerpt | strip_html | truncate: 140 }}</div>
+        </a>
+      {% endfor %}
+      {% if site.posts.size == 0 %}
+        <div class="muted">No posts yet. Add your first file to <code>_posts/</code>.</div>
+      {% endif %}
+    </div>
+  </div>
+</section>

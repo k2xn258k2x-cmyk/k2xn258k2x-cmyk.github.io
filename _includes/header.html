@@ -1,0 +1,265 @@
+<header class="site-header" data-header>
+  <div class="container header-row">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <span class="brand-name">VaultBook</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobileNav">
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+        <span class="sr-only">Open menu</span>
+      </button>
+
+      <div class="nav-desktop">
+        <div class="nav-items" data-mega-root>
+          <div class="nav-item">
+            <button class="nav-link" data-mega-btn aria-expanded="false" aria-controls="megaProduct">
+              Product {% include icon.html name="chev" %}
+            </button>
+            <div class="mega" id="megaProduct" data-mega-panel role="region" aria-label="Product menu">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="mega-brand">
+                    <div class="mega-logo" aria-hidden="true">V</div>
+                    <div>
+                      <div class="mega-title">VaultBook</div>
+                      <div class="mega-subtitle">Your offline-first workspace</div>
+                    </div>
+                  </div>
+                  <a class="mega-item" href="{{ '/vaultbook-ai/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="spark" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">VaultBook AI</span>
+                      <span class="mi-desc">Ask questions across your library</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/search/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="search" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">Enterprise Search</span>
+                      <span class="mi-desc">Find answers instantly, offline</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/security/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="shield" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">Security</span>
+                      <span class="mi-desc">AES-GCM, password lock, local control</span>
+                    </span>
+                  </a>
+                </div>
+
+                <div class="mega-right">
+                  <div class="mega-topbox">
+                    <a class="topbox-item" href="{{ '/calendar/' | relative_url }}">
+                      <span class="topbox-ic" aria-hidden="true">C</span>
+                      <span class="topbox-txt">
+                        <span class="topbox-title">VaultBook Calendar</span>
+                        <span class="topbox-desc">Plan and review your week</span>
+                      </span>
+                    </a>
+                    <a class="topbox-item" href="{{ '/mail/' | relative_url }}">
+                      <span class="topbox-ic" aria-hidden="true">M</span>
+                      <span class="topbox-txt">
+                        <span class="topbox-title">VaultBook Mail</span>
+                        <span class="topbox-desc">Capture key threads into notes</span>
+                      </span>
+                    </a>
+                  </div>
+
+                  <div class="mega-grid">
+                    <a class="mega-card" href="{{ '/docs/' | relative_url }}">
+                      <div class="mc-title">Docs</div>
+                      <div class="mc-desc">Simple, powerful notes for real work.</div>
+                    </a>
+                    <a class="mega-card" href="{{ '/projects/' | relative_url }}">
+                      <div class="mc-title">Projects</div>
+                      <div class="mc-desc">Kanban, timelines, and checklists.</div>
+                    </a>
+                    <a class="mega-card" href="{{ '/knowledge-base/' | relative_url }}">
+                      <div class="mc-title">Knowledge Base</div>
+                      <div class="mc-desc">Organize research, PDFs, and media.</div>
+                    </a>
+                    <a class="mega-card" href="{{ '/integrations/' | relative_url }}">
+                      <div class="mc-title">Integrations</div>
+                      <div class="mc-desc">Connect imports and workflows.</div>
+                    </a>
+                  </div></div>
+                  <div class="mega-footer">
+                    <div class="mega-footer-left">
+                      <span class="muted">Library is yours.</span>
+                      <a class="link" href="{{ '/whats-new/' | relative_url }}">See what’s new</a>
+                    </div>
+                    <a class="link" href="{{ '/download/' | relative_url }}">Download the VaultBook app</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-link" data-mega-btn aria-expanded="false" aria-controls="megaAI">
+              AI {% include icon.html name="chev" %}
+            </button>
+            <div class="mega" id="megaAI" data-mega-panel role="region" aria-label="AI menu">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="mega-note">AI features</div>
+                  <a class="mega-item" href="{{ '/vaultbook-ai/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="spark" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">VaultBook AI</span>
+                      <span class="mi-desc">Ask, summarize, extract, and act</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/agents/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="arrow" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">Agents</span>
+                      <span class="mi-desc">Automate repetitive busywork</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/meeting-notes/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="arrow" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">AI Meeting Notes</span>
+                      <span class="mi-desc">Clean notes, action items, follow-ups</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/search/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="search" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">Enterprise Search</span>
+                      <span class="mi-desc">Find answers instantly</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="mega-right">
+                  <div class="mega-note">Explore use cases</div>
+                  <div class="mega-columns">
+                    <a class="mega-pill" href="{{ '/use-cases/work/' | relative_url }}">For work</a>
+                    <a class="mega-pill" href="{{ '/use-cases/life/' | relative_url }}">For life</a>
+                    <a class="mega-pill" href="{{ '/use-cases/research/' | relative_url }}">Research</a>
+                    <a class="mega-pill" href="{{ '/use-cases/teams/' | relative_url }}">Teams</a>
+                  </div>
+                  <div class="mega-muted-box">
+                    <div class="mega-muted-title">Tip</div>
+                    <div class="mega-muted-text">Start with one folder and one workflow. VaultBook scales as you do.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-link" data-mega-btn aria-expanded="false" aria-controls="megaSolutions">
+              Solutions {% include icon.html name="chev" %}
+            </button>
+            <div class="mega" id="megaSolutions" data-mega-panel role="region" aria-label="Solutions menu">
+              <div class="mega-inner">
+                <div class="mega-right full">
+                  <div class="mega-three">
+                    <div>
+                      <div class="mega-note">Teams</div>
+                      <a class="mega-link" href="{{ '/solutions/engineering/' | relative_url }}">Eng & Product</a>
+                      <a class="mega-link" href="{{ '/solutions/design/' | relative_url }}">Design</a>
+                      <a class="mega-link" href="{{ '/solutions/marketing/' | relative_url }}">Marketing</a>
+                      <a class="mega-link" href="{{ '/solutions/it/' | relative_url }}">IT</a>
+                    </div>
+                    <div>
+                      <div class="mega-note">Company size</div>
+                      <a class="mega-link" href="{{ '/solutions/startups/' | relative_url }}">Startups</a>
+                      <a class="mega-link" href="{{ '/solutions/smb/' | relative_url }}">Small business</a>
+                      <a class="mega-link" href="{{ '/enterprise/' | relative_url }}">Enterprise</a>
+                    </div>
+                    <div>
+                      <div class="mega-note">Use cases</div>
+                      <a class="mega-link" href="{{ '/solutions/education/' | relative_url }}">Education</a>
+                      <a class="mega-link" href="{{ '/solutions/personal/' | relative_url }}">Personal</a>
+                      <a class="mega-link" href="{{ '/solutions/professional/' | relative_url }}">Professional</a>
+                      <a class="mega-link" href="{{ '/use-cases/ai/' | relative_url }}">AI use cases</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-item">
+            <button class="nav-link" data-mega-btn aria-expanded="false" aria-controls="megaResources">
+              Resources {% include icon.html name="chev" %}
+            </button>
+            <div class="mega" id="megaResources" data-mega-panel role="region" aria-label="Resources menu">
+              <div class="mega-inner">
+                <div class="mega-right full">
+                  <div class="mega-three">
+                    <div>
+                      <div class="mega-note">Browse</div>
+                      <a class="mega-link" href="{{ '/templates/' | relative_url }}">Templates</a>
+                      <a class="mega-link" href="{{ '/consultants/' | relative_url }}">Consultants</a>
+                      <a class="mega-link" href="{{ '/integrations/' | relative_url }}">Integrations</a>
+                    </div>
+                    <div>
+                      <div class="mega-note">Discover</div>
+                      <a class="mega-link" href="{{ '/whats-new/' | relative_url }}">What’s New</a>
+                      <a class="mega-link" href="{{ '/customer-stories/' | relative_url }}">Customer stories</a>
+                      <a class="mega-link" href="{{ '/blog/' | relative_url }}">Blog</a>
+                      <a class="mega-link" href="{{ '/webinars/' | relative_url }}">Webinars</a>
+                    </div>
+                    <div>
+                      <div class="mega-note">Learn</div>
+                      <a class="mega-link" href="{{ '/academy/' | relative_url }}">Academy</a>
+                      <a class="mega-link" href="{{ '/tours/' | relative_url }}">Product tours</a>
+                      <a class="mega-link" href="{{ '/help/' | relative_url }}">Help</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a class="nav-link plain" href="{{ '/enterprise/' | relative_url }}">Enterprise</a>
+          <a class="nav-link plain" href="{{ '/pricing/' | relative_url }}">Pricing</a>
+          <a class="nav-link plain" href="{{ '/demo/' | relative_url }}">Request a demo</a>
+        </div>
+
+        <div class="nav-cta">
+          <a class="nav-link plain subtle" href="{{ '/login/' | relative_url }}">Log in</a>
+          <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook free</a>
+        </div>
+      </div>
+
+      <div class="nav-mobile" id="mobileNav" data-mobile-nav aria-hidden="true">
+        <div class="nav-mobile-panel">
+          <div class="nav-mobile-top">
+            <div class="brand tiny">
+              <span class="brand-mark" aria-hidden="true">V</span>
+              <span class="brand-name">VaultBook</span>
+            </div>
+            <button class="nav-close" data-nav-close aria-label="Close menu">×</button>
+          </div>
+
+          <div class="nav-mobile-links">
+            <a href="{{ '/product/' | relative_url }}">Product</a>
+            <a href="{{ '/vaultbook-ai/' | relative_url }}">AI</a>
+            <a href="{{ '/solutions/' | relative_url }}">Solutions</a>
+            <a href="{{ '/resources/' | relative_url }}">Resources</a>
+            <a href="{{ '/enterprise/' | relative_url }}">Enterprise</a>
+            <a href="{{ '/pricing/' | relative_url }}">Pricing</a>
+            <a href="{{ '/demo/' | relative_url }}">Request a demo</a>
+            <div class="nav-mobile-divider"></div>
+            <a href="{{ '/login/' | relative_url }}">Log in</a>
+            <a class="btn btn-primary w100" href="{{ '/get-started/' | relative_url }}">Get VaultBook free</a>
+          </div>
+
+          <div class="nav-mobile-foot">
+            <span class="muted">Secure, offline-first, and under your control.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-scrim" data-nav-scrim hidden></div>
+    </nav>
+  </div>
+</header>

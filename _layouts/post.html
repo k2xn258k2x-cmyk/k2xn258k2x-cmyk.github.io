@@ -1,0 +1,38 @@
+---
+layout: default
+---
+<section class="post">
+  <div class="container narrow">
+    <header class="post-head" data-reveal>
+      <a class="backlink" href="{{ '/blog/' | relative_url }}">← Back to Blog</a>
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-meta muted">
+        <span>{{ page.date | date: "%b %d, %Y" }}</span>
+        <span class="dot">•</span>
+        <span>{{ page.author | default: site.title }}</span>
+        <span class="dot">•</span>
+        <span data-reading-time>Reading time</span>
+      </div>
+    </header>
+
+    {% if page.cover %}
+    <div class="post-cover" data-reveal>
+      <img src="{{ page.cover | relative_url }}" alt="" loading="lazy">
+    </div>
+    {% endif %}
+
+    <article class="post-body prose" data-reveal>
+      {{ content }}
+    </article>
+
+    <div class="post-cta" data-reveal>
+      <div class="post-cta-card">
+        <div>
+          <div class="post-cta-title">Want to build your second brain offline?</div>
+          <div class="post-cta-text muted">Try VaultBook and keep your library searchable and under your control.</div>
+        </div>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook free</a>
+      </div>
+    </div>
+  </div>
+</section>

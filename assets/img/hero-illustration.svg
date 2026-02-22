@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220">
+  <rect x="0" y="0" width="760" height="220" rx="26" fill="#f6f6f6" />
+  <g transform="translate(38 54)">
+    <circle cx="40" cy="40" r="40" fill="#1f6feb" opacity=".15"/>
+    <circle cx="124" cy="40" r="40" fill="#ff3b30" opacity=".13"/>
+    <circle cx="208" cy="40" r="40" fill="#34c759" opacity=".13"/>
+    <circle cx="292" cy="40" r="40" fill="#ffcc00" opacity=".14"/>
+    <circle cx="376" cy="40" r="40" fill="#0b0b0b" opacity=".08"/>
+    <circle cx="460" cy="40" r="40" fill="#1f6feb" opacity=".10"/>
+    <text x="0" y="120" fill="#0b0b0b" opacity=".55" font-family="ui-sans-serif, system-ui" font-size="14">Illustration placeholder</text>
+  </g>
+</svg>

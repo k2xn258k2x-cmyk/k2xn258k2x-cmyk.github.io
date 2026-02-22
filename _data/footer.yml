@@ -1,0 +1,35 @@
+company:
+  - title: About
+    url: /about/
+  - title: Careers
+    url: /careers/
+  - title: Press
+    url: /press/
+  - title: Contact
+    url: /contact/
+  - title: Security
+    url: /security/
+  - title: Privacy
+    url: /privacy/
+  - title: Terms
+    url: /terms/
+download:
+  - title: Download for Mac
+    url: /download/mac/
+  - title: Download for Windows
+    url: /download/windows/
+  - title: Download for Linux
+    url: /download/linux/
+resources:
+  - title: Blog
+    url: /blog/
+  - title: Help Center
+    url: /help/
+  - title: Product Tours
+    url: /tours/
+  - title: Templates
+    url: /templates/
+  - title: Integrations
+    url: /integrations/
+  - title: Webinars
+    url: /webinars/

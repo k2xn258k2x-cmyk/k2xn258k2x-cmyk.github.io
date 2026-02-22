@@ -1,0 +1,25 @@
+{% comment %}
+Usage: {% include icon.html name="arrow" %}
+{% endcomment %}
+{% assign n = include.name | default: "arrow" %}
+{% if n == "chev" %}
+<svg class="i i-chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 7l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{% elsif n == "spark" %}
+<svg class="i i-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.2 5.6L19 9l-5.8 1.4L12 16l-1.2-5.6L5 9l5.8-1.4L12 2z" fill="currentColor"/><path d="M20.5 14.5l.6 2.8L24 18l-2.9.7-.6 2.8-.6-2.8L17 18l2.9-.7.6-2.8z" fill="currentColor" opacity=".65"/></svg>
+{% elsif n == "shield" %}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 12.2l2.2 2.2 4.8-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{% elsif n == "search" %}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 105.1 13l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5 5.2a5.3 5.3 0 100 10.6 5.3 5.3 0 000-10.6z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+{% elsif n == "lock" %}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V8.6A5 5 0 0112 3.6a5 5 0 015 5V11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 11h11A2.5 2.5 0 0120 13.5v6A2.5 2.5 0 0117.5 22h-11A2.5 2.5 0 014 19.5v-6A2.5 2.5 0 016.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+{% elsif n == "brain" %}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M8.8 5.2c-1.9 0-3.4 1.5-3.4 3.4v.2c-1 .6-1.7 1.7-1.7 3v1.4c0 1.6 1.1 2.9 2.6 3.3.5 1.4 1.8 2.4 3.4 2.4h.9"
+        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M15.2 5.2c1.9 0 3.4 1.5 3.4 3.4v.2c1 .6 1.7 1.7 1.7 3v1.4c0 1.6-1.1 2.9-2.6 3.3-.5 1.4-1.8 2.4-3.4 2.4h-.9"
+        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M12 5v14" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+</svg>
+{% else %}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{% endif %}

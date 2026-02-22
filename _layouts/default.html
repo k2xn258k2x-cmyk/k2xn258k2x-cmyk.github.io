@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+  </head>
+  <body class="{% if page.body_class %}{{ page.body_class }}{% endif %}">
+    {% include header.html %}
+
+    <main class="site-main" id="main">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+    <a class="fab" href="{{ '/get-started/' | relative_url }}" aria-label="Get started">
+      <span aria-hidden="true">+</span>
+    </a>
+  </body>
+</html>

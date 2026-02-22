@@ -1,0 +1,27 @@
+title: VaultBook
+tagline: Secure. Offline-first. Searchable document intelligence.
+description: VaultBook is a secure, offline-first workspace to create, organize, and search your notes, documents, and research.
+url: "" # GitHub Pages will set this
+baseurl: "" # e.g. /repo-name if using project pages
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+
+# Build settings
+plugins: []
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: VaultBook Team
+

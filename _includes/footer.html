@@ -1,0 +1,62 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand small">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span class="brand-name">VaultBook</span>
+        </div>
+        <p class="footer-tagline">Secure, offline-first document intelligence for notes, research, and real workflows.</p>
+        <div class="footer-social">
+          <a class="footer-ic" href="{{ '/x/' | relative_url }}" aria-label="X">X</a>
+          <a class="footer-ic" href="{{ '/youtube/' | relative_url }}" aria-label="YouTube">Y</a>
+          <a class="footer-ic" href="{{ '/github/' | relative_url }}" aria-label="GitHub">G</a>
+        </div>
+      </div>
+
+      {% assign f = site.data.footer %}
+      <div class="footer-cols">
+        <div class="footer-col">
+          <div class="footer-h">Company</div>
+          {% for item in f.company %}
+            <a class="footer-a" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          {% endfor %}
+        </div>
+        <div class="footer-col">
+          <div class="footer-h">Download</div>
+          {% for item in f.download %}
+            <a class="footer-a" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          {% endfor %}
+        </div>
+        <div class="footer-col">
+          <div class="footer-h">Resources</div>
+          {% for item in f.resources %}
+            <a class="footer-a" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          {% endfor %}
+        </div>
+        <div class="footer-col">
+          <div class="footer-h">Explore more</div>
+          <a class="footer-a" href="{{ '/templates/' | relative_url }}">Templates</a>
+          <a class="footer-a" href="{{ '/integrations/' | relative_url }}">Integrations</a>
+          <a class="footer-a" href="{{ '/security/' | relative_url }}">Security</a>
+          <a class="footer-a" href="{{ '/pricing/' | relative_url }}">Pricing</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <span>© {{ "now" | date: "%Y" }} VaultBook</span>
+        <span class="dot">•</span>
+        <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
+        <span class="dot">•</span>
+        <a href="{{ '/terms/' | relative_url }}">Terms</a>
+        <span class="dot">•</span>
+        <a href="{{ '/security/' | relative_url }}">Security</a>
+      </div>
+      <div class="footer-small muted">
+        Built for GitHub Pages with Jekyll.
+      </div>
+    </div>
+  </div>
+</footer>

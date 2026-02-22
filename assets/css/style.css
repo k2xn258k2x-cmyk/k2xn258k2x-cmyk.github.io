@@ -186,6 +186,31 @@ a.nav-link.plain{ cursor:pointer; }
 .nav-cta{ display:flex; align-items:center; gap: 12px; }
 .subtle{ color: rgba(11,11,11,.72); }
 
+/* Header buttons only: taller, no glow */
+.site-header .nav-cta .btn{
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  box-shadow: none !important;
+}
+
+/* Ensure no shadow appears on hover/focus either */
+.site-header .nav-cta .btn:hover,
+.site-header .nav-cta .btn:focus{
+  box-shadow: none !important;
+  transform: none;
+}
+
+/* Notion-like "Request a demo" */
+.site-header .nav-cta .btn.btn-demo{
+  background: rgba(31,111,235,.12);
+  border-color: rgba(31,111,235,.12);
+  color: var(--blue);
+}
+.site-header .nav-cta .btn.btn-demo:hover{
+  background: rgba(31,111,235,.16);
+}
+
 .mega{
   position:absolute;
   top: 56px;

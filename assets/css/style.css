@@ -166,6 +166,10 @@ a.nav-link.plain{ cursor:pointer; }
 .nav-link:hover{ background: rgba(11,11,11,.05); }
 .nav-link:focus{ outline:none; box-shadow: 0 0 0 4px var(--focus); }
 
+.site-header .nav-cta .btn.btn-primary{
+  border-radius: 12px;
+}
+
 .nav-cta{ display:flex; align-items:center; gap: 12px; }
 .subtle{ color: rgba(11,11,11,.72); }
 

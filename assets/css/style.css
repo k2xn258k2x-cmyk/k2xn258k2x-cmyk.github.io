@@ -181,7 +181,7 @@ a.nav-link.plain{ cursor:pointer; }
   border-radius: 8px;
   box-shadow: none !important;
   padding: 8px 14px !important;
-  min-height: 36px;
+  min-height: 30px;
   font-size: 14px !important;
 }
 

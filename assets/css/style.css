@@ -887,10 +887,10 @@ a.nav-link.plain{ cursor:pointer; }
 
 /* Prevent overflow on mid widths */
 @media (max-width: 1120px){
-  .nav-items{ gap: 14px !important; }
+  .nav-items{ gap: 6px !important; }
   .nav-link{ padding-left: 8px; padding-right: 8px; }
 }
 @media (max-width: 980px){
-  .nav-items{ gap: 10px !important; }
+  .nav-items{ gap: 6px !important; }
   .nav-link{ font-size: 14px; }
 }

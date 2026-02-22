@@ -180,7 +180,7 @@ a.nav-link.plain{ cursor:pointer; }
 .site-header .nav-cta .btn.btn-primary{
   border-radius: 8px;
   box-shadow: none !important;
-  padding: 4px 14px !important;
+  padding: 6px 10px !important;
   min-height: 20px;
   font-size: 14px !important;
 }

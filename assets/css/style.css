@@ -27,10 +27,6 @@ body{
   line-height: 1.5;
 }
 
-.brandmark{
-  border: none;
-}
-
 img{ max-width:100%; display:block; }
 a{ color: inherit; text-decoration: none; }
 code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: .95em; background: rgba(0,0,0,.05); padding: .1em .35em; border-radius: 8px; }
@@ -124,11 +120,10 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   gap: 10px;
 }
 .brand-mark{
-  width: 32px; height: 32px;
+  width: 36px; height: 36px;
   display:grid; place-items:center;
   border-radius: 8px;
   background: #fff;
-  border: 1px solid rgba(0,0,0,.10);
   font-weight: 800;
 }
 .brand-name{ font-weight: 750; letter-spacing: .2px; }

@@ -532,6 +532,13 @@ a.nav-link.plain{ cursor:pointer; }
   max-width: 55ch;
 }
 .hero-actions{ display:flex; gap: 12px; flex-wrap: wrap;}
+
+/* Home hero: make only these 2 buttons taller */
+.home .hero-actions .btn{
+  height: 44px;     /* try 46px or 48px if you want more */
+  padding: 0 18px;  /* left/right padding, keeps height clean */
+}
+
 .hero-note{ margin-top: 12px; font-size: 13px; }
 
 .hero-media{

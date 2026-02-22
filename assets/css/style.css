@@ -115,6 +115,14 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
 .brand.small .brand-mark{ width: 30px; height: 30px; border-radius: 10px; }
 .brand.tiny .brand-mark{ width: 28px; height: 28px; border-radius: 10px; }
 
+/* Nav typography: force everything to match Product */
+.site-header .nav-desktop a,
+.site-header .nav-desktop button{
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 500;
+}
+
 .nav{ display:flex; align-items:center; gap: 12px; flex: 1; }
 .nav-toggle{
   display:none;
@@ -142,7 +150,10 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
 .nav-toggle-lines::before{ top: -6px; }
 .nav-toggle-lines::after{ top: 6px; }
 
-.nav-desktop{ display:flex; align-items:center; justify-content: space-between; gap: 16px; width: 100%; }
+.nav-desktop{ display:flex; align-items:center; gap: 16px; width: 100%;
+              margin-left: auto;
+              justify-content: flex-end;}
+
 .nav-items{ display:flex; align-items:center; gap: 2px; }
 .nav-item{ position:relative; }
 
@@ -167,7 +178,11 @@ a.nav-link.plain{ cursor:pointer; }
 .nav-link:focus{ outline:none; box-shadow: 0 0 0 4px var(--focus); }
 
 .site-header .nav-cta .btn.btn-primary{
-  border-radius: 10px;
+  border-radius: 8px;
+  box-shadow: none !important;
+  padding: 8px 14px !important;
+  min-height: 36px;
+  font-size: 14px !important;
 }
 
 .nav-cta{ display:flex; align-items:center; gap: 12px; }

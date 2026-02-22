@@ -531,7 +531,7 @@ a.nav-link.plain{ cursor:pointer; }
   margin: 14px 0 18px;
   max-width: 55ch;
 }
-.hero-actions{ display:flex; gap: 12px; flex-wrap: wrap; }
+.hero-actions{ display:flex; gap: 12px; flex-wrap: wrap; height: 44px;}
 .hero-note{ margin-top: 12px; font-size: 13px; }
 
 .hero-media{

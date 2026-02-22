@@ -876,7 +876,7 @@ a.nav-link.plain{ cursor:pointer; }
 /* Keep nav from looking "spread out" */
 .header-row{ gap: 18px; }
 .nav-desktop{ min-width: 0; }
-.nav-items{ gap: 8px !important; }
+.nav-items{ gap: 6px !important; }
 .nav-actions{ gap: 12px !important; }
 .nav-link{ padding-left: 8px; padding-right: 8px; }
 .cta, .btn-primary{ white-space: nowrap; }

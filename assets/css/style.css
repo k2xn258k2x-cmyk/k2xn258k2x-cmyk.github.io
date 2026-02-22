@@ -48,7 +48,7 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
   gap: 10px;
-  height: 42px;
+  height: 32px;
   padding: 0 16px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -58,8 +58,7 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   box-shadow: 0 1px 0 rgba(0,0,0,.03);
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
 }
-.btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-.btn:active{ transform: translateY(0); }
+.btn:hover{ box-shadow: 0 10px 30px rgba(0,0,0,.08); }
 .btn:focus{ outline: none; box-shadow: 0 0 0 4px var(--focus), 0 10px 30px rgba(0,0,0,.08); }
 
 .btn-primary{

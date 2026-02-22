@@ -878,7 +878,7 @@ a.nav-link.plain{ cursor:pointer; }
 .nav-desktop{ min-width: 0; }
 .nav-items{ gap: 8px !important; }
 .nav-actions{ gap: 12px !important; }
-.nav-link{ padding-left: 10px; padding-right: 10px; }
+.nav-link{ padding-left: 8px; padding-right: 8px; }
 .cta, .btn-primary{ white-space: nowrap; }
 
 /* Prevent overflow on mid widths */

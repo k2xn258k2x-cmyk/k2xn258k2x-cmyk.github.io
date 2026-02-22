@@ -27,6 +27,10 @@ body{
   line-height: 1.5;
 }
 
+.brandmark{
+  border: none;
+}
+
 img{ max-width:100%; display:block; }
 a{ color: inherit; text-decoration: none; }
 code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: .95em; background: rgba(0,0,0,.05); padding: .1em .35em; border-radius: 8px; }
@@ -65,7 +69,7 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   border-color: rgba(0,0,0,0);
   color: #fff;
 }
-.btn-primary:hover{ background: var(--blue2); box-shadow: 0 16px 46px rgba(31,111,235,.22); }
+.btn-primary:hover{ background: var(--blue2); }
 
 /* Secondary CTA */
 .btn.btn-demo{

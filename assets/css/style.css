@@ -810,25 +810,6 @@ a.nav-link.plain{ cursor:pointer; }
 .post-cta-title{ font-weight: 900; }
 .post-cta-text{ margin-top: 4px; font-size: 13.5px; }
 
-.fab{
-  position: fixed;
-  right: 22px;
-  bottom: 22px;
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  background: var(--blue);
-  border: 0;
-  display:grid;
-  place-items:center;
-  color: #fff;
-  font-size: 26px;
-  box-shadow: 0 16px 46px rgba(31,111,235,.25);
-  z-index: 60;
-}
-.fab:hover{ background: var(--blue2); transform: translateY(-1px); }
-.fab:focus{ outline:none; box-shadow: 0 0 0 4px var(--focus), 0 16px 46px rgba(31,111,235,.25); }
-
 [data-reveal]{
   opacity: 0;
   transform: translateY(10px);

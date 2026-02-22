@@ -159,8 +159,8 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
   display:inline-flex;
   align-items:center;
   gap: 6px;
-  padding: 9px 10px;
-  border-radius: 12px;
+  padding: 6px 12px;
+  border-radius: 9px;
   font-weight: 600;
   color: rgba(11,11,11,.86);
   background: transparent;

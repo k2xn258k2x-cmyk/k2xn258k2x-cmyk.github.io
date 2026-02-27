@@ -1,12 +1,69 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220">
-  <rect x="0" y="0" width="760" height="220" rx="26" fill="#f6f6f6" />
-  <g transform="translate(38 54)">
-    <circle cx="40" cy="40" r="40" fill="#1f6feb" opacity=".15"/>
-    <circle cx="124" cy="40" r="40" fill="#ff3b30" opacity=".13"/>
-    <circle cx="208" cy="40" r="40" fill="#34c759" opacity=".13"/>
-    <circle cx="292" cy="40" r="40" fill="#ffcc00" opacity=".14"/>
-    <circle cx="376" cy="40" r="40" fill="#0b0b0b" opacity=".08"/>
-    <circle cx="460" cy="40" r="40" fill="#1f6feb" opacity=".10"/>
-    <text x="0" y="120" fill="#0b0b0b" opacity=".55" font-family="ui-sans-serif, system-ui" font-size="14">Illustration placeholder</text>
+  <defs>
+    <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ede7f6"/><stop offset="40%" stop-color="#fce4ec"/><stop offset="100%" stop-color="#e0f7fa"/></linearGradient>
+    <linearGradient id="w1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f48fb1" stop-opacity=".35"/><stop offset="50%" stop-color="#ce93d8" stop-opacity=".25"/><stop offset="100%" stop-color="#81d4fa" stop-opacity=".35"/></linearGradient>
+    <linearGradient id="w2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#80cbc4" stop-opacity=".25"/><stop offset="50%" stop-color="#a5d6a7" stop-opacity=".2"/><stop offset="100%" stop-color="#ffcc80" stop-opacity=".25"/></linearGradient>
+    <linearGradient id="w3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#b2dfdb" stop-opacity=".2"/><stop offset="50%" stop-color="#f8bbd0" stop-opacity=".15"/><stop offset="100%" stop-color="#d1c4e9" stop-opacity=".2"/></linearGradient>
+    <linearGradient id="op" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f8bbd0"/><stop offset="100%" stop-color="#f48fb1"/></linearGradient>
+    <linearGradient id="ob" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b3e5fc"/><stop offset="100%" stop-color="#81d4fa"/></linearGradient>
+    <linearGradient id="og" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8e6c9"/><stop offset="100%" stop-color="#a5d6a7"/></linearGradient>
+    <linearGradient id="ov" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e1bee7"/><stop offset="100%" stop-color="#ce93d8"/></linearGradient>
+    <linearGradient id="oo" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffe0b2"/><stop offset="100%" stop-color="#ffcc80"/></linearGradient>
+    <filter id="hgl"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="760" height="220" rx="26" fill="url(#hbg)"/>
+  <!-- Large ambient blobs -->
+  <ellipse cx="140" cy="110" rx="105" ry="72" fill="#f8bbd0" opacity=".1"><animate attributeName="rx" values="105;120;105" dur="9s" repeatCount="indefinite"/><animate attributeName="ry" values="72;82;72" dur="9s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="620" cy="100" rx="115" ry="68" fill="#b2dfdb" opacity=".1"><animate attributeName="rx" values="115;130;115" dur="11s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="380" cy="155" rx="95" ry="55" fill="#d1c4e9" opacity=".08"><animate attributeName="cx" values="380;405;380" dur="10s" repeatCount="indefinite"/></ellipse>
+  <!-- Animated wave layers -->
+  <path fill="url(#w1)"><animate attributeName="d" values="M0,158 C100,128 200,168 300,138 C400,108 500,158 600,128 C700,98 760,138 760,138L760,220 L0,220Z;M0,148 C100,168 200,118 300,148 C400,128 500,108 600,148 C700,128 760,148 760,148L760,220 L0,220Z;M0,158 C100,128 200,168 300,138 C400,108 500,158 600,128 C700,98 760,138 760,138L760,220 L0,220Z" dur="6s" repeatCount="indefinite"/></path>
+  <path fill="url(#w2)"><animate attributeName="d" values="M0,174 C120,154 240,184 360,164 C480,144 600,178 760,158L760,220 L0,220Z;M0,164 C120,184 240,148 360,174 C480,158 600,144 760,168L760,220 L0,220Z;M0,174 C120,154 240,184 360,164 C480,144 600,178 760,158L760,220 L0,220Z" dur="8s" repeatCount="indefinite"/></path>
+  <path fill="url(#w3)"><animate attributeName="d" values="M0,188 C150,174 300,198 450,178 C600,164 700,194 760,184L760,220 L0,220Z;M0,180 C150,196 300,170 450,190 C600,176 700,166 760,188L760,220 L0,220Z;M0,188 C150,174 300,198 450,178 C600,164 700,194 760,184L760,220 L0,220Z" dur="7s" repeatCount="indefinite"/></path>
+  <!-- Orb constellation -->
+  <g filter="url(#hgl)">
+    <circle cx="280" cy="72" r="30" fill="url(#op)" opacity=".42"><animate attributeName="cy" values="72;56;72" dur="5s" repeatCount="indefinite"/><animate attributeName="r" values="30;35;30" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="380" cy="52" r="38" fill="url(#ob)" opacity=".38"><animate attributeName="cy" values="52;38;52" dur="6s" repeatCount="indefinite"/><animate attributeName="r" values="38;43;38" dur="6s" repeatCount="indefinite"/></circle>
+    <circle cx="480" cy="68" r="32" fill="url(#og)" opacity=".4"><animate attributeName="cy" values="68;52;68" dur="5.5s" repeatCount="indefinite"/><animate attributeName="r" values="32;37;32" dur="5.5s" repeatCount="indefinite"/></circle>
+    <circle cx="335" cy="100" r="22" fill="url(#ov)" opacity=".35"><animate attributeName="cy" values="100;86;100" dur="4.5s" repeatCount="indefinite"/></circle>
+    <circle cx="430" cy="94" r="20" fill="url(#oo)" opacity=".33"><animate attributeName="cy" values="94;78;94" dur="5s" repeatCount="indefinite" begin="1s"/></circle>
+    <!-- Small accent orbs -->
+    <circle cx="215" cy="48" r="13" fill="#e1bee7" opacity=".3"><animate attributeName="cy" values="48;36;48" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="545" cy="46" r="15" fill="#ffe0b2" opacity=".28"><animate attributeName="cy" values="46;32;46" dur="4.5s" repeatCount="indefinite"/></circle>
+    <circle cx="175" cy="88" r="10" fill="#b3e5fc" opacity=".25"><animate attributeName="cy" values="88;76;88" dur="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="585" cy="82" r="12" fill="#c8e6c9" opacity=".25"><animate attributeName="cy" values="82;68;82" dur="4s" repeatCount="indefinite" begin=".5s"/></circle>
   </g>
+  <!-- Constellation lines -->
+  <g stroke="#d1c4e9" stroke-width="1.2" opacity=".18">
+    <line x1="280" y1="72" x2="380" y2="52"><animate attributeName="y1" values="72;56;72" dur="5s" repeatCount="indefinite"/><animate attributeName="y2" values="52;38;52" dur="6s" repeatCount="indefinite"/></line>
+    <line x1="380" y1="52" x2="480" y2="68"><animate attributeName="y1" values="52;38;52" dur="6s" repeatCount="indefinite"/><animate attributeName="y2" values="68;52;68" dur="5.5s" repeatCount="indefinite"/></line>
+    <line x1="280" y1="72" x2="335" y2="100"><animate attributeName="y1" values="72;56;72" dur="5s" repeatCount="indefinite"/><animate attributeName="y2" values="100;86;100" dur="4.5s" repeatCount="indefinite"/></line>
+    <line x1="335" y1="100" x2="430" y2="94"><animate attributeName="y1" values="100;86;100" dur="4.5s" repeatCount="indefinite"/><animate attributeName="y2" values="94;78;94" dur="5s" repeatCount="indefinite" begin="1s"/></line>
+    <line x1="380" y1="52" x2="430" y2="94"><animate attributeName="y1" values="52;38;52" dur="6s" repeatCount="indefinite"/><animate attributeName="y2" values="94;78;94" dur="5s" repeatCount="indefinite" begin="1s"/></line>
+    <line x1="215" y1="48" x2="280" y2="72"><animate attributeName="y1" values="48;36;48" dur="4s" repeatCount="indefinite"/><animate attributeName="y2" values="72;56;72" dur="5s" repeatCount="indefinite"/></line>
+    <line x1="480" y1="68" x2="545" y2="46"><animate attributeName="y1" values="68;52;68" dur="5.5s" repeatCount="indefinite"/><animate attributeName="y2" values="46;32;46" dur="4.5s" repeatCount="indefinite"/></line>
+  </g>
+  <!-- Side decorative bars — left -->
+  <g opacity=".45">
+    <rect x="38" y="48" width="62" height="8" rx="4" fill="#f8bbd0" opacity=".5"><animate attributeName="width" values="62;78;62" dur="4s" repeatCount="indefinite"/></rect>
+    <rect x="38" y="65" width="46" height="7" rx="4" fill="#d1c4e9" opacity=".4"/><rect x="38" y="81" width="55" height="7" rx="4" fill="#b2dfdb" opacity=".4"/>
+    <rect x="38" y="102" width="48" height="6" rx="3" fill="#ffe0b2" opacity=".3"/><rect x="38" y="116" width="60" height="6" rx="3" fill="#bbdefb" opacity=".3"/>
+  </g>
+  <!-- Side decorative bars — right -->
+  <g opacity=".45">
+    <rect x="662" y="48" width="60" height="8" rx="4" fill="#b2dfdb" opacity=".5"><animate attributeName="width" values="60;74;60" dur="5s" repeatCount="indefinite"/></rect>
+    <rect x="662" y="65" width="48" height="7" rx="4" fill="#ffe0b2" opacity=".4"/><rect x="662" y="81" width="54" height="7" rx="4" fill="#e1bee7" opacity=".4"/>
+    <rect x="662" y="102" width="42" height="6" rx="3" fill="#f8bbd0" opacity=".3"/><rect x="662" y="116" width="58" height="6" rx="3" fill="#c8e6c9" opacity=".3"/>
+  </g>
+  <!-- Sparkles / particles -->
+  <circle cx="98" cy="38" r="2.2" fill="#f48fb1" opacity="0"><animate attributeName="opacity" values="0;.9;0" dur="2.5s" repeatCount="indefinite"/><animate attributeName="cy" values="38;26;38" dur="2.5s" repeatCount="indefinite"/></circle>
+  <circle cx="310" cy="22" r="2.5" fill="#81d4fa" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="3s" repeatCount="indefinite" begin=".5s"/><animate attributeName="cy" values="22;12;22" dur="3s" repeatCount="indefinite" begin=".5s"/></circle>
+  <circle cx="500" cy="28" r="2" fill="#a5d6a7" opacity="0"><animate attributeName="opacity" values="0;.7;0" dur="3.5s" repeatCount="indefinite" begin="1s"/><animate attributeName="cy" values="28;16;28" dur="3.5s" repeatCount="indefinite" begin="1s"/></circle>
+  <circle cx="650" cy="32" r="1.8" fill="#ffcc80" opacity="0"><animate attributeName="opacity" values="0;.9;0" dur="2.8s" repeatCount="indefinite" begin="1.5s"/></circle>
+  <circle cx="158" cy="140" r="2" fill="#ce93d8" opacity="0"><animate attributeName="opacity" values="0;.6;0" dur="3.2s" repeatCount="indefinite" begin=".8s"/></circle>
+  <circle cx="605" cy="136" r="2.2" fill="#ef9a9a" opacity="0"><animate attributeName="opacity" values="0;.7;0" dur="4s" repeatCount="indefinite" begin="2s"/></circle>
+  <!-- Diamond accents -->
+  <rect x="244" y="32" width="6" height="6" rx="1" fill="#f48fb1" opacity=".4" transform="rotate(45 247 35)"><animate attributeName="opacity" values=".4;.15;.4" dur="3s" repeatCount="indefinite"/></rect>
+  <rect x="518" y="28" width="5" height="5" rx="1" fill="#81d4fa" opacity=".35" transform="rotate(45 520.5 30.5)"><animate attributeName="opacity" values=".35;.12;.35" dur="4s" repeatCount="indefinite" begin="1s"/></rect>
+  <rect x="414" y="22" width="5" height="5" rx="1" fill="#a5d6a7" opacity=".38" transform="rotate(45 416.5 24.5)"><animate attributeName="opacity" values=".38;.15;.38" dur="3.5s" repeatCount="indefinite" begin=".5s"/></rect>
 </svg>

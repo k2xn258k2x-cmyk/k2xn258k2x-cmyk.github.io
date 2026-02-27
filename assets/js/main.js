@@ -35,6 +35,7 @@
       });
       panels.forEach(function(p){
         p.classList.remove("open");
+        p.style.removeProperty("display");
         p.style.removeProperty("--mega-shift");
       });
     }
@@ -60,6 +61,9 @@
       closeAll();
       btn.setAttribute("aria-expanded", "true");
       if(btn.parentElement) btn.parentElement.classList.add("is-open");
+      // Two-frame open: set display first, then add .open for animation
+      panel.style.display = "block";
+      panel.offsetHeight; // force reflow
       panel.classList.add("open");
       clampPanel(panel);
     }

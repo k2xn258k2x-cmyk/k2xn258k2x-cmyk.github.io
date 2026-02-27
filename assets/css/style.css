@@ -169,8 +169,17 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
               margin-left: auto;
               justify-content: flex-end;}
 
-.nav-items{ display:flex; align-items:center; gap: 2px; }
-.nav-item{ position:relative; }
+.nav-items{
+  display:flex;
+  align-items:center;
+  gap: 2px;
+
+  position: relative;   /* anchor for mega panels */
+}
+
+.nav-item{
+  position: static;     /* stop being the anchor */
+}
 
 .nav-link{
   display:inline-flex;

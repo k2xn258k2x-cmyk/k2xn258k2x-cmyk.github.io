@@ -1,16 +1,25 @@
 <footer class="site-footer">
+  <div class="footer-accent" aria-hidden="true"></div>
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="brand small">
-          <span class="brand-mark" aria-hidden="true">V</span>
+        <a class="brand small" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="{{ '/assets/img/favicon.png' | relative_url }}" alt="" loading="lazy">
+          </span>
           <span class="brand-name">VaultBook</span>
-        </div>
+        </a>
         <p class="footer-tagline">Secure, offline-first document intelligence for notes, research, and real workflows.</p>
         <div class="footer-social">
-          <a class="footer-ic" href="{{ '/x/' | relative_url }}" aria-label="X">X</a>
-          <a class="footer-ic" href="{{ '/youtube/' | relative_url }}" aria-label="YouTube">Y</a>
-          <a class="footer-ic" href="{{ '/github/' | relative_url }}" aria-label="GitHub">G</a>
+          <a class="footer-ic" href="{{ '/blog/' | relative_url }}" aria-label="Blog">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4Z"/></svg>
+          </a>
+          <a class="footer-ic" href="{{ '/help/' | relative_url }}" aria-label="Help Center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </a>
+          <a class="footer-ic" href="{{ '/whats-new/' | relative_url }}" aria-label="What's New">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-7.07-2.83 2.83M9.76 14.24l-2.83 2.83m12.14 0-2.83-2.83M9.76 9.76 6.93 6.93"/></svg>
+          </a>
         </div>
       </div>
 
@@ -46,16 +55,16 @@
 
     <div class="footer-bottom">
       <div class="footer-legal">
-        <span>© {{ "now" | date: "%Y" }} VaultBook</span>
-        <span class="dot">•</span>
+        <span>&copy; {{ "now" | date: "%Y" }} VaultBook</span>
+        <span class="dot">&middot;</span>
         <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
-        <span class="dot">•</span>
+        <span class="dot">&middot;</span>
         <a href="{{ '/terms/' | relative_url }}">Terms</a>
-        <span class="dot">•</span>
+        <span class="dot">&middot;</span>
         <a href="{{ '/security/' | relative_url }}">Security</a>
       </div>
       <div class="footer-small muted">
-        Built for GitHub Pages with Jekyll.
+        Crafted for clarity and speed.
       </div>
     </div>
   </div>

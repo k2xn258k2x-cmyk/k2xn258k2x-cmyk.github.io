@@ -105,7 +105,6 @@ closeOnHover.forEach(function(el){
               b.setAttribute("aria-expanded", "true");
               if(b.parentElement) b.parentElement.classList.add("is-open");
               panel.classList.add("open");
-              clampPanel(panel);
             }
           });
         }

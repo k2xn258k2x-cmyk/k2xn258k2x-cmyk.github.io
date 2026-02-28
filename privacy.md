@@ -250,7 +250,6 @@ what we don't (everything else), and why.
 <section class="section">
 <div class="container">
 <div class="pv-body" data-reveal>
-
 <div class="pv-toc">
 <div class="pv-toc-title">Contents</div>
 <div class="pv-toc-list">

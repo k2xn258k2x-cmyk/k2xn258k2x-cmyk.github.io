@@ -1,7 +1,7 @@
 ---
 layout: default
 title: About
-description: VaultBook is built by a 50-person team of AI, data, and product professionals in Chicago. Learn our story, mission, and what drives us.
+description: VaultBook is built by a 50-person team of AI, data, and product professionals in San Francisco. Learn our story, mission, and what drives us.
 body_class: about-page
 permalink: /about/
 ---
@@ -220,7 +220,7 @@ permalink: /about/
   line-height: 1.45;
 }
 
-/* ── Chicago banner ──────────────────────────────────────────── */
+/* ── San Francisco banner ──────────────────────────────────────────── */
 .ab-chicago{
   margin-top: 36px;
   padding: 32px 28px;
@@ -325,7 +325,7 @@ permalink: /about/
     <div class="eyebrow">ABOUT VAULTBOOK</div>
     <h1 class="ab-hero-title">We believe your notes<br>belong to you.</h1>
     <p class="ab-hero-sub">
-      VaultBook is built by a team of 50 AI and data professionals in Chicago
+      VaultBook is built by a team of 50 AI and data professionals in San Francisco
       who think the best software runs on your device, respects your privacy,
       and gets out of your way.
     </p>
@@ -357,14 +357,14 @@ permalink: /about/
       <div class="ab-pullquote">
         <p>We wanted a workspace smart enough to surface what matters, private enough to trust
         with everything, and simple enough to ship in one file.</p>
-        <div class="ab-pullquote-attr">— The VaultBook founding team, Chicago 2020</div>
+        <div class="ab-pullquote-attr">— The VaultBook founding team, San Francisco 2020</div>
       </div>
 
       <p>
         Today VaultBook is used by researchers, engineers, analysts, legal teams, clinicians,
         journalists, and students — anyone who needs a serious workspace that respects their
         data and rewards organization. Our team of 50 designs, builds, and ships every feature
-        from our headquarters in Chicago.
+        from our headquarters in San Francisco.
       </p>
     </div>
   </div>
@@ -427,7 +427,7 @@ permalink: /about/
       </div>
       <div class="ab-num">
         <div class="ab-num-val">1</div>
-        <div class="ab-num-label">Headquarters — Chicago</div>
+        <div class="ab-num-label">Headquarters — San Francisco</div>
       </div>
       <div class="ab-num">
         <div class="ab-num-val">12+</div>
@@ -508,12 +508,9 @@ permalink: /about/
     <div class="ab-chicago" data-reveal>
       <div class="ab-chi-ic">🏙️</div>
       <div class="ab-chi-body">
-        <div class="ab-chi-title">Made in Chicago</div>
+        <div class="ab-chi-title">Made in San Francisco</div>
         <div class="ab-chi-text">
-          Our entire team works from a single office in Chicago's West Loop. We chose Chicago for its deep
-          talent pool in AI and data science, its central timezone that reaches both coasts, and a
-          tech community that values shipping real products over hype. From the 16th floor, we can
-          see the river — and we like to think VaultBook reflects the city: practical, ambitious, built to last.
+ Our entire team works from a single office in San Francisco. We chose the city for its unmatched depth in AI and data science talent, the density of builders who obsess over craft, and a culture that rewards shipping real products over hype. From our windows, the Bay is always in view, and we like to think VaultBook reflects San Francisco at its best: curious, practical, relentlessly ambitious, and built to last.
         </div>
       </div>
     </div>
@@ -554,7 +551,7 @@ permalink: /about/
         <div class="ab-tl-dot">2023</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">Team grows to 50</div>
-          <div class="ab-tl-text">We hired across AI research, data engineering, security, and design. The Chicago office became home to a team that ships features weekly.</div>
+          <div class="ab-tl-text">We hired across AI research, data engineering, security, and design. The San Francisco office became home to a team that ships features weekly.</div>
         </div>
       </div>
       <div class="ab-tl">

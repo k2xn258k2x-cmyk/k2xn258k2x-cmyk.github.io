@@ -380,7 +380,7 @@ Everything you need to set up, use, and get the most out of VaultBook — from f
 <!-- ━━━ HELP BODY ━━━ -->
 <section class="section tint">
 <div class="container">
-<div class="hp-body" data-reveal>
+<div class="hp-body revealed" data-reveal>
 
 <!-- ─── GETTING STARTED ─── -->
 <h2 id="getting-started">🚀 Getting Started</h2>
@@ -774,7 +774,7 @@ Everything you need to set up, use, and get the most out of VaultBook — from f
 <!-- ━━━ FINAL CTA ━━━ -->
 <section class="section">
 <div class="container">
-<div class="cta-band" data-reveal>
+<div class="cta-band revealed" data-reveal>
 <div>
 <div class="cta-title">Still have questions?</div>
 <div class="muted">Message us on Telegram — we reply to every message, usually within a few hours.</div>

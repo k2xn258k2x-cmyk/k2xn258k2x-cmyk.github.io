@@ -14,7 +14,7 @@ permalink: /download/windows/
   background: linear-gradient(180deg, #faf8ff 0%, #fff 100%);
 }
 .dlp-hero .eyebrow{ margin-bottom: 14px; }
-.dlp-icon{ font-size: 52px; margin-bottom: 16px; display: block; }
+.dlp-icon{ width: 56px; height: 56px; margin: 0 auto 16px; display: block; opacity: .85; }
 .dlp-hero-title{
   font-size: clamp(32px, 4.8vw, 48px);
   font-weight: 900;
@@ -116,7 +116,7 @@ permalink: /download/windows/
 <section class="dlp-hero">
   <div class="container" data-reveal>
     <div class="dlp-breadcrumb"><a href="{{ '/download/' | relative_url }}">Download</a> / Windows</div>
-    <span class="dlp-icon">🪟</span>
+    <img class="dlp-icon" src="{{ '/assets/icons/windows.svg' | relative_url }}" alt="Windows">
     <h1 class="dlp-hero-title">VaultBook for Windows</h1>
     <p class="dlp-hero-sub">
       Works on Windows 10 and 11 with Chrome, Edge, or Brave. Extract the zip,

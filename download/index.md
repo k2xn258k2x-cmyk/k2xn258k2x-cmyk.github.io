@@ -54,10 +54,14 @@ permalink: /download/
   box-shadow: 0 12px 36px rgba(206,147,216,.12), 0 2px 8px rgba(0,0,0,.04);
 }
 .dl-plat-icon{
-  font-size: 40px;
-  margin-bottom: 14px;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 14px;
   display: block;
+  opacity: .85;
+  transition: opacity .18s ease, transform .18s ease;
 }
+.dl-plat:hover .dl-plat-icon{ opacity: 1; transform: scale(1.08); }
 .dl-plat-name{
   font-weight: 850;
   font-size: 18px;
@@ -202,19 +206,19 @@ permalink: /download/
 
     <div class="dl-platforms" data-reveal>
       <a class="dl-plat" href="{{ '/download/mac/' | relative_url }}" style="text-decoration:none;color:inherit;">
-        <span class="dl-plat-icon">🍎</span>
+        <img class="dl-plat-icon" src="{{ '/assets/icons/apple.svg' | relative_url }}" alt="macOS">
         <div class="dl-plat-name">macOS</div>
         <div class="dl-plat-note">Chrome, Edge, Arc, or Brave on<br>Apple Silicon &amp; Intel</div>
         <span class="btn btn-ghost">Setup guide →</span>
       </a>
       <a class="dl-plat" href="{{ '/download/windows/' | relative_url }}" style="text-decoration:none;color:inherit;">
-        <span class="dl-plat-icon">🪟</span>
+        <img class="dl-plat-icon" src="{{ '/assets/icons/windows.svg' | relative_url }}" alt="Windows">
         <div class="dl-plat-name">Windows</div>
         <div class="dl-plat-note">Chrome, Edge, or Brave on<br>Windows 10 &amp; 11</div>
         <span class="btn btn-ghost">Setup guide →</span>
       </a>
       <a class="dl-plat" href="{{ '/download/linux/' | relative_url }}" style="text-decoration:none;color:inherit;">
-        <span class="dl-plat-icon">🐧</span>
+        <img class="dl-plat-icon" src="{{ '/assets/icons/linux.svg' | relative_url }}" alt="Linux">
         <div class="dl-plat-name">Linux</div>
         <div class="dl-plat-note">Chrome or Chromium on<br>Ubuntu, Fedora, Arch &amp; more</div>
         <span class="btn btn-ghost">Setup guide →</span>

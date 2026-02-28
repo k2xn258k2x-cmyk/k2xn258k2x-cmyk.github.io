@@ -905,7 +905,7 @@ permalink: /security/
         <div class="muted">Open DevTools, check the Network tab — zero requests. That's the proof.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started — free</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ '/contact/' | relative_url }}">Contact us</a>
       </div>
     </div>

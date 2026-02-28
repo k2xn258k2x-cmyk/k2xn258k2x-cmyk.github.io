@@ -373,8 +373,8 @@ permalink: /terms/
     <tbody>
       <tr>
         <td><strong>VaultBook Plus</strong></td>
-        <td>Free</td>
-        <td>The full-featured free edition of VaultBook, including core note-taking, organization, search, attachments, built-in tools, and local storage.</td>
+        <td>Paid</td>
+        <td>The core edition of VaultBook, including note-taking, organization, search, attachments, and local storage.</td>
       </tr>
       <tr>
         <td><strong>VaultBook Pro</strong></td>
@@ -386,7 +386,7 @@ permalink: /terms/
 
   <h3>5.1 VaultBook Plus</h3>
 
-  <p>VaultBook Plus is provided free of charge. You may use VaultBook Plus indefinitely without payment, registration, or the creation of an account. There are no usage limits, no feature time-bombs, and no forced upgrades.</p>
+  <p>VaultBook Plus requires a valid License Key. License terms, including duration and pricing, are specified at the time of purchase. You may use VaultBook Plus without registration or the creation of an account. There are no usage limits, no feature time-bombs, and no forced upgrades.</p>
 
   <h3>5.2 VaultBook Pro</h3>
 
@@ -654,7 +654,7 @@ permalink: /terms/
         <div class="muted">Download VaultBook and experience a workspace that puts you first.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started — free</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ '/contact/' | relative_url }}">Contact us</a>
       </div>
     </div>

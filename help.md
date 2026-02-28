@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded',function(){
           <div class="hp-step-num">1</div>
           <div class="hp-step-body">
             <div class="hp-step-title">Download VaultBook</div>
-            <div class="hp-step-text">Go to the <a href="/get-started/">Get Started page</a> and download VaultBook Plus (free) or VaultBook Pro. The download is a .zip file.</div>
+            <div class="hp-step-text">Go to the <a href="/get-started/">Get Started page</a> and download VaultBook Plus or VaultBook Pro. The download is a .zip file.</div>
           </div>
         </div>
         <div class="hp-step">
@@ -740,7 +740,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
         <div class="hp-faq-item">
           <div class="hp-faq-q">What's the difference between Plus and Pro?</div>
-          <div class="hp-faq-a">Plus is free and includes unlimited notes, rich editing, file attachments, labels, all 12+ built-in tools, and basic search. Pro adds AI suggestions, weighted QA search, related entries, vote-based learning, inline OCR, per-entry encryption, timetable and calendar, analytics dashboards, version history, and smart label suggestions. See the <a href="/get-started/">Get Started page</a> for a full comparison.</div>
+          <div class="hp-faq-a">Plus includes unlimited notes, rich editing, file attachments, labels, and basic search. Pro adds AI suggestions, weighted QA search, related entries, vote-based learning, inline OCR, per-entry encryption, timetable and calendar, analytics dashboards, version history, smart label suggestions, and all 12+ built-in tools. See the <a href="/get-started/">Get Started page</a> for a full comparison.</div>
         </div>
 
         <div class="hp-faq-item">
@@ -779,7 +779,7 @@ document.addEventListener('DOMContentLoaded',function(){
       </div>
       <div class="cta-actions">
         <a class="btn btn-primary" href="https://t.me/VaultBook" target="_blank" rel="noopener">Message us on Telegram</a>
-        <a class="btn btn-ghost" href="/get-started/">Get started — free</a>
+        <a class="btn btn-ghost" href="/get-started/">Get started</a>
       </div>
     </div>
   </div>

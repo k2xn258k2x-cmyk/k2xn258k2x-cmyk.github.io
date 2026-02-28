@@ -579,7 +579,7 @@ permalink: /privacy/
         <div class="muted">Reach out on Telegram — or just download VaultBook and see for yourself.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started — free</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ '/contact/' | relative_url }}">Contact us</a>
       </div>
     </div>

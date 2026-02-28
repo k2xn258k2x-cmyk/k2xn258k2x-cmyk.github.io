@@ -340,7 +340,7 @@ permalink: /product/
       and a dozen more utilities — all offline, all private, all yours.
     </p>
     <div class="pd-hero-actions">
-      <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook free</a>
+      <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook</a>
       <a class="btn btn-demo" href="{{ '/demo/' | relative_url }}">Request a demo</a>
     </div>
 
@@ -738,7 +738,7 @@ permalink: /product/
         <div class="muted">Download, unzip, and open. You'll be writing your first note in under a minute.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started — free</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ '/demo/' | relative_url }}">Request a demo</a>
       </div>
     </div>

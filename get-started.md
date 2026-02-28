@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Get Started
-description: Download VaultBook and set up your secure, offline workspace in under a minute. Choose Plus (free) or Pro.
+description: Download VaultBook and set up your secure, offline workspace in under a minute. Choose Plus or Pro.
 body_class: get-started
 permalink: /get-started/
 ---
@@ -296,16 +296,16 @@ permalink: /get-started/
 
     <div class="gs-plans" data-reveal>
       <div class="gs-plan">
-        <span class="gs-plan-badge">Free</span>
+        <span class="gs-plan-badge">Core</span>
         <div class="gs-plan-name">VaultBook Plus</div>
-        <div class="gs-plan-price">$0 — free forever</div>
+        <div class="gs-plan-price">Start with Plus</div>
         <div class="gs-plan-desc">Everything you need to build a private, searchable workspace.</div>
         <div class="gs-plan-list">
           <div class="gs-plan-list-item">Unlimited notes, pages &amp; sections</div>
           <div class="gs-plan-list-item">Rich text editor with tables &amp; code blocks</div>
           <div class="gs-plan-list-item">File attachments &amp; full-text indexing</div>
-          <div class="gs-plan-list-item">Labels, favorites &amp; multi-tab views</div>
-          <div class="gs-plan-list-item">Built-in tools (Kanban, PDF, Reader &amp; more)</div>
+          <div class="gs-plan-list-item">Labels &amp; favorites</div>
+          <div class="gs-plan-list-item">Basic search &amp; typeahead</div>
         </div>
         <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
       </div>
@@ -524,7 +524,7 @@ permalink: /get-started/
         <thead>
           <tr>
             <th>Feature</th>
-            <th>Plus (Free)</th>
+            <th>Plus</th>
             <th>Pro</th>
           </tr>
         </thead>
@@ -545,13 +545,18 @@ permalink: /get-started/
             <td><span class="gs-check">✓</span></td>
           </tr>
           <tr>
-            <td>Labels, favorites &amp; multi-tab views</td>
+            <td>Labels &amp; favorites</td>
             <td><span class="gs-check">✓</span></td>
             <td><span class="gs-check">✓</span></td>
           </tr>
           <tr>
-            <td>12+ built-in tools (Kanban, PDF, Reader …)</td>
+            <td>Multi-tab views</td>
+            <td><span class="gs-dash">—</span></td>
             <td><span class="gs-check">✓</span></td>
+          </tr>
+          <tr>
+            <td>12+ built-in tools (Kanban, PDF, Reader …)</td>
+            <td><span class="gs-dash">—</span></td>
             <td><span class="gs-check">✓</span></td>
           </tr>
           <tr>
@@ -609,7 +614,7 @@ permalink: /get-started/
     </div>
 
     <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:28px;" data-reveal>
-      <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus — free</a>
+      <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
       <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
     </div>
   </div>
@@ -662,9 +667,9 @@ permalink: /get-started/
       <div class="card">
         <div class="card-title">What's the difference between Plus and Pro?</div>
         <div class="card-text muted">
-          Plus gives you the full note-taking workspace with rich editing, file attachments, labels,
-          and all 12+ built-in tools for free. Pro adds AI-powered features like smart search, related entries,
-          inline OCR, per-entry encryption, analytics, timetable, and version history.
+          Plus gives you a solid note-taking workspace with rich editing, file attachments, labels,
+          and search. Pro adds AI-powered features like smart search, related entries,
+          inline OCR, per-entry encryption, analytics, timetable, version history, and all 12+ built-in tools.
         </div>
       </div>
     </div>
@@ -681,7 +686,7 @@ permalink: /get-started/
       </div>
       <div class="cta-actions">
         <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
-        <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus — free</a>
+        <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
       </div>
     </div>
   </div>

@@ -596,10 +596,10 @@ permalink: /about/
     <div class="cta-band" data-reveal>
       <div>
         <div class="cta-title">Come build with us</div>
-        <div class="muted">Try VaultBook for free, or reach out if you'd like to learn more about the team.</div>
+        <div class="muted">Try VaultBook, or reach out if you'd like to learn more about the team.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started — free</a>
+        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get started</a>
         <a class="btn btn-ghost" href="{{ '/contact/' | relative_url }}">Get in touch</a>
       </div>
     </div>

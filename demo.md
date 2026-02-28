@@ -313,7 +313,7 @@ permalink: /demo/
         <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 1 0 24 12.056A12.01 12.01 0 0 0 11.944 0Zm5.655 8.166c-.18 1.897-.962 6.502-1.36 8.627c-.168.9-.499 1.201-.82 1.23c-.696.065-1.225-.46-1.9-.902c-1.056-.693-1.653-1.124-2.678-1.8c-1.185-.78-.417-1.21.258-1.91c.177-.184 3.247-2.977 3.307-3.23c.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345c-.48.33-.913.492-1.302.484c-.428-.008-1.252-.241-1.865-.44c-.752-.245-1.349-.374-1.297-.789c.027-.216.325-.437.893-.663c3.498-1.524 5.83-2.529 6.998-3.014c3.332-1.386 4.025-1.627 4.476-1.635c.099-.002.321.023.465.141a.506.506 0 0 1 .171.325c.016.093.036.306.02.472Z"/></svg>
         Message us on Telegram
       </a>
-      <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Or get started now — free</a>
+      <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Or get started now</a>
     </div>
     <p class="dm-hero-note">Typically respond within a few hours. No sales pitch — just a real walkthrough.</p>
   </div>
@@ -460,7 +460,7 @@ permalink: /demo/
         Message us on Telegram
       </a>
       <div style="margin-top:16px;">
-        <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Skip the demo — download free</a>
+        <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Skip the demo — download now</a>
       </div>
     </div>
   </div>

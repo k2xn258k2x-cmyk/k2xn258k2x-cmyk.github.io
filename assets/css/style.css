@@ -504,6 +504,10 @@ a.nav-link.plain{ cursor:pointer; }
 
 /* AI mega menu – 3-column layout */
 .mega.mega-ai{ padding: 0; }
+.mega.mega-ai .mega-footer{
+  margin: 0 14px;
+  padding: 14px 8px 12px;
+}
 .mega-ai-body{
   display: grid;
   grid-template-columns: 1fr 1fr 220px;

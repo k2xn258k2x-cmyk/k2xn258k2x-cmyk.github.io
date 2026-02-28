@@ -126,9 +126,9 @@
             <button class="nav-link" data-mega-btn aria-expanded="false" aria-controls="megaAI">
               AI {% include icon.html name="chev" %}
             </button>
-            <div class="mega" id="megaAI" data-mega-panel role="region" aria-label="AI menu">
-              <div class="mega-inner">
-                <div class="mega-left">
+            <div class="mega mega-ai" id="megaAI" data-mega-panel role="region" aria-label="AI menu">
+              <div class="mega-ai-body">
+                <div class="mega-ai-col">
                   <div class="mega-note">AI features</div>
                   <a class="mega-item" href="{{ '/vaultbook-ai/' | relative_url }}">
                     <span class="mi-ic">{% include icon.html name="spark" %}</span>
@@ -138,14 +138,14 @@
                     </span>
                   </a>
                   <a class="mega-item" href="{{ '/agents/' | relative_url }}">
-                    <span class="mi-ic">{% include icon.html name="arrow" %}</span>
+                    <span class="mi-ic">{% include icon.html name="brain" %}</span>
                     <span class="mi-text">
                       <span class="mi-title">Agents</span>
                       <span class="mi-desc">Automate busywork</span>
                     </span>
                   </a>
                   <a class="mega-item" href="{{ '/meeting-notes/' | relative_url }}">
-                    <span class="mi-ic">{% include icon.html name="arrow" %}</span>
+                    <span class="mi-ic">{% include icon.html name="doc" %}</span>
                     <span class="mi-text">
                       <span class="mi-title">AI Meeting Notes</span>
                       <span class="mi-desc">Perfectly written notes</span>
@@ -159,13 +159,63 @@
                     </span>
                   </a>
                 </div>
-                <div class="mega-right">
+
+                <div class="mega-ai-col">
+                  <div class="mega-note">AI capabilities</div>
+                  <a class="mega-item" href="{{ '/ai-writer/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="doc" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">AI Writer</span>
+                      <span class="mi-desc">Draft, edit, and polish</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/ai-autofill/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="spark" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">AI Autofill</span>
+                      <span class="mi-desc">Smart fields &amp; tables</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/ai-translate/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="book" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">AI Translation</span>
+                      <span class="mi-desc">50+ languages in context</span>
+                    </span>
+                  </a>
+                  <a class="mega-item" href="{{ '/ai-insights/' | relative_url }}">
+                    <span class="mi-ic">{% include icon.html name="shield" %}</span>
+                    <span class="mi-text">
+                      <span class="mi-title">AI Insights</span>
+                      <span class="mi-desc">Surface key patterns</span>
+                    </span>
+                  </a>
+                </div>
+
+                <div class="mega-ai-col mega-ai-col-right">
                   <div class="mega-note">Explore use cases</div>
                   <div class="mega-simple">
                     <a class="mega-simple-link" href="{{ '/use-cases/work/' | relative_url }}">For work</a>
                     <a class="mega-simple-link" href="{{ '/use-cases/life/' | relative_url }}">For life</a>
+                    <a class="mega-simple-link" href="{{ '/use-cases/education/' | relative_url }}">For education</a>
+                    <a class="mega-simple-link" href="{{ '/use-cases/teams/' | relative_url }}">For teams</a>
+                  </div>
+
+                  <div class="mega-ai-promo">
+                    <span class="mega-ai-promo-badge">New</span>
+                    <span class="mega-ai-promo-title">Agents are here</span>
+                    <span class="mega-ai-promo-desc">Build custom automations that work across your workspace.</span>
+                    <a class="mega-ai-promo-link" href="{{ '/agents/' | relative_url }}">Learn more →</a>
                   </div>
                 </div>
+              </div>
+
+              <div class="mega-footer">
+                <div class="mega-footer-left">
+                  <span class="muted">AI that works offline, stays private.</span>
+                  <a class="link" href="{{ '/vaultbook-ai/' | relative_url }}">Explore VaultBook AI →</a>
+                </div>
+                <a class="link" href="{{ '/ai-security/' | relative_url }}">How we handle your data →</a>
               </div>
             </div>
           </div>

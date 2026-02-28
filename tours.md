@@ -185,6 +185,20 @@ permalink: /tours/
   display: flex; align-items: flex-start; gap: 12px; padding: 8px 0;
   font-size: 14px; color: rgba(11,11,11,.6); line-height: 1.55;
 }
+.tr-body strong,
+.tr-note strong{
+  display: inline !important;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-weight: 800;
+  font-size: inherit;
+  color: rgba(11,11,11,.72);
+  -webkit-text-fill-color: rgba(11,11,11,.72);
+}
 .tr-steps li::before{
   counter-increment: step; content: counter(step);
   min-width: 26px; height: 26px; border-radius: 9px;

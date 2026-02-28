@@ -182,30 +182,24 @@ permalink: /tours/
 }
 .tr-steps{ list-style: none; padding: 0; margin: 0; counter-reset: step; }
 .tr-steps li{
-  display: flex; align-items: flex-start; gap: 12px; padding: 8px 0;
+  position: relative;
+  padding: 8px 0 8px 38px;
   font-size: 14px; color: rgba(11,11,11,.6); line-height: 1.55;
 }
 .tr-body strong,
 .tr-note strong{
-  display: inline !important;
-  background: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
   font-weight: 800;
-  font-size: inherit;
   color: rgba(11,11,11,.72);
   -webkit-text-fill-color: rgba(11,11,11,.72);
 }
 .tr-steps li::before{
   counter-increment: step; content: counter(step);
-  min-width: 26px; height: 26px; border-radius: 9px;
+  position: absolute;
+  left: 0; top: 8px;
+  width: 26px; height: 26px; border-radius: 9px;
   display: grid; place-items: center; font-size: 12px; font-weight: 800;
   color: #7b1fa2; -webkit-text-fill-color: #7b1fa2;
   background: linear-gradient(135deg, rgba(206,147,216,.12), rgba(129,212,250,.08));
-  flex-shrink: 0;
 }
 .tr-note{
   margin-top: 14px; padding: 14px 16px; border-radius: 12px;

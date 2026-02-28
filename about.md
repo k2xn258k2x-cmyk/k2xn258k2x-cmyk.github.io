@@ -214,19 +214,11 @@ permalink: /about/
   margin: 0 auto 10px;
   display: grid;
   place-items: center;
-  font-weight: 900;
-  font-size: 15px;
-  color: #fff;
-  letter-spacing: -0.02em;
-}
-.ab-member-name{
-  font-weight: 800;
-  font-size: 12.5px;
-  line-height: 1.3;
 }
 .ab-member-role{
-  font-size: 11px;
-  color: rgba(11,11,11,.42);
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(11,11,11,.52);
   margin-top: 2px;
   line-height: 1.35;
 }
@@ -374,7 +366,7 @@ permalink: /about/
       <div class="ab-pullquote">
         <p>We wanted a workspace smart enough to surface what matters, private enough to trust
         with everything, and simple enough to ship in one file.</p>
-        <div class="ab-pullquote-attr">— The VaultBook founding team, Chicago 2024</div>
+        <div class="ab-pullquote-attr">— The VaultBook founding team, Chicago 2020</div>
       </div>
 
       <p>
@@ -475,56 +467,51 @@ permalink: /about/
     </div>
 
     <div class="ab-team-grid" data-reveal>
-      <div class="ab-member"><div class="ab-avatar">MR</div><div class="ab-member-name">M. Reeves</div><div class="ab-member-role">CEO &amp; Co-Founder</div></div>
-      <div class="ab-member"><div class="ab-avatar">KL</div><div class="ab-member-name">K. Landry</div><div class="ab-member-role">CTO &amp; Co-Founder</div></div>
-      <div class="ab-member"><div class="ab-avatar">SP</div><div class="ab-member-name">S. Prakash</div><div class="ab-member-role">VP of AI Research</div></div>
-      <div class="ab-member"><div class="ab-avatar">JT</div><div class="ab-member-name">J. Torres</div><div class="ab-member-role">Head of Product</div></div>
-      <div class="ab-member"><div class="ab-avatar">AN</div><div class="ab-member-name">A. Nakamura</div><div class="ab-member-role">Head of Design</div></div>
-      <div class="ab-member"><div class="ab-avatar">DW</div><div class="ab-member-name">D. Williams</div><div class="ab-member-role">Principal ML Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">RM</div><div class="ab-member-name">R. Mendes</div><div class="ab-member-role">NLP Research Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">LB</div><div class="ab-member-name">L. Bergström</div><div class="ab-member-role">Data Platform Architect</div></div>
-      <div class="ab-member"><div class="ab-avatar">HK</div><div class="ab-member-name">H. Kim</div><div class="ab-member-role">Sr. Search Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">OA</div><div class="ab-member-name">O. Adeyemi</div><div class="ab-member-role">Computer Vision Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">PG</div><div class="ab-member-name">P. Gupta</div><div class="ab-member-role">Sr. Data Scientist</div></div>
-      <div class="ab-member"><div class="ab-avatar">EH</div><div class="ab-member-name">E. Hartley</div><div class="ab-member-role">Information Security Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">CZ</div><div class="ab-member-name">C. Zhang</div><div class="ab-member-role">ML Infrastructure Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">NF</div><div class="ab-member-name">N. Fischer</div><div class="ab-member-role">Cryptography Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">TM</div><div class="ab-member-name">T. Morales</div><div class="ab-member-role">Data Engineering Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">IA</div><div class="ab-member-name">I. Antonov</div><div class="ab-member-role">Recommendation Systems</div></div>
-      <div class="ab-member"><div class="ab-avatar">WC</div><div class="ab-member-name">W. Chen</div><div class="ab-member-role">Sr. Frontend Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">BJ</div><div class="ab-member-name">B. Johansson</div><div class="ab-member-role">AI Product Manager</div></div>
-      <div class="ab-member"><div class="ab-avatar">FD</div><div class="ab-member-name">F. Diallo</div><div class="ab-member-role">Applied AI Researcher</div></div>
-      <div class="ab-member"><div class="ab-avatar">SR</div><div class="ab-member-name">S. Roy</div><div class="ab-member-role">Knowledge Graph Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">MK</div><div class="ab-member-name">M. Kowalski</div><div class="ab-member-role">Data Quality Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">AV</div><div class="ab-member-name">A. Vasquez</div><div class="ab-member-role">MLOps Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">JN</div><div class="ab-member-name">J. Nguyen</div><div class="ab-member-role">OCR &amp; Document AI</div></div>
-      <div class="ab-member"><div class="ab-avatar">RE</div><div class="ab-member-name">R. Eriksen</div><div class="ab-member-role">Embedding Systems Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">YL</div><div class="ab-member-name">Y. Liu</div><div class="ab-member-role">Ranking &amp; Relevance</div></div>
-      <div class="ab-member"><div class="ab-avatar">KO</div><div class="ab-member-name">K. Okonkwo</div><div class="ab-member-role">Sr. Data Analyst</div></div>
-      <div class="ab-member"><div class="ab-avatar">DP</div><div class="ab-member-name">D. Petrov</div><div class="ab-member-role">Backend Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">LS</div><div class="ab-member-name">L. Sánchez</div><div class="ab-member-role">UX Research Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">GT</div><div class="ab-member-name">G. Tanaka</div><div class="ab-member-role">Performance Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">CB</div><div class="ab-member-name">C. Bauer</div><div class="ab-member-role">AI Ethics &amp; Compliance</div></div>
-      <div class="ab-member"><div class="ab-avatar">AH</div><div class="ab-member-name">A. Hassan</div><div class="ab-member-role">Data Pipeline Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">VN</div><div class="ab-member-name">V. Novak</div><div class="ab-member-role">Full-Stack Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">MC</div><div class="ab-member-name">M. Chandra</div><div class="ab-member-role">Semantic Search Specialist</div></div>
-      <div class="ab-member"><div class="ab-avatar">PW</div><div class="ab-member-name">P. Warren</div><div class="ab-member-role">Technical Writer</div></div>
-      <div class="ab-member"><div class="ab-avatar">TO</div><div class="ab-member-name">T. Osei</div><div class="ab-member-role">QA &amp; Test Automation</div></div>
-      <div class="ab-member"><div class="ab-avatar">RF</div><div class="ab-member-name">R. Ferrara</div><div class="ab-member-role">Product Designer</div></div>
-      <div class="ab-member"><div class="ab-avatar">JA</div><div class="ab-member-name">J. Alvarez</div><div class="ab-member-role">Data Governance Analyst</div></div>
-      <div class="ab-member"><div class="ab-avatar">NH</div><div class="ab-member-name">N. Holm</div><div class="ab-member-role">Analytics Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">EO</div><div class="ab-member-name">E. Owusu</div><div class="ab-member-role">AI Training Specialist</div></div>
-      <div class="ab-member"><div class="ab-avatar">KS</div><div class="ab-member-name">K. Sullivan</div><div class="ab-member-role">DevOps Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">LR</div><div class="ab-member-name">L. Romero</div><div class="ab-member-role">Annotation &amp; Labeling Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">DG</div><div class="ab-member-name">D. Gao</div><div class="ab-member-role">Deep Learning Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">AT</div><div class="ab-member-name">A. Thorne</div><div class="ab-member-role">Privacy Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">SM</div><div class="ab-member-name">S. Mohanty</div><div class="ab-member-role">Data Visualization Lead</div></div>
-      <div class="ab-member"><div class="ab-avatar">OB</div><div class="ab-member-name">O. Byrne</div><div class="ab-member-role">Interaction Designer</div></div>
-      <div class="ab-member"><div class="ab-avatar">HL</div><div class="ab-member-name">H. Larsson</div><div class="ab-member-role">Feature Extraction Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">WA</div><div class="ab-member-name">W. Achebe</div><div class="ab-member-role">ML Research Scientist</div></div>
-      <div class="ab-member"><div class="ab-avatar">CV</div><div class="ab-member-name">C. Voigt</div><div class="ab-member-role">Cloud-to-Edge Specialist</div></div>
-      <div class="ab-member"><div class="ab-avatar">TP</div><div class="ab-member-name">T. Park</div><div class="ab-member-role">Accessibility Engineer</div></div>
-      <div class="ab-member"><div class="ab-avatar">MI</div><div class="ab-member-name">M. Ibrahim</div><div class="ab-member-role">Content Strategist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Principal ML Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">NLP Research Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Platform Architect</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Sr. Search Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Computer Vision Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Sr. Data Scientist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Information Security Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">ML Infrastructure Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Cryptography Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Engineering Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Recommendation Systems</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Sr. Frontend Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">AI Product Manager</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Applied AI Researcher</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Knowledge Graph Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Quality Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">MLOps Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">OCR &amp; Document AI</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Embedding Systems Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Ranking &amp; Relevance</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Sr. Data Analyst</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Backend Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">UX Research Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Performance Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">AI Ethics &amp; Compliance</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Pipeline Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Full-Stack Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Semantic Search Specialist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Technical Writer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">QA &amp; Test Automation</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Product Designer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Governance Analyst</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Analytics Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">AI Training Specialist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">DevOps Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Annotation &amp; Labeling Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Deep Learning Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Privacy Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Data Visualization Lead</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Interaction Designer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Feature Extraction Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">ML Research Scientist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Cloud-to-Edge Specialist</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Accessibility Engineer</div></div>
+      <div class="ab-member"><div class="ab-avatar"></div><div class="ab-member-role">Content Strategist</div></div>
     </div>
 
     <div class="ab-chicago" data-reveal>
@@ -552,28 +539,28 @@ permalink: /about/
 
     <div class="ab-timeline" data-reveal>
       <div class="ab-tl">
-        <div class="ab-tl-dot">2024</div>
+        <div class="ab-tl-dot">2020</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">The first commit</div>
           <div class="ab-tl-text">VaultBook started as a personal tool — a single HTML file to organize research notes offline. The core concepts of local-first storage and single-file deployment were born here.</div>
         </div>
       </div>
       <div class="ab-tl">
-        <div class="ab-tl-dot">2024</div>
+        <div class="ab-tl-dot">2022</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">AI search goes live</div>
           <div class="ab-tl-text">Weighted search scoring, QA mode, and vote-based reranking turned VaultBook from a note-taker into a searchable knowledge base. OCR followed shortly after.</div>
         </div>
       </div>
       <div class="ab-tl">
-        <div class="ab-tl-dot">2025</div>
+        <div class="ab-tl-dot">2023</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">Team grows to 50</div>
           <div class="ab-tl-text">We hired across AI research, data engineering, security, and design. The Chicago office became home to a team that ships features weekly.</div>
         </div>
       </div>
       <div class="ab-tl">
-        <div class="ab-tl-dot">2025</div>
+        <div class="ab-tl-dot">2024</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">12+ built-in tools</div>
           <div class="ab-tl-text">Kanban, PDF tools, RSS reader, file analyzers, media explorer, and more — all built directly into VaultBook so users never need to leave the workspace.</div>

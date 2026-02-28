@@ -66,6 +66,12 @@ permalink: /pricing/
   border-radius: 999px;
   padding: 6px 18px;
   color: #7b1fa2;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+.pr-section .eyebrow-wrap{
+  text-align: center;
 }
 
 /* ── Plan cards ──────────────────────────────────────────────── */
@@ -648,7 +654,7 @@ permalink: /pricing/
      ════════════════════════════════════════════════════════════════ -->
 <section class="pr-section">
   <div class="container">
-    <div class="eyebrow" data-reveal>📋 Feature comparison</div>
+    <div class="eyebrow-wrap"><div class="eyebrow" data-reveal>📋 Feature comparison</div></div>
     <h2 class="pr-section-title" data-reveal>Everything, side by side</h2>
     <p class="pr-section-sub" data-reveal>See exactly what's included in each plan so you can choose with confidence.</p>
 
@@ -731,7 +737,7 @@ permalink: /pricing/
      ════════════════════════════════════════════════════════════════ -->
 <section class="pr-section">
   <div class="container">
-    <div class="eyebrow" data-reveal>🛒 How to buy</div>
+    <div class="eyebrow-wrap"><div class="eyebrow" data-reveal>🛒 How to buy</div></div>
     <h2 class="pr-section-title" data-reveal>Three steps to your license</h2>
     <p class="pr-section-sub" data-reveal>Purchasing is handled personally via Telegram — fast, friendly, and human.</p>
 
@@ -769,7 +775,7 @@ permalink: /pricing/
      ════════════════════════════════════════════════════════════════ -->
 <section class="pr-section">
   <div class="container">
-    <div class="eyebrow" data-reveal>❓ FAQ</div>
+    <div class="eyebrow-wrap"><div class="eyebrow" data-reveal>❓ FAQ</div></div>
     <h2 class="pr-section-title" data-reveal>Frequently asked questions</h2>
     <p class="pr-section-sub" data-reveal>Quick answers to the things people ask most.</p>
 

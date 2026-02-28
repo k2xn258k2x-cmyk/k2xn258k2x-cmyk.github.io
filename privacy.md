@@ -250,8 +250,8 @@ permalink: /privacy/
 
 <section class="section">
   <div class="container">
-    <div class="pv-body" data-reveal>
-      <div class="pv-toc">
+    <div class="pv-body">
+      <div class="pv-toc" data-reveal>
         <div class="pv-toc-title">Contents</div>
         <div class="pv-toc-list">
           <a href="#scope">1. Scope of This Policy</a>
@@ -273,7 +273,7 @@ permalink: /privacy/
         </div>
       </div>
 
-<h2 id="scope">1. Scope of This Policy</h2>
+<h2 id="scope" data-reveal>1. Scope of This Policy</h2>
 
   <p>This Privacy Policy applies to the VaultBook desktop application (the "Application"), the VaultBook website at reportmedic.github.io (the "Website"), and any related services, documentation, or communications provided by VaultBook Labs ("we," "us," "our").</p>
 
@@ -281,11 +281,11 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="architecture">2. Architectural Overview</h2>
+  <h2 id="architecture" data-reveal>2. Architectural Overview</h2>
 
   <p>Understanding VaultBook's architecture is essential to understanding our privacy posture. The Application runs entirely within your web browser. It does not communicate with any remote server, API endpoint, analytics service, or third-party provider during operation.</p>
 
-  <div class="pv-callout">
+  <div class="pv-callout" data-reveal>
     <div class="pv-callout-title">Key architectural facts</div>
     <p>The Application ships as a single HTML file containing all code, styles, and assets. It uses the browser's File System Access API to read and write data to a local folder that you explicitly select. No data is transmitted over any network connection. All AI features, search indexing, OCR processing, encryption, and analytics run locally in your browser's JavaScript runtime.</p>
   </div>
@@ -294,11 +294,11 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="data-we-do-not-collect">3. Data We Do Not Collect</h2>
+  <h2 id="data-we-do-not-collect" data-reveal>3. Data We Do Not Collect</h2>
 
   <p>The following categories of data are never collected, transmitted, or accessible to VaultBook Labs at any point during your use of the Application:</p>
 
-  <table class="pv-table">
+  <table class="pv-table" data-reveal>
     <thead>
       <tr>
         <th>Data category</th>
@@ -328,7 +328,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="data-stored-locally">4. Data Stored Locally on Your Device</h2>
+  <h2 id="data-stored-locally" data-reveal>4. Data Stored Locally on Your Device</h2>
 
   <p>When you use VaultBook, data is created and stored exclusively in a local folder on your device that you explicitly grant access to via the browser's File System Access API. This data never leaves your device. The following files and directories are created within your chosen folder:</p>
 
@@ -356,14 +356,14 @@ permalink: /privacy/
 
   <p>Calendar and timetable entries are persisted to disk within your workspace folder and rehydrated on application load. This data is never transmitted externally.</p>
 
-  <div class="pv-callout">
+  <div class="pv-callout" data-reveal>
     <div class="pv-callout-title">You own your data files</div>
     <p>Every file VaultBook creates is a standard file format (JSON, Markdown, or the original format of your attachments) stored in a regular folder on your file system. You can inspect, copy, back up, version-control, or delete any of these files at any time using your operating system's native file tools. There are no proprietary binary formats and no database engines.</p>
   </div>
 
   <hr class="pv-divider">
 
-  <h2 id="encryption">5. Encryption &amp; Security</h2>
+  <h2 id="encryption" data-reveal>5. Encryption &amp; Security</h2>
 
   <h3>5.1 Per-entry encryption</h3>
 
@@ -387,7 +387,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="website">6. VaultBook Website</h2>
+  <h2 id="website" data-reveal>6. VaultBook Website</h2>
 
   <p>The VaultBook marketing website (reportmedic.github.io) is a static site hosted on GitHub Pages. It contains no server-side logic, no databases, and no application code that processes personal data.</p>
 
@@ -409,7 +409,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="cookies">7. Cookies &amp; Local Storage</h2>
+  <h2 id="cookies" data-reveal>7. Cookies &amp; Local Storage</h2>
 
   <h3>7.1 The Application</h3>
 
@@ -421,11 +421,11 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="third-party">8. Third-Party Services</h2>
+  <h2 id="third-party" data-reveal>8. Third-Party Services</h2>
 
   <p>The following third-party services are involved in the VaultBook ecosystem. None of these services have access to the content you create or store in the Application.</p>
 
-  <table class="pv-table">
+  <table class="pv-table" data-reveal>
     <thead>
       <tr>
         <th>Service</th>
@@ -456,7 +456,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="children">9. Children's Privacy</h2>
+  <h2 id="children" data-reveal>9. Children's Privacy</h2>
 
   <p>VaultBook is a general-purpose productivity tool not directed at children under the age of 13 (or the applicable age of digital consent in your jurisdiction). Because the Application does not collect any personal data, there is no mechanism by which children's data could be collected, stored, or processed by us.</p>
 
@@ -464,7 +464,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="data-retention">10. Data Retention &amp; Deletion</h2>
+  <h2 id="data-retention" data-reveal>10. Data Retention &amp; Deletion</h2>
 
   <h3>10.1 Application data</h3>
 
@@ -480,11 +480,11 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="data-portability">11. Data Portability</h2>
+  <h2 id="data-portability" data-reveal>11. Data Portability</h2>
 
   <p>VaultBook is designed for complete data portability. Your workspace consists entirely of standard file formats:</p>
 
-  <table class="pv-table">
+  <table class="pv-table" data-reveal>
     <thead>
       <tr>
         <th>File</th>
@@ -505,7 +505,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="international">12. International Users</h2>
+  <h2 id="international" data-reveal>12. International Users</h2>
 
   <h3>12.1 GDPR (European Economic Area)</h3>
 
@@ -525,11 +525,11 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="your-rights">13. Your Rights</h2>
+  <h2 id="your-rights" data-reveal>13. Your Rights</h2>
 
   <p>Regardless of your jurisdiction, you have the following rights with respect to your VaultBook data:</p>
 
-  <div class="pv-callout">
+  <div class="pv-callout" data-reveal>
     <p><strong>Right to access</strong> — All your data is stored in a folder on your device in open formats. You can access it at any time without requesting it from us.</p>
     <p><strong>Right to rectification</strong> — You can edit any entry, label, page, or attachment directly within VaultBook or by editing the underlying files.</p>
     <p><strong>Right to erasure</strong> — You can delete individual entries within VaultBook or delete the entire workspace folder from your file system. We have no copy to retain.</p>
@@ -540,7 +540,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="breach">14. Breach Notification</h2>
+  <h2 id="breach" data-reveal>14. Breach Notification</h2>
 
   <p>Because VaultBook Labs does not store, transmit, or have access to user data, a traditional data breach affecting your VaultBook content through our systems is not possible. There is no server to compromise, no database to exfiltrate, and no backups under our control.</p>
 
@@ -548,7 +548,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="changes">15. Changes to This Policy</h2>
+  <h2 id="changes" data-reveal>15. Changes to This Policy</h2>
 
   <p>We may update this Privacy Policy from time to time to reflect changes in the Application's features, our business practices, or applicable law. When we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, notify users through our Website or Telegram channel.</p>
 
@@ -556,7 +556,7 @@ permalink: /privacy/
 
   <hr class="pv-divider">
 
-  <h2 id="contact">16. Contact</h2>
+  <h2 id="contact" data-reveal>16. Contact</h2>
 
   <p>If you have questions about this Privacy Policy, wish to report a security concern, or want to exercise any of your data rights, you can reach us through Telegram:</p>
 

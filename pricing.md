@@ -66,6 +66,7 @@ permalink: /pricing/
   border-radius: 999px;
   padding: 6px 18px;
   color: #7b1fa2;
+  -webkit-text-fill-color: #7b1fa2;
   position: relative;
   z-index: 1;
   margin-bottom: 14px;

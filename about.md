@@ -284,15 +284,19 @@ permalink: /about/
   font-weight: 900;
   font-size: 12px;
   letter-spacing: .04em;
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
   transition: transform .2s ease;
+  box-shadow: 0 0 0 4px #fff;
+  background-color: #fff;
 }
 .ab-tl:hover .ab-tl-dot{ transform: scale(1.1); }
-.ab-tl:nth-child(1) .ab-tl-dot{ background: linear-gradient(135deg, rgba(206,147,216,.22), rgba(225,190,231,.15)); color: #7b1fa2; }
-.ab-tl:nth-child(2) .ab-tl-dot{ background: linear-gradient(135deg, rgba(129,212,250,.22), rgba(179,229,252,.15)); color: #0277bd; }
-.ab-tl:nth-child(3) .ab-tl-dot{ background: linear-gradient(135deg, rgba(128,203,196,.22), rgba(178,223,219,.15)); color: #00796b; }
-.ab-tl:nth-child(4) .ab-tl-dot{ background: linear-gradient(135deg, rgba(255,204,128,.28), rgba(255,224,178,.18)); color: #e65100; }
-.ab-tl:nth-child(5) .ab-tl-dot{ background: linear-gradient(135deg, rgba(244,143,177,.2), rgba(248,187,208,.15)); color: #c2185b; }
+.ab-tl:nth-child(1) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(206,147,216,.22), rgba(225,190,231,.15)); color: #7b1fa2; }
+.ab-tl:nth-child(2) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(129,212,250,.22), rgba(179,229,252,.15)); color: #0277bd; }
+.ab-tl:nth-child(3) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(128,203,196,.22), rgba(178,223,219,.15)); color: #00796b; }
+.ab-tl:nth-child(4) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(255,204,128,.28), rgba(255,224,178,.18)); color: #e65100; }
+.ab-tl:nth-child(5) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(244,143,177,.2), rgba(248,187,208,.15)); color: #c2185b; }
+.ab-tl:nth-child(6) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(165,214,167,.22), rgba(200,230,201,.15)); color: #2e7d32; }
+.ab-tl:nth-child(7) .ab-tl-dot{ background-image: linear-gradient(135deg, rgba(179,157,219,.22), rgba(209,196,233,.15)); color: #512da8; }
 .ab-tl-body{ flex: 1; }
 .ab-tl-title{ font-weight: 850; font-size: 16px; }
 .ab-tl-text{ margin-top: 4px; font-size: 14px; color: rgba(11,11,11,.55); line-height: 1.5; }
@@ -533,6 +537,13 @@ permalink: /about/
         </div>
       </div>
       <div class="ab-tl">
+        <div class="ab-tl-dot">2021</div>
+        <div class="ab-tl-body">
+          <div class="ab-tl-title">Rich editing &amp; encryption</div>
+          <div class="ab-tl-text">The rich text editor, per-entry AES-256-GCM encryption, hierarchical pages, and the File System Access API storage layer turned VaultBook into a real workspace.</div>
+        </div>
+      </div>
+      <div class="ab-tl">
         <div class="ab-tl-dot">2022</div>
         <div class="ab-tl-body">
           <div class="ab-tl-title">AI search goes live</div>
@@ -551,6 +562,13 @@ permalink: /about/
         <div class="ab-tl-body">
           <div class="ab-tl-title">12+ built-in tools</div>
           <div class="ab-tl-text">Kanban, PDF tools, RSS reader, file analyzers, media explorer, and more — all built directly into VaultBook so users never need to leave the workspace.</div>
+        </div>
+      </div>
+      <div class="ab-tl">
+        <div class="ab-tl-dot">2025</div>
+        <div class="ab-tl-body">
+          <div class="ab-tl-title">Deep indexing &amp; version history</div>
+          <div class="ab-tl-text">Pro gained deep file indexing for XLSX, PPTX, PDF, ZIP, and MSG files, OCR inside documents and archives, and 60-day version history with per-entry snapshots.</div>
         </div>
       </div>
       <div class="ab-tl">

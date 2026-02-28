@@ -685,9 +685,9 @@ permalink: /press/
           <div class="ps-guide-do">Write "VaultBook" as one word with a capital V and capital B</div>
           <div class="ps-guide-do">Use our official logos from the press kit — do not recreate them</div>
           <div class="ps-guide-do">Describe VaultBook as "offline-first" or "local-first" (both accurate)</div>
-          <div class="ps-guide-do">Reference the San Francisco team and founding year of 2020</div>
+          <div class="ps-guide-do">Reference the robust development team and founding year of 2020</div>
           <div class="ps-guide-do">Mention the zero-cloud, zero-telemetry architecture when relevant</div>
-          <div class="ps-guide-do">Link to vaultbook.app or t.me/VaultBook for reader access</div>
+          <div class="ps-guide-do">Link to vaultbook.net or t.me/VaultBook for reader access</div>
         </div>
       </div>
       <div class="ps-guide">

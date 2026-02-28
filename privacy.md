@@ -247,7 +247,6 @@ what we don't (everything else), and why.
 </div>
 </section>
 
-<!-- ━━━ POLICY BODY ━━━ -->
 <section class="section">
 <div class="container">
 <div class="pv-body" data-reveal>

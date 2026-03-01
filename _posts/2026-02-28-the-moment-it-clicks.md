@@ -70,7 +70,3 @@ When we say VaultBook feels like magic, we don't mean it does things you can't u
 Search that reads your images. Files that become searchable knowledge. Encryption that doesn't require trusting a stranger. A workspace that loads in a heartbeat because there's no server between you and your thoughts.
 
 It's not magic. It's just what happens when the tool gets out of the way and lets you think.
-
----
-
-*VaultBook is available as [Plus ($49/year)](/pricing/) and [Pro ($79/year)](/pricing/). Download it from the [product page](/product/) or reach us on [Telegram](https://t.me/VaultBook).*

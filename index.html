@@ -376,7 +376,11 @@ body_class: home
 .hero-ticker-wrap{
   position: relative;
   padding: 28px 0 0;
-  overflow: hidden;
+  overflow: visible;
+  /* Break out of parent column to span full viewport */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  left: 0;
 }
 .hero-ticker{
   position: relative;
@@ -1110,6 +1114,48 @@ body_class: home
           </span>
           Works offline. Your content stays on your device.
         </div>
+
+        <!-- Feature ticker -->
+        <div class="hero-ticker-wrap">
+          <div class="hero-ticker" aria-label="Feature highlights">
+            <div class="hero-ticker-track">
+              <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
+              <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
+              <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
+              <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
+              <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
+              <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
+              <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
+              <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
+              <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
+              <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
+              <!-- duplicate set for seamless loop -->
+              <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
+              <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
+              <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
+              <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
+              <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
+              <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
+              <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
+              <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
+              <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
+              <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
+              <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
+              <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="hero-media">
@@ -1153,47 +1199,6 @@ body_class: home
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- Feature ticker -->
-  <div class="hero-ticker-wrap">
-    <div class="hero-ticker" aria-label="Feature highlights">
-      <div class="hero-ticker-track">
-        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
-        <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
-        <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
-        <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
-        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
-        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
-        <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
-        <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
-        <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
-        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
-        <!-- duplicate set for seamless loop -->
-        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
-        <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
-        <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
-        <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
-        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
-        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
-        <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
-        <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
-        <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
-        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
-        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
-        <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
-      </div>
     </div>
   </div>
 

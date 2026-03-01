@@ -192,10 +192,46 @@
     el.textContent = mins + " min read";
   }
 
+  // Mobile nav accordion — toggle submenus, dim inactive sections (Notion-style)
+  function initMobileAccordion(){
+    var container = qs("[data-mobile-accordion]");
+    if(!container) return;
+    var toggles = qsa("[data-mnav-toggle]", container);
+
+    function closeAll(){
+      toggles.forEach(function(t){
+        t.setAttribute("aria-expanded", "false");
+        var panel = t.nextElementSibling;
+        if(panel && panel.classList.contains("mnav-panel")){
+          panel.classList.remove("is-open");
+          panel.setAttribute("aria-hidden", "true");
+        }
+      });
+      container.classList.remove("has-open");
+    }
+
+    toggles.forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var wasOpen = btn.getAttribute("aria-expanded") === "true";
+        closeAll();
+        if(!wasOpen){
+          btn.setAttribute("aria-expanded", "true");
+          var panel = btn.nextElementSibling;
+          if(panel && panel.classList.contains("mnav-panel")){
+            panel.classList.add("is-open");
+            panel.setAttribute("aria-hidden", "false");
+          }
+          container.classList.add("has-open");
+        }
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function(){
     initReveal();
     initMegaMenus();
     initMobileNav();
+    initMobileAccordion();
     initReadingTime();
   });
 })();

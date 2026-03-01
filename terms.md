@@ -279,7 +279,7 @@ permalink: /terms/
 
   <p>By downloading, installing, opening, or otherwise using the VaultBook application (the "Application") or accessing the VaultBook website at reportmedic.github.io (the "Website"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you must not use the Application or Website.</p>
 
-  <p>These Terms constitute a legally binding agreement between you ("you," "your," "user") and VaultBook Labs ("we," "us," "our"), a company based in Chicago, Illinois, United States. Your continued use of the Application or Website following any changes to these Terms constitutes your acceptance of those changes.</p>
+  <p>These Terms constitute a legally binding agreement between you ("you," "your," "user") and VaultBook Labs ("we," "us," "our"), a company based in San Francisco, California, United States. Your continued use of the Application or Website following any changes to these Terms constitutes your acceptance of those changes.</p>
 
   <div class="ts-callout" data-reveal>
     <div class="ts-callout-title">Plain-language summary</div>
@@ -637,7 +637,7 @@ permalink: /terms/
 
   <p><strong>Telegram:</strong> <a href="https://t.me/VaultBook" target="_blank" rel="noopener">t.me/VaultBook</a></p>
 
-  <p><strong>Entity:</strong> VaultBook Labs, Chicago, Illinois, United States.</p>
+  <p><strong>Entity:</strong> VaultBook Labs, San Francisco, California, United States.</p>
 
   <p>We aim to respond to all inquiries within 72 hours.</p>
 

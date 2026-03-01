@@ -915,7 +915,16 @@ body_class: home
 @media (max-width:720px){
   .hero-dark{ padding:48px 0 40px; }
   .hero-dark .hero-grid{ grid-template-columns:1fr; gap:32px; }
-  .hero-dark .hero-title{ font-size: clamp(34px,9vw,46px); }
+  .hero-dark .hero-title{
+    font-size: clamp(40px, 11vw, 56px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.95) 60%, rgba(167,139,250,.9) 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
   .hero-dark .hero-subtitle{ font-size:16px; }
   .hero-dark .hero-actions{
     flex-direction:row !important;
@@ -982,6 +991,10 @@ body_class: home
 }
 
 @media (max-width:400px){
+  .hero-dark .hero-title{
+    font-size: 38px;
+    letter-spacing: -0.04em;
+  }
   .hero-dark .hero-actions{
     flex-direction:column !important;
   }

@@ -982,6 +982,12 @@ body_class: home
 @media (max-width:720px){
   .hero-dark{ padding:48px 0 40px; }
   .hero-dark .hero-grid{ grid-template-columns:1fr; gap:32px; }
+  .hero-dark .hero-grid > * { min-width: 0; }
+  .hero-ticker-wrap{
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    overflow: visible;
+  }
   .hero-dark .hero-title{
     font-size: clamp(40px, 11vw, 56px);
     font-weight: 900;

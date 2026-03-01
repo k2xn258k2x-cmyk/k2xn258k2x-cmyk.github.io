@@ -888,7 +888,7 @@ permalink: /security/
 
   <p><strong>Telegram:</strong> <a href="https://t.me/VaultBook" target="_blank" rel="noopener">t.me/VaultBook</a></p>
 
-  <p><strong>Entity:</strong> VaultBook Labs, Chicago, Illinois, United States.</p>
+  <p><strong>Entity:</strong> VaultBook Labs, San Francisco, California, United States.</p>
 
   <p>We aim to respond to all security-related inquiries within 72 hours.</p>
 

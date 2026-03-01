@@ -7,6 +7,8 @@ cover: /assets/img/feature-screenshot-placeholder.svg
 
 There is a quiet revolution happening in the way people think about their digital notes, files, and knowledge. For more than a decade, the tech industry pushed a single narrative: put everything in the cloud, sync everywhere, trust the platform. And for a while, that story worked — or at least, it seemed to. People uploaded their thoughts, their research, their client files, their medical records, and their most private reflections into apps that promised convenience in exchange for control. But something shifted. People started asking harder questions. Where exactly is my data? Who can see it? What happens if the service shuts down? What happens if I lose internet access at the worst possible moment?
 
+<!--more-->
+
 VaultBook was born from those questions. Not as a reaction to a single product or a single scandal, but as an answer to a deeper, more fundamental need — the need for a workspace that belongs entirely to you. Today, we want to take you on a journey through everything VaultBook is, everything it can do, and the philosophy that drives every decision behind it. Whether you are a healthcare professional safeguarding patient information, a lawyer organizing case files, a researcher building a knowledge base, a student managing years of study material, or simply someone who believes that privacy is not a luxury — this is for you.
 
 ## The Vision Behind VaultBook

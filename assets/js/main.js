@@ -2,7 +2,7 @@
   function qs(sel, root){ return (root || document).querySelector(sel); }
   function qsa(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
-  // Scroll reveal with staggered delays
+  // Scroll reveal
   function initReveal(){
     var els = qsa("[data-reveal]");
     if(!("IntersectionObserver" in window)){
@@ -128,7 +128,7 @@
     });
   }
 
-  // Mobile nav with smooth slide transition
+  // Mobile nav — CSS transitions on mobile, display toggle on desktop
   function initMobileNav(){
     var btn = qs("[data-nav-toggle]");
     var panel = qs("[data-mobile-nav]");
@@ -136,15 +136,13 @@
     var scrim = qs("[data-nav-scrim]");
     if(!btn || !panel || !scrim) return;
 
+    var isMobile = function(){ return window.matchMedia("(max-width: 720px)").matches; };
+
     function open(){
       panel.classList.add("open");
       panel.setAttribute("aria-hidden", "false");
       btn.setAttribute("aria-expanded", "true");
       scrim.hidden = false;
-      // Small delay for scrim opacity animation
-      requestAnimationFrame(function(){
-        scrim.style.opacity = "";
-      });
       document.body.style.overflow = "hidden";
     }
 
@@ -152,11 +150,18 @@
       panel.classList.remove("open");
       panel.setAttribute("aria-hidden", "true");
       btn.setAttribute("aria-expanded", "false");
-      // Wait for slide-out transition before hiding scrim
-      setTimeout(function(){
-        scrim.hidden = true;
-      }, 380);
       document.body.style.overflow = "";
+
+      if(isMobile()){
+        // Let CSS slide-out transition finish before hiding scrim
+        setTimeout(function(){
+          if(!panel.classList.contains("open")){
+            scrim.hidden = true;
+          }
+        }, 400);
+      } else {
+        scrim.hidden = true;
+      }
     }
 
     btn.addEventListener("click", function(){ open(); });
@@ -166,7 +171,7 @@
       if(e.key === "Escape" && panel.classList.contains("open")) shut();
     });
 
-    // Close on resize to desktop
+    // Auto-close on resize to desktop
     var mq = window.matchMedia("(min-width: 721px)");
     function handleResize(e){
       if(e.matches && panel.classList.contains("open")) shut();

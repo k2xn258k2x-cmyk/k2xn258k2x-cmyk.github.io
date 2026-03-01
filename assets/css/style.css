@@ -170,6 +170,9 @@ code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liber
 .nav-toggle-lines::before{ top: -6px; }
 .nav-toggle-lines::after{ top: 6px; }
 
+/* Mobile CTA + burger group: hidden on desktop */
+.nav-mobile-right{ display:none; }
+
 .nav-desktop{ display:flex; align-items:center; gap: 16px; width: 100%;
               margin-left: auto;
               justify-content: flex-end;}
@@ -1274,17 +1277,10 @@ a.nav-link.plain{ cursor:pointer; }
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 720px){
 
-  /* --- Typography: load DM Sans + Instrument Serif on mobile only --- */
+  /* --- Typography: bold, impactful headings on mobile --- */
   body{
-    font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     text-rendering: optimizeLegibility;
-  }
-  .hero-title,
-  .h2,
-  .cta-title,
-  .page-title,
-  .post-title{
-    font-family: 'Instrument Serif', Georgia, serif;
   }
 
   /* --- Spacing & container --- */
@@ -1295,11 +1291,33 @@ a.nav-link.plain{ cursor:pointer; }
   .container{ width: min(var(--container), calc(100% - 32px)); }
 
   /* --- Header --- */
+  .header-row{
+    height: 60px;
+    justify-content: space-between;
+  }
+  .nav{
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  .nav-mobile-right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-mobile-cta-btn{
+    height: 38px !important;
+    padding: 0 16px !important;
+    border-radius: 10px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    min-height: 38px !important;
+    white-space: nowrap;
+  }
   .nav-toggle{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px; height: 44px;
+    width: 42px; height: 42px;
     border-radius: 13px;
     border: 1px solid rgba(206,147,216,.12);
     background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(243,229,245,.08));
@@ -1311,7 +1329,6 @@ a.nav-link.plain{ cursor:pointer; }
     box-shadow: 0 0 0 4px rgba(206,147,216,.1);
   }
   .nav-desktop{ display: none; }
-  .header-row{ height: 60px; }
   .site-header{
     background: rgba(255,255,255,.88);
     backdrop-filter: blur(16px) saturate(1.4);

@@ -456,7 +456,7 @@ permalink: /careers/
     <div class="cr-eyebrow">🚀 We're hiring</div>
     <h1 class="cr-hero-title">Build the future of<br>offline intelligence.</h1>
     <p class="cr-hero-sub">
-      VaultBook is a 50-person team in Chicago pushing the boundaries of what a local-first,
+      VaultBook is a 50-person team in San Francisco pushing the boundaries of what a local-first,
       browser-based workspace can do. We're looking for engineers, researchers, and designers
       who want to build AI that runs where the data lives — on the user's device.
     </p>
@@ -476,7 +476,7 @@ permalink: /careers/
       </div>
       <div class="cr-stat">
         <div class="cr-stat-val">1</div>
-        <div class="cr-stat-label">Office — Chicago</div>
+        <div class="cr-stat-label">Office — San Francisco</div>
       </div>
     </div>
   </div>
@@ -511,8 +511,8 @@ permalink: /careers/
       </div>
       <div class="cr-perk">
         <div class="cr-perk-ic">🏙️</div>
-        <div class="cr-perk-title">Chicago, West Loop</div>
-        <div class="cr-perk-text">One office, everyone in-person. We chose Chicago for its deep AI talent, central timezone, and a tech scene that values building over posturing.</div>
+        <div class="cr-perk-title">San Francisco, West Loop</div>
+        <div class="cr-perk-text">One office, everyone in-person. We chose San Francisco for its deep AI talent, central timezone, and a tech scene that values building over posturing.</div>
       </div>
       <div class="cr-perk">
         <div class="cr-perk-ic">📚</div>
@@ -546,7 +546,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Senior ML Engineer — Scoring &amp; Ranking</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Senior ML Engineer — Scoring &amp; Ranking</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">ML</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -575,7 +575,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">NLP Research Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">NLP Research Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">NLP</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -604,7 +604,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Recommendation Systems Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Recommendation Systems Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">ML</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -633,7 +633,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Applied AI Researcher — Vote-Based Learning</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Applied AI Researcher — Vote-Based Learning</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">ML</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -662,7 +662,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Computer Vision Engineer — OCR Pipeline</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Computer Vision Engineer — OCR Pipeline</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">CV</span><span class="cr-job-tag data">OCR</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -691,7 +691,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">ML Infrastructure Engineer — Client-Side Models</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">ML Infrastructure Engineer — Client-Side Models</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">ML</span><span class="cr-job-tag infra">WebGPU</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -720,7 +720,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Embedding Systems Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Embedding Systems Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">ML</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -752,7 +752,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Senior Search Engineer — Multi-Field Scoring</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Senior Search Engineer — Multi-Field Scoring</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Search</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -773,7 +773,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Deep Indexing Engineer — Document Parsing</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Deep Indexing Engineer — Document Parsing</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Indexing</span><span class="cr-job-tag infra">JSZip</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -794,7 +794,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Semantic Search Specialist</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Semantic Search Specialist</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag ai">NLP</span><span class="cr-job-tag data">Search</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -815,7 +815,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Ranking &amp; Relevance Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Ranking &amp; Relevance Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Search</span><span class="cr-job-tag ai">ML</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -839,7 +839,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Cryptography Engineer — AES-256-GCM / PBKDF2</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Cryptography Engineer — AES-256-GCM / PBKDF2</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag sec">Crypto</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -860,7 +860,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Privacy Engineer — Zero-Telemetry Audit</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Privacy Engineer — Zero-Telemetry Audit</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag sec">Privacy</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -881,7 +881,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Application Security Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Application Security Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag sec">Security</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -905,7 +905,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Senior Frontend Engineer — Rich Text Editor</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Senior Frontend Engineer — Rich Text Editor</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">JS</span><span class="cr-job-tag fe">contentEditable</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -926,7 +926,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Frontend Engineer — File System Access API</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Frontend Engineer — File System Access API</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">Web APIs</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -947,7 +947,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Frontend Engineer — Canvas Rendering &amp; Charts</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Frontend Engineer — Canvas Rendering &amp; Charts</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">Canvas</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -968,7 +968,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Full-Stack Engineer — Built-in Tools</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Full-Stack Engineer — Built-in Tools</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">JS</span><span class="cr-job-tag data">Tools</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -989,7 +989,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Performance Engineer — Large Library Optimization</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Performance Engineer — Large Library Optimization</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">Perf</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1010,7 +1010,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Accessibility Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Accessibility Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">A11y</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1034,7 +1034,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Data Platform Architect — Repository Schema</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Data Platform Architect — Repository Schema</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Data</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1055,7 +1055,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Data Pipeline Engineer — Attachment Extraction</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Data Pipeline Engineer — Attachment Extraction</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Pipeline</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1076,7 +1076,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Feature Extraction Engineer — SheetJS / pdf.js</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Feature Extraction Engineer — SheetJS / pdf.js</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">Parsing</span><span class="cr-job-tag infra">pdf.js</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1097,7 +1097,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Data Quality Engineer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Data Quality Engineer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag data">QA</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1121,7 +1121,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Senior Product Designer — Workspace UI</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Senior Product Designer — Workspace UI</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag design">Design</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1142,7 +1142,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">UX Researcher</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">UX Researcher</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag design">UXR</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1163,7 +1163,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Interaction Designer — Micro-Animations</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Interaction Designer — Micro-Animations</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag design">Motion</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1187,7 +1187,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">AI Product Manager — Suggestions &amp; QA</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">AI Product Manager — Suggestions &amp; QA</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag product">Product</span><span class="cr-job-tag ai">AI</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1208,7 +1208,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Technical Product Manager — Tools Platform</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Technical Product Manager — Tools Platform</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag product">Product</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1232,7 +1232,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">DevOps Engineer — Single-File Build Pipeline</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">DevOps Engineer — Single-File Build Pipeline</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag infra">CI/CD</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1253,7 +1253,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">WebAssembly Engineer — Edge Runtime</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">WebAssembly Engineer — Edge Runtime</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag infra">WASM</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1277,7 +1277,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">QA Engineer — Cross-Browser Testing</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">QA Engineer — Cross-Browser Testing</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag fe">QA</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>
@@ -1298,7 +1298,7 @@ permalink: /careers/
 
       <details class="cr-job">
         <summary>
-          <div class="cr-job-info"><div class="cr-job-title">Technical Writer</div><div class="cr-job-meta"><span>📍 Chicago</span><span>Full-time</span></div></div>
+          <div class="cr-job-info"><div class="cr-job-title">Technical Writer</div><div class="cr-job-meta"><span>📍 San Francisco</span><span>Full-time</span></div></div>
           <div class="cr-job-tags"><span class="cr-job-tag product">Docs</span></div>
           <div class="cr-job-arrow">→</div>
         </summary>

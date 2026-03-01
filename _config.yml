@@ -1,7 +1,7 @@
 title: VaultBook
 tagline: Secure. Offline-first. Searchable document intelligence.
 description: VaultBook is a secure, offline-first workspace to create, organize, and search your notes, documents, and research.
-url: "" # GitHub Pages will set this
+url: "https://vaultbook.net"
 baseurl: "" # e.g. /repo-name if using project pages
 permalink: /blog/:year/:month/:day/:title/
 markdown: kramdown

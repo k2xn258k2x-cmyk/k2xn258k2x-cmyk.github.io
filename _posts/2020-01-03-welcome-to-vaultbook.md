@@ -1,6 +1,7 @@
 ---
 title: Welcome to VaultBook
 description: A deep dive into VaultBook — the offline-first, privacy-focused digital vault built for professionals who refuse to compromise on security, speed, or control.
+date: 2020-01-03 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
 ---
 

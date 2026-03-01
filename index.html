@@ -4,232 +4,1303 @@ title: Home
 description: VaultBook is a secure, offline-first workspace that helps you create, organize, and search your documents, research, and notes.
 body_class: home
 ---
-<section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-copy" data-reveal>
-      <div class="eyebrow">SECURE. OFFLINE AI. SEARCHABLE. DOCUMENT INTELLIGENCE</div>
-      <h1 class="hero-title">One workspace.<br>Zero busywork.</h1>
-      <p class="hero-subtitle">
-        VaultBook keeps your notes and library searchable, helps you automate projects,
-        and organizes your documents under your own lock and key.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook</a>
-        <a class="btn btn-demo" href="{{ '/demo/' | relative_url }}">Request a demo</a>
-      </div>
-      <div class="hero-note muted">Works offline. Your content stays on your device.</div>
-    </div>
 
-    <div class="hero-media" data-reveal>
-      <div class="hero-illus">
-        <img src="{{ '/assets/img/hero-illustration.svg' | relative_url }}" alt="" loading="lazy">
-      </div>
-      <div class="hero-shot">
-        <img src="{{ '/assets/img/app-screenshot-placeholder.svg' | relative_url }}" alt="VaultBook app screenshot placeholder" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
+<style>
+/* ━━━ DARK HERO ━━━ */
+.hero-dark{
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, #0a0a1a 0%, #0f0c24 30%, #140e2e 55%, #0d1a2d 100%);
+  padding: 80px 0 70px;
+  color: #fff;
+}
+.hero-dark::before{
+  content:'';
+  position:absolute;
+  top:-40%; left:-20%; width:80%; height:120%;
+  background: radial-gradient(ellipse at center, rgba(99,66,160,.18) 0%, transparent 65%);
+  pointer-events:none;
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+.hero-dark::after{
+  content:'';
+  position:absolute;
+  bottom:-30%; right:-15%; width:70%; height:100%;
+  background: radial-gradient(ellipse at center, rgba(56,120,200,.12) 0%, transparent 60%);
+  pointer-events:none;
+  animation: heroGlow2 10s ease-in-out infinite alternate;
+}
+@keyframes heroGlow{
+  0%{ transform: translate(0,0) scale(1); opacity:.7; }
+  100%{ transform: translate(30px,-20px) scale(1.08); opacity:1; }
+}
+@keyframes heroGlow2{
+  0%{ transform: translate(0,0) scale(1); opacity:.5; }
+  100%{ transform: translate(-20px,15px) scale(1.05); opacity:.9; }
+}
 
-<section class="logos" aria-label="Trusted by teams">
-  <div class="container" data-reveal>
-    <div class="logos-row muted">
-      <span>Trusted by teams that ship</span>
-      <span class="dot">•</span>
-      <span>Research</span>
-      <span class="dot">•</span>
-      <span>Engineering</span>
-      <span class="dot">•</span>
-      <span>Analytics</span>
-      <span class="dot">•</span>
-      <span>Healthcare</span>
-    </div>
-    <div class="logos-grid">
-      <div class="logo-pill">OpenAI</div>
-      <div class="logo-pill">Figma</div>
-      <div class="logo-pill">Ramp</div>
-      <div class="logo-pill">Cursor</div>
-      <div class="logo-pill">NVIDIA</div>
-    </div>
-  </div>
-</section>
+/* Subtle grid lines in background */
+.hero-grid-bg{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+}
 
-<section class="section">
+/* Floating orbs */
+.hero-orb{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(1px);
+}
+.hero-orb-1{
+  width:6px; height:6px;
+  background: rgba(167,139,250,.6);
+  top:18%; left:12%;
+  animation: float1 6s ease-in-out infinite;
+}
+.hero-orb-2{
+  width:4px; height:4px;
+  background: rgba(96,165,250,.5);
+  top:30%; right:18%;
+  animation: float2 8s ease-in-out infinite;
+}
+.hero-orb-3{
+  width:5px; height:5px;
+  background: rgba(192,132,252,.4);
+  bottom:25%; left:25%;
+  animation: float3 7s ease-in-out infinite;
+}
+.hero-orb-4{
+  width:3px; height:3px;
+  background: rgba(129,212,250,.5);
+  top:45%; right:8%;
+  animation: float1 9s ease-in-out infinite reverse;
+}
+.hero-orb-5{
+  width:7px; height:7px;
+  background: rgba(167,139,250,.25);
+  bottom:15%; right:30%;
+  animation: float2 11s ease-in-out infinite;
+}
+@keyframes float1{
+  0%,100%{ transform: translateY(0) translateX(0); }
+  50%{ transform: translateY(-18px) translateX(8px); }
+}
+@keyframes float2{
+  0%,100%{ transform: translateY(0) translateX(0); }
+  50%{ transform: translateY(14px) translateX(-10px); }
+}
+@keyframes float3{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-12px); }
+}
+
+/* Rainbow accent line */
+.hero-line{
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6, #06b6d4, #8b5cf6, #ec4899);
+  background-size: 200% 100%;
+  animation: lineShift 4s linear infinite;
+}
+@keyframes lineShift{
+  0%{ background-position: 0% 50%; }
+  100%{ background-position: 200% 50%; }
+}
+
+.hero-dark .container{ position:relative; z-index:2; }
+
+.hero-dark .hero-grid{
+  display:grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Badge pill */
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 16px 6px 8px;
+  border-radius:999px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  font-size:13px;
+  font-weight:600;
+  color: rgba(255,255,255,.75);
+  margin-bottom:24px;
+  animation: fadeSlideUp .7s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-badge-dot{
+  width:8px; height:8px;
+  border-radius:50%;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  box-shadow: 0 0 8px rgba(167,139,250,.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ box-shadow: 0 0 8px rgba(167,139,250,.4); }
+  50%{ box-shadow: 0 0 16px rgba(167,139,250,.7); }
+}
+
+.hero-dark .hero-title{
+  font-size: clamp(44px, 5vw, 68px);
+  line-height:1.02;
+  letter-spacing:-0.035em;
+  font-weight:850;
+  margin:0 0 20px;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.92) 40%, rgba(167,139,250,.85) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation: fadeSlideUp .7s cubic-bezier(.16,1,.3,1) .1s both;
+}
+
+.hero-dark .hero-subtitle{
+  font-size: 18px;
+  line-height:1.6;
+  color: rgba(255,255,255,.55);
+  max-width: 48ch;
+  margin: 0 0 28px;
+  animation: fadeSlideUp .7s cubic-bezier(.16,1,.3,1) .2s both;
+}
+
+.hero-dark .hero-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+  animation: fadeSlideUp .7s cubic-bezier(.16,1,.3,1) .3s both;
+}
+.hero-dark .hero-actions .btn-hero-primary{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:48px;
+  padding: 0 28px;
+  border-radius:12px;
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4f46e5 100%);
+  color:#fff;
+  font-weight:700;
+  font-size:15.5px;
+  border:none;
+  box-shadow: 0 0 0 1px rgba(124,58,237,.4), 0 4px 20px rgba(124,58,237,.3), inset 0 1px 0 rgba(255,255,255,.15);
+  transition: transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s ease;
+  letter-spacing:.01em;
+}
+.hero-dark .hero-actions .btn-hero-primary:hover{
+  transform:translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(124,58,237,.5), 0 8px 30px rgba(124,58,237,.4), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.hero-dark .hero-actions .btn-hero-secondary{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:48px;
+  padding: 0 28px;
+  border-radius:12px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.8);
+  font-weight:650;
+  font-size:15.5px;
+  backdrop-filter: blur(8px);
+  transition: transform .22s cubic-bezier(.16,1,.3,1), background .22s ease, border-color .22s ease;
+}
+.hero-dark .hero-actions .btn-hero-secondary:hover{
+  transform:translateY(-2px);
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.18);
+}
+
+.hero-dark .hero-note{
+  margin-top:18px;
+  font-size:13px;
+  color: rgba(255,255,255,.35);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  animation: fadeSlideUp .7s cubic-bezier(.16,1,.3,1) .4s both;
+}
+.hero-note-icon{
+  width:16px; height:16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-note-icon svg{ width:14px; height:14px; }
+
+@keyframes fadeSlideUp{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* App preview mockup */
+.hero-dark .hero-media{
+  position:relative;
+  animation: fadeSlideUp .9s cubic-bezier(.16,1,.3,1) .35s both;
+}
+.hero-app-frame{
+  position:relative;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  backdrop-filter: blur(20px);
+  overflow:hidden;
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.4),
+    0 8px 24px rgba(0,0,0,.2),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.hero-app-bar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:14px 18px;
+  background: rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.hero-app-dot{ width:10px; height:10px; border-radius:50%; }
+.hero-app-dot:nth-child(1){ background:#ff5f57; }
+.hero-app-dot:nth-child(2){ background:#febc2e; }
+.hero-app-dot:nth-child(3){ background:#28c840; }
+.hero-app-bar-title{
+  margin-left:10px;
+  font-size:12px;
+  color: rgba(255,255,255,.35);
+  font-weight:500;
+}
+.hero-app-body{
+  padding:24px;
+  min-height:280px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.hero-app-sidebar-row{ display:flex; gap:12px; }
+.hero-app-sidebar{
+  width:140px;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.hero-app-nav-item{
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:12px;
+  color: rgba(255,255,255,.4);
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.hero-app-nav-item.active{
+  background: rgba(124,58,237,.15);
+  color: rgba(167,139,250,.9);
+}
+.hero-app-nav-icon{
+  width:14px; height:14px;
+  border-radius:4px;
+  background: rgba(255,255,255,.08);
+}
+.hero-app-nav-item.active .hero-app-nav-icon{ background: rgba(124,58,237,.3); }
+.hero-app-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.hero-app-line{
+  height:10px;
+  border-radius:6px;
+  background: rgba(255,255,255,.04);
+}
+.hero-app-line.w80{ width:80%; }
+.hero-app-line.w60{ width:60%; }
+.hero-app-line.w90{ width:90%; }
+.hero-app-line.w45{ width:45%; }
+.hero-app-line.bright{
+  background: linear-gradient(90deg, rgba(124,58,237,.15) 0%, rgba(96,165,250,.1) 100%);
+  height:12px;
+}
+.hero-app-card-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:4px;
+}
+.hero-app-card{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02);
+}
+.hero-app-card-dot{
+  width:24px; height:24px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+.hero-app-card:nth-child(1) .hero-app-card-dot{ background: linear-gradient(135deg, rgba(167,139,250,.3), rgba(124,58,237,.2)); }
+.hero-app-card:nth-child(2) .hero-app-card-dot{ background: linear-gradient(135deg, rgba(96,165,250,.3), rgba(59,130,246,.2)); }
+.hero-app-card-line{
+  height:6px;
+  border-radius:4px;
+  background: rgba(255,255,255,.05);
+  margin-top:5px;
+}
+.hero-app-card-line.short{ width:60%; }
+
+/* Glow behind app frame */
+.hero-app-glow{
+  position:absolute;
+  top:50%; left:50%;
+  width:110%; height:110%;
+  transform:translate(-50%,-50%);
+  border-radius:20px;
+  background: conic-gradient(from 180deg, rgba(124,58,237,.12), rgba(96,165,250,.08), rgba(6,182,212,.06), rgba(124,58,237,.12));
+  filter:blur(40px);
+  z-index:-1;
+  animation: glowRotate 12s linear infinite;
+}
+@keyframes glowRotate{
+  from{ transform:translate(-50%,-50%) rotate(0deg); }
+  to{ transform:translate(-50%,-50%) rotate(360deg); }
+}
+
+/* ━━━ LOGO STRIP (DARK CONTINUATION) ━━━ */
+.logos-dark{
+  background: linear-gradient(180deg, #0a0a1a 0%, #0d0b1e 100%);
+  padding:36px 0 44px;
+  position:relative;
+  overflow:hidden;
+}
+.logos-dark::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,.2), rgba(96,165,250,.15), transparent);
+}
+.logos-dark-label{
+  text-align:center;
+  font-size:13px;
+  font-weight:500;
+  color: rgba(255,255,255,.3);
+  margin-bottom:20px;
+  letter-spacing:.04em;
+}
+.logos-dark-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  flex-wrap:wrap;
+}
+.logos-dark-row .logo-name{
+  font-size:17px;
+  font-weight:750;
+  color: rgba(255,255,255,.25);
+  letter-spacing:.02em;
+  transition: color .3s ease;
+  cursor:default;
+}
+.logos-dark-row .logo-name:hover{ color: rgba(255,255,255,.5); }
+
+/* ━━━ FEATURE SHOWCASE ━━━ */
+.showcase{
+  padding:90px 0;
+  background: var(--bg);
+  position:relative;
+}
+.showcase::before{
+  content:'';
+  position:absolute;
+  top:0; left:50%;
+  transform:translateX(-50%);
+  width:min(600px,80%);
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,.15), transparent);
+}
+.showcase-header{
+  text-align:center;
+  margin-bottom:48px;
+}
+.showcase-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:16px;
+}
+.showcase-title{
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight:850;
+  letter-spacing:-0.03em;
+  line-height:1.08;
+  margin:0;
+  background: linear-gradient(135deg, #0b0b0b 0%, #4a1463 80%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.showcase-subtitle{
+  font-size:17px;
+  color: var(--muted);
+  margin-top:14px;
+  max-width:55ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Hero feature card (big split) */
+.showcase-hero-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(124,58,237,.1);
+  background: linear-gradient(135deg, #faf8ff 0%, #f0ecff 100%);
+  box-shadow: 0 20px 60px rgba(124,58,237,.06), 0 4px 12px rgba(0,0,0,.03);
+  margin-bottom:20px;
+  transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
+}
+.showcase-hero-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 28px 70px rgba(124,58,237,.1), 0 6px 16px rgba(0,0,0,.04);
+}
+.shc-copy{
+  padding:40px 36px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.shc-kicker{
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:700;
+  color: #7c3aed;
+  margin-bottom:14px;
+}
+.shc-title{
+  font-size:26px;
+  font-weight:850;
+  letter-spacing:-0.02em;
+  line-height:1.15;
+  margin:0;
+}
+.shc-text{
+  margin-top:12px;
+  font-size:15px;
+  line-height:1.6;
+  color: var(--muted);
+}
+.shc-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:20px;
+  font-weight:700;
+  font-size:14px;
+  color:#7c3aed;
+  transition: gap .22s ease, color .22s ease;
+}
+.shc-link:hover{ gap:10px; color:#6d28d9; }
+.shc-visual{
+  background: linear-gradient(135deg, rgba(124,58,237,.06) 0%, rgba(96,165,250,.04) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:320px;
+  position:relative;
+  overflow:hidden;
+}
+.shc-icon-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.shc-float-icon{
+  width:48px; height:48px;
+  border-radius:14px;
+  display:grid; place-items:center;
+  border:1px solid rgba(124,58,237,.08);
+  background: rgba(255,255,255,.8);
+  box-shadow: 0 4px 16px rgba(0,0,0,.04);
+  animation: floatIcon 3s ease-in-out infinite;
+}
+.shc-float-icon:nth-child(2){ animation-delay:.3s; }
+.shc-float-icon:nth-child(3){ animation-delay:.6s; }
+.shc-float-icon:nth-child(4){ animation-delay:.15s; }
+.shc-float-icon:nth-child(5){ animation-delay:.45s; }
+.shc-float-icon:nth-child(6){ animation-delay:.75s; }
+@keyframes floatIcon{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-6px); }
+}
+
+/* 2-up showcase cards */
+.showcase-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:20px;
+}
+.showcase-card{
+  border:1px solid rgba(124,58,237,.08);
+  border-radius:20px;
+  padding:28px;
+  background: linear-gradient(180deg, #fff 0%, rgba(243,229,245,.06) 100%);
+  box-shadow: 0 2px 6px rgba(0,0,0,.02);
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease;
+  position:relative;
+  overflow:hidden;
+}
+.showcase-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6);
+  opacity:0;
+  transition: opacity .3s ease;
+}
+.showcase-card:hover{
+  transform:translateY(-4px);
+  box-shadow: 0 16px 40px rgba(124,58,237,.08), 0 2px 8px rgba(0,0,0,.03);
+  border-color: rgba(124,58,237,.15);
+}
+.showcase-card:hover::before{ opacity:.6; }
+.sc-icon{
+  width:44px; height:44px;
+  border-radius:14px;
+  display:grid; place-items:center;
+  margin-bottom:16px;
+}
+.sc-icon-purple{ background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(167,139,250,.1)); color:#7c3aed; }
+.sc-icon-blue{ background: linear-gradient(135deg, rgba(59,130,246,.12), rgba(96,165,250,.1)); color:#3b82f6; }
+.sc-title{ font-weight:800; font-size:17px; }
+.sc-text{ margin-top:8px; font-size:14px; line-height:1.55; color: var(--muted); }
+
+/* 3-up trio feature cards */
+.showcase-trio{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.trio-card{
+  border:1px solid rgba(124,58,237,.07);
+  border-radius:20px;
+  padding:28px 24px;
+  background: linear-gradient(180deg, #fff 0%, rgba(248,246,255,.5) 100%);
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease;
+}
+.trio-card:hover{
+  transform:translateY(-5px);
+  box-shadow: 0 14px 36px rgba(124,58,237,.08);
+  border-color: rgba(124,58,237,.16);
+}
+.trio-icon{
+  width:42px; height:42px;
+  border-radius:13px;
+  display:grid; place-items:center;
+  margin-bottom:16px;
+  transition: transform .25s ease;
+}
+.trio-card:hover .trio-icon{ transform:scale(1.1); }
+.trio-card:nth-child(1) .trio-icon{ background: linear-gradient(135deg, rgba(96,165,250,.15), rgba(147,197,253,.1)); color:#2563eb; }
+.trio-card:nth-child(2) .trio-icon{ background: linear-gradient(135deg, rgba(167,139,250,.15), rgba(196,181,253,.1)); color:#7c3aed; }
+.trio-card:nth-child(3) .trio-icon{ background: linear-gradient(135deg, rgba(52,211,153,.15), rgba(110,231,183,.1)); color:#059669; }
+.trio-title{ font-weight:800; font-size:16px; }
+.trio-text{ margin-top:8px; font-size:14px; line-height:1.5; color: var(--muted); }
+
+/* ━━━ APPS SECTION ━━━ */
+.apps-section{
+  padding:90px 0;
+  background: linear-gradient(180deg, #faf8ff 0%, #f5f0ff 40%, #eef4ff 100%);
+  position:relative;
+}
+.apps-header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.app-grid-v2{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.app-card-v2{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  border:1px solid rgba(124,58,237,.06);
+  border-radius:18px;
+  padding:20px;
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(10px);
+  transition: transform .28s cubic-bezier(.16,1,.3,1), box-shadow .28s ease, border-color .28s ease, background .28s ease;
+}
+.app-card-v2:hover{
+  transform:translateY(-3px);
+  box-shadow: 0 12px 32px rgba(124,58,237,.08);
+  border-color: rgba(124,58,237,.14);
+  background: rgba(255,255,255,.9);
+}
+.app-ic-v2{
+  width:44px; height:44px;
+  min-width:44px;
+  border-radius:13px;
+  display:grid; place-items:center;
+  font-weight:800;
+  font-size:16px;
+  transition: transform .25s ease;
+}
+.app-card-v2:hover .app-ic-v2{ transform:scale(1.08); }
+.app-card-v2:nth-child(1) .app-ic-v2{ background: linear-gradient(135deg, rgba(167,139,250,.18), rgba(124,58,237,.1)); color:#7c3aed; }
+.app-card-v2:nth-child(2) .app-ic-v2{ background: linear-gradient(135deg, rgba(96,165,250,.18), rgba(59,130,246,.1)); color:#2563eb; }
+.app-card-v2:nth-child(3) .app-ic-v2{ background: linear-gradient(135deg, rgba(52,211,153,.18), rgba(16,185,129,.1)); color:#059669; }
+.app-card-v2:nth-child(4) .app-ic-v2{ background: linear-gradient(135deg, rgba(251,146,60,.18), rgba(234,88,12,.1)); color:#ea580c; }
+.app-card-v2:nth-child(5) .app-ic-v2{ background: linear-gradient(135deg, rgba(244,114,182,.18), rgba(219,39,119,.1)); color:#db2777; }
+.app-card-v2:nth-child(6) .app-ic-v2{ background: linear-gradient(135deg, rgba(74,222,128,.18), rgba(34,197,94,.1)); color:#16a34a; }
+.app-name{ font-weight:800; font-size:15px; }
+.app-desc{ font-size:13px; color: var(--muted); margin-top:2px; }
+
+/* Savings banner */
+.savings-banner{
+  margin-top:28px;
+  border:1px solid rgba(124,58,237,.1);
+  border-radius:22px;
+  padding:24px 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,.85) 0%, rgba(248,246,255,.6) 50%, rgba(239,246,255,.5) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(124,58,237,.06);
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr auto;
+  gap:16px;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.savings-banner::after{
+  content:'';
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:2px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6, #06b6d4);
+  opacity:.4;
+}
+.sb-stat{
+  padding:14px 16px;
+  border-radius:14px;
+  background: rgba(255,255,255,.6);
+  border:1px solid rgba(124,58,237,.06);
+}
+.sb-label{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color: rgba(124,58,237,.5);
+}
+.sb-value{
+  font-size:28px;
+  font-weight:850;
+  margin-top:4px;
+  background: linear-gradient(135deg, #1a1a2e, #7c3aed);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ━━━ TESTIMONIALS ━━━ */
+.testimonials{
+  padding:90px 0;
+  background: var(--bg);
+}
+.test-header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.test-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.test-card{
+  border:1px solid rgba(124,58,237,.07);
+  border-radius:22px;
+  padding:28px;
+  background: linear-gradient(180deg, #fff 0%, rgba(248,246,255,.3) 100%);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  position:relative;
+  overflow:hidden;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease;
+}
+.test-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; bottom:0;
+  width:3px;
+  border-radius:22px 0 0 22px;
+  background: linear-gradient(180deg, #7c3aed, #3b82f6);
+  opacity:0;
+  transition: opacity .3s ease;
+}
+.test-card:hover{
+  transform:translateY(-5px);
+  box-shadow: 0 16px 44px rgba(124,58,237,.1);
+  border-color: rgba(124,58,237,.15);
+}
+.test-card:hover::before{ opacity:.7; }
+.test-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.test-company{
+  font-weight:850;
+  font-size:16px;
+  background: linear-gradient(135deg, #1a1a2e, #7c3aed);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.test-stars{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#f59e0b;
+}
+.test-quote{
+  font-size:15px;
+  line-height:1.65;
+  color: rgba(11,11,11,.72);
+  flex:1;
+  position:relative;
+  padding-left:20px;
+}
+.test-quote::before{
+  content:'\201C';
+  position:absolute;
+  left:0; top:-4px;
+  font-size:36px;
+  font-family:Georgia,serif;
+  background: linear-gradient(135deg, rgba(124,58,237,.3), rgba(96,165,250,.25));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.test-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:650;
+  font-size:14px;
+  color:#7c3aed;
+  transition: gap .22s ease;
+}
+.test-link:hover{ gap:10px; }
+
+/* ━━━ WORKFLOW STEPS ━━━ */
+.workflow{
+  padding:90px 0;
+  background: linear-gradient(180deg, #faf8ff 0%, #f5f0ff 50%, #eef4ff 100%);
+}
+.workflow-header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.workflow-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.wf-step{
+  border:1px solid rgba(124,58,237,.07);
+  border-radius:22px;
+  padding:28px 22px;
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+  position:relative;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease;
+}
+.wf-step:hover{
+  transform:translateY(-5px);
+  box-shadow: 0 14px 36px rgba(124,58,237,.08);
+  border-color: rgba(124,58,237,.15);
+}
+.wf-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px;
+}
+.wf-num{
+  width:38px; height:38px;
+  min-width:38px;
+  border-radius:999px;
+  display:grid; place-items:center;
+  font-weight:850;
+  font-size:15px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.wf-step:hover .wf-num{ transform:scale(1.12); }
+.wf-step:nth-child(1) .wf-num{ background: linear-gradient(135deg, rgba(167,139,250,.2), rgba(196,181,253,.12)); color:#7c3aed; }
+.wf-step:nth-child(2) .wf-num{ background: linear-gradient(135deg, rgba(96,165,250,.2), rgba(147,197,253,.12)); color:#2563eb; }
+.wf-step:nth-child(3) .wf-num{ background: linear-gradient(135deg, rgba(52,211,153,.2), rgba(110,231,183,.12)); color:#059669; }
+.wf-step:nth-child(4) .wf-num{ background: linear-gradient(135deg, rgba(251,146,60,.2), rgba(253,186,116,.12)); color:#ea580c; }
+.wf-connector{
+  flex:1;
+  height:2px;
+  background: repeating-linear-gradient(90deg, rgba(124,58,237,.18) 0, rgba(124,58,237,.18) 4px, transparent 4px, transparent 8px);
+  border-radius:2px;
+}
+.wf-title{ font-weight:850; font-size:16px; }
+.wf-text{ margin-top:8px; font-size:14px; line-height:1.55; color: var(--muted); }
+
+/* ━━━ FINAL CTA BAND ━━━ */
+.final-cta{
+  margin-top:36px;
+  border:1px solid rgba(124,58,237,.12);
+  border-radius:26px;
+  padding:32px 36px;
+  background: linear-gradient(135deg, rgba(255,255,255,.9) 0%, rgba(248,246,255,.5) 40%, rgba(239,246,255,.4) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 50px rgba(124,58,237,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  position:relative;
+  overflow:hidden;
+  transition: box-shadow .3s ease;
+}
+.final-cta:hover{
+  box-shadow: 0 20px 60px rgba(124,58,237,.12);
+}
+.final-cta::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6, #06b6d4, #8b5cf6);
+  background-size:200% 100%;
+  animation: lineShift 4s linear infinite;
+  opacity:.6;
+}
+.fc-title{ font-weight:850; font-size:22px; }
+.fc-text{ color: var(--muted); font-size:15px; margin-top:4px; }
+.fc-actions{
+  display:flex;
+  gap:12px;
+  flex-shrink:0;
+}
+.fc-actions .btn{ height:48px; padding:0 24px; border-radius:14px; font-size:15px; }
+
+/* ━━━ RESPONSIVE ━━━ */
+@media (max-width:720px){
+  .hero-dark{ padding:48px 0 40px; }
+  .hero-dark .hero-grid{ grid-template-columns:1fr; gap:32px; }
+  .hero-dark .hero-title{ font-size: clamp(34px,9vw,46px); }
+  .hero-dark .hero-subtitle{ font-size:16px; }
+  .hero-dark .hero-actions{
+    flex-direction:row !important;
+    flex-wrap:wrap;
+  }
+  .hero-dark .hero-actions .btn-hero-primary,
+  .hero-dark .hero-actions .btn-hero-secondary{
+    flex:1;
+    min-width:140px;
+    height:50px;
+    font-size:15px;
+  }
+  .hero-app-sidebar-row{ flex-direction:column; }
+  .hero-app-sidebar{ width:100%; flex-direction:row; flex-wrap:wrap; }
+  .hero-app-card-row{ grid-template-columns:1fr; }
+
+  .logos-dark-row{ gap:20px; }
+  .logos-dark-row .logo-name{ font-size:15px; }
+
+  .showcase{ padding:56px 0; }
+  .showcase-hero-card{ grid-template-columns:1fr; }
+  .shc-visual{ min-height:200px; }
+  .shc-copy{ padding:28px 24px; }
+  .showcase-pair{ grid-template-columns:1fr; }
+  .showcase-trio{ grid-template-columns:1fr; gap:12px; }
+
+  .apps-section{ padding:56px 0; }
+  .app-grid-v2{ grid-template-columns:1fr; gap:10px; }
+  .savings-banner{
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:20px;
+  }
+  .savings-banner .btn{ width:100%; height:50px; }
+
+  .testimonials{ padding:56px 0; }
+  .test-grid{ grid-template-columns:1fr; gap:12px; }
+
+  .workflow{ padding:56px 0; }
+  .workflow-steps{ grid-template-columns:1fr; gap:12px; }
+  .wf-step{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    padding:20px;
+  }
+  .wf-top{ margin-bottom:0; flex-shrink:0; }
+  .wf-connector{ display:none; }
+
+  .final-cta{
+    flex-direction:column;
+    text-align:center;
+    padding:24px 20px;
+    gap:16px;
+  }
+  .fc-actions{
+    width:100%;
+    flex-direction:row;
+  }
+  .fc-actions .btn{
+    flex:1;
+    height:50px;
+  }
+}
+
+@media (max-width:400px){
+  .hero-dark .hero-actions{
+    flex-direction:column !important;
+  }
+  .hero-dark .hero-actions .btn-hero-primary,
+  .hero-dark .hero-actions .btn-hero-secondary{
+    width:100%;
+  }
+  .fc-actions{ flex-direction:column; }
+  .fc-actions .btn{ width:100%; }
+  .logos-dark-row{ gap:14px; }
+}
+</style>
+
+<!-- ━━━ DARK HERO ━━━ -->
+<section class="hero-dark">
+  <div class="hero-line"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-orb hero-orb-4"></div>
+  <div class="hero-orb hero-orb-5"></div>
+
   <div class="container">
-    <header class="section-head" data-reveal>
-      <h2 class="h2">Introducing VaultBook 3.0</h2>
-      <p class="muted">A clean, unified home for notes, documents, projects, and AI assistance.</p>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Introducing VaultBook 3.0
+        </div>
+
+        <h1 class="hero-title">Your workspace.<br>Your rules.</h1>
+
+        <p class="hero-subtitle">
+          VaultBook keeps notes, documents, and research searchable, helps automate projects,
+          and organizes everything under your own lock and key — all offline.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-hero-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook free</a>
+          <a class="btn-hero-secondary" href="{{ '/demo/' | relative_url }}">Request a demo</a>
+        </div>
+
+        <div class="hero-note">
+          <span class="hero-note-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          Works offline. Your content stays on your device.
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="hero-app-glow"></div>
+        <div class="hero-app-frame">
+          <div class="hero-app-bar">
+            <span class="hero-app-dot"></span>
+            <span class="hero-app-dot"></span>
+            <span class="hero-app-dot"></span>
+            <span class="hero-app-bar-title">VaultBook</span>
+          </div>
+          <div class="hero-app-body">
+            <div class="hero-app-sidebar-row">
+              <div class="hero-app-sidebar">
+                <div class="hero-app-nav-item active"><span class="hero-app-nav-icon"></span> Notes</div>
+                <div class="hero-app-nav-item"><span class="hero-app-nav-icon"></span> Projects</div>
+                <div class="hero-app-nav-item"><span class="hero-app-nav-icon"></span> Library</div>
+                <div class="hero-app-nav-item"><span class="hero-app-nav-icon"></span> Search</div>
+              </div>
+              <div class="hero-app-content">
+                <div class="hero-app-line bright w90"></div>
+                <div class="hero-app-line w80"></div>
+                <div class="hero-app-line w60"></div>
+                <div class="hero-app-line w90"></div>
+                <div class="hero-app-line w45"></div>
+                <div class="hero-app-card-row">
+                  <div class="hero-app-card">
+                    <div class="hero-app-card-dot"></div>
+                    <div class="hero-app-card-line"></div>
+                    <div class="hero-app-card-line short"></div>
+                  </div>
+                  <div class="hero-app-card">
+                    <div class="hero-app-card-dot"></div>
+                    <div class="hero-app-card-line"></div>
+                    <div class="hero-app-card-line short"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ LOGO STRIP ━━━ -->
+<section class="logos-dark">
+  <div class="container">
+    <div class="logos-dark-label">Trusted by teams that ship</div>
+    <div class="logos-dark-row">
+      <span class="logo-name">OpenAI</span>
+      <span class="logo-name">Figma</span>
+      <span class="logo-name">Ramp</span>
+      <span class="logo-name">Cursor</span>
+      <span class="logo-name">NVIDIA</span>
+      <span class="logo-name">Vercel</span>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ FEATURE SHOWCASE ━━━ -->
+<section class="showcase" data-reveal>
+  <div class="container">
+    <header class="showcase-header">
+      <div class="showcase-kicker">WHAT'S NEW</div>
+      <h2 class="showcase-title">Introducing VaultBook 3.0</h2>
+      <p class="showcase-subtitle">A clean, unified home for notes, documents, projects, and AI assistance.</p>
     </header>
 
-    <div class="feature-split">
-      <div class="feature-left" data-reveal>
-        <div class="card big">
-          <div class="card-kicker">VaultBook Agent</div>
-          <div class="card-title">Your assistant that actually does the work</div>
-          <div class="card-text muted">
-            Turn uploads into summaries, extract key fields, and build structured notes you can search later.
-          </div>
-          <div class="card-actions">
-            <a class="btn btn-ghost" href="{{ '/vaultbook-ai/' | relative_url }}">Learn about VaultBook AI</a>
-          </div>
-        </div>
-
-        <div class="grid-2" data-reveal>
-          <div class="card">
-            <div class="card-title">Automate repetitive tasks</div>
-            <div class="card-text muted">From renaming imports to creating project templates, keep momentum without tabs.</div>
-          </div>
-          <div class="card">
-            <div class="card-title">Perfect notes, every time</div>
-            <div class="card-text muted">Meeting notes, decisions, and next steps that are easy to share and revisit.</div>
-          </div>
-        </div>
+    <!-- Hero feature card -->
+    <div class="showcase-hero-card" data-reveal>
+      <div class="shc-copy">
+        <div class="shc-kicker">VAULTBOOK AGENT</div>
+        <h3 class="shc-title">Your assistant that actually does the work</h3>
+        <p class="shc-text">Turn uploads into summaries, extract key fields, and build structured notes you can search later.</p>
+        <a class="shc-link" href="{{ '/vaultbook-ai/' | relative_url }}">Learn about VaultBook AI <span>→</span></a>
       </div>
-
-      <div class="feature-right" data-reveal>
-        <div class="shot-frame">
-          <img src="{{ '/assets/img/feature-screenshot-placeholder.svg' | relative_url }}" alt="Feature screenshot placeholder" loading="lazy">
+      <div class="shc-visual">
+        <div class="shc-icon-grid">
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg>
+          </div>
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+          </div>
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="shc-float-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="feature-grid" data-reveal>
-      <div class="mini">
-        <div class="mini-ic">{% include icon.html name="search" %}</div>
-        <div class="mini-title">One search for everything</div>
-        <div class="mini-text muted">Find notes, PDFs, docs, spreadsheets, and attachments across your library.</div>
+    <!-- 2-up cards -->
+    <div class="showcase-pair" data-reveal>
+      <div class="showcase-card">
+        <div class="sc-icon sc-icon-purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+        </div>
+        <div class="sc-title">Automate repetitive tasks</div>
+        <p class="sc-text">From renaming imports to creating project templates, keep momentum without switching tabs.</p>
       </div>
-      <div class="mini">
-        <div class="mini-ic">{% include icon.html name="lock" %}</div>
-        <div class="mini-title">Secure and offline-first</div>
-        <div class="mini-text muted">Protect entries with passwords and encryption, then keep working without Wi‑Fi.</div>
+      <div class="showcase-card">
+        <div class="sc-icon sc-icon-blue">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="sc-title">Perfect notes, every time</div>
+        <p class="sc-text">Meeting notes, decisions, and next steps that are easy to share and revisit anytime.</p>
       </div>
-      <div class="mini">
-        <div class="mini-ic">{% include icon.html name="brain" %}</div>
-        <div class="mini-title">Your second brain</div>
-        <div class="mini-text muted">Organize research with labels, links, related posts, and structured pages.</div>
+    </div>
+
+    <!-- 3-up mini feature cards -->
+    <div class="showcase-trio" data-reveal>
+      <div class="trio-card">
+        <div class="trio-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="trio-title">One search for everything</div>
+        <p class="trio-text">Find notes, PDFs, docs, spreadsheets, and attachments across your library.</p>
+      </div>
+      <div class="trio-card">
+        <div class="trio-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="trio-title">Secure and offline-first</div>
+        <p class="trio-text">Protect entries with passwords and encryption, then keep working without Wi‑Fi.</p>
+      </div>
+      <div class="trio-card">
+        <div class="trio-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a8 8 0 0 0-8 8 8 8 0 0 0 2.3 5.7L12 22l5.7-6.3A8 8 0 0 0 20 10a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="trio-title">Your second brain</div>
+        <p class="trio-text">Organize research with labels, links, related posts, and structured pages.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section tint">
+<!-- ━━━ APPS & PRICING ━━━ -->
+<section class="apps-section">
   <div class="container">
-    <header class="section-head" data-reveal>
-      <h2 class="h2">More productivity. Fewer tools.</h2>
-      <p class="muted">Bring notes, tasks, and files under one roof, then keep your workflows fast.</p>
+    <header class="apps-header" data-reveal>
+      <div class="showcase-kicker">ALL-IN-ONE</div>
+      <h2 class="showcase-title">More productivity. Fewer tools.</h2>
+      <p class="showcase-subtitle">Bring notes, tasks, and files under one roof, then keep your workflows fast.</p>
     </header>
 
-    <div class="app-grid" data-reveal>
-      <div class="app-card"><div class="app-ic">A</div><div><div class="app-title">AI Search</div><div class="muted">Ask across your library</div></div></div>
-      <div class="app-card"><div class="app-ic">W</div><div><div class="app-title">Writing</div><div class="muted">Docs and templates</div></div></div>
-      <div class="app-card"><div class="app-ic">C</div><div><div class="app-title">Calendar</div><div class="muted">Schedule and reminders</div></div></div>
-      <div class="app-card"><div class="app-ic">P</div><div><div class="app-title">Projects</div><div class="muted">Boards and checklists</div></div></div>
-      <div class="app-card"><div class="app-ic">S</div><div><div class="app-title">Search</div><div class="muted">OCR and indexing</div></div></div>
-      <div class="app-card"><div class="app-ic">F</div><div><div class="app-title">Files</div><div class="muted">Attach and preview</div></div></div>
+    <div class="app-grid-v2" data-reveal>
+      <div class="app-card-v2"><div class="app-ic-v2">A</div><div><div class="app-name">AI Search</div><div class="app-desc">Ask across your library</div></div></div>
+      <div class="app-card-v2"><div class="app-ic-v2">W</div><div><div class="app-name">Writing</div><div class="app-desc">Docs and templates</div></div></div>
+      <div class="app-card-v2"><div class="app-ic-v2">C</div><div><div class="app-name">Calendar</div><div class="app-desc">Schedule and reminders</div></div></div>
+      <div class="app-card-v2"><div class="app-ic-v2">P</div><div><div class="app-name">Projects</div><div class="app-desc">Boards and checklists</div></div></div>
+      <div class="app-card-v2"><div class="app-ic-v2">S</div><div><div class="app-name">Search</div><div class="app-desc">OCR and indexing</div></div></div>
+      <div class="app-card-v2"><div class="app-ic-v2">F</div><div><div class="app-name">Files</div><div class="app-desc">Attach and preview</div></div></div>
     </div>
 
-    <div class="pricing-strip" data-reveal>
-      <div class="ps-item"><div class="ps-k">Teams using</div><div class="ps-v">10</div></div>
-      <div class="ps-item"><div class="ps-k">Monthly using</div><div class="ps-v">$340</div></div>
-      <div class="ps-item"><div class="ps-k">Annual savings</div><div class="ps-v">$4,080</div></div>
+    <div class="savings-banner" data-reveal>
+      <div class="sb-stat"><div class="sb-label">Teams using</div><div class="sb-value">10</div></div>
+      <div class="sb-stat"><div class="sb-label">Monthly using</div><div class="sb-value">$340</div></div>
+      <div class="sb-stat"><div class="sb-label">Annual savings</div><div class="sb-value">$4,080</div></div>
       <a class="btn btn-primary" href="{{ '/pricing/' | relative_url }}">See pricing plans</a>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ━━━ TESTIMONIALS ━━━ -->
+<section class="testimonials">
   <div class="container">
-    <header class="section-head" data-reveal>
-      <h2 class="h2">Trusted by teams that ship</h2>
-      <p class="muted">A calm workspace that makes decisions clearer and work easier to hand off.</p>
+    <header class="test-header" data-reveal>
+      <div class="showcase-kicker">WHAT TEAMS SAY</div>
+      <h2 class="showcase-title">Trusted by teams that ship</h2>
+      <p class="showcase-subtitle">A calm workspace that makes decisions clearer and work easier to hand off.</p>
     </header>
 
-    <div class="quotes" data-reveal>
-      <div class="quote-card">
-        <div class="quote-header">
-          <div class="quote-logo">OpenAI</div>
-          <div class="quote-stars" aria-label="5 stars">★★★★★</div>
+    <div class="test-grid" data-reveal>
+      <div class="test-card">
+        <div class="test-top">
+          <div class="test-company">OpenAI</div>
+          <div class="test-stars" aria-label="5 stars">★★★★★</div>
         </div>
-        <div class="quote-body">
-          <span class="quote-mark" aria-hidden="true">“</span>
-          <div class="quote-text">VaultBook is a single place where research, notes, and decisions stay searchable.</div>
-        </div>
-        <a class="quote-cta" href="{{ '/customer-stories/' | relative_url }}">Read this story <span class="quote-arrow">→</span></a>
+        <div class="test-quote">VaultBook is a single place where research, notes, and decisions stay searchable.</div>
+        <a class="test-link" href="{{ '/customer-stories/' | relative_url }}">Read this story <span>→</span></a>
       </div>
-      <div class="quote-card">
-        <div class="quote-header">
-          <div class="quote-logo">Toyota</div>
-          <div class="quote-stars" aria-label="5 stars">★★★★★</div>
+      <div class="test-card">
+        <div class="test-top">
+          <div class="test-company">Toyota</div>
+          <div class="test-stars" aria-label="5 stars">★★★★★</div>
         </div>
-        <div class="quote-body">
-          <span class="quote-mark" aria-hidden="true">“</span>
-          <div class="quote-text">Teams reduced time spent digging through exports and scattered documents.</div>
-        </div>
-        <a class="quote-cta" href="{{ '/customer-stories/' | relative_url }}">Read this story <span class="quote-arrow">→</span></a>
+        <div class="test-quote">Teams reduced time spent digging through exports and scattered documents.</div>
+        <a class="test-link" href="{{ '/customer-stories/' | relative_url }}">Read this story <span>→</span></a>
       </div>
-      <div class="quote-card">
-        <div class="quote-header">
-          <div class="quote-logo">Vercel</div>
-          <div class="quote-stars" aria-label="5 stars">★★★★★</div>
+      <div class="test-card">
+        <div class="test-top">
+          <div class="test-company">Vercel</div>
+          <div class="test-stars" aria-label="5 stars">★★★★★</div>
         </div>
-        <div class="quote-body">
-          <span class="quote-mark" aria-hidden="true">“</span>
-          <div class="quote-text">Our workflows are simpler because the library is local, fast, and structured.</div>
-        </div>
-        <a class="quote-cta" href="{{ '/customer-stories/' | relative_url }}">Read this story <span class="quote-arrow">→</span></a>
+        <div class="test-quote">Our workflows are simpler because the library is local, fast, and structured.</div>
+        <a class="test-link" href="{{ '/customer-stories/' | relative_url }}">Read this story <span>→</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section tint">
+<!-- ━━━ WORKFLOW STEPS & CTA ━━━ -->
+<section class="workflow">
   <div class="container">
-    <header class="section-head" data-reveal>
-      <h2 class="h2">Let VaultBook handle the busywork</h2>
-      <p class="muted">From brainstorm to organized workspace, with smooth handoffs.</p>
+    <header class="workflow-header" data-reveal>
+      <div class="showcase-kicker">HOW IT WORKS</div>
+      <h2 class="showcase-title">Let VaultBook handle the busywork</h2>
+      <p class="showcase-subtitle">From brainstorm to organized workspace, with smooth handoffs at every stage.</p>
     </header>
 
-    <div class="steps" data-reveal>
-      <div class="step">
-        <div class="step-top">
-          <div class="step-ic">1</div>
-          <div class="step-connector" aria-hidden="true"></div>
+    <div class="workflow-steps" data-reveal>
+      <div class="wf-step">
+        <div class="wf-top">
+          <div class="wf-num">1</div>
+          <div class="wf-connector" aria-hidden="true"></div>
         </div>
-        <div class="step-title">Go from brainstorm to roadmap</div>
-        <div class="step-text muted">Turn ideas into a project page with tasks, owners, and milestones.</div>
+        <div>
+          <div class="wf-title">Go from brainstorm to roadmap</div>
+          <div class="wf-text">Turn ideas into a project page with tasks, owners, and milestones.</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-top">
-          <div class="step-ic">2</div>
-          <div class="step-connector" aria-hidden="true"></div>
+      <div class="wf-step">
+        <div class="wf-top">
+          <div class="wf-num">2</div>
+          <div class="wf-connector" aria-hidden="true"></div>
         </div>
-        <div class="step-title">Turn meetings into action</div>
-        <div class="step-text muted">Capture decisions, pull out next steps, and keep a searchable trail.</div>
+        <div>
+          <div class="wf-title">Turn meetings into action</div>
+          <div class="wf-text">Capture decisions, pull out next steps, and keep a searchable trail.</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-top">
-          <div class="step-ic">3</div>
-          <div class="step-connector" aria-hidden="true"></div>
+      <div class="wf-step">
+        <div class="wf-top">
+          <div class="wf-num">3</div>
+          <div class="wf-connector" aria-hidden="true"></div>
         </div>
-        <div class="step-title">Organize your workspace</div>
-        <div class="step-text muted">Use labels, backlinks, and related posts to keep context attached.</div>
+        <div>
+          <div class="wf-title">Organize your workspace</div>
+          <div class="wf-text">Use labels, backlinks, and related posts to keep context attached.</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-top">
-          <div class="step-ic">4</div>
+      <div class="wf-step">
+        <div class="wf-top">
+          <div class="wf-num">4</div>
         </div>
-        <div class="step-title">Onboard a new hire</div>
-        <div class="step-text muted">Share curated packs of docs and notes so ramp time shrinks.</div>
+        <div>
+          <div class="wf-title">Onboard a new hire</div>
+          <div class="wf-text">Share curated packs of docs and notes so ramp time shrinks.</div>
+        </div>
       </div>
     </div>
 
-    <div class="cta-band" data-reveal>
+    <div class="final-cta" data-reveal>
       <div>
-        <div class="cta-title">Try it now</div>
-        <div class="muted">Install VaultBook and start with one folder. Add the rest when ready.</div>
+        <div class="fc-title">Try it now</div>
+        <div class="fc-text">Install VaultBook and start with one folder. Add the rest when ready.</div>
       </div>
-      <div class="cta-actions">
+      <div class="fc-actions">
         <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Download</a>
         <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Get started</a>
       </div>

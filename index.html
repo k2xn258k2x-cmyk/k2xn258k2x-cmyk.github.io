@@ -372,6 +372,69 @@ body_class: home
   to{ transform:translate(-50%,-50%) rotate(360deg); }
 }
 
+/* ━━━ FEATURE TICKER ━━━ */
+.hero-ticker-wrap{
+  position: relative;
+  padding: 28px 0 0;
+  overflow: hidden;
+}
+.hero-ticker{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.hero-ticker-track{
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: tickerScroll 45s linear infinite;
+  will-change: transform;
+}
+.hero-ticker-track:hover{
+  animation-play-state: paused;
+}
+@keyframes tickerScroll{
+  0%{ transform: translateX(0); }
+  100%{ transform: translateX(-50%); }
+}
+.ht-chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.75);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+.ht-chip:hover{
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.18);
+  color: #fff;
+}
+.ht-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ht-violet{ background: #a78bfa; box-shadow: 0 0 6px rgba(167,139,250,.5); }
+.ht-blue{   background: #60a5fa; box-shadow: 0 0 6px rgba(96,165,250,.5); }
+.ht-teal{   background: #2dd4bf; box-shadow: 0 0 6px rgba(45,212,191,.5); }
+.ht-amber{  background: #fbbf24; box-shadow: 0 0 6px rgba(251,191,36,.5); }
+.ht-rose{   background: #fb7185; box-shadow: 0 0 6px rgba(251,113,133,.5); }
+.ht-green{  background: #4ade80; box-shadow: 0 0 6px rgba(74,222,128,.5); }
+.ht-indigo{ background: #818cf8; box-shadow: 0 0 6px rgba(129,140,248,.5); }
+
 /* ━━━ LOGO STRIP (DARK CONTINUATION) ━━━ */
 .logos-dark{
   background: linear-gradient(180deg, #0a0a1a 0%, #0d0b1e 100%);
@@ -926,6 +989,9 @@ body_class: home
     background-clip:text;
   }
   .hero-dark .hero-subtitle{ font-size:16px; }
+  .hero-ticker-wrap{ padding-top: 20px; }
+  .ht-chip{ padding: 6px 14px; font-size: 12.5px; }
+  .hero-ticker-track{ gap: 8px; }
   .hero-dark .hero-actions{
     flex-direction:row !important;
     flex-wrap:wrap;
@@ -1089,6 +1155,48 @@ body_class: home
 
     </div>
   </div>
+
+  <!-- Feature ticker -->
+  <div class="hero-ticker-wrap">
+    <div class="hero-ticker" aria-label="Feature highlights">
+      <div class="hero-ticker-track">
+        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
+        <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
+        <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
+        <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
+        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
+        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
+        <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
+        <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
+        <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
+        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
+        <!-- duplicate set for seamless loop -->
+        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Rich Text Editor</span>
+        <span class="ht-chip"><span class="ht-dot ht-blue"></span>AES-256 Encryption</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>AI Suggestions</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>Kanban Board</span>
+        <span class="ht-chip"><span class="ht-dot ht-teal"></span>Smart Search &amp; QA</span>
+        <span class="ht-chip"><span class="ht-dot ht-green"></span>Version History</span>
+        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Deep File Indexing</span>
+        <span class="ht-chip"><span class="ht-dot ht-violet"></span>Inline OCR</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Timetable &amp; Calendar</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>PDF Merge &amp; Split</span>
+        <span class="ht-chip"><span class="ht-dot ht-blue"></span>RSS Feed Reader</span>
+        <span class="ht-chip"><span class="ht-dot ht-teal"></span>MP3 Cutter &amp; Joiner</span>
+        <span class="ht-chip"><span class="ht-dot ht-green"></span>Password Generator</span>
+        <span class="ht-chip"><span class="ht-dot ht-indigo"></span>Related Entries AI</span>
+        <span class="ht-chip"><span class="ht-dot ht-amber"></span>Smart Labels</span>
+        <span class="ht-chip"><span class="ht-dot ht-rose"></span>File Explorer</span>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ━━━ LOGO STRIP ━━━ -->

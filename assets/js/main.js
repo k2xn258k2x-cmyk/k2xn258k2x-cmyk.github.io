@@ -2,7 +2,7 @@
   function qs(sel, root){ return (root || document).querySelector(sel); }
   function qsa(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
-  // Scroll reveal
+  // Scroll reveal with staggered delays
   function initReveal(){
     var els = qsa("[data-reveal]");
     if(!("IntersectionObserver" in window)){
@@ -16,7 +16,7 @@
           io.unobserve(e.target);
         }
       });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.06 });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
     els.forEach(function(el){ io.observe(el); });
   }
 
@@ -42,7 +42,6 @@
 
     function clampPanel(panel){
       if(!panel) return;
-      // Reset shift first
       panel.style.setProperty("--mega-shift", "0px");
       requestAnimationFrame(function(){
         var rect = panel.getBoundingClientRect();
@@ -61,9 +60,8 @@
       closeAll();
       btn.setAttribute("aria-expanded", "true");
       if(btn.parentElement) btn.parentElement.classList.add("is-open");
-      // Two-frame open: set display first, then add .open for animation
       panel.style.display = "block";
-      panel.offsetHeight; // force reflow
+      panel.offsetHeight;
       panel.classList.add("open");
       clampPanel(panel);
     }
@@ -86,15 +84,14 @@
       });
     });
 
-    // Close mega menus when hovering other top-level items (Enterprise, Pricing, etc.)
-var closeOnHover = qsa(".nav-link.plain, .nav-cta a, .nav-cta button", root.parentElement || document);
-closeOnHover.forEach(function(el){
-  el.addEventListener("mouseenter", function(){
-    if(window.matchMedia("(hover: hover)").matches){
-      closeAll();
-    }
-  });
-});
+    var closeOnHover = qsa(".nav-link.plain, .nav-cta a, .nav-cta button", root.parentElement || document);
+    closeOnHover.forEach(function(el){
+      el.addEventListener("mouseenter", function(){
+        if(window.matchMedia("(hover: hover)").matches){
+          closeAll();
+        }
+      });
+    });
 
     panels.forEach(function(panel){
       panel.addEventListener("mouseenter", function(){
@@ -131,7 +128,7 @@ closeOnHover.forEach(function(el){
     });
   }
 
-  // Mobile nav
+  // Mobile nav with smooth slide transition
   function initMobileNav(){
     var btn = qs("[data-nav-toggle]");
     var panel = qs("[data-mobile-nav]");
@@ -144,13 +141,21 @@ closeOnHover.forEach(function(el){
       panel.setAttribute("aria-hidden", "false");
       btn.setAttribute("aria-expanded", "true");
       scrim.hidden = false;
+      // Small delay for scrim opacity animation
+      requestAnimationFrame(function(){
+        scrim.style.opacity = "";
+      });
       document.body.style.overflow = "hidden";
     }
+
     function shut(){
       panel.classList.remove("open");
       panel.setAttribute("aria-hidden", "true");
       btn.setAttribute("aria-expanded", "false");
-      scrim.hidden = true;
+      // Wait for slide-out transition before hiding scrim
+      setTimeout(function(){
+        scrim.hidden = true;
+      }, 380);
       document.body.style.overflow = "";
     }
 
@@ -158,8 +163,16 @@ closeOnHover.forEach(function(el){
     if(close) close.addEventListener("click", function(){ shut(); });
     scrim.addEventListener("click", function(){ shut(); });
     document.addEventListener("keydown", function(e){
-      if(e.key === "Escape") shut();
+      if(e.key === "Escape" && panel.classList.contains("open")) shut();
     });
+
+    // Close on resize to desktop
+    var mq = window.matchMedia("(min-width: 721px)");
+    function handleResize(e){
+      if(e.matches && panel.classList.contains("open")) shut();
+    }
+    if(mq.addEventListener) mq.addEventListener("change", handleResize);
+    else if(mq.addListener) mq.addListener(handleResize);
   }
 
   // Reading time for posts

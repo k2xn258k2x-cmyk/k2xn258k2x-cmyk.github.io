@@ -5,10 +5,6 @@
 </a>
 
     <nav class="nav" aria-label="Primary">
-      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobileNav">
-        <span class="nav-toggle-lines" aria-hidden="true"></span>
-        <span class="sr-only">Open menu</span>
-      </button>
 
       <div class="nav-desktop" style="position: relative;">
         <div class="nav-items" data-mega-root style="position: static;">
@@ -245,6 +241,15 @@
         <div class="nav-cta">
           <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Get VaultBook</a>
         </div>
+      </div>
+
+      <!-- Mobile: CTA + burger, pushed to far right -->
+      <div class="nav-mobile-right">
+        <a class="btn btn-primary nav-mobile-cta-btn" href="{{ '/get-started/' | relative_url }}">Get VaultBook</a>
+        <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="mobileNav">
+          <span class="nav-toggle-lines" aria-hidden="true"></span>
+          <span class="sr-only">Open menu</span>
+        </button>
       </div>
 
       <!-- ━━━ MOBILE NAV ━━━ -->

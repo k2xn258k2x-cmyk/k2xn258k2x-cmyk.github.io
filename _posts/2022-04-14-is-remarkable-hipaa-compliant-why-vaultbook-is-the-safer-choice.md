@@ -1,7 +1,7 @@
 ---
 title: "Is reMarkable HIPAA Compliant? Why VaultBook Is the Safer Choice for Healthcare Professionals"
 description: "reMarkable's cloud-sync architecture creates real compliance risks for clinicians handling protected health information. Here's what healthcare professionals need to know — and why VaultBook is the alternative built for the way sensitive work actually gets done."
-date: 2014-04-14 17:00:00 -0600
+date: 2022-04-14 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
 ---
 

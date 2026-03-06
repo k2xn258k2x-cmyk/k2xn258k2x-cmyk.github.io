@@ -522,7 +522,7 @@ permalink: /use-cases/work/
 
 
 <!-- HERO -->
-<section class="wk-hero">
+<section class="wk-hero hero-dark">
   <div class="wk-particle wk-p1"></div><div class="wk-particle wk-p2"></div>
   <div class="wk-particle wk-p3"></div><div class="wk-particle wk-p4"></div>
   <div class="wk-particle wk-p5"></div><div class="wk-particle wk-p6"></div>

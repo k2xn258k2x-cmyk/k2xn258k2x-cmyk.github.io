@@ -379,10 +379,11 @@ permalink: /use-cases/work/
 /* ── Comparison table ──────────────────────────────────────────── */
 .wk-compare{
   border: 1px solid rgba(206,147,216,.1); border-radius: 22px;
-  overflow: hidden; background: rgba(255,255,255,.75);
+  overflow-x: auto; overflow-y: visible; background: rgba(255,255,255,.75);
+  -webkit-overflow-scrolling: touch;
 }
 .wk-compare-head{
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0; min-width: 500px;
   background: linear-gradient(135deg, rgba(243,229,245,.25), rgba(225,245,254,.2));
   border-bottom: 1px solid rgba(206,147,216,.1);
 }
@@ -395,7 +396,7 @@ permalink: /use-cases/work/
   color: #7b1fa2; -webkit-text-fill-color: #7b1fa2;
 }
 .wk-compare-row{
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; min-width: 500px;
   border-bottom: 1px solid rgba(206,147,216,.07); transition: background .15s ease;
 }
 .wk-compare-row:last-child{ border-bottom: none; }

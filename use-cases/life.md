@@ -138,6 +138,8 @@ permalink: /use-cases/life/
 .md5{background:linear-gradient(135deg,rgba(159,168,218,.22),rgba(197,202,233,.2))}
 .md6{background:linear-gradient(135deg,rgba(165,214,167,.22),rgba(200,230,201,.2))}
 .md7{background:linear-gradient(135deg,rgba(129,212,250,.22),rgba(179,229,252,.22))}
+.lf-mampm{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28);display:block}
+.lf-mhour-inner{font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .lf-moment-hour{font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .lf-moment-ampm{display:block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28);margin-top:1px}
 .lf-moment-body{
@@ -391,7 +393,7 @@ permalink: /use-cases/life/
 .svb-n{background:rgba(239,154,154,.14);border:1px solid rgba(239,154,154,.22);color:#ef9a9a}
 
 /* ── Comparison table ───────────────────────────── */
-.lf-cmp{border:1px solid rgba(206,147,216,.1);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.75)}
+.lf-cmp{border:1px solid rgba(206,147,216,.1);border-radius:22px;overflow-x:auto;overflow-y:visible;background:rgba(255,255,255,.75);-webkit-overflow-scrolling:touch}
 .lf-cmp-head{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;background:linear-gradient(135deg,rgba(243,229,245,.25),rgba(225,245,254,.2));border-bottom:1px solid rgba(206,147,216,.1)}
 .lf-cmp-hcell{padding:15px 18px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:rgba(11,11,11,.42)}
 .lf-cmp-hcell.hl{background:linear-gradient(135deg,rgba(244,143,177,.1),rgba(206,147,216,.08));color:#c2185b;-webkit-text-fill-color:#c2185b}
@@ -540,8 +542,10 @@ permalink: /use-cases/life/
   .lf-day{padding:0 2px}
   .lf-day::before{margin-left:15px}
   .lf-moment{gap:10px;padding:14px 0}
-  .lf-moment-left{width:60px;padding-right:4px}
-  .lf-moment-hour{font-size:15px}
+  .lf-moment-left{width:60px!important;padding-right:4px!important;padding-top:10px!important}
+  .lf-mhour-inner{font-size:17px!important}
+  .lf-mampm{font-size:9px!important}
+.lf-moment-hour{font-size:15px}
   .lf-moment-dot{width:36px;height:36px;font-size:15px}
   .lf-moment-body{padding:12px 14px}
   .lf-moment-cat{font-size:9.5px}
@@ -559,6 +563,8 @@ permalink: /use-cases/life/
   .lf-tabs::-webkit-scrollbar{display:none}
   .lf-tab{flex-shrink:0;font-size:12.5px;padding:8px 14px}
   .lf-split{gap:20px}
+  .lf-split>div:first-child{order:2}
+  .lf-split>div:last-child{order:1}
   .lf-split>*:first-child{order:2}
   .lf-split>*:last-child{order:1}
   .lf-visual{padding:18px 16px}
@@ -665,7 +671,7 @@ permalink: /use-cases/life/
   .lf-personas{grid-template-columns:1fr}
   .lf-cmp-head,.lf-cmp-row{grid-template-columns:minmax(110px,1.5fr) minmax(70px,1fr) minmax(70px,1fr)}
   /* day strip: hide time column, just show dot + body */
-  .lf-moment-left{display:none}
+  .lf-moment-left{display:none!important}
   .lf-day::before{margin-left:13px}
 }
 
@@ -771,9 +777,9 @@ permalink: /use-cases/life/
     <div class="lf-day" data-reveal>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">6:30</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">AM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">6:30</div>
+          <span class="lf-moment-ampm lf-mampm">AM</span>
         </div>
         <div class="lf-moment-dot md1" style="flex-shrink:0">📖</div>
         <div class="lf-moment-body">
@@ -785,9 +791,9 @@ permalink: /use-cases/life/
       </div>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">7:15</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">AM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">7:15</div>
+          <span class="lf-moment-ampm lf-mampm">AM</span>
         </div>
         <div class="lf-moment-dot md2" style="flex-shrink:0">🏃</div>
         <div class="lf-moment-body">
@@ -799,9 +805,9 @@ permalink: /use-cases/life/
       </div>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">12:30</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">PM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">12:30</div>
+          <span class="lf-moment-ampm lf-mampm">PM</span>
         </div>
         <div class="lf-moment-dot md3" style="flex-shrink:0">💡</div>
         <div class="lf-moment-body">
@@ -813,9 +819,9 @@ permalink: /use-cases/life/
       </div>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">6:45</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">PM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">6:45</div>
+          <span class="lf-moment-ampm lf-mampm">PM</span>
         </div>
         <div class="lf-moment-dot md4" style="flex-shrink:0">🍛</div>
         <div class="lf-moment-body">
@@ -827,9 +833,9 @@ permalink: /use-cases/life/
       </div>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">9:00</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">PM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">9:00</div>
+          <span class="lf-moment-ampm lf-mampm">PM</span>
         </div>
         <div class="lf-moment-dot md5" style="flex-shrink:0">📚</div>
         <div class="lf-moment-body">
@@ -841,9 +847,9 @@ permalink: /use-cases/life/
       </div>
 
       <div class="lf-moment">
-        <div style="width:100px;flex-shrink:0;text-align:right;padding-right:8px;padding-top:14px">
-          <div class="lf-moment-hour" style="font-size:22px;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#f48fb1,#ce93d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">10:30</div>
-          <span class="lf-moment-ampm" style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(11,11,11,.28)">PM</span>
+        <div class="lf-moment-left">
+          <div class="lf-moment-hour lf-mhour-inner">10:30</div>
+          <span class="lf-moment-ampm lf-mampm">PM</span>
         </div>
         <div class="lf-moment-dot md6" style="flex-shrink:0">🌙</div>
         <div class="lf-moment-body">

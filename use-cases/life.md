@@ -71,7 +71,7 @@ permalink: /use-cases/life/
   color:rgba(255,255,255,.5);line-height:1.7;
   position:relative;z-index:1;
 }
-.lf-hero-actions{
+.lf-hero .hero-actions{
   display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
   margin-top:40px;position:relative;z-index:1;
 }
@@ -536,9 +536,9 @@ permalink: /use-cases/life/
       </span>
     </h1>
     <p class="lf-hero-sub">Journal. Track your health. Capture travel. Manage money. Pursue every hobby. Build the second brain you've always needed — private, offline, and entirely yours.</p>
-    <div class="lf-hero-actions">
-      <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Download VaultBook</a>
-      <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.18)" href="{{ '/pricing/' | relative_url }}">See Plus &amp; Pro</a>
+    <div class="hero-actions">
+      <a class="btn-hero-primary" href="{{ '/get-started/' | relative_url }}">Download VaultBook</a>
+      <a class="btn-hero-secondary" href="{{ '/pricing/' | relative_url }}">See Plus &amp; Pro</a>
     </div>
 
     <div class="lf-pill-strip">

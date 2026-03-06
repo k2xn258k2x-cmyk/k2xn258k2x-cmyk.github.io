@@ -7,7 +7,9 @@ permalink: /blog/:year/:month/:day/:title/
 markdown: kramdown
 
 # Build settings
-plugins: []
+plugins:
+  - jekyll-sitemap
+
 exclude:
   - README.md
   - LICENSE

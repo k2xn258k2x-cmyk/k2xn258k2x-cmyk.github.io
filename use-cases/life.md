@@ -509,7 +509,7 @@ permalink: /use-cases/life/
 <!-- ═══════════════════════════════════
      HERO
      ═══════════════════════════════════ -->
-<section class="lf-hero">
+<section class="lf-hero hero-dark">
   <div class="lf-orb lf-orb1"></div>
   <div class="lf-orb lf-orb2"></div>
   <div class="lf-orb lf-orb3"></div>

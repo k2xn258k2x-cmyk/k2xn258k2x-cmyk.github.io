@@ -28,7 +28,7 @@ permalink: /use-cases/work/
   transform: translateX(-50%);
   background: radial-gradient(circle, rgba(206,147,216,.13) 0%, rgba(129,212,250,.07) 40%, transparent 68%);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 .wk-hero::after{
   content: '';
@@ -38,13 +38,13 @@ permalink: /use-cases/work/
   bottom: -200px; right: -80px;
   background: radial-gradient(circle, rgba(128,203,196,.08) 0%, transparent 65%);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 .wk-particle{
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 .wk-p1{ width:6px;height:6px;background:rgba(206,147,216,.45);top:22%;left:9%; animation:wk-float 5s ease-in-out infinite; }
 .wk-p2{ width:4px;height:4px;background:rgba(129,212,250,.45);top:38%;right:12%; animation:wk-float 6.5s ease-in-out 1s infinite; }
@@ -94,7 +94,7 @@ permalink: /use-cases/work/
   line-height: 1.65;
   position: relative; z-index: 1;
 }
-.wk-hero-actions{
+.wk-hero .hero-actions{
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -530,9 +530,9 @@ permalink: /use-cases/work/
     <div class="wk-hero-badge">💼 VaultBook for Work</div>
     <h1 class="wk-hero-title">Your work knowledge,<br><span class="wk-grad">finally searchable.</span></h1>
     <p class="wk-hero-sub">Capture decisions, index files, protect sensitive data, and find anything you've ever written — from a single file that runs entirely on your machine. No cloud. No subscriptions eating your notes.</p>
-    <div class="wk-hero-actions">
-      <a class="btn btn-primary" href="{{ '/get-started/' | relative_url }}">Download VaultBook</a>
-      <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.2)" href="{{ '/tours/' | relative_url }}">See it in action</a>
+    <div class="hero-actions">
+      <a class="btn-hero-primary" href="{{ '/get-started/' | relative_url }}">Download VaultBook</a>
+      <a class="btn-hero-secondary" href="{{ '/tours/' | relative_url }}">See it in action</a>
     </div>
     <div class="wk-hero-stats">
       <div class="wk-hstat"><div class="wk-hstat-n">73%</div><div class="wk-hstat-l">faster document retrieval</div></div>

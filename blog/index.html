@@ -385,7 +385,7 @@ permalink: /blog/
 <!-- ════════════════════════════════════════════════════════════════
      OLDER POSTS GRID
      ════════════════════════════════════════════════════════════════ -->
-{% assign older = site.posts | slice: 1, 20 %}
+{% assign older = site.posts | slice: 1, 9999 %}
 {% if older.size > 0 %}
 <section class="bl-section">
   <div class="container" data-reveal>

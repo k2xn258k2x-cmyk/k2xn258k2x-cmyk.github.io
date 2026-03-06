@@ -388,8 +388,8 @@ permalink: /blog/
 {% assign older = site.posts | slice: 1, 9999 %}
 {% if older.size > 0 %}
 <section class="bl-section">
-  <div class="container" data-reveal>
-    <div class="bl-section-label">More Posts</div>
+  <div class="container">
+    <div class="bl-section-label" data-reveal>More Posts</div>
     <div class="bl-grid">
 
       {% for post in older %}

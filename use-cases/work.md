@@ -28,6 +28,7 @@ permalink: /use-cases/work/
   transform: translateX(-50%);
   background: radial-gradient(circle, rgba(206,147,216,.13) 0%, rgba(129,212,250,.07) 40%, transparent 68%);
   pointer-events: none;
+  z-index: 0;
 }
 .wk-hero::after{
   content: '';
@@ -37,11 +38,13 @@ permalink: /use-cases/work/
   bottom: -200px; right: -80px;
   background: radial-gradient(circle, rgba(128,203,196,.08) 0%, transparent 65%);
   pointer-events: none;
+  z-index: 0;
 }
 .wk-particle{
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  z-index: 0;
 }
 .wk-p1{ width:6px;height:6px;background:rgba(206,147,216,.45);top:22%;left:9%; animation:wk-float 5s ease-in-out infinite; }
 .wk-p2{ width:4px;height:4px;background:rgba(129,212,250,.45);top:38%;right:12%; animation:wk-float 6.5s ease-in-out 1s infinite; }

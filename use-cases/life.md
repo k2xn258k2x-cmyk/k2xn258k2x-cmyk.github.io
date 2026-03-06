@@ -53,9 +53,10 @@ permalink: /use-cases/life/
   display:block;position:absolute;left:0;right:0;
   background:linear-gradient(135deg,#f48fb1 0%,#ce93d8 40%,#81d4fa 75%,#ffcc80 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  opacity:0;
   animation:lf-cw-anim 12s steps(1) infinite;
 }
-.lf-cw:nth-child(1){animation-delay:0s}
+.lf-cw:nth-child(1){opacity:1;animation-delay:0s}
 .lf-cw:nth-child(2){animation-delay:4s}
 .lf-cw:nth-child(3){animation-delay:8s}
 @keyframes lf-cw-anim{

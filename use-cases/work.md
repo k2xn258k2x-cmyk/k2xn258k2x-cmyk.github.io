@@ -94,14 +94,7 @@ permalink: /use-cases/work/
   line-height: 1.65;
   position: relative; z-index: 1;
 }
-.wk-hero .hero-actions{
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 36px;
-  position: relative; z-index: 1;
-}
+
 .wk-hero-stats{
   display: flex;
   justify-content: center;
@@ -517,6 +510,37 @@ permalink: /use-cases/work/
   .wk-compare-head, .wk-compare-row{ grid-template-columns: 1.5fr 1fr 1fr; }
   .wk-hero-stats{ gap: 20px; padding-top: 28px; margin-top: 36px; }
   .wk-hstat-n{ font-size: 28px; }
+}
+
+/* hero button styles (from index.html — not in global CSS) */
+.wk-hero .hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  justify-content:center;
+  margin-top:40px;position:relative;z-index:1;
+}
+.wk-hero .hero-actions .btn-hero-primary{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:48px;padding:0 28px;border-radius:12px;
+  background:linear-gradient(135deg,#7c3aed 0%,#6d28d9 50%,#4f46e5 100%);
+  color:#fff;font-weight:700;font-size:15.5px;border:none;
+  box-shadow:0 0 0 1px rgba(124,58,237,.4),0 4px 20px rgba(124,58,237,.3),inset 0 1px 0 rgba(255,255,255,.15);
+  transition:transform .22s cubic-bezier(.16,1,.3,1),box-shadow .22s ease;
+  letter-spacing:.01em;text-decoration:none;
+}
+.wk-hero .hero-actions .btn-hero-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px rgba(124,58,237,.5),0 8px 30px rgba(124,58,237,.4),inset 0 1px 0 rgba(255,255,255,.2);
+}
+.wk-hero .hero-actions .btn-hero-secondary{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:48px;padding:0 28px;border-radius:12px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.8);font-weight:650;font-size:15.5px;
+  backdrop-filter:blur(8px);text-decoration:none;
+  transition:transform .22s cubic-bezier(.16,1,.3,1),background .22s ease,border-color .22s ease;
+}
+.wk-hero .hero-actions .btn-hero-secondary:hover{
+  transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);
 }
 </style>
 

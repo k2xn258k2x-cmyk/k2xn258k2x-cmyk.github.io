@@ -473,32 +473,200 @@ permalink: /use-cases/life/
 .lf-fqi[open] .lf-fchev{transform:rotate(180deg)}
 .lf-fbody{padding:0 22px 18px;font-size:14px;color:rgba(11,11,11,.58);line-height:1.7}
 
-/* ── Responsive ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — LIFE PAGE
+   ═══════════════════════════════════════════════════ */
+
+/* Tablet ≤1080px */
 @media(max-width:1080px){
   .lf-cats{grid-template-columns:repeat(2,1fr)}
   .lf-filgrid{grid-template-columns:repeat(2,1fr)}
   .lf-personas{grid-template-columns:1fr 1fr}
   .lf-cmp-head,.lf-cmp-row{grid-template-columns:2fr 1fr 1fr 1fr}
   .lf-cmp-hcell:last-child,.lf-cmp-cell:last-child{display:none}
-}
-@media(max-width:860px){
-  .lf-split{grid-template-columns:1fr}
-  .lf-priv-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}
   .lf-quotes{grid-template-columns:1fr}
   .lf-quote.span2{grid-template-columns:1fr}
-  .lf-day::before{margin-left:19px}
-  .lf-hero-stats{gap:24px}
 }
+
+/* Tablet narrow ≤860px */
+@media(max-width:860px){
+  .lf-split{grid-template-columns:1fr}
+  .lf-split>*:first-child{order:2}  /* visual below text */
+  .lf-split>*:last-child{order:1}
+  .lf-priv-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+  .lf-hero-stats{gap:24px}
+  .lf-moment{gap:14px}
+  .lf-moment-dot{width:40px;height:40px;font-size:17px}
+  .lf-sec-dark{margin-top:24px}
+}
+
+/* Mobile ≤640px */
 @media(max-width:640px){
-  .lf-cats{grid-template-columns:1fr;max-width:400px;margin:0 auto}
-  .lf-personas{grid-template-columns:1fr;max-width:480px;margin:0 auto}
-  .lf-filgrid{grid-template-columns:1fr 1fr}
-  .lf-hero{padding:72px 0 60px}
-  .lf-moment-hour{font-size:17px}
-  .lf-hero-stats{gap:18px;padding-top:28px;margin-top:36px}
-  .lf-hs-n{font-size:28px}
-  .lf-cmp-head,.lf-cmp-row{grid-template-columns:1.6fr 1fr 1fr}
+  /* ── Hero ── */
+  .lf-hero{padding:56px 0 44px}
+  .lf-hero-badge{font-size:10px;padding:5px 14px;margin-bottom:18px}
+  .lf-hero-title{font-size:clamp(30px,9vw,46px);letter-spacing:-0.038em;line-height:1.06}
+  .lf-hero-sub{font-size:14.5px;margin-top:16px}
+  .lf-hero .hero-actions{
+    flex-direction:column;align-items:stretch;
+    gap:10px;margin-top:28px;padding:0 2px
+  }
+  .lf-hero .hero-actions .btn-hero-primary,
+  .lf-hero .hero-actions .btn-hero-secondary{
+    width:100%;justify-content:center;height:50px;font-size:15px
+  }
+  .lf-hero-stats{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:16px;margin-top:32px;padding-top:24px
+  }
+  .lf-hs-n{font-size:24px}
+  .lf-hs-l{font-size:10px}
+  /* pill strip — horizontal scroll */
+  .lf-pill-strip{
+    overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    gap:6px;margin-top:28px;padding-top:24px;padding-bottom:4px
+  }
+  .lf-pill-strip::-webkit-scrollbar{display:none}
+  .lf-pill{flex-shrink:0;font-size:11.5px;padding:6px 12px}
+
+  /* ── Categories ── */
+  .lf-cats{grid-template-columns:1fr}
+  .lf-cat{padding:20px 18px}
+  .lf-cat-title{font-size:15px}
+  .lf-cat-text{font-size:12.5px}
+
+  /* ── Day-in-a-life strip ── */
+  .lf-day{padding:0 2px}
+  .lf-day::before{margin-left:15px}
+  .lf-moment{gap:10px;padding:14px 0}
+  .lf-moment-left{width:60px;padding-right:4px}
+  .lf-moment-hour{font-size:15px}
+  .lf-moment-dot{width:36px;height:36px;font-size:15px}
+  .lf-moment-body{padding:12px 14px}
+  .lf-moment-cat{font-size:9.5px}
+  .lf-moment-title{font-size:14px}
+  .lf-moment-text{font-size:12.5px}
+  .lf-moment-chips{gap:4px;margin-top:7px}
+  .lf-chip{font-size:9.5px;padding:2px 7px}
+
+  /* ── Workflow tabs ── */
+  .lf-tabs{
+    overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    gap:6px;padding-bottom:4px
+  }
+  .lf-tabs::-webkit-scrollbar{display:none}
+  .lf-tab{flex-shrink:0;font-size:12.5px;padding:8px 14px}
+  .lf-split{gap:20px}
+  .lf-split>*:first-child{order:2}
+  .lf-split>*:last-child{order:1}
+  .lf-visual{padding:18px 16px}
+  .lf-ptitle{font-size:clamp(19px,5.5vw,24px)}
+  .lf-pbody{font-size:13.5px}
+  .lf-steps{gap:10px;margin-top:16px}
+  .lf-st{font-size:13.5px}
+  .lf-ss{font-size:12.5px}
+
+  /* ── Search demo ── */
+  .lf-sbox{border-radius:18px}
+  .lf-sbox-head{padding:14px 14px 0}
+  .lf-sbar{padding:10px 12px;gap:8px}
+  .lf-sbar-q{font-size:12px}
+  .lf-sbar-enter{display:none}
+  .lf-stabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0}
+  .lf-stabs::-webkit-scrollbar{display:none}
+  .lf-stab{flex-shrink:0;font-size:11.5px;padding:7px 12px}
+  .lf-sresults{padding:10px 12px 14px}
+  .lf-sr{padding:10px 10px;gap:8px}
+  .lf-sr-ic{width:32px;height:32px;font-size:14px;border-radius:9px}
+  .lf-sr-title{font-size:12px}
+  .lf-sr-src{font-size:10.5px}
+  .lf-sr-excerpt{font-size:11px;display:none}  /* hide excerpt on small screens */
+  .lf-sr-score{font-size:9.5px;padding:2px 6px}
+  .lf-sfooter{flex-direction:column;align-items:flex-start;gap:6px;padding:10px 14px}
+  .lf-sfmeta{font-size:10.5px}
+  .lf-slayers{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:4px}
+  .lf-slayers::-webkit-scrollbar{display:none}
+  .lf-slayer{flex-shrink:0}
+
+  /* ── File index ── */
+  .lf-filgrid{grid-template-columns:1fr 1fr;gap:8px}
+  .lf-filcard{padding:16px 12px;border-radius:14px}
+  .lf-filic{font-size:24px;margin-bottom:8px}
+  .lf-filtype{font-size:12.5px}
+  .lf-filhow{font-size:11px}
+  .lf-filwhat{font-size:11px;margin-top:6px}
+  .lf-filbadge{font-size:9px;margin-top:8px}
+
+  /* ── Privacy ── */
+  .lf-priv-grid{max-width:100%}
+  .lf-priv-card{padding:22px 18px;border-radius:18px}
+  .lf-priv-ic{font-size:32px;margin-bottom:10px}
+  .lf-priv-title{font-size:15.5px}
+  .lf-priv-text{font-size:13px}
+  .lf-sec-dark{padding:22px 18px;border-radius:18px}
+  .lf-sv{padding:10px 12px;gap:8px}
+  .lf-sv-label{font-size:12px}
+  .lf-sv-sub{font-size:10px}
+  .lf-sv-badge{width:20px;height:20px;font-size:10px}
+
+  /* ── Comparison table ── */
+  .lf-cmp{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}
+  .lf-cmp-head,.lf-cmp-row{
+    grid-template-columns:minmax(130px,1.7fr) minmax(78px,1fr) minmax(78px,1fr);
+    min-width:330px
+  }
   .lf-cmp-hcell:nth-child(4),.lf-cmp-cell:nth-child(4){display:none}
+  .lf-cmp-cell{padding:10px 9px;font-size:11.5px}
+  .lf-cmp-hcell{padding:10px 9px;font-size:9.5px}
+  .lf-cmp-cell.fc{font-size:12px}
+
+  /* ── Timeline ── */
+  .lf-tl::before{left:18px}
+  .lf-tli{gap:12px;margin-bottom:18px}
+  .lf-tldot{width:42px;height:42px;font-size:17px}
+  .lf-tlbody{padding:14px 16px;border-radius:15px}
+  .lf-tlperiod{font-size:9.5px}
+  .lf-tltitle{font-size:14.5px}
+  .lf-tltext{font-size:12.5px;margin-top:4px}
+  .lf-tlchips{gap:4px;margin-top:7px}
+  .lf-tlchip{font-size:9.5px;padding:2px 8px}
+
+  /* ── Personas ── */
+  .lf-personas{grid-template-columns:1fr}
+  .lf-persona{padding:22px 18px;border-radius:18px}
+  .lf-pa{width:48px;height:48px;font-size:20px;margin-bottom:10px}
+  .lf-pname{font-size:15px}
+  .lf-pquote{font-size:13px;padding:10px 12px;margin-bottom:10px}
+  .lf-puse{font-size:12.5px}
+
+  /* ── Testimonials ── */
+  .lf-quotes{grid-template-columns:1fr}
+  .lf-quote{padding:22px 18px;border-radius:18px}
+  .lf-qmark{font-size:44px;margin-bottom:8px}
+  .lf-qtext{font-size:13.5px;line-height:1.65}
+  .lf-qname{font-size:13px}
+  .lf-qvisual{padding:16px;margin-top:20px}
+
+  /* ── FAQ ── */
+  .lf-fqi summary{padding:14px 16px;font-size:13.5px}
+  .lf-fbody{padding:0 16px 14px;font-size:13px;line-height:1.65}
+  .lf-fchev{width:20px;height:20px;font-size:10px}
+}
+
+/* Small mobile ≤400px */
+@media(max-width:400px){
+  .lf-hero-title{font-size:28px}
+  .lf-hero-stats{grid-template-columns:1fr 1fr;gap:10px}
+  .lf-hs-n{font-size:22px}
+  .lf-cats{grid-template-columns:1fr}
+  .lf-filgrid{grid-template-columns:1fr}
+  .lf-personas{grid-template-columns:1fr}
+  .lf-cmp-head,.lf-cmp-row{grid-template-columns:minmax(110px,1.5fr) minmax(70px,1fr) minmax(70px,1fr)}
+  /* day strip: hide time column, just show dot + body */
+  .lf-moment-left{display:none}
+  .lf-day::before{margin-left:13px}
 }
 
 /* hero button styles (from index.html — not in global CSS) */

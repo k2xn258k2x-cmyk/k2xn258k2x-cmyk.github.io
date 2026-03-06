@@ -492,24 +492,127 @@ permalink: /use-cases/work/
 .wk-faq-item[open] .wk-faq-chevron{ transform: rotate(180deg); }
 .wk-faq-body{ padding: 0 22px 18px; font-size: 14px; color: rgba(11,11,11,.58); line-height: 1.7; }
 
-/* ── Responsive ────────────────────────────────────────────────── */
-@media(max-width: 960px){
-  .wk-problem-grid{ grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-  .wk-panel{ grid-template-columns: 1fr; }
-  .wk-feat-grid{ grid-template-columns: 1fr 1fr; }
-  .wk-roles{ grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
-  .wk-quotes{ grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
-  .wk-privacy{ grid-template-columns: 1fr; }
-  .wk-compare-head, .wk-compare-row{ grid-template-columns: 2fr 1fr 1fr; }
-  .wk-compare-hcell:last-child, .wk-compare-cell:last-child{ display: none; }
-  .wk-hero-stats{ gap: 28px; }
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — WORK PAGE
+   ═══════════════════════════════════════════════════ */
+
+/* Tablet ≤960px */
+@media(max-width:960px){
+  .wk-hero{ padding:80px 0 64px }
+  .wk-problem-grid{ grid-template-columns:1fr 1fr }
+  .wk-panel{ grid-template-columns:1fr }
+  .wk-feat-grid{ grid-template-columns:1fr 1fr }
+  .wk-roles{ grid-template-columns:1fr 1fr }
+  .wk-quotes{ grid-template-columns:1fr 1fr }
+  .wk-privacy{ grid-template-columns:1fr }
+  .wk-compare-head,.wk-compare-row{ grid-template-columns:2fr 1fr 1fr }
+  .wk-compare-hcell:last-child,.wk-compare-cell:last-child{ display:none }
+  .wk-hero-stats{ gap:28px }
+  /* visual goes below text on tablet */
+  .wk-panel{ display:flex; flex-direction:column-reverse }
+  .wk-panel-visual{ margin-bottom:0 }
 }
-@media(max-width: 640px){
-  .wk-feat-grid{ grid-template-columns: 1fr; }
-  .wk-hero{ padding: 72px 0 56px; }
-  .wk-compare-head, .wk-compare-row{ grid-template-columns: 1.5fr 1fr 1fr; }
-  .wk-hero-stats{ gap: 20px; padding-top: 28px; margin-top: 36px; }
-  .wk-hstat-n{ font-size: 28px; }
+
+/* Mobile ≤640px */
+@media(max-width:640px){
+  /* ── Hero ── */
+  .wk-hero{ padding:56px 0 44px }
+  .wk-hero-badge{ font-size:10px; padding:5px 14px; margin-bottom:18px }
+  .wk-hero-title{ font-size:clamp(30px,9vw,46px); letter-spacing:-0.034em; line-height:1.06 }
+  .wk-hero-sub{ font-size:14.5px; margin-top:16px }
+  .wk-hero .hero-actions{
+    flex-direction:column; align-items:stretch;
+    gap:10px; margin-top:28px; padding:0 2px
+  }
+  .wk-hero .hero-actions .btn-hero-primary,
+  .wk-hero .hero-actions .btn-hero-secondary{
+    width:100%; justify-content:center; height:50px; font-size:15px
+  }
+  .wk-hero-stats{
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:16px; margin-top:32px; padding-top:24px
+  }
+  .wk-hstat-n{ font-size:26px }
+  .wk-hstat-l{ font-size:10px }
+
+  /* ── Problem strip ── */
+  .wk-problem{ padding:40px 0 }
+  .wk-problem-grid{ grid-template-columns:1fr; max-width:100% }
+  .wk-prob-card{ padding:20px 18px }
+  .wk-prob-title{ font-size:15px }
+  .wk-prob-text{ font-size:13.5px }
+
+  /* ── Workflow tabs ── */
+  .wk-tabs{
+    overflow-x:auto; flex-wrap:nowrap; justify-content:flex-start;
+    -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory;
+    padding-bottom:4px; gap:6px;
+    /* hide scrollbar */
+    scrollbar-width:none
+  }
+  .wk-tabs::-webkit-scrollbar{ display:none }
+  .wk-tab{
+    flex-shrink:0; font-size:12.5px; padding:8px 14px;
+    scroll-snap-align:start
+  }
+  .wk-panel{ flex-direction:column; gap:20px }
+  .wk-panel-visual{ padding:20px 18px }
+  .wk-panel-title{ font-size:clamp(19px,6vw,25px) }
+  .wk-panel-text{ font-size:13.5px }
+  .wk-step-title{ font-size:13.5px }
+  .wk-step-text{ font-size:12.5px }
+
+  /* ── Features ── */
+  .wk-feat-grid{ grid-template-columns:1fr }
+  .wk-feat-card{ padding:22px 18px }
+  .wk-feat-title{ font-size:15.5px }
+  .wk-feat-text{ font-size:13px }
+
+  /* ── Roles ── */
+  .wk-roles{ grid-template-columns:1fr; max-width:100% }
+  .wk-role-card{ padding:22px 18px }
+  .wk-role-title{ font-size:16.5px }
+  .wk-role-sub{ font-size:12px }
+  .wk-role-quote{ font-size:13px; padding:11px 13px }
+  .wk-role-li{ font-size:13px }
+
+  /* ── Comparison table — scroll wrapper ── */
+  .wk-compare{
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border-radius:16px
+  }
+  .wk-compare-head,.wk-compare-row{
+    grid-template-columns:minmax(140px,1.8fr) minmax(80px,1fr) minmax(80px,1fr);
+    min-width:340px
+  }
+  .wk-compare-hcell:nth-child(4),.wk-compare-cell:nth-child(4){ display:none }
+  .wk-compare-cell{ padding:11px 10px; font-size:12px }
+  .wk-compare-hcell{ padding:11px 10px; font-size:10px }
+  .wk-compare-cell.feature-cell{ font-size:12.5px }
+
+  /* ── Quotes ── */
+  .wk-quotes{ grid-template-columns:1fr; max-width:100% }
+  .wk-quote{ padding:22px 18px }
+  .wk-quote-text{ font-size:13.5px; line-height:1.65 }
+
+  /* ── Privacy ── */
+  .wk-privacy-title{ font-size:clamp(22px,6.5vw,30px) }
+  .wk-privacy-sub{ font-size:14px }
+  .wk-privacy-visual{ padding:22px 18px }
+  .wk-pv-row{ padding:10px 12px; gap:10px }
+  .wk-pv-label{ font-size:12px }
+  .wk-pv-val{ font-size:10px }
+
+  /* ── FAQ ── */
+  .wk-faq-item summary{ padding:15px 16px; font-size:13.5px }
+  .wk-faq-body{ padding:0 16px 15px; font-size:13px; line-height:1.65 }
+}
+
+/* Small mobile ≤400px */
+@media(max-width:400px){
+  .wk-hero-title{ font-size:28px }
+  .wk-hero-stats{ grid-template-columns:1fr 1fr; gap:12px }
+  .wk-hstat-n{ font-size:22px }
 }
 
 /* hero button styles (from index.html — not in global CSS) */

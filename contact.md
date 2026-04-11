@@ -422,7 +422,7 @@ permalink: /contact/
     <div class="ct-inline-cta" data-reveal>
       <div class="ct-inline-cta-title">Do not overthink it, just say hello.</div>
       <div class="ct-inline-cta-sub">We would rather hear from you with a rough question than not hear from you at all.</div>
-      <a class="btn" href="#ctForm" style="margin-top:20px;display:inline-block;background:linear-gradient(135deg,#9575cd,#7e57c2);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;text-decoration:none;line-height:1;">Send a message</a>
+      <a class="btn" href="#ctForm" style="margin-top:20px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#9575cd,#7e57c2);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;text-decoration:none;line-height:1;">Send a message</a>
     </div>
     </div>
 </section>
@@ -491,7 +491,7 @@ permalink: /contact/
         <div class="muted">Send us a message and we typically reply within a few hours.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn" href="#ctForm" style="background:linear-gradient(135deg,#9575cd,#7e57c2);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;text-decoration:none;display:inline-block;line-height:1;">Send a message</a>
+        <a class="btn" href="#ctForm" style="background:linear-gradient(135deg,#9575cd,#7e57c2);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;line-height:1;">Send a message</a>
         <a class="btn btn-ghost" href="{{ '/get-started/' | relative_url }}">Download VaultBook</a>
       </div>
     </div>

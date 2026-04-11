@@ -390,7 +390,7 @@ permalink: /contact/
       <div class="ct-topic">
         <div class="ct-topic-ic">💬</div>
         <div class="ct-topic-title">General questions</div>
-        <div class="ct-topic-text">Anything else — pricing, migration, compatibility, roadmap — just ask. No question is too small.</div>
+        <div class="ct-topic-text">Anything else - pricing, migration, compatibility, roadmap — just ask. No question is too small.</div>
       </div>
     </div>
   </div>
@@ -424,6 +424,7 @@ permalink: /contact/
       <div class="ct-inline-cta-sub">We would rather hear from you with a rough question than not hear from you at all.</div>
       <a class="btn" href="#ctForm" style="margin-top:20px;display:inline-block;background:linear-gradient(135deg,#9575cd,#7e57c2);color:#fff;padding:14px 32px;border-radius:999px;font-weight:700;text-decoration:none;">Send a message</a>
     </div>
+    </div>
 </section>
 
 <!-- ━━━ FAQ ━━━ -->
@@ -455,7 +456,6 @@ permalink: /contact/
         <div class="card-text muted">Yes. Messages go directly to the VaultBook team and are not shared with third parties. We only use what you send to respond to your request.</div>
       </div>
     </div>
-  </div>
   </div>
 </section>
 

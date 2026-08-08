@@ -1,0 +1,1133 @@
+---
+layout: default
+title: The Great Gatsby Annotated Text
+description: Read and annotate The Great Gatsby with close-reading tools, character and theme trackers, and a searchable quotation bank. Runs entirely in your browser.
+permalink: /tools/great-gatsby-annotated-text.html
+body_class: tool-page
+---
+
+<style>
+  .tool-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .tool-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .tool-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .tool-sub{font-size:17px;color:var(--muted);max-width:64ch;margin:0}
+  .tool-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .tbadge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .tool-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .tt-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .tt-row::-webkit-scrollbar{display:none}
+  .tt-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .tt-btn:hover{background:var(--tint);color:var(--text)}
+  .tt-btn.is-active{background:var(--text);color:#fff}
+  .tool-panel{display:none;padding:34px 0 60px}
+  .tool-panel.is-active{display:block}
+  .tp-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .tp-lede{color:var(--muted);max-width:70ch;margin:0 0 22px}
+  .tcard{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .tgrid{display:grid;gap:16px}
+  .tgrid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .tgrid.three{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .treader{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
+  @media (max-width:960px){.treader{grid-template-columns:1fr}}
+  .tinput,.tselect,.ttext{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .ttext{min-height:150px;resize:vertical;line-height:1.55}
+  .tinput:focus,.tselect:focus,.ttext:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .tbtn{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .tbtn:hover{background:var(--tint)}
+  .tbtn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .tbtn.primary:hover{background:var(--blue2)}
+  .tbtn.sm{font-size:13px;padding:6px 10px}
+  .trow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .tmuted{color:var(--muted);font-size:13px}
+  .ttiny{font-size:12px;color:var(--muted2)}
+  .tstage{border:1px solid var(--line);border-radius:14px;background:#fff;max-height:640px;overflow:auto;padding:8px 18px}
+  .tstage p{line-height:1.75;font-size:16.5px;margin:0 0 14px;position:relative;padding-left:42px}
+  .tstage p .pnum{position:absolute;left:0;top:3px;font-size:11px;color:var(--muted2);font-variant-numeric:tabular-nums;user-select:none}
+  .tstage p.is-marked{background:rgba(255,222,120,.34);border-radius:6px}
+  .tstage h3{font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin:26px 0 12px}
+  .tside{position:sticky;top:74px;display:grid;gap:12px}
+  .tnote{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--tint)}
+  .tnote-q{font-size:13px;line-height:1.5;margin:0 0 6px}
+  .tnote-m{font-size:12px;color:var(--muted2);margin:0 0 8px}
+  .ttable-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.ttable{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+  table.ttable th,table.ttable td{border-bottom:1px solid var(--line);padding:11px 13px;text-align:left;vertical-align:top}
+  table.ttable th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);position:sticky;top:0}
+  table.ttable tr:last-child td{border-bottom:0}
+  .tchip{display:inline-block;font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .tdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .tdot.on{background:var(--blue)}
+  .tdot.strong{background:var(--text)}
+  .tacc{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .tacc-btn{font:inherit;width:100%;text-align:left;background:none;border:0;padding:15px 17px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}
+  .tacc-btn:hover{background:var(--tint)}
+  .tacc-t{font-weight:700;font-size:16px}
+  .tacc-k{font-size:12px;color:var(--muted2);font-weight:600}
+  .tacc-body{display:none;padding:0 17px 17px;border-top:1px solid var(--line)}
+  .tacc.is-open .tacc-body{display:block}
+  .tlist{margin:10px 0 0;padding-left:20px}
+  .tlist li{margin-bottom:7px;line-height:1.6}
+  .tstat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .tstat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .tstat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .tstat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .tempty{padding:26px;text-align:center;color:var(--muted)}
+  .thl{background:rgba(255,222,120,.5);border-radius:4px;padding:0 2px}
+  .tsplit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .tflag{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.6}
+</style>
+
+<section class="tool-hero">
+  <div class="container">
+    <div class="tool-eyebrow">VaultBook Study Library</div>
+    <h1 class="tool-title">The Great Gatsby, annotated</h1>
+    <p class="tool-sub">A close-reading workspace for Fitzgerald's 1925 novel. Load the text, mark passages, track every motif across all nine chapters, map the characters against each other, and search a curated quotation bank built for essay evidence. Everything runs in your browser and your notes stay on your device.</p>
+    <div class="tool-badges">
+      <span class="tbadge">Full text reader</span>
+      <span class="tbadge">Close-reading and annotation tools</span>
+      <span class="tbadge">Theme and motif trackers</span>
+      <span class="tbadge">Character maps</span>
+      <span class="tbadge">Searchable quotation bank</span>
+      <span class="tbadge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="tool-tabs">
+  <div class="container">
+    <div class="tt-row" role="tablist" aria-label="Study tools">
+      <button class="tt-btn is-active" data-tab="read" role="tab" aria-selected="true">Read and annotate</button>
+      <button class="tt-btn" data-tab="chapters" role="tab" aria-selected="false">Chapter map</button>
+      <button class="tt-btn" data-tab="motifs" role="tab" aria-selected="false">Motif tracker</button>
+      <button class="tt-btn" data-tab="characters" role="tab" aria-selected="false">Character map</button>
+      <button class="tt-btn" data-tab="quotes" role="tab" aria-selected="false">Quotation bank</button>
+      <button class="tt-btn" data-tab="essay" role="tab" aria-selected="false">Essay angles</button>
+      <button class="tt-btn" data-tab="notes" role="tab" aria-selected="false">My notes</button>
+    </div>
+  </div>
+</div>
+
+<section class="tool-panel is-active" id="panel-read" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Read and annotate</h2>
+    <p class="tp-lede">Load the novel, then select any sentence to mark it, tag it to a motif, and attach your own note. Marked passages collect in My notes and export as a study sheet you can paste straight into an essay plan.</p>
+
+    <div class="tcard" id="loadCard" style="margin-bottom:18px">
+      <div class="trow" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:700;font-size:16px">Load the text</div>
+          <div class="tmuted">The Great Gatsby entered the United States public domain in 2021, so you can read and mark it freely.</div>
+        </div>
+        <span class="tchip" id="loadState">no text loaded</span>
+      </div>
+      <div class="tsplit" style="margin-top:14px">
+        <div>
+          <label class="ttiny" for="ggFile">Open a plain text copy from your device</label>
+          <input class="tinput" id="ggFile" type="file" accept=".txt,.md,text/plain" style="margin-top:6px">
+        </div>
+        <div>
+          <label class="ttiny" for="ggPaste">Or paste the text</label>
+          <textarea class="ttext" id="ggPaste" placeholder="Paste the full text here, then press Load pasted text." style="margin-top:6px;min-height:96px"></textarea>
+          <div class="trow" style="margin-top:8px">
+            <button class="tbtn primary sm" id="ggPasteBtn" type="button">Load pasted text</button>
+            <button class="tbtn sm" id="ggClearBtn" type="button">Clear stored text</button>
+          </div>
+        </div>
+      </div>
+      <div class="tflag" style="margin-top:14px">Chapter breaks are detected automatically from Roman numeral headings. Once loaded, the text is cached on your device so you do not have to load it again on your next visit.</div>
+    </div>
+
+    <div class="treader">
+      <div>
+        <div class="tcard" style="padding:14px">
+          <div class="trow" style="justify-content:space-between;margin-bottom:10px">
+            <div class="trow" style="gap:8px">
+              <select class="tselect" id="ggChapter" style="max-width:190px"><option value="all">All chapters</option></select>
+              <select class="tselect" id="ggMotifPick" style="max-width:200px"><option value="">Tag with motif</option></select>
+            </div>
+            <div class="trow" style="gap:8px">
+              <input class="tinput" id="ggFind" type="search" placeholder="Find in text" style="max-width:180px">
+              <button class="tbtn sm" id="ggMarkBtn" type="button">Mark selection</button>
+            </div>
+          </div>
+          <div class="tstage" id="ggStage">
+            <div class="tempty">No text loaded yet. Use the panel above to open or paste a copy, then the reading pane appears here with numbered paragraphs, motif tagging, and marking.</div>
+          </div>
+          <div class="trow" style="margin-top:10px;justify-content:space-between">
+            <span class="ttiny" id="ggCount">0 paragraphs</span>
+            <span class="ttiny" id="ggFindCount"></span>
+          </div>
+        </div>
+      </div>
+      <aside class="tside">
+        <div class="tcard" style="padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">Close-reading prompts</div>
+          <div class="tmuted" id="ggPrompt" style="font-size:13.5px;line-height:1.6">Select a chapter to see what to watch for in it.</div>
+          <button class="tbtn sm" id="ggPromptNext" type="button" style="margin-top:12px">Another prompt</button>
+        </div>
+        <div class="tcard" style="padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">Marked in this session</div>
+          <div id="ggMarkList" class="tmuted" style="font-size:13px">Nothing marked yet.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-chapters" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Chapter map</h2>
+    <p class="tp-lede">Every chapter broken into its movements, with the structural job each one does, the motifs that surface, and the question the chapter is built to make you ask. Open a chapter to see its beats.</p>
+    <div id="chapAcc"></div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-motifs" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Theme and motif tracker</h2>
+    <p class="tp-lede">Fifteen recurring images and ideas, each mapped chapter by chapter so you can see where a pattern starts, where it peaks, and where it goes quiet. A filled dot means the motif carries weight in that chapter, a solid dot means the chapter is its centre of gravity.</p>
+    <div class="trow" style="margin-bottom:14px">
+      <input class="tinput" id="motifFind" type="search" placeholder="Filter motifs" style="max-width:260px">
+      <select class="tselect" id="motifChap" style="max-width:200px"><option value="">Any chapter</option></select>
+    </div>
+    <div class="ttable-wrap">
+      <table class="ttable" id="motifTable">
+        <thead><tr><th style="min-width:190px">Motif</th><th>What it does</th><th style="min-width:160px">Chapters 1 to 9</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="motifDetail" style="margin-top:18px"></div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-characters" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Character map</h2>
+    <p class="tp-lede">Nine figures, each with the desire that drives them, the illusion they hold, the cost they pay, and who they are positioned against. Use the contrast pairs when an essay question asks you to compare.</p>
+    <div class="tgrid two" id="charGrid"></div>
+    <h3 style="margin:34px 0 12px;font-size:19px">Contrast pairs worth an essay</h3>
+    <div class="ttable-wrap">
+      <table class="ttable" id="pairTable">
+        <thead><tr><th style="min-width:170px">Pair</th><th>What the contrast exposes</th><th style="min-width:120px">Best chapters</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-quotes" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Quotation bank</h2>
+    <p class="tp-lede">Passages worth building an argument on, each with its chapter locator, the motifs it serves, and a note on what it can actually prove. Search by keyword, filter by chapter or motif, then send anything useful to My notes.</p>
+    <div class="trow" style="margin-bottom:14px">
+      <input class="tinput" id="qFind" type="search" placeholder="Search the quotation bank" style="max-width:280px">
+      <select class="tselect" id="qChap" style="max-width:170px"><option value="">Any chapter</option></select>
+      <select class="tselect" id="qMotif" style="max-width:200px"><option value="">Any motif</option></select>
+      <span class="ttiny" id="qCount"></span>
+    </div>
+    <div id="qList" class="tgrid" style="gap:12px"></div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-essay" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">Essay angles</h2>
+    <p class="tp-lede">Twelve arguable positions, each with the counter-reading you have to handle and the evidence trail that supports it. An angle that no reasonable person could dispute is not an argument, so every one of these has an opposing case attached.</p>
+    <div id="essayAcc"></div>
+  </div>
+</section>
+
+<section class="tool-panel" id="panel-notes" role="tabpanel">
+  <div class="container">
+    <h2 class="tp-head">My notes</h2>
+    <p class="tp-lede">Everything you marked while reading and everything you saved from the quotation bank, gathered in one sheet. Notes live in your browser only. Export before clearing your browsing data.</p>
+    <div class="tstat" style="margin-bottom:18px">
+      <div class="tstat-c"><div class="tstat-n" id="nMarks">0</div><div class="tstat-l">Marked passages</div></div>
+      <div class="tstat-c"><div class="tstat-n" id="nSaved">0</div><div class="tstat-l">Saved quotations</div></div>
+      <div class="tstat-c"><div class="tstat-n" id="nMotifs">0</div><div class="tstat-l">Motifs touched</div></div>
+      <div class="tstat-c"><div class="tstat-n" id="nChaps">0</div><div class="tstat-l">Chapters covered</div></div>
+    </div>
+    <div class="trow" style="margin-bottom:16px">
+      <button class="tbtn primary" id="expBtn" type="button">Export study sheet</button>
+      <button class="tbtn" id="copyBtn" type="button">Copy to clipboard</button>
+      <button class="tbtn" id="wipeBtn" type="button">Clear all notes</button>
+      <span class="ttiny" id="expMsg"></span>
+    </div>
+    <div id="notesList"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="tgrid three">
+      <div class="tcard">
+        <div class="card-kicker">Keep your notes</div>
+        <div class="card-title" style="margin:6px 0">Everything in one vault</div>
+        <p class="card-text">VaultBook keeps your reading notes, essay drafts, and source files in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have written.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="tcard">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New annotated works and study companions are added to the VaultBook library over time, each built the same way: the text, the trackers, and the evidence tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="tcard">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">The text you load and every note you write stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var GG = {};
+
+GG.chapters = [
+  {n:1, title:"West Egg and the Buchanan dinner", job:"Establishes the narrator's reliability problem and the geography that will carry the whole class argument.",
+   beats:["Nick opens with his father's advice about reserving judgement, then immediately judges everyone in the book.","He explains the move east into the bond business and rents the small house beside a mansion.","Dinner at the Buchanan house across the bay introduces Tom's physical dominance, Daisy's performed charm, and Jordan's boredom.","Tom's telephone call from New York interrupts the meal and the marriage is exposed without being named.","Nick returns home and sees his neighbour alone on the lawn, arms out toward a single green light."],
+   watch:"Track how often Nick tells you he is honest. The frequency is the point.",
+   motifs:["green-light","geography","voice","time","eyes"]},
+  {n:2, title:"The valley of ashes and the apartment party", job:"Places the cost of the wealth on the map, then shows what that wealth does to the people it uses.",
+   beats:["The road between West Egg and New York runs through a grey industrial wasteland where ash takes the shapes of houses and men.","A faded oculist's billboard looks down on it, two enormous eyes behind yellow spectacles.","Tom takes Nick to Wilson's garage and collects Myrtle in front of her husband.","The apartment party in New York inflates Myrtle into an imitation of the class she wants.","Tom breaks her nose with an open hand for saying Daisy's name."],
+   watch:"Notice how Myrtle changes costume and voice with each drink. The novel builds her aspiration as performance.",
+   motifs:["ashes","eyes","class","clothing","violence"]},
+  {n:3, title:"The party and the man who was not there", job:"Builds the legend at maximum volume, then produces a quiet man who does not drink.",
+   beats:["The machinery of the party is described before a single guest arrives: the fruit, the orchestra, the caterers.","Nick is one of very few actually invited, a detail the crowd never notices.","In the library a drunk man with owl-eyed spectacles marvels that the books are real and uncut.","Nick talks to a stranger about the war and learns only afterwards that it is his host.","A car loses a wheel in the driveway and the driver cannot understand that he has stopped.","The chapter closes on Nick's ordinary summer, Jordan's incurable dishonesty, and his own claimed honesty."],
+   watch:"The uncut books are the whole method of the character in one image. Bound like the real thing, never opened.",
+   motifs:["parties","books","cars","eyes","honesty"]},
+  {n:4, title:"The autobiography and the arrangement", job:"Tests the legend against evidence and reveals the plan that has been running since chapter one.",
+   beats:["Nick lists the guests on a timetable, a roll call of names that reads like a social register of appetite.","On the drive to the city the host recites an unbelievable life story, then produces a medal and a photograph.","Lunch with a business associate connects the fortune to the fixing of the 1919 World Series.","Jordan reports the Louisville courtship of 1917 and the drunken bride the night before her wedding.","The mansion, the parties, the whole apparatus turns out to have been aimed across the water all along.","The request is delivered through Nick: an invitation to tea."],
+   watch:"The story is checked, partially confirmed, and left unstable. Fitzgerald gives evidence for and against in the same chapter.",
+   motifs:["money","legend","time","geography","voice"]},
+  {n:5, title:"The reunion and the shirts", job:"Delivers the meeting the book has been withholding and immediately shows the dream shrinking on contact.",
+   beats:["Rain, absurd nervousness, an overturned clock caught before it falls.","The house tour becomes a display, room after room presented for one audience.","The shirts are thrown down in a heap and she weeps into them.","The green light is pointed out and stops being enchanted the moment it is explained.","Nick withdraws and leaves them in a silence he cannot enter."],
+   watch:"The stopped clock and the diminished light do the same job. Something reached is something reduced.",
+   motifs:["time","clothing","green-light","weather","dream"]},
+  {n:6, title:"James Gatz, Dan Cody, and the party that fails", job:"Supplies the true origin, then stages the collision between the invented self and the world it was invented for.",
+   beats:["A reporter arrives, and Nick pauses the plot to tell the real story of a seventeen year old from North Dakota.","The name change on Lake Superior is the moment of self-creation, the yacht is the education.","Tom turns up at a party on horseback and the host is suddenly a bootlegger to be investigated.","Daisy attends and is offended by the whole spectacle without saying so.","Asked whether the past can be repeated, the host is astonished that anyone would doubt it."],
+   watch:"The Platonic conception of himself is the thesis sentence of the novel. Everything else tests it.",
+   motifs:["legend","class","parties","dream","time"]},
+  {n:7, title:"The heat, the Plaza, and the accident", job:"Collapses every line of tension in one afternoon and converts a romance into a death.",
+   beats:["The parties stop and the servants are replaced, because the performance no longer has an audience it wants.","On the hottest day of the summer, lunch at the Buchanan house makes the affair visible.","The line about her voice being full of money names the whole book in five words.","The Plaza suite confrontation strips the dream of its future in front of witnesses.","On the drive home a car strikes Myrtle in the road outside the garage.","Nick leaves a man standing in the dark keeping watch over a house where nothing is happening."],
+   watch:"The heat is not decoration. It is the pressure gauge, rising through the chapter until something breaks.",
+   motifs:["weather","voice","money","cars","violence","eyes"]},
+  {n:8, title:"The full confession and the garage", job:"Gives the true version of the Louisville romance at last, then executes the ending the class system has been preparing.",
+   beats:["Through the night the whole Louisville story comes out, including the deception that started it.","Nick offers the one compliment he has, and it is aimed at everyone else rather than the man in front of him.","A telephone call that never comes structures the morning.","At the garage, a grieving husband looks at the billboard eyes and hears the voice of God.","The pool, the gun, and two bodies close the chapter."],
+   watch:"Wilson's misreading of an advertisement as divine judgement is the novel's sharpest joke and its bleakest one.",
+   motifs:["eyes","ashes","time","violence","dream"]},
+  {n:9, title:"The funeral nobody attends", job:"Audits the cost, names who pays it, and ends on a sentence about the whole country rather than one man.",
+   beats:["Nick makes call after call and the hundreds of guests become nobody at all.","A father arrives from Minnesota with a boyhood schedule of self-improvement written in a book.","The owl-eyed man from the library is the only guest who comes to the grave.","Jordan is dismissed with the honesty Nick claimed in chapter three.","Tom is met on Fifth Avenue and reveals what he told Wilson without a flicker of guilt.","The careless-people verdict, then the closing image of boats rowing against a current that carries them backward."],
+   watch:"The last page pulls back from one man to a continent. That widening is what makes the book more than a love story.",
+   motifs:["ashes","class","dream","geography","time"]}
+];
+
+GG.motifs = [
+  {id:"green-light", name:"The green light", gloss:"Desire kept at a distance, and what happens to it when the distance closes.", chapters:{1:2,5:2,9:1},
+   note:"It appears three times and each appearance is different in kind. In chapter one it is barely visible and unexplained, an object of reaching. In chapter five it is identified, and the act of identification costs it its enchantment. In chapter nine it is generalised into the orgastic future that recedes before everyone. The pattern is a wanting that only survives while it is unsatisfied, which is the argument of the whole novel compressed into one image."},
+  {id:"eyes", name:"Eyes and spectacles", gloss:"Watching without understanding, and understanding without power.", chapters:{1:1,2:2,3:1,7:1,8:2},
+   note:"Doctor T. J. Eckleburg's billboard eyes, the owl-eyed man's spectacles, Wilson's stare, and Nick's whole narrative posture belong to one system. Every watcher in the book sees clearly and acts uselessly, or acts decisively on a misreading. The billboard is the strongest version because it is an advertisement for an oculist who has moved away, meaning the eyes of God in this novel are an abandoned commercial sign."},
+  {id:"ashes", name:"The valley of ashes", gloss:"Where the money comes from and where the bill is paid.", chapters:{2:2,7:1,8:2,9:1},
+   note:"The wasteland sits physically between the wealth and the city, which means every trip between pleasure and business passes through the wreckage. Fitzgerald makes the ash grow like wheat, a dead harvest, so that the industry producing the fortunes is described in the grammar of agriculture. Both deaths in the novel happen here or are decided here."},
+  {id:"class", name:"Old money and new money", gloss:"The line that cannot be crossed by earning.", chapters:{1:1,2:1,4:1,6:2,7:2,9:2},
+   note:"East Egg and West Egg are identical in wealth and opposite in status, which is the point. Tom's cruelty is licensed by inheritance rather than income. The novel's harshest claim is that the man who invents himself is still legible as an imitation to people who never had to invent anything, and the tell is manners rather than money."},
+  {id:"time", name:"Clocks and the repeatable past", gloss:"The refusal to accept that time only moves one way.", chapters:{1:1,4:1,5:2,6:2,8:1,9:2},
+   note:"The mantelpiece clock nearly falls during the reunion and is caught, which is the whole ambition in one gesture. The declaration that the past can of course be repeated is stated as obvious rather than argued, and the novel spends three chapters proving it false. The last sentence reverses the direction of travel entirely."},
+  {id:"voice", name:"The voice full of money", gloss:"Class as sound rather than possession.", chapters:{1:2,4:1,7:2},
+   note:"Daisy's voice is described as a charm, a promise, a thing men lean toward, and it is only in chapter seven that it is finally decoded. The line is the most efficient piece of social analysis in the book because it locates class in something inherited, unteachable, and audible before a single word is understood."},
+  {id:"clothing", name:"Shirts and costume", gloss:"Identity as wardrobe, and the grief that comes with it.", chapters:{2:1,5:2,7:1},
+   note:"Myrtle changes dresses to change class and only becomes more visible as an imitation. The shirt scene works because the crying is not about shirts, it is about the years of accumulated evidence that the wrong choice was made. Fitzgerald turns a heap of laundry into the most emotionally loaded object in the novel."},
+  {id:"cars", name:"Cars and driving", gloss:"Carelessness with machinery as a moral test.", chapters:{3:2,4:1,7:2,9:1},
+   note:"The wheel comes off in the driveway in chapter three and nobody understands what has happened, which is the model for every later collision. Jordan's bad driving is discussed as a philosophy of other people's caution. The yellow car is what the world sees and the wrong person is blamed for who was inside it."},
+  {id:"weather", name:"Heat and rain", gloss:"Atmosphere used as a pressure gauge.", chapters:{5:2,7:2,8:1},
+   note:"The reunion happens in rain and ends in sunlight. The confrontation happens on the hottest day of the year and the temperature is mentioned repeatedly until the reader feels the argument coming. Fitzgerald uses weather structurally rather than decoratively, so a chart of the temperature is a chart of the plot."},
+  {id:"parties", name:"The parties", gloss:"Spectacle purchased for an audience of one.", chapters:{2:1,3:2,6:2,7:1},
+   note:"The party in chapter three is filmed from the outside, all logistics and machinery, before any guest speaks. Once the intended audience arrives and disapproves, the parties stop entirely, which retroactively explains what they were ever for. Attendance is enormous and attachment is zero, proved by the funeral."},
+  {id:"dream", name:"The American dream", gloss:"Self-invention as national mythology, tested to destruction.", chapters:{5:1,6:2,8:1,9:2},
+   note:"The novel does not simply reject the dream. It shows the discipline behind it, the boyhood schedule found by the father, and then shows that the reward was defined as a person rather than an achievement. The ending widens from one man's failure to the Dutch sailors' first sight of the continent, making the disappointment historical rather than personal."},
+  {id:"honesty", name:"Nick's reliability", gloss:"A narrator who claims the one virtue he keeps failing.", chapters:{1:1,3:2,7:1,9:1},
+   note:"He opens by reserving judgement and judges constantly. He calls himself one of the few honest people he has known while conducting a relationship he conceals and helping to arrange an affair. Reading him as unreliable is not a modern imposition, the text supplies the contradictions deliberately and close together."},
+  {id:"money", name:"Money as sound and object", gloss:"Wealth described through senses rather than sums.", chapters:{4:2,5:1,7:2,9:1},
+   note:"Actual figures are rare. Wealth arrives as shirts, as a voice, as a hydroplane, as a timetable of names. The one time the source is specified it is criminal, and the specificity there is deliberate contrast with the vagueness elsewhere."},
+  {id:"geography", name:"East and West", gloss:"A moral compass disguised as a map.", chapters:{1:2,4:1,9:2},
+   note:"Every major character is a westerner who came east, and Nick's closing verdict frames the entire novel as a story of the west, unsuited to eastern life. The two Eggs, the city, and the ash valley form a fixed moral geography that the characters travel through rather than escape."},
+  {id:"violence", name:"Casual violence", gloss:"Harm delivered by people who will not carry the consequence.", chapters:{2:2,7:2,8:2},
+   note:"A broken nose in an apartment, a body in the road, a shot in a pool. In each case the person who caused it is protected by money or by someone else's silence. The final Fifth Avenue conversation makes the pattern explicit: the damage is real and the guilt is unfelt."}
+];
+
+GG.characters = [
+  {name:"Nick Carraway", role:"Narrator, bond salesman, neighbour",
+   desire:"To be the one decent man in a corrupt story, and to be seen as such.",
+   illusion:"That watching from the edge is a moral position rather than a form of participation.",
+   cost:"He arranges the affair, conceals what he knows, and leaves the east having learned that his own tolerance had a limit all along.",
+   against:"Jordan Baker",
+   evidence:"Chapter 1 opening, chapter 3 closing self-assessment, chapter 9 dismissal of Jordan and the Fifth Avenue encounter with Tom."},
+  {name:"Jay Gatsby", role:"Host, bootlegger, formerly James Gatz",
+   desire:"Not wealth and not even Daisy exactly, but the specific version of himself that having her would confirm.",
+   illusion:"That the past is a place you can return to with enough money and enough patience.",
+   cost:"Five years of construction spent on an object that could not survive being reached, and a funeral with three mourners.",
+   against:"Tom Buchanan",
+   evidence:"Chapter 6 origin story and the repeatable past exchange, chapter 5 shirts and green light, chapter 9 the boyhood schedule."},
+  {name:"Daisy Buchanan", role:"Old money, cousin to Nick, married to Tom",
+   desire:"To be adored without having to choose, and to remain inside the safety she was raised in.",
+   illusion:"That charm is a substitute for agency, and that someone else will absorb the consequences.",
+   cost:"She retreats behind money at the exact moment a choice would have cost her something, and lets another person carry the blame.",
+   against:"Myrtle Wilson",
+   evidence:"Chapter 1 performed cynicism about her daughter, chapter 7 Plaza scene and the aftermath of the accident."},
+  {name:"Tom Buchanan", role:"Inherited wealth, former athlete, adulterer",
+   desire:"To keep everything he has without ever being asked to justify holding it.",
+   illusion:"That his advantages are the natural order and that his cruelty is a defence of civilisation.",
+   cost:"None that he can perceive, which is the novel's most damning judgement of the class he represents.",
+   against:"Jay Gatsby",
+   evidence:"Chapter 1 racial pseudo-science, chapter 2 the broken nose, chapter 7 the investigation, chapter 9 self-justification."},
+  {name:"Jordan Baker", role:"Golf champion, Nick's companion",
+   desire:"Freedom from being managed, on the terms available to a woman in that decade.",
+   illusion:"That dishonesty is a workable strategy if you assume everyone else is careful.",
+   cost:"She is dropped by a man who claims honesty as his single virtue, and she names the hypocrisy accurately on the way out.",
+   against:"Nick Carraway",
+   evidence:"Chapter 3 the moved golf ball and the driving conversation, chapter 9 final exchange."},
+  {name:"Myrtle Wilson", role:"Garage owner's wife, Tom's mistress",
+   desire:"Entry into a class she can see from the road but not reach.",
+   illusion:"That the affair is a doorway rather than a transaction with fixed terms.",
+   cost:"She is struck by the exact vehicle that represented her escape, and buried by the world she was trying to leave.",
+   against:"Daisy Buchanan",
+   evidence:"Chapter 2 the changing dresses and the broken nose, chapter 7 the road."},
+  {name:"George Wilson", role:"Garage owner in the valley of ashes",
+   desire:"Enough money to move west with his wife and start again.",
+   illusion:"That the world contains a judge, and that the judge is looking at him from a billboard.",
+   cost:"He acts on a misdirection supplied by the man who wronged him, and kills the wrong person.",
+   against:"Tom Buchanan",
+   evidence:"Chapter 2 introduction, chapter 7 the locked room, chapter 8 the Eckleburg conversation."},
+  {name:"Meyer Wolfsheim", role:"Business associate, gambler",
+   desire:"Profit with minimum exposure.",
+   illusion:"None. He is the one character in the book with no self-deception whatsoever.",
+   cost:"He pays nothing, and his absence from the funeral is a statement about where loyalty stops.",
+   against:"Nick Carraway",
+   evidence:"Chapter 4 the lunch and the cufflinks, chapter 9 the refusal to attend."},
+  {name:"Owl-eyed man", role:"Party guest, library visitor, mourner",
+   desire:"To verify whether any of it is real.",
+   illusion:"He is the only figure who tests the illusion instead of consuming it.",
+   cost:"He is the sole guest who returns for the burial, which turns a minor comic character into the novel's moral witness.",
+   against:"The party crowd",
+   evidence:"Chapter 3 the uncut books, chapter 9 the graveside."}
+];
+
+GG.pairs = [
+  {pair:"Gatsby and Tom", exposes:"That the difference between new and old money is not the amount but the permission. One builds a self and is judged an imposter, the other inherits and is never asked to explain.", chaps:"6, 7, 9"},
+  {pair:"Daisy and Myrtle", exposes:"That the same desire produces opposite outcomes depending on where you started. Both want out of their marriage, only one has the protection to survive wanting it.", chaps:"2, 7"},
+  {pair:"Nick and Jordan", exposes:"That claimed honesty and admitted dishonesty are not as far apart as the narrator wants. Her frankness about her own carelessness is more honest than his self-portrait.", chaps:"3, 9"},
+  {pair:"Gatsby and Nick", exposes:"That both are westerners performing an eastern life, and only one admits the performance. The narrator's admiration is partly recognition.", chaps:"1, 8, 9"},
+  {pair:"The two Eggs", exposes:"That geography does the work of a caste system in a country that claims not to have one. Identical wealth, opposite standing, one bay between them.", chaps:"1, 6, 9"},
+  {pair:"Wilson and Tom", exposes:"That the same grief produces a killing in one man and an inconvenience in the other, and that the difference is entirely a matter of what each can afford.", chaps:"7, 8, 9"},
+  {pair:"Owl-eyes and the party crowd", exposes:"That attention is the rarest thing in the novel. Hundreds consume the spectacle, one man checks whether the books are real, and that same man is the only one at the grave.", chaps:"3, 9"}
+];
+
+GG.quotes = [
+  {c:1, tag:"Nick's opening advice about reserving judgement", motifs:["honesty"], use:"Use it to set up an unreliable narrator argument, then immediately cite a judgement he makes within the same chapter. The contradiction is the evidence, not the quotation alone."},
+  {c:1, tag:"Nick claims all the people in the world were not born with the same advantages", motifs:["class","honesty"], use:"Strong opening for a class essay because it announces the novel's subject in the narrator's voice before any character appears."},
+  {c:1, tag:"Daisy hopes her daughter will be a beautiful little fool", motifs:["voice","class"], use:"The single best line for arguing that she understands her position exactly and has chosen it. Read it as strategy rather than despair and the essay gets more interesting."},
+  {c:1, tag:"Gatsby stretching his arms toward the single green light across the water", motifs:["green-light","dream"], use:"Establishes desire as posture and distance. Pair it with the chapter five deflation to show a two-stage argument rather than a symbol."},
+  {c:2, tag:"The valley of ashes where ash grows like wheat into ridges and grotesque gardens", motifs:["ashes","class"], use:"The agricultural grammar is the point. Quote it when arguing that the novel treats industrial waste as the harvest of the fortunes it funds."},
+  {c:2, tag:"The blue and gigantic eyes of Doctor T. J. Eckleburg above the ash heaps", motifs:["eyes","ashes"], use:"Only powerful if you note that the oculist has moved away. An abandoned advertisement standing in for God is the argument, the eyes alone are just imagery."},
+  {c:2, tag:"Tom breaks Myrtle's nose with a short deft movement for repeating Daisy's name", motifs:["violence","class"], use:"Best single proof of casual violence licensed by class, and the adjectives matter because the efficiency implies practice."},
+  {c:3, tag:"Owl-eyed man in the library astonished that the books are real and the pages uncut", motifs:["books","parties","dream"], use:"The most compact statement of the character's method in the novel. Real binding, uncut pages, a convincing surface that was never meant to be opened."},
+  {c:3, tag:"Nick calls himself one of the few honest people he has ever known", motifs:["honesty"], use:"Place it directly beside the affair he conceals in the same paragraph and the reliability argument writes itself."},
+  {c:3, tag:"Jordan says she hates careless people and that is why she likes Nick", motifs:["cars","honesty"], use:"Sets up the chapter nine reversal. Carelessness becomes the novel's central moral category and this line plants it early."},
+  {c:4, tag:"The timetable list of party guests written on a schedule", motifs:["parties","money"], use:"Use the list as evidence of consumption without attachment, then contrast the same names with the funeral attendance in chapter nine."},
+  {c:4, tag:"Wolfsheim identified as the man who fixed the 1919 World Series", motifs:["money","legend"], use:"The one moment the fortune is specified. Argue that vagueness elsewhere is deliberate, because a named crime would puncture the romance."},
+  {c:4, tag:"Jordan's account of the Louisville letter and the drunken bride", motifs:["time","voice"], use:"Necessary for any essay claiming the romance was mutual. It is also secondhand, which is worth flagging if you are running a reliability argument."},
+  {c:5, tag:"The defunct mantelpiece clock nearly falls and is caught", motifs:["time","dream"], use:"The most economical image of the whole ambition. A broken clock, almost dropped, caught by the man trying to reverse time."},
+  {c:5, tag:"Daisy weeps into the heap of thrown shirts", motifs:["clothing","class","money"], use:"Argue that the tears are about the accumulated evidence of the wrong choice rather than the fabric, and cite the years between Louisville and this room."},
+  {c:5, tag:"The green light's colossal significance vanishes once it is explained", motifs:["green-light","dream"], use:"The turn that makes the symbol an argument. Contact reduces the enchanted object to a lamp on a dock."},
+  {c:6, tag:"James Gatz sprang from his Platonic conception of himself", motifs:["dream","legend"], use:"The thesis sentence of the novel. Any essay on self-invention should quote it and then test whether the invention holds under pressure."},
+  {c:6, tag:"Can't repeat the past, why of course you can", motifs:["time","dream"], use:"Quote the astonishment rather than the claim. The tone tells you he has never considered the alternative, which is what makes the ending inevitable."},
+  {c:7, tag:"Her voice is full of money", motifs:["voice","money","class"], use:"The most efficient social analysis in the book. Five words that locate class in something audible, inherited, and impossible to learn."},
+  {c:7, tag:"The Plaza suite confrontation and the refusal to say she never loved Tom", motifs:["time","class"], use:"The moment the dream fails, and it fails on a demand for retrospective total loyalty rather than on present feeling."},
+  {c:7, tag:"Gatsby watching over nothing outside the Buchanan house", motifs:["dream","eyes"], use:"Nick's phrase does the work. The vigil is real and its object is already gone, which is the novel's structure in one sentence."},
+  {c:8, tag:"Nick tells Gatsby he is worth the whole damn bunch put together", motifs:["honesty","class"], use:"The only compliment Nick pays, and it is comparative. Argue that it condemns the others more than it praises him."},
+  {c:8, tag:"Wilson tells Michaelis that God sees everything, looking at the billboard", motifs:["eyes","ashes"], use:"The sharpest joke and the bleakest reading in the novel. Divine judgement delegated to a commercial sign for an absent oculist."},
+  {c:9, tag:"Only the owl-eyed man from the library comes to the grave", motifs:["parties","eyes"], use:"Pair it with the chapter four guest list for the strongest single contrast available in the book."},
+  {c:9, tag:"Henry Gatz shows the boyhood schedule of self-improvement", motifs:["dream","class"], use:"Proof that the discipline was genuine. It complicates any essay that treats the character as pure fraud."},
+  {c:9, tag:"Tom and Daisy were careless people who smashed things and retreated into their money", motifs:["class","violence","cars"], use:"The verdict sentence. Note that carelessness, not malice, is the charge, which makes it structural rather than personal."},
+  {c:9, tag:"The orgastic future that recedes year by year before us", motifs:["dream","green-light","time"], use:"Generalises one man's failure into a national condition. Essential for any American dream essay."},
+  {c:9, tag:"So we beat on, boats against the current, borne back ceaselessly into the past", motifs:["time","dream","geography"], use:"Do not quote it without analysing the reversal. The boats are rowing forward and the sentence carries them backward, which is the whole thesis in the grammar."}
+];
+
+GG.prompts = [
+  "Where does the narrator tell you what to think, and where does he only show you? Mark three of each.",
+  "Find a passage where the weather is doing structural work rather than scene setting.",
+  "Track one colour through a chapter and note what it attaches to each time.",
+  "Locate a sentence where a character's class is revealed by manners rather than money.",
+  "Find the moment in this chapter where someone chooses not to say something. Silence is evidence.",
+  "Mark every reference to time, clocks, or years in the chapter, then look at the cluster.",
+  "Find a description of a crowd. Ask whether any individual in it is named or given interiority.",
+  "Identify a moment where an object is doing the work a feeling would do in a lesser novel.",
+  "Locate one sentence you would use to argue the opposite of your current thesis.",
+  "Find a place where Nick's syntax gets ornate. Ornament usually marks discomfort."
+];
+
+GG.essays = [
+  {t:"The green light is an argument about desire, not a symbol of hope",
+   claim:"The light works in three stages: unreachable and enchanted, reached and reduced, then generalised into a national condition. Treating it as a static symbol of hope misses that its meaning changes each time it appears.",
+   counter:"A reader can argue the light never loses power because chapter nine restores it at continental scale. Answer this by distinguishing the private object from the public metaphor.",
+   trail:"Chapter 1 reaching, chapter 5 deflation, chapter 9 recession into the orgastic future."},
+  {t:"Nick Carraway is the novel's most successful self-inventor",
+   claim:"He constructs a persona of tolerant honesty and maintains it through a narrative in which he conceals an affair, brokers another, and judges continuously. His invention succeeds where Gatsby's fails because nobody audits a narrator.",
+   counter:"The standard reading treats his contradictions as human inconsistency rather than design. Meet it by showing the contradictions are placed within paragraphs of each other, which is authorial construction.",
+   trail:"Chapter 1 opening, chapter 3 closing, chapter 7 birthday admission, chapter 9 dismissal of Jordan."},
+  {t:"Carelessness, not greed, is the novel's central moral category",
+   claim:"The verdict on Tom and Daisy names carelessness specifically. Bad driving, casual violence, and abandoned obligation form one pattern, and greed is only its occasion.",
+   counter:"An essay could argue money is the real subject and carelessness only its symptom. Handle it by noting Wilson is poor and equally destructive when he acts on a misreading.",
+   trail:"Chapter 3 driveway wheel, chapter 3 Jordan on driving, chapter 7 the road, chapter 9 verdict."},
+  {t:"The valley of ashes makes the novel a critique of production, not consumption",
+   claim:"Placing the wasteland physically between the wealth and the city forces every journey through the site of its cost. The ash grows like a crop, which frames the fortunes as an agricultural yield of ruin.",
+   counter:"Some readings treat the valley as atmosphere. Defeat that by counting how many plot-critical events occur there.",
+   trail:"Chapter 2 description, chapter 7 the accident, chapter 8 the killing."},
+  {t:"Daisy is the most clear-sighted character in the book",
+   claim:"Her wish that her daughter be a beautiful fool is an accurate description of the only survivable position available to her. Reading her as shallow mistakes an assessment of constraint for an absence of thought.",
+   counter:"The retreat after the accident looks like cowardice rather than clarity. Address it by asking what any alternative would have cost her materially.",
+   trail:"Chapter 1 daughter line, chapter 7 Plaza, chapter 7 aftermath, chapter 9 departure."},
+  {t:"The novel argues that American class is inherited manners rather than money",
+   claim:"East Egg and West Egg hold comparable wealth and incomparable status. Every mark against Gatsby is a matter of taste, timing, or phrase, never of solvency.",
+   counter:"Tom's investigation focuses on criminal income, which looks like a money objection. Show that the crime is a pretext deployed only when the social objection needs an argument.",
+   trail:"Chapter 1 geography, chapter 6 the party Daisy dislikes, chapter 7 confrontation."},
+  {t:"Eckleburg's eyes are a joke about advertising that becomes a statement about faith",
+   claim:"The eyes belong to an oculist who left the district. A dead commercial sign becomes the novel's God the moment a grieving man needs one, which makes divinity a leftover of commerce.",
+   counter:"A theological reading treats the eyes as genuine moral presence. Counter by noting the novel gives them no agency and a fatally wrong verdict.",
+   trail:"Chapter 2 introduction, chapter 8 Wilson's conversation."},
+  {t:"The parties are described as logistics because the guests do not matter",
+   claim:"Chapter three opens on caterers, fruit, and orchestra before anyone speaks. The attention given to machinery and withheld from people prepares the funeral, where attendance collapses to three.",
+   counter:"The party scenes are often read as celebratory set pieces. Answer with the ratio of named guests to described objects.",
+   trail:"Chapter 3 opening, chapter 4 guest list, chapter 6 the failed party, chapter 9 funeral."},
+  {t:"Myrtle and Daisy are the same ambition under different protection",
+   claim:"Both want out of a marriage and toward a man with more. One is shielded by inheritance and survives, the other is exposed and dies on the road between the two worlds.",
+   counter:"The class gulf makes the comparison look strained. Strengthen it by matching their scenes structurally rather than thematically.",
+   trail:"Chapter 2 apartment, chapter 7 lunch, chapter 7 road."},
+  {t:"Gatsby's crime is being legible as an effort",
+   claim:"The pink suit, the phrase old sport, the uncut books, and the recited autobiography all signal work. Old money's defining property is looking effortless, so visible effort is the disqualification.",
+   counter:"One could argue the bootlegging is the real disqualifier. Note that Tom's circle tolerates far worse in people born correctly.",
+   trail:"Chapter 3 library, chapter 4 autobiography, chapter 6 party, chapter 7 confrontation."},
+  {t:"The final paragraph converts a personal failure into a national history",
+   claim:"The pull back to the Dutch sailors' first sight of the continent reframes the whole novel as a story about a country that has been outrunning its own disappointment since arrival.",
+   counter:"Some readers find the widening unearned. Defend it by tracing the east and west compass established in chapter one.",
+   trail:"Chapter 1 westerners moving east, chapter 9 Nick's verdict, chapter 9 closing image."},
+  {t:"The novel is structured by weather rather than by plot",
+   claim:"Rain governs the reunion, heat governs the collapse, and autumn governs the aftermath. Charting temperature across the nine chapters produces the same curve as charting tension.",
+   counter:"Weather as structure can look like coincidence. Prove intent by counting explicit temperature references in chapter seven.",
+   trail:"Chapter 5 rain to sun, chapter 7 the hottest day, chapter 8 the first autumn leaves."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var LS_TEXT = "vb_gg_text_v1";
+  var LS_NOTES = "vb_gg_notes_v1";
+  var ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX"];
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function store(key, val){
+    try { window.localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch(e){ return false; }
+  }
+  function load(key, fallback){
+    try {
+      var raw = window.localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch(e){ return fallback; }
+  }
+
+  var state = {
+    paras: [],
+    chapterOf: [],
+    notes: load(LS_NOTES, { marks: [], saved: [] }),
+    promptIndex: 0
+  };
+
+  function motifName(id){
+    for (var i = 0; i < GG.motifs.length; i++){
+      if (GG.motifs[i].id === id) return GG.motifs[i].name;
+    }
+    return id;
+  }
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns = document.querySelectorAll(".tt-btn");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active");
+          x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active");
+        b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".tool-panel"), function(p){
+          p.classList.remove("is-active");
+        });
+        var target = $("panel-" + b.getAttribute("data-tab"));
+        if (target) target.classList.add("is-active");
+        if (b.getAttribute("data-tab") === "notes") renderNotes();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+  }
+
+  /* ---------- text loading ---------- */
+  function splitText(raw){
+    var clean = String(raw).replace(/\r\n/g, "\n").replace(/\u00a0/g, " ");
+    var lines = clean.split("\n");
+    var paras = [];
+    var chapters = [];
+    var current = 0;
+    var buffer = [];
+
+    function flush(){
+      var joined = buffer.join(" ").trim();
+      if (joined.length > 0){
+        paras.push(joined);
+        chapters.push(current);
+      }
+      buffer = [];
+    }
+
+    for (var i = 0; i < lines.length; i++){
+      var line = lines[i].trim();
+      var head = line.replace(/[^A-Za-z0-9 ]/g, "").trim().toUpperCase();
+      var isHead = false;
+      for (var r = 0; r < ROMAN.length; r++){
+        if (head === ROMAN[r] || head === "CHAPTER " + ROMAN[r] || head === "CHAPTER " + (r + 1)){
+          flush();
+          current = r + 1;
+          isHead = true;
+          break;
+        }
+      }
+      if (isHead) continue;
+      if (line === ""){ flush(); } else { buffer.push(line); }
+    }
+    flush();
+    return { paras: paras, chapterOf: chapters };
+  }
+
+  function applyText(raw, persist){
+    var out = splitText(raw);
+    if (out.paras.length < 5){
+      setLoadState("could not read that file");
+      return;
+    }
+    state.paras = out.paras;
+    state.chapterOf = out.chapterOf;
+    if (persist) store(LS_TEXT, raw);
+    buildChapterSelect();
+    renderStage();
+    setLoadState(out.paras.length + " paragraphs loaded");
+  }
+
+  function setLoadState(msg){
+    var el = $("loadState");
+    if (el) el.textContent = msg;
+  }
+
+  function buildChapterSelect(){
+    var sel = $("ggChapter");
+    var found = {};
+    for (var i = 0; i < state.chapterOf.length; i++){ found[state.chapterOf[i]] = true; }
+    sel.innerHTML = '<option value="all">All chapters</option>';
+    for (var c = 1; c <= 9; c++){
+      if (found[c]){
+        var o = document.createElement("option");
+        o.value = String(c);
+        o.textContent = "Chapter " + c;
+        sel.appendChild(o);
+      }
+    }
+  }
+
+  function markKey(index){ return "p" + index; }
+
+  function isMarked(index){
+    for (var i = 0; i < state.notes.marks.length; i++){
+      if (state.notes.marks[i].key === markKey(index)) return true;
+    }
+    return false;
+  }
+
+  function renderStage(){
+    var stage = $("ggStage");
+    if (!state.paras.length){
+      stage.innerHTML = '<div class="tempty">No text loaded yet. Use the panel above to open or paste a copy, then the reading pane appears here with numbered paragraphs, motif tagging, and marking.</div>';
+      $("ggCount").textContent = "0 paragraphs";
+      return;
+    }
+    var want = $("ggChapter").value;
+    var query = ($("ggFind").value || "").trim();
+    var rx = null;
+    if (query.length > 1){
+      rx = new RegExp("(" + query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+    }
+    var html = "";
+    var shown = 0;
+    var hits = 0;
+    var lastChapter = -1;
+
+    for (var i = 0; i < state.paras.length; i++){
+      var ch = state.chapterOf[i];
+      if (want !== "all" && String(ch) !== want) continue;
+      if (ch !== lastChapter && ch > 0){
+        html += "<h3>Chapter " + ch + "</h3>";
+        lastChapter = ch;
+      }
+      var body = esc(state.paras[i]);
+      if (rx){
+        var before = body;
+        body = body.replace(rx, '<mark class="thl">$1</mark>');
+        if (body !== before) hits++;
+      }
+      html += '<p data-i="' + i + '"' + (isMarked(i) ? ' class="is-marked"' : "") +
+              '><span class="pnum">' + (i + 1) + "</span>" + body + "</p>";
+      shown++;
+    }
+    stage.innerHTML = html;
+    $("ggCount").textContent = shown + " paragraphs shown of " + state.paras.length;
+    $("ggFindCount").textContent = rx ? (hits + " paragraphs match") : "";
+  }
+
+  function markSelection(){
+    if (!state.paras.length){ return; }
+    var sel = window.getSelection();
+    var text = sel ? String(sel).trim() : "";
+    var node = sel && sel.anchorNode ? sel.anchorNode : null;
+    var para = null;
+    while (node){
+      if (node.nodeType === 1 && node.tagName === "P" && node.hasAttribute("data-i")){ para = node; break; }
+      node = node.parentNode;
+    }
+    if (!para){
+      flash("Select a sentence inside the reading pane first.");
+      return;
+    }
+    var idx = parseInt(para.getAttribute("data-i"), 10);
+    var motif = $("ggMotifPick").value;
+    var snippet = text.length > 0 ? text : state.paras[idx].slice(0, 160);
+    if (snippet.length > 320) snippet = snippet.slice(0, 320) + "...";
+
+    state.notes.marks.push({
+      key: markKey(idx),
+      chapter: state.chapterOf[idx] || 0,
+      para: idx + 1,
+      motif: motif,
+      text: snippet,
+      note: ""
+    });
+    store(LS_NOTES, state.notes);
+    para.classList.add("is-marked");
+    renderMarkList();
+    flash("Marked paragraph " + (idx + 1) + ".");
+  }
+
+  function flash(msg){
+    var el = $("expMsg");
+    if (el){ el.textContent = msg; window.setTimeout(function(){ el.textContent = ""; }, 2600); }
+    var side = $("ggMarkList");
+    if (side && msg.indexOf("Select") === 0) side.textContent = msg;
+  }
+
+  function renderMarkList(){
+    var el = $("ggMarkList");
+    if (!el) return;
+    if (!state.notes.marks.length){ el.textContent = "Nothing marked yet."; return; }
+    var recent = state.notes.marks.slice(-6).reverse();
+    var html = "";
+    for (var i = 0; i < recent.length; i++){
+      var m = recent[i];
+      html += '<div class="tnote"><p class="tnote-m">Chapter ' + (m.chapter || "?") +
+              ", paragraph " + m.para + (m.motif ? " . " + esc(motifName(m.motif)) : "") +
+              '</p><p class="tnote-q">' + esc(m.text.slice(0, 140)) + "</p></div>";
+    }
+    el.innerHTML = html;
+  }
+
+  function initReader(){
+    var motifSel = $("ggMotifPick");
+    for (var i = 0; i < GG.motifs.length; i++){
+      var o = document.createElement("option");
+      o.value = GG.motifs[i].id;
+      o.textContent = GG.motifs[i].name;
+      motifSel.appendChild(o);
+    }
+    $("ggFile").addEventListener("change", function(e){
+      var f = e.target.files && e.target.files[0];
+      if (!f) return;
+      var reader = new FileReader();
+      reader.onload = function(){ applyText(String(reader.result), true); };
+      reader.onerror = function(){ setLoadState("could not read that file"); };
+      reader.readAsText(f);
+    });
+    $("ggPasteBtn").addEventListener("click", function(){
+      var v = $("ggPaste").value;
+      if (v.trim().length < 200){ setLoadState("paste more text than that"); return; }
+      applyText(v, true);
+      $("ggPaste").value = "";
+    });
+    $("ggClearBtn").addEventListener("click", function(){
+      try { window.localStorage.removeItem(LS_TEXT); } catch(e){}
+      state.paras = [];
+      state.chapterOf = [];
+      renderStage();
+      setLoadState("no text loaded");
+    });
+    $("ggChapter").addEventListener("change", function(){ renderStage(); showPrompt(); });
+    $("ggFind").addEventListener("input", renderStage);
+    $("ggMarkBtn").addEventListener("click", markSelection);
+    $("ggPromptNext").addEventListener("click", function(){
+      state.promptIndex = (state.promptIndex + 1) % GG.prompts.length;
+      showPrompt(true);
+    });
+
+    var saved = load(LS_TEXT, null);
+    if (saved) applyText(saved, false);
+    showPrompt();
+    renderMarkList();
+  }
+
+  function showPrompt(force){
+    var el = $("ggPrompt");
+    if (!el) return;
+    var want = $("ggChapter") ? $("ggChapter").value : "all";
+    if (!force && want !== "all"){
+      var ch = GG.chapters[parseInt(want, 10) - 1];
+      if (ch){ el.textContent = ch.watch; return; }
+    }
+    el.textContent = GG.prompts[state.promptIndex];
+  }
+
+  /* ---------- chapter map ---------- */
+  function renderChapters(){
+    var wrap = $("chapAcc");
+    var html = "";
+    for (var i = 0; i < GG.chapters.length; i++){
+      var c = GG.chapters[i];
+      var beats = "";
+      for (var b = 0; b < c.beats.length; b++){ beats += "<li>" + esc(c.beats[b]) + "</li>"; }
+      var chips = "";
+      for (var m = 0; m < c.motifs.length; m++){
+        chips += '<span class="tchip">' + esc(motifName(c.motifs[m])) + "</span>";
+      }
+      html += '<div class="tacc"><button class="tacc-btn" type="button">' +
+              '<span class="tacc-t">Chapter ' + c.n + ". " + esc(c.title) + "</span>" +
+              '<span class="tacc-k">' + c.beats.length + " beats</span></button>" +
+              '<div class="tacc-body"><p class="tmuted" style="margin:14px 0 0"><strong>Structural job.</strong> ' +
+              esc(c.job) + '</p><ol class="tlist">' + beats + "</ol>" +
+              '<div class="tflag" style="margin-top:12px"><strong>Watch for.</strong> ' + esc(c.watch) + "</div>" +
+              '<div style="margin-top:12px">' + chips + "</div></div></div>";
+    }
+    wrap.innerHTML = html;
+    Array.prototype.forEach.call(wrap.querySelectorAll(".tacc-btn"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- motifs ---------- */
+  function dots(map){
+    var out = "";
+    for (var c = 1; c <= 9; c++){
+      var lvl = map[c] || 0;
+      out += '<span class="tdot' + (lvl === 2 ? " strong" : (lvl === 1 ? " on" : "")) +
+             '" title="Chapter ' + c + '"></span> ';
+    }
+    return out;
+  }
+
+  function renderMotifs(){
+    var chapSel = $("motifChap");
+    for (var c = 1; c <= 9; c++){
+      var o = document.createElement("option");
+      o.value = String(c);
+      o.textContent = "Chapter " + c;
+      chapSel.appendChild(o);
+    }
+    function draw(){
+      var q = ($("motifFind").value || "").toLowerCase();
+      var want = chapSel.value;
+      var body = $("motifTable").querySelector("tbody");
+      var html = "";
+      for (var i = 0; i < GG.motifs.length; i++){
+        var m = GG.motifs[i];
+        if (q && (m.name + " " + m.gloss + " " + m.note).toLowerCase().indexOf(q) < 0) continue;
+        if (want && !m.chapters[want]) continue;
+        html += '<tr data-id="' + m.id + '" style="cursor:pointer"><td><strong>' + esc(m.name) +
+                "</strong></td><td>" + esc(m.gloss) + "</td><td>" + dots(m.chapters) + "</td></tr>";
+      }
+      body.innerHTML = html || '<tr><td colspan="3" class="tempty">No motif matches that filter.</td></tr>';
+      Array.prototype.forEach.call(body.querySelectorAll("tr[data-id]"), function(tr){
+        tr.addEventListener("click", function(){ showMotif(tr.getAttribute("data-id")); });
+      });
+    }
+    function showMotif(id){
+      for (var i = 0; i < GG.motifs.length; i++){
+        if (GG.motifs[i].id !== id) continue;
+        var m = GG.motifs[i];
+        var chapList = [];
+        for (var c = 1; c <= 9; c++){ if (m.chapters[c]) chapList.push(c); }
+        $("motifDetail").innerHTML = '<div class="tcard"><div class="card-kicker">Motif close-read</div>' +
+          '<h3 style="margin:6px 0 8px">' + esc(m.name) + "</h3><p style=\"margin:0 0 12px\">" + esc(m.note) + "</p>" +
+          '<div class="ttiny">Present in chapters ' + chapList.join(", ") + "</div></div>";
+        $("motifDetail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+    $("motifFind").addEventListener("input", draw);
+    chapSel.addEventListener("change", draw);
+    draw();
+  }
+
+  /* ---------- characters ---------- */
+  function renderCharacters(){
+    var html = "";
+    for (var i = 0; i < GG.characters.length; i++){
+      var c = GG.characters[i];
+      html += '<div class="tcard"><div class="card-kicker">' + esc(c.role) + "</div>" +
+        '<h3 style="margin:6px 0 10px;font-size:19px">' + esc(c.name) + "</h3>" +
+        '<p style="margin:0 0 8px"><strong>Desire.</strong> ' + esc(c.desire) + "</p>" +
+        '<p style="margin:0 0 8px"><strong>Illusion.</strong> ' + esc(c.illusion) + "</p>" +
+        '<p style="margin:0 0 8px"><strong>Cost.</strong> ' + esc(c.cost) + "</p>" +
+        '<p class="tmuted" style="margin:0 0 8px"><strong>Set against.</strong> ' + esc(c.against) + "</p>" +
+        '<div class="ttiny">' + esc(c.evidence) + "</div></div>";
+    }
+    $("charGrid").innerHTML = html;
+
+    var rows = "";
+    for (var p = 0; p < GG.pairs.length; p++){
+      rows += "<tr><td><strong>" + esc(GG.pairs[p].pair) + "</strong></td><td>" +
+              esc(GG.pairs[p].exposes) + "</td><td>" + esc(GG.pairs[p].chaps) + "</td></tr>";
+    }
+    $("pairTable").querySelector("tbody").innerHTML = rows;
+  }
+
+  /* ---------- quotation bank ---------- */
+  function renderQuotes(){
+    var chapSel = $("qChap");
+    for (var c = 1; c <= 9; c++){
+      var o = document.createElement("option");
+      o.value = String(c);
+      o.textContent = "Chapter " + c;
+      chapSel.appendChild(o);
+    }
+    var motifSel = $("qMotif");
+    for (var i = 0; i < GG.motifs.length; i++){
+      var mo = document.createElement("option");
+      mo.value = GG.motifs[i].id;
+      mo.textContent = GG.motifs[i].name;
+      motifSel.appendChild(mo);
+    }
+    function draw(){
+      var q = ($("qFind").value || "").toLowerCase();
+      var wc = chapSel.value;
+      var wm = motifSel.value;
+      var html = "";
+      var n = 0;
+      for (var i = 0; i < GG.quotes.length; i++){
+        var it = GG.quotes[i];
+        if (wc && String(it.c) !== wc) continue;
+        if (wm && it.motifs.indexOf(wm) < 0) continue;
+        if (q && (it.tag + " " + it.use).toLowerCase().indexOf(q) < 0) continue;
+        var chips = "";
+        for (var m = 0; m < it.motifs.length; m++){
+          chips += '<span class="tchip">' + esc(motifName(it.motifs[m])) + "</span>";
+        }
+        html += '<div class="tcard" style="padding:16px"><div class="trow" style="justify-content:space-between">' +
+          '<span class="tchip">Chapter ' + it.c + "</span>" +
+          '<button class="tbtn sm" type="button" data-q="' + i + '">Save to notes</button></div>' +
+          '<p style="margin:10px 0 8px;font-weight:600;font-size:15.5px">' + esc(it.tag) + "</p>" +
+          '<p class="tmuted" style="margin:0 0 10px;font-size:14px"><strong>How to use it.</strong> ' + esc(it.use) + "</p>" +
+          "<div>" + chips + "</div></div>";
+        n++;
+      }
+      $("qList").innerHTML = html || '<div class="tempty">Nothing matches those filters.</div>';
+      $("qCount").textContent = n + " of " + GG.quotes.length + " passages";
+      Array.prototype.forEach.call($("qList").querySelectorAll("button[data-q]"), function(b){
+        b.addEventListener("click", function(){
+          var it = GG.quotes[parseInt(b.getAttribute("data-q"), 10)];
+          state.notes.saved.push({ chapter: it.c, tag: it.tag, use: it.use, motifs: it.motifs });
+          store(LS_NOTES, state.notes);
+          b.textContent = "Saved";
+          b.disabled = true;
+        });
+      });
+    }
+    $("qFind").addEventListener("input", draw);
+    chapSel.addEventListener("change", draw);
+    motifSel.addEventListener("change", draw);
+    draw();
+  }
+
+  /* ---------- essay angles ---------- */
+  function renderEssays(){
+    var html = "";
+    for (var i = 0; i < GG.essays.length; i++){
+      var e = GG.essays[i];
+      html += '<div class="tacc"><button class="tacc-btn" type="button">' +
+        '<span class="tacc-t">' + esc(e.t) + '</span><span class="tacc-k">Angle ' + (i + 1) + "</span></button>" +
+        '<div class="tacc-body"><p style="margin:14px 0 10px"><strong>The claim.</strong> ' + esc(e.claim) + "</p>" +
+        '<p style="margin:0 0 10px"><strong>The counter-reading.</strong> ' + esc(e.counter) + "</p>" +
+        '<div class="tflag"><strong>Evidence trail.</strong> ' + esc(e.trail) + "</div></div></div>";
+    }
+    $("essayAcc").innerHTML = html;
+    Array.prototype.forEach.call($("essayAcc").querySelectorAll(".tacc-btn"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- notes ---------- */
+  function buildSheet(){
+    var out = ["The Great Gatsby study sheet", "Generated with the VaultBook annotated text tool", ""];
+    if (state.notes.marks.length){
+      out.push("MARKED PASSAGES");
+      for (var i = 0; i < state.notes.marks.length; i++){
+        var m = state.notes.marks[i];
+        out.push((i + 1) + ". Chapter " + (m.chapter || "?") + ", paragraph " + m.para +
+                 (m.motif ? " [" + motifName(m.motif) + "]" : ""));
+        out.push("   " + m.text);
+        if (m.note) out.push("   Note: " + m.note);
+        out.push("");
+      }
+    }
+    if (state.notes.saved.length){
+      out.push("SAVED FROM THE QUOTATION BANK");
+      for (var j = 0; j < state.notes.saved.length; j++){
+        var s = state.notes.saved[j];
+        out.push((j + 1) + ". Chapter " + s.chapter + ". " + s.tag);
+        out.push("   How to use it: " + s.use);
+        out.push("");
+      }
+    }
+    if (out.length <= 3) out.push("Nothing saved yet.");
+    return out.join("\n");
+  }
+
+  function renderNotes(){
+    var marks = state.notes.marks;
+    var saved = state.notes.saved;
+    var motifs = {};
+    var chaps = {};
+    var i;
+    for (i = 0; i < marks.length; i++){
+      if (marks[i].motif) motifs[marks[i].motif] = true;
+      if (marks[i].chapter) chaps[marks[i].chapter] = true;
+    }
+    for (i = 0; i < saved.length; i++){
+      chaps[saved[i].chapter] = true;
+      for (var k = 0; k < saved[i].motifs.length; k++){ motifs[saved[i].motifs[k]] = true; }
+    }
+    $("nMarks").textContent = marks.length;
+    $("nSaved").textContent = saved.length;
+    $("nMotifs").textContent = Object.keys(motifs).length;
+    $("nChaps").textContent = Object.keys(chaps).length;
+
+    var html = "";
+    if (marks.length){
+      html += '<h3 style="margin:0 0 12px;font-size:18px">Marked passages</h3><div class="tgrid" style="gap:10px">';
+      for (i = 0; i < marks.length; i++){
+        html += '<div class="tcard" style="padding:14px"><div class="trow" style="justify-content:space-between">' +
+          '<span class="tchip">Chapter ' + (marks[i].chapter || "?") + ", paragraph " + marks[i].para + "</span>" +
+          '<button class="tbtn sm" type="button" data-del="' + i + '">Remove</button></div>' +
+          '<p style="margin:10px 0 8px;font-size:14.5px;line-height:1.6">' + esc(marks[i].text) + "</p>" +
+          '<textarea class="ttext" data-note="' + i + '" style="min-height:64px" placeholder="Your note on this passage">' +
+          esc(marks[i].note) + "</textarea>" +
+          (marks[i].motif ? '<div style="margin-top:8px"><span class="tchip">' + esc(motifName(marks[i].motif)) + "</span></div>" : "") +
+          "</div>";
+      }
+      html += "</div>";
+    }
+    if (saved.length){
+      html += '<h3 style="margin:26px 0 12px;font-size:18px">Saved quotations</h3><div class="tgrid" style="gap:10px">';
+      for (i = 0; i < saved.length; i++){
+        html += '<div class="tcard" style="padding:14px"><div class="trow" style="justify-content:space-between">' +
+          '<span class="tchip">Chapter ' + saved[i].chapter + "</span>" +
+          '<button class="tbtn sm" type="button" data-dels="' + i + '">Remove</button></div>' +
+          '<p style="margin:10px 0 6px;font-weight:600">' + esc(saved[i].tag) + "</p>" +
+          '<p class="tmuted" style="margin:0;font-size:14px">' + esc(saved[i].use) + "</p></div>";
+      }
+      html += "</div>";
+    }
+    if (!marks.length && !saved.length){
+      html = '<div class="tempty">Nothing saved yet. Mark passages while reading, or send entries here from the quotation bank.</div>';
+    }
+    $("notesList").innerHTML = html;
+
+    Array.prototype.forEach.call($("notesList").querySelectorAll("textarea[data-note]"), function(t){
+      t.addEventListener("input", function(){
+        state.notes.marks[parseInt(t.getAttribute("data-note"), 10)].note = t.value;
+        store(LS_NOTES, state.notes);
+      });
+    });
+    Array.prototype.forEach.call($("notesList").querySelectorAll("button[data-del]"), function(b){
+      b.addEventListener("click", function(){
+        state.notes.marks.splice(parseInt(b.getAttribute("data-del"), 10), 1);
+        store(LS_NOTES, state.notes);
+        renderNotes();
+        renderStage();
+        renderMarkList();
+      });
+    });
+    Array.prototype.forEach.call($("notesList").querySelectorAll("button[data-dels]"), function(b){
+      b.addEventListener("click", function(){
+        state.notes.saved.splice(parseInt(b.getAttribute("data-dels"), 10), 1);
+        store(LS_NOTES, state.notes);
+        renderNotes();
+      });
+    });
+  }
+
+  function initNotes(){
+    $("expBtn").addEventListener("click", function(){
+      var blob = new Blob([buildSheet()], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "great-gatsby-study-sheet.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      flash("Study sheet downloaded.");
+    });
+    $("copyBtn").addEventListener("click", function(){
+      var text = buildSheet();
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ flash("Copied."); },
+          function(){ flash("Copy failed, use Export instead."); });
+      } else {
+        flash("Copy not supported here, use Export instead.");
+      }
+    });
+    $("wipeBtn").addEventListener("click", function(){
+      if (!window.confirm("Clear every marked passage and saved quotation?")) return;
+      state.notes = { marks: [], saved: [] };
+      store(LS_NOTES, state.notes);
+      renderNotes();
+      renderStage();
+      renderMarkList();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initReader();
+    renderChapters();
+    renderMotifs();
+    renderCharacters();
+    renderQuotes();
+    renderEssays();
+    initNotes();
+    renderNotes();
+  });
+})();
+</script>

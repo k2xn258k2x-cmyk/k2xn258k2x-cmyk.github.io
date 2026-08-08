@@ -1,0 +1,867 @@
+---
+layout: default
+title: World Cup Planner
+description: Plan your World Cup. Group and bracket builder, host city and venue reference, a prediction log that scores itself, and a match note workspace. Free, no signup.
+permalink: /tools/world-cup-2026-planner.html
+body_class: tool-page
+---
+
+<style>
+  .wc-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .wc-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .wc-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .wc-sub{font-size:17px;color:var(--muted);max-width:64ch;margin:0}
+  .wc-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .wc-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .wc-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .wc-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .wc-row::-webkit-scrollbar{display:none}
+  .wc-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .wc-btn:hover{background:var(--tint);color:var(--text)}
+  .wc-btn.is-active{background:var(--text);color:#fff}
+  .wc-panel{display:none;padding:34px 0 60px}
+  .wc-panel.is-active{display:block}
+  .wc-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .wc-lede{color:var(--muted);max-width:70ch;margin:0 0 22px}
+  .wc-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .wc-grid{display:grid;gap:16px}
+  .wc-grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .wc-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .wc-grid.four{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .wc-input,.wc-select,.wc-text{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .wc-text{min-height:120px;resize:vertical;line-height:1.55}
+  .wc-input:focus,.wc-select:focus,.wc-text:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .wc-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .wc-b:hover{background:var(--tint)}
+  .wc-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .wc-b.primary:hover{background:var(--blue2)}
+  .wc-b.sm{font-size:13px;padding:6px 10px}
+  .wc-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .wc-muted{color:var(--muted);font-size:13px}
+  .wc-tiny{font-size:12px;color:var(--muted2)}
+  .wc-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.wc-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.wc-tbl th,table.wc-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.wc-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.wc-tbl tr:last-child td{border-bottom:0}
+  .wc-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .wc-group{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+  .wc-group h4{margin:0 0 10px;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  .wc-slot{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+  .wc-slot span{font-size:12px;color:var(--muted2);width:16px;font-weight:700}
+  .wc-slot input{font:inherit;flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);font-size:14px}
+  .wc-acc{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .wc-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:15px 17px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:700;font-size:16px;color:var(--text)}
+  .wc-acc-b:hover{background:var(--tint)}
+  .wc-acc-body{display:none;padding:0 17px 17px;border-top:1px solid var(--line)}
+  .wc-acc.is-open .wc-acc-body{display:block}
+  .wc-acc-k{font-size:12px;color:var(--muted2);font-weight:600}
+  .wc-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.6}
+  .wc-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .wc-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .wc-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .wc-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .wc-empty{padding:26px;text-align:center;color:var(--muted)}
+  .wc-list{margin:10px 0 0;padding-left:20px}
+  .wc-list li{margin-bottom:7px;line-height:1.6}
+  .wc-ok{color:#128a55;font-weight:700}
+  .wc-no{color:#b3261e;font-weight:700}
+</style>
+
+<section class="wc-hero">
+  <div class="container">
+    <div class="wc-eyebrow">VaultBook Study Library</div>
+    <h1 class="wc-title">The World Cup planner</h1>
+    <p class="wc-sub">A workspace for following a World Cup properly. Understand the tournament format, fill in your own groups and bracket, log predictions and score them against what actually happened, keep notes on every match you watch, and plan a trip around the host cities. Built to be reused for any edition, and everything stays on your device.</p>
+    <div class="wc-badges">
+      <span class="wc-badge">Format explained</span>
+      <span class="wc-badge">Group and bracket builder</span>
+      <span class="wc-badge">Prediction log that scores itself</span>
+      <span class="wc-badge">Match note workspace</span>
+      <span class="wc-badge">Host city reference</span>
+      <span class="wc-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="wc-tabs">
+  <div class="container">
+    <div class="wc-row" role="tablist" aria-label="Planner tools">
+      <button class="wc-btn is-active" data-tab="format" role="tab" aria-selected="true">How it works</button>
+      <button class="wc-btn" data-tab="groups" role="tab" aria-selected="false">Group builder</button>
+      <button class="wc-btn" data-tab="bracket" role="tab" aria-selected="false">Bracket</button>
+      <button class="wc-btn" data-tab="predict" role="tab" aria-selected="false">Prediction log</button>
+      <button class="wc-btn" data-tab="matches" role="tab" aria-selected="false">Match notes</button>
+      <button class="wc-btn" data-tab="cities" role="tab" aria-selected="false">Host cities</button>
+      <button class="wc-btn" data-tab="watch" role="tab" aria-selected="false">Watching well</button>
+    </div>
+  </div>
+</div>
+
+<section class="wc-panel is-active" id="wp-format">
+  <div class="container">
+    <h2 class="wc-head">How the tournament works</h2>
+    <p class="wc-lede">The expanded format changed the shape of the competition, and most of the confusion around it comes from the knockout stage rather than the groups. Read this once and every fixture in the tournament makes sense.</p>
+
+    <div class="wc-stat" style="margin-bottom:20px">
+      <div class="wc-stat-c"><div class="wc-stat-n">48</div><div class="wc-stat-l">Teams</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n">12</div><div class="wc-stat-l">Groups of four</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n">32</div><div class="wc-stat-l">Reach the knockout</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n">104</div><div class="wc-stat-l">Matches in total</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n">8</div><div class="wc-stat-l">Games to win it</div></div>
+    </div>
+
+    <div id="wcFormatAcc"></div>
+
+    <div class="wc-note" style="margin-top:16px">Structural facts are stable across an edition, but seedings, qualification slots per confederation, and tie-break rules are set by the governing body and can be revised. Check the official regulations for the edition you are following before settling an argument with them.</div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-groups">
+  <div class="container">
+    <h2 class="wc-head">Group builder</h2>
+    <p class="wc-lede">Fill in the twelve groups as the draw lands, then use the table to work out who needs what. Everything you type is saved on this device, so the sheet is still here when you come back for the next round.</p>
+
+    <div class="wc-flex" style="margin-bottom:16px">
+      <button class="wc-b primary" id="wcSaveGroups" type="button">Save groups</button>
+      <button class="wc-b" id="wcClearGroups" type="button">Clear all</button>
+      <button class="wc-b" id="wcExportGroups" type="button">Export as text</button>
+      <span class="wc-tiny" id="wcGroupMsg"></span>
+    </div>
+
+    <div class="wc-grid three" id="wcGroups"></div>
+
+    <div class="wc-card" style="margin-top:20px">
+      <div style="font-weight:700;margin-bottom:8px">Reading a group table properly</div>
+      <div class="wc-muted" style="line-height:1.7">Points decide the order first, and after that the tie-breaks matter more than most viewers realise. Goal difference across the group usually separates level teams, then goals scored, then the result of the match between the tied sides. In an expanded format the third place finishers are ranked against each other across all twelve groups, which means a team can be knocked out by a result in a group it never played in. That is why the final round of group matches is scheduled simultaneously.</div>
+    </div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-bracket">
+  <div class="container">
+    <h2 class="wc-head">Bracket</h2>
+    <p class="wc-lede">Work forward from the round of thirty two. Type a name into a slot and it carries into the next round automatically, so you can see the path to the final take shape as you go.</p>
+
+    <div class="wc-flex" style="margin-bottom:16px">
+      <button class="wc-b primary" id="wcSaveBracket" type="button">Save bracket</button>
+      <button class="wc-b" id="wcClearBracket" type="button">Clear bracket</button>
+      <button class="wc-b" id="wcExportBracket" type="button">Export as text</button>
+      <span class="wc-tiny" id="wcBracketMsg"></span>
+    </div>
+
+    <div id="wcBracket"></div>
+
+    <div class="wc-note" style="margin-top:16px">The bracket is fixed before a ball is kicked, which means the half of the draw a team lands in matters as much as its group. Fill in the round of thirty two first and you can see immediately which two contenders are on a collision course three rounds early.</div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-predict">
+  <div class="container">
+    <h2 class="wc-head">Prediction log</h2>
+    <p class="wc-lede">Write your call before the match, then come back and enter what actually happened. The log scores itself and keeps a running record, so you find out whether your instincts are any good rather than just remembering the ones you got right.</p>
+
+    <div class="wc-card" style="margin-bottom:18px">
+      <div class="wc-grid two">
+        <div>
+          <label class="wc-tiny" for="wcPmatch">Match</label>
+          <input class="wc-input" id="wcPmatch" type="text" placeholder="Team A versus Team B" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="wc-tiny" for="wcPstage">Stage</label>
+          <select class="wc-select" id="wcPstage" style="margin-top:5px">
+            <option>Group stage</option><option>Round of 32</option><option>Round of 16</option>
+            <option>Quarter final</option><option>Semi final</option><option>Third place</option><option>Final</option>
+          </select>
+        </div>
+      </div>
+      <div class="wc-grid four" style="margin-top:12px">
+        <div>
+          <label class="wc-tiny" for="wcPcall">Your call</label>
+          <select class="wc-select" id="wcPcall" style="margin-top:5px">
+            <option value="home">Team A wins</option><option value="draw">Draw</option><option value="away">Team B wins</option>
+          </select>
+        </div>
+        <div>
+          <label class="wc-tiny" for="wcPscore">Score guess, optional</label>
+          <input class="wc-input" id="wcPscore" type="text" placeholder="2-1" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="wc-tiny" for="wcPconf">Confidence</label>
+          <select class="wc-select" id="wcPconf" style="margin-top:5px">
+            <option value="1">Coin flip</option><option value="2" selected>Fairly sure</option><option value="3">Very sure</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="wc-b primary" id="wcPadd" type="button" style="width:100%">Log prediction</button>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="wc-tiny" for="wcPwhy">Why, in one line</label>
+        <input class="wc-input" id="wcPwhy" type="text" placeholder="The reasoning you want to test" style="margin-top:5px">
+      </div>
+    </div>
+
+    <div class="wc-stat" style="margin-bottom:16px">
+      <div class="wc-stat-c"><div class="wc-stat-n" id="wcPtotal">0</div><div class="wc-stat-l">Logged</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n" id="wcPsettled">0</div><div class="wc-stat-l">Settled</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n" id="wcPright">0</div><div class="wc-stat-l">Correct</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n" id="wcPacc">0%</div><div class="wc-stat-l">Hit rate</div></div>
+      <div class="wc-stat-c"><div class="wc-stat-n" id="wcPcal">-</div><div class="wc-stat-l">Overconfidence</div></div>
+    </div>
+
+    <div class="wc-flex" style="margin-bottom:14px">
+      <button class="wc-b" id="wcPexport" type="button">Export log</button>
+      <button class="wc-b" id="wcPwipe" type="button">Clear log</button>
+      <span class="wc-tiny" id="wcPmsg"></span>
+    </div>
+
+    <div id="wcPlist"></div>
+
+    <div class="wc-card" style="margin-top:16px">
+      <div style="font-weight:700;margin-bottom:8px">What the overconfidence number means</div>
+      <div class="wc-muted" style="line-height:1.7">It compares how sure you said you were against how often you were right. If your very sure calls land at roughly the same rate as your coin flips, your confidence is not carrying information and you are reading the tournament through hope rather than evidence. Well calibrated predictions show a clear gap between the three confidence bands. This is the single most useful thing a prediction log can tell you, and almost nobody tracks it.</div>
+    </div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-matches">
+  <div class="container">
+    <h2 class="wc-head">Match notes</h2>
+    <p class="wc-lede">One card per match you watch, with the things worth noticing rather than just the score. Build a record across a whole tournament and patterns appear that no highlights package will show you.</p>
+
+    <div class="wc-card" style="margin-bottom:18px">
+      <div class="wc-grid two">
+        <div>
+          <label class="wc-tiny" for="wcMname">Match</label>
+          <input class="wc-input" id="wcMname" type="text" placeholder="Team A versus Team B" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="wc-tiny" for="wcMtag">What stood out</label>
+          <select class="wc-select" id="wcMtag" style="margin-top:5px"></select>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="wc-tiny" for="wcMnote">Notes</label>
+        <textarea class="wc-text" id="wcMnote" placeholder="Shape, the moment it turned, who controlled the middle, what the substitutions were trying to fix" style="margin-top:5px"></textarea>
+      </div>
+      <div class="wc-flex" style="margin-top:12px">
+        <button class="wc-b primary" id="wcMadd" type="button">Save note</button>
+        <button class="wc-b" id="wcMexport" type="button">Export notes</button>
+        <button class="wc-b" id="wcMwipe" type="button">Clear notes</button>
+        <span class="wc-tiny" id="wcMmsg"></span>
+      </div>
+    </div>
+
+    <div class="wc-card" style="margin-bottom:18px">
+      <div style="font-weight:700;margin-bottom:8px">Watch for this, and the prompt changes each time</div>
+      <div class="wc-muted" id="wcPrompt" style="font-size:14px;line-height:1.7">Loading.</div>
+      <button class="wc-b sm" id="wcPromptNext" type="button" style="margin-top:12px">Another prompt</button>
+    </div>
+
+    <div id="wcMlist"></div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-cities">
+  <div class="container">
+    <h2 class="wc-head">Host cities</h2>
+    <p class="wc-lede">Sixteen cities across three countries, spread over four time zones and climates that range from desert heat to Pacific coast mild. If you are travelling, the distances between them are the thing people underestimate most.</p>
+
+    <div class="wc-flex" style="margin-bottom:14px">
+      <select class="wc-select" id="wcCcountry" style="max-width:200px"><option value="">All countries</option></select>
+      <input class="wc-input" id="wcCfind" type="search" placeholder="Filter cities" style="max-width:220px">
+      <span class="wc-tiny" id="wcCcount"></span>
+    </div>
+
+    <div class="wc-tbl-wrap">
+      <table class="wc-tbl" id="wcCtable">
+        <thead><tr><th style="min-width:150px">City</th><th style="min-width:90px">Country</th><th style="min-width:110px">Conditions</th><th>Worth knowing</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="wc-card" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:8px">Planning travel between them</div>
+      <div class="wc-muted" style="line-height:1.7">Treat this as three separate countries rather than one host, because that is what it is. Crossing a border means a passport check and possibly a visa depending on your nationality, and the flight between the furthest apart host cities is longer than many intercontinental hops. Following one team through a group stage can mean three cities in eight days, so read the fixture locations before booking anything. Fans who plan around a single region rather than a single team almost always have the better trip.</div>
+    </div>
+  </div>
+</section>
+
+<section class="wc-panel" id="wp-watch">
+  <div class="container">
+    <h2 class="wc-head">Watching well</h2>
+    <p class="wc-lede">Nine habits that turn a tournament from a month of background noise into something you actually understand. None of them require knowing anything technical.</p>
+    <div id="wcWatchAcc"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="wc-grid three">
+      <div class="wc-card">
+        <div class="card-kicker">Keep it all together</div>
+        <div class="card-title" style="margin:6px 0">One vault for the tournament</div>
+        <p class="card-text">VaultBook holds your match notes, travel documents, tickets, and reading in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="wc-card">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New planners and study companions are added to the VaultBook library over time, each built the same way: the structure, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="wc-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your groups, bracket, predictions, and notes stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var WC = {};
+
+WC.format = [
+  {t:"Forty eight teams, twelve groups of four", k:"group stage",
+   body:"Every team plays three group matches. The top two in each group advance automatically, which is twenty four teams, and the eight best third place finishers join them to make thirty two. That last part is what trips people up. A third place finish is survivable, but whether it is enough depends on results in eleven other groups you have no control over.",
+   points:["Three points for a win, one for a draw","Order decided by points, then goal difference, then goals scored, then the head to head result","All final group matches kick off simultaneously so no team knows what it needs while others are still playing","A third placed team can be eliminated by a match in a group it never appeared in"]},
+  {t:"The round of thirty two", k:"new round",
+   body:"The expanded format added a knockout round that did not exist in the thirty two team era. It means the champion plays eight matches rather than seven, and it gives one extra chance for a group stage underperformer to reset. It also means the tournament runs longer and squads carry more minutes into the later rounds, which is why depth matters more than it used to.",
+   points:["Single leg, extra time and penalties if level","Winner of a group is paired against a runner up or a qualifying third place team","Losing here is the earliest possible knockout exit","Every round from this point is elimination"]},
+  {t:"Why the bracket is decided before kickoff", k:"the draw",
+   body:"The path from group to final is fixed in advance. Finishing first rather than second in a group does not simply avoid a stronger immediate opponent, it moves a team into a different half of the draw entirely. Two contenders in the same half can only meet before the final, which is why the half a team lands in can matter as much as the group it was drawn into.",
+   points:["Group position determines the whole route, not just the next match","Two favourites in one half means one of them cannot reach the final","Working the bracket backwards from the final is more revealing than reading it forwards","This is why a favourable draw is discussed as seriously as squad quality"]},
+  {t:"Extra time, penalties, and squad depth", k:"knockouts",
+   body:"From the first knockout round onward a drawn match goes to thirty minutes of extra time and then a penalty shootout. Across an eight match run those extra periods accumulate, and the teams that go deep are usually the ones that can change five outfield players without losing quality. Depth is not a luxury in a long tournament, it is the mechanism by which teams survive the second week.",
+   points:["Two fifteen minute periods, then penalties","Substitution allowances expand in extra time","Teams that reach the final may have played the equivalent of an extra match in added periods","Recovery time between knockout matches is short and unequal between halves of the draw"]},
+  {t:"Three host countries, one tournament", k:"logistics",
+   body:"A tournament spread across three countries changes the experience for teams and travelling fans alike. Border crossings, time zones, altitude, and climate all vary by venue, and a group can be played in conditions that differ sharply from one match to the next. Base camp location becomes a genuine competitive factor rather than a footnote.",
+   points:["Four time zones across the host cities","Altitude ranges from sea level to well over two thousand metres","Climates include desert heat, humid subtropical, and temperate Pacific coast","Some travel legs between host cities are longer than crossing an ocean"]},
+  {t:"How qualification gets you there", k:"before the draw",
+   body:"Places are allocated by confederation, with each region running its own qualifying campaign over a period of years, plus a small number of places settled by an inter confederation playoff shortly before the tournament. Expansion widened access considerably, which is why recent editions have featured teams appearing for the first time. Exact slot counts are set by the governing body and are the detail most worth checking against official sources.",
+   points:["Each confederation runs an independent qualifying campaign","Host nations normally qualify automatically","A playoff decides the final places between regions","Expansion increased first time qualifiers substantially"]}
+];
+
+WC.cities = [
+  {city:"Mexico City", country:"Mexico", cond:"High altitude, mild",
+   note:"The highest venue in the tournament by a wide margin, and altitude is a genuine tactical variable rather than a talking point. Visiting sides often arrive early or not at all, and pressing games tend to fade in the final twenty minutes. The stadium here is among the most storied in the sport."},
+  {city:"Guadalajara", country:"Mexico", cond:"Warm, moderate altitude",
+   note:"Elevated but far less extreme than the capital, with a strong domestic football culture and a compact centre. A good base if you want atmosphere without the scale of Mexico City."},
+  {city:"Monterrey", country:"Mexico", cond:"Hot and dry",
+   note:"The northernmost Mexican host and the closest to the United States border, which makes it the natural crossing point for fans moving between the two countries. Summer heat is serious and afternoon kickoffs are punishing."},
+  {city:"Toronto", country:"Canada", cond:"Warm, humid",
+   note:"The larger of the two Canadian hosts, with strong transit and a genuinely international fan base for almost any nation playing there. Expect the smallest capacity venues in the tournament."},
+  {city:"Vancouver", country:"Canada", cond:"Mild, coastal",
+   note:"The mildest conditions of any host city and the furthest northwest point on the map. Comfortable to watch in, expensive to stay in, and a long way from almost every other venue."},
+  {city:"Seattle", country:"United States", cond:"Mild, coastal",
+   note:"Pacific northwest weather makes this one of the most comfortable venues for players. Close enough to Vancouver that a two city trip is genuinely practical, which is rare in this tournament."},
+  {city:"San Francisco Bay Area", country:"United States", cond:"Mild, breezy",
+   note:"The stadium sits well south of San Francisco itself, so factor the transit time rather than assuming a city centre venue. Cool evenings even in midsummer."},
+  {city:"Los Angeles", country:"United States", cond:"Warm, dry",
+   note:"A vast metropolitan area where the venue is a considerable distance from most of what visitors want to see. Traffic is the defining logistical fact, so build in far more travel time than the map suggests."},
+  {city:"Dallas", country:"United States", cond:"Very hot",
+   note:"Among the hottest host cities, with an enclosed venue that mitigates it. The metropolitan area is spread out and the stadium is not in the city centre, which catches out first time visitors."},
+  {city:"Houston", country:"United States", cond:"Hot and humid",
+   note:"Heat combined with high humidity makes this one of the harder places to play an afternoon match. Large and welcoming international communities, and a good hub for onward travel to Mexico."},
+  {city:"Kansas City", country:"United States", cond:"Hot, humid",
+   note:"A smaller host with a reputation for the loudest home atmosphere in American soccer. Compact enough to navigate without a car in a way most host cities are not."},
+  {city:"Atlanta", country:"United States", cond:"Hot, humid",
+   note:"Enclosed venue in a walkable downtown with rail access, which makes it one of the easier match days on the map. Major airline hub, so often the cheapest point of entry."},
+  {city:"Miami", country:"United States", cond:"Hot, humid, storms",
+   note:"Afternoon thunderstorms are routine in summer and can delay proceedings. The venue is well north of the beaches, so choose accommodation by transit rather than by postcard."},
+  {city:"Philadelphia", country:"United States", cond:"Warm, humid",
+   note:"Rail connections to New York and Washington make this the easiest host city to combine with others on the eastern seaboard. Dense, walkable, and cheaper than its neighbours."},
+  {city:"Boston", country:"United States", cond:"Warm, variable",
+   note:"The venue is a substantial distance southwest of Boston proper, so the city name understates the commute. Milder than the southern hosts and pleasant for evening matches."},
+  {city:"New York and New Jersey", country:"United States", cond:"Warm, humid",
+   note:"The largest metropolitan host, with the venue across the river in New Jersey rather than in the city itself. Expect the highest costs and the deepest pool of travelling supporters for almost any nation."}
+];
+
+WC.watch = [
+  {t:"Read the shape before the ball", 
+   body:"In the first two minutes, count the defenders and the players sitting in front of them. That single observation tells you whether a side has come to control the match or to survive it, and it explains most of what follows. Everything else you notice will make more sense once you have that number."},
+  {t:"Watch the player without the ball",
+   body:"Following the ball is the default and it teaches you very little. Pick one player away from the action and watch them for five full minutes. You will see the runs that create space for someone else, the pressing triggers, and the quiet positional work that decides matches and never appears in a highlight reel."},
+  {t:"Note the moment it turned, not the goal",
+   body:"Goals are outcomes. The turn usually happens several minutes earlier, when one side stops pressing, a substitution changes the midfield, or a team drops ten metres deeper after taking a lead. Training yourself to spot the turn rather than the goal is the fastest route to actually understanding a match."},
+  {t:"Treat substitutions as a statement of the problem",
+   body:"A manager making a change is telling you what they think is wrong. Ask what the substitution is trying to fix before you judge whether it worked. A defensive change while leading and an attacking change while drawing are completely different admissions, and reading them correctly is a genuine skill."},
+  {t:"Group stage matches are not equal",
+   body:"The first match sets the tone, the second is usually the decisive one, and the third is played with a calculator. Teams that need a specific result behave nothing like teams that need a win, so knowing the table before kickoff changes what you are watching entirely."},
+  {t:"Heat and altitude are tactics, not weather",
+   body:"A high tempo pressing game in extreme heat or at altitude is a decision with a cost, and you can usually see the bill arrive around the seventieth minute. When a match slows dramatically in the final third, check the conditions before assuming the teams simply ran out of ideas."},
+  {t:"Distrust the possession number",
+   body:"Possession tells you who had the ball, not who was winning. Some of the most controlled performances in tournament history came with well under half of it. Look instead at where the ball was held and whether it produced anything, because sterile possession in front of a compact defence is a symptom rather than an achievement."},
+  {t:"Write your prediction down first",
+   body:"Memory quietly edits itself in favour of the calls you got right. Logging a prediction before kickoff, with a one line reason, is the only way to find out whether you actually read the match or just recall it flatteringly afterwards. The prediction log on this page exists for exactly this."},
+  {t:"Follow one unfamiliar team the whole way",
+   body:"Pick a nation you know nothing about and watch all three group matches. You will learn more about how tournaments work from following one unfamiliar side properly than from watching twenty matches of teams you already have opinions about."}
+];
+
+WC.tags = ["Tactical shape","Individual performance","The turning point","Substitutions","Set pieces","Refereeing decision","Conditions","Atmosphere","Something surprising"];
+
+WC.prompts = [
+  "Count the defenders in the first minute. What does that number tell you about the plan?",
+  "Pick one midfielder and watch only them for five minutes. What are they doing without the ball?",
+  "Where did the match turn, and how many minutes before the goal did it happen?",
+  "What problem was the first substitution trying to fix, and did it work?",
+  "Which team looks like it is playing for a specific result rather than a win?",
+  "Are the conditions visibly affecting the tempo, and from roughly what minute?",
+  "Who is controlling the space between the lines, and how are they being allowed to?",
+  "If you had to explain this match in one sentence to someone who missed it, what would it be?",
+  "Which player would you not have noticed if you had only watched the highlights?",
+  "What would you do at half time if you were managing the side that is behind?"
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var LS_G = "vb_wc_groups_v1";
+  var LS_B = "vb_wc_bracket_v1";
+  var LS_P = "vb_wc_predict_v1";
+  var LS_M = "vb_wc_matchnotes_v1";
+  var LETTERS = ["A","B","C","D","E","F","G","H","I","J","K","L"];
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ window.localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(k,f){ try{ var r=window.localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  var S = {
+    groups: get(LS_G, {}),
+    bracket: get(LS_B, {}),
+    preds: get(LS_P, []),
+    notes: get(LS_M, []),
+    promptIndex: 0
+  };
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".wc-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".wc-panel"), function(p){
+          p.classList.remove("is-active");
+        });
+        var t=$("wp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- format accordion ---------- */
+  function renderFormat(){
+    var html="";
+    for (var i=0;i<WC.format.length;i++){
+      var f=WC.format[i];
+      var pts="";
+      for (var p=0;p<f.points.length;p++){ pts += "<li>"+esc(f.points[p])+"</li>"; }
+      html += '<div class="wc-acc"><button class="wc-acc-b" type="button"><span>'+esc(f.t)+
+        '</span><span class="wc-acc-k">'+esc(f.k)+'</span></button><div class="wc-acc-body">'+
+        '<p style="margin:14px 0 6px;line-height:1.7">'+esc(f.body)+'</p>'+
+        '<ul class="wc-list">'+pts+'</ul></div></div>';
+    }
+    $("wcFormatAcc").innerHTML=html;
+    Array.prototype.forEach.call($("wcFormatAcc").querySelectorAll(".wc-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- watching accordion ---------- */
+  function renderWatch(){
+    var html="";
+    for (var i=0;i<WC.watch.length;i++){
+      var w=WC.watch[i];
+      html += '<div class="wc-acc"><button class="wc-acc-b" type="button"><span>'+esc(w.t)+
+        '</span><span class="wc-acc-k">habit '+(i+1)+'</span></button><div class="wc-acc-body">'+
+        '<p style="margin:14px 0 0;line-height:1.7">'+esc(w.body)+'</p></div></div>';
+    }
+    $("wcWatchAcc").innerHTML=html;
+    Array.prototype.forEach.call($("wcWatchAcc").querySelectorAll(".wc-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- group builder ---------- */
+  function renderGroups(){
+    var html="";
+    for (var g=0;g<LETTERS.length;g++){
+      var L=LETTERS[g];
+      var slots="";
+      for (var s=1;s<=4;s++){
+        var key=L+s;
+        var val=S.groups[key] || "";
+        slots += '<div class="wc-slot"><span>'+s+'</span><input type="text" data-g="'+key+
+          '" value="'+esc(val)+'" placeholder="Team '+s+'"></div>';
+      }
+      html += '<div class="wc-group"><h4>Group '+L+'</h4>'+slots+'</div>';
+    }
+    $("wcGroups").innerHTML=html;
+    Array.prototype.forEach.call($("wcGroups").querySelectorAll("input[data-g]"), function(inp){
+      inp.addEventListener("input", function(){
+        S.groups[inp.getAttribute("data-g")] = inp.value;
+      });
+    });
+  }
+
+  function groupsText(){
+    var out=["World Cup groups",""];
+    for (var g=0;g<LETTERS.length;g++){
+      var L=LETTERS[g];
+      out.push("Group "+L);
+      for (var s=1;s<=4;s++){
+        out.push("  "+s+". "+(S.groups[L+s] || "-"));
+      }
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  function initGroups(){
+    renderGroups();
+    $("wcSaveGroups").addEventListener("click", function(){
+      put(LS_G, S.groups); flash("wcGroupMsg","Groups saved on this device.");
+    });
+    $("wcClearGroups").addEventListener("click", function(){
+      if(!window.confirm("Clear every group slot?")) return;
+      S.groups={}; put(LS_G,S.groups); renderGroups(); flash("wcGroupMsg","Cleared.");
+    });
+    $("wcExportGroups").addEventListener("click", function(){
+      download("world-cup-groups.txt", groupsText()); flash("wcGroupMsg","Exported.");
+    });
+  }
+
+  /* ---------- bracket ---------- */
+  var ROUNDS = [
+    {id:"r32", label:"Round of 32", n:32},
+    {id:"r16", label:"Round of 16", n:16},
+    {id:"qf",  label:"Quarter finals", n:8},
+    {id:"sf",  label:"Semi finals", n:4},
+    {id:"fin", label:"Final", n:2},
+    {id:"win", label:"Champion", n:1}
+  ];
+
+  function renderBracket(){
+    var html="";
+    for (var r=0;r<ROUNDS.length;r++){
+      var rd=ROUNDS[r];
+      var slots="";
+      for (var i=0;i<rd.n;i++){
+        var key=rd.id+"-"+i;
+        var val=S.bracket[key] || "";
+        var ro = r===0 ? "" : ' readonly style="background:var(--tint)"';
+        slots += '<div class="wc-slot"><span>'+(i+1)+'</span><input type="text" data-b="'+key+
+          '" value="'+esc(val)+'" placeholder="'+esc(rd.label)+'"'+ro+'></div>';
+      }
+      var open = r===0 ? " is-open" : "";
+      html += '<div class="wc-acc'+open+'"><button class="wc-acc-b" type="button"><span>'+esc(rd.label)+
+        '</span><span class="wc-acc-k">'+rd.n+' slot'+(rd.n>1?"s":"")+'</span></button>'+
+        '<div class="wc-acc-body"><div class="wc-grid four" style="margin-top:14px">'+slots+'</div></div></div>';
+    }
+    $("wcBracket").innerHTML=html;
+    Array.prototype.forEach.call($("wcBracket").querySelectorAll(".wc-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+    Array.prototype.forEach.call($("wcBracket").querySelectorAll('input[data-b]:not([readonly])'), function(inp){
+      inp.addEventListener("input", function(){
+        S.bracket[inp.getAttribute("data-b")] = inp.value;
+        advance();
+      });
+    });
+  }
+
+  function advance(){
+    for (var r=0;r<ROUNDS.length-1;r++){
+      var cur=ROUNDS[r], nxt=ROUNDS[r+1];
+      for (var i=0;i<nxt.n;i++){
+        var a=(S.bracket[cur.id+"-"+(i*2)]   || "").trim();
+        var b=(S.bracket[cur.id+"-"+(i*2+1)] || "").trim();
+        var carried = a && !b ? a : (b && !a ? b : "");
+        if (carried) S.bracket[nxt.id+"-"+i] = carried;
+        else if (!a && !b) S.bracket[nxt.id+"-"+i] = "";
+      }
+    }
+    Array.prototype.forEach.call($("wcBracket").querySelectorAll("input[readonly]"), function(inp){
+      inp.value = S.bracket[inp.getAttribute("data-b")] || "";
+    });
+  }
+
+  function bracketText(){
+    var out=["World Cup bracket",""];
+    for (var r=0;r<ROUNDS.length;r++){
+      var rd=ROUNDS[r];
+      out.push(rd.label);
+      for (var i=0;i<rd.n;i++){
+        out.push("  "+(i+1)+". "+(S.bracket[rd.id+"-"+i] || "-"));
+      }
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  function initBracket(){
+    renderBracket();
+    advance();
+    $("wcSaveBracket").addEventListener("click", function(){
+      put(LS_B, S.bracket); flash("wcBracketMsg","Bracket saved on this device.");
+    });
+    $("wcClearBracket").addEventListener("click", function(){
+      if(!window.confirm("Clear the whole bracket?")) return;
+      S.bracket={}; put(LS_B,S.bracket); renderBracket(); flash("wcBracketMsg","Cleared.");
+    });
+    $("wcExportBracket").addEventListener("click", function(){
+      download("world-cup-bracket.txt", bracketText()); flash("wcBracketMsg","Exported.");
+    });
+  }
+
+  /* ---------- prediction log ---------- */
+  function predLabel(v){ return v==="home" ? "Team A wins" : (v==="draw" ? "Draw" : "Team B wins"); }
+  function confLabel(v){ return ["", "Coin flip", "Fairly sure", "Very sure"][v] || ""; }
+
+  function renderPreds(){
+    var total=S.preds.length, settled=0, right=0;
+    var band={1:{n:0,r:0},2:{n:0,r:0},3:{n:0,r:0}};
+    var i;
+    for (i=0;i<S.preds.length;i++){
+      var p=S.preds[i];
+      if (!p.actual) continue;
+      settled++;
+      var hit = p.actual === p.call;
+      if (hit) right++;
+      var c = band[p.conf] || band[2];
+      c.n++;
+      if (hit) c.r++;
+    }
+    $("wcPtotal").textContent=total;
+    $("wcPsettled").textContent=settled;
+    $("wcPright").textContent=right;
+    $("wcPacc").textContent=(settled? Math.round(right/settled*100):0)+"%";
+
+    var hi = band[3].n ? band[3].r/band[3].n : null;
+    var lo = band[1].n ? band[1].r/band[1].n : null;
+    var cal="-";
+    if (hi !== null && lo !== null){
+      var gap=Math.round((hi-lo)*100);
+      cal = gap > 20 ? "well read" : (gap > 5 ? "some signal" : "no signal");
+    }
+    $("wcPcal").textContent=cal;
+
+    if (!total){
+      $("wcPlist").innerHTML='<div class="wc-empty">No predictions logged yet. Make a call above before a match, then come back and enter what happened.</div>';
+      return;
+    }
+
+    var html='<div class="wc-grid" style="gap:10px">';
+    for (i=S.preds.length-1;i>=0;i--){
+      var q=S.preds[i];
+      var verdict="";
+      if (q.actual){
+        verdict = q.actual===q.call
+          ? '<span class="wc-ok">Correct</span>'
+          : '<span class="wc-no">Wrong</span>';
+      }
+      html += '<div class="wc-card" style="padding:14px"><div class="wc-flex" style="justify-content:space-between">'+
+        '<span class="wc-chip">'+esc(q.stage)+'</span>'+
+        '<div class="wc-flex" style="gap:8px">'+verdict+
+        '<button class="wc-b sm" type="button" data-pdel="'+i+'">Remove</button></div></div>'+
+        '<p style="margin:10px 0 4px;font-weight:700;font-size:15.5px">'+esc(q.match)+'</p>'+
+        '<p class="wc-muted" style="margin:0 0 8px">Called '+esc(predLabel(q.call))+
+        (q.score? ", "+esc(q.score) : "")+", "+esc(confLabel(q.conf))+
+        (q.why? ". "+esc(q.why) : "")+'</p>'+
+        '<div class="wc-flex"><span class="wc-tiny">What happened</span>'+
+        '<select class="wc-select" data-pact="'+i+'" style="max-width:170px">'+
+        '<option value=""'+(q.actual?"":" selected")+'>Not played yet</option>'+
+        '<option value="home"'+(q.actual==="home"?" selected":"")+'>Team A won</option>'+
+        '<option value="draw"'+(q.actual==="draw"?" selected":"")+'>Draw</option>'+
+        '<option value="away"'+(q.actual==="away"?" selected":"")+'>Team B won</option>'+
+        '</select></div></div>';
+    }
+    $("wcPlist").innerHTML=html+"</div>";
+
+    Array.prototype.forEach.call($("wcPlist").querySelectorAll("select[data-pact]"), function(sel){
+      sel.addEventListener("change", function(){
+        S.preds[parseInt(sel.getAttribute("data-pact"),10)].actual = sel.value;
+        put(LS_P,S.preds); renderPreds();
+      });
+    });
+    Array.prototype.forEach.call($("wcPlist").querySelectorAll("button[data-pdel]"), function(b){
+      b.addEventListener("click", function(){
+        S.preds.splice(parseInt(b.getAttribute("data-pdel"),10),1);
+        put(LS_P,S.preds); renderPreds();
+      });
+    });
+  }
+
+  function initPreds(){
+    $("wcPadd").addEventListener("click", function(){
+      var m=$("wcPmatch").value.trim();
+      if (m.length < 2){ flash("wcPmsg","Name the match first."); return; }
+      S.preds.push({
+        match:m,
+        stage:$("wcPstage").value,
+        call:$("wcPcall").value,
+        score:$("wcPscore").value.trim(),
+        conf:parseInt($("wcPconf").value,10),
+        why:$("wcPwhy").value.trim(),
+        actual:""
+      });
+      put(LS_P,S.preds);
+      $("wcPmatch").value=""; $("wcPscore").value=""; $("wcPwhy").value="";
+      renderPreds();
+      flash("wcPmsg","Logged.");
+    });
+    $("wcPexport").addEventListener("click", function(){
+      var out="match,stage,call,score_guess,confidence,reason,actual,correct\n";
+      for (var i=0;i<S.preds.length;i++){
+        var p=S.preds[i];
+        var ok = p.actual ? (p.actual===p.call ? "yes":"no") : "";
+        out += '"'+p.match.replace(/"/g,'""')+'",'+p.stage+","+p.call+","+p.score+","+
+               confLabel(p.conf)+',"'+p.why.replace(/"/g,'""')+'",'+p.actual+","+ok+"\n";
+      }
+      download("world-cup-predictions.csv", out);
+      flash("wcPmsg","Exported.");
+    });
+    $("wcPwipe").addEventListener("click", function(){
+      if(!window.confirm("Clear every logged prediction?")) return;
+      S.preds=[]; put(LS_P,S.preds); renderPreds();
+    });
+    renderPreds();
+  }
+
+  /* ---------- match notes ---------- */
+  function renderNotes(){
+    if (!S.notes.length){
+      $("wcMlist").innerHTML='<div class="wc-empty">No match notes yet. Watch one properly and write down what you saw.</div>';
+      return;
+    }
+    var html='<div class="wc-grid two">';
+    for (var i=S.notes.length-1;i>=0;i--){
+      var n=S.notes[i];
+      html += '<div class="wc-card" style="padding:16px"><div class="wc-flex" style="justify-content:space-between">'+
+        '<span class="wc-chip">'+esc(n.tag)+'</span>'+
+        '<button class="wc-b sm" type="button" data-ndel="'+i+'">Remove</button></div>'+
+        '<p style="margin:10px 0 6px;font-weight:700;font-size:15.5px">'+esc(n.match)+'</p>'+
+        '<p class="wc-muted" style="margin:0;white-space:pre-wrap;line-height:1.6">'+esc(n.note)+'</p></div>';
+    }
+    $("wcMlist").innerHTML=html+"</div>";
+    Array.prototype.forEach.call($("wcMlist").querySelectorAll("button[data-ndel]"), function(b){
+      b.addEventListener("click", function(){
+        S.notes.splice(parseInt(b.getAttribute("data-ndel"),10),1);
+        put(LS_M,S.notes); renderNotes();
+      });
+    });
+  }
+
+  function showPrompt(){
+    $("wcPrompt").textContent = WC.prompts[S.promptIndex];
+  }
+
+  function initNotes(){
+    var sel=$("wcMtag");
+    for (var i=0;i<WC.tags.length;i++){
+      var o=document.createElement("option");
+      o.value=WC.tags[i]; o.textContent=WC.tags[i];
+      sel.appendChild(o);
+    }
+    $("wcMadd").addEventListener("click", function(){
+      var m=$("wcMname").value.trim();
+      var n=$("wcMnote").value.trim();
+      if (m.length < 2 || n.length < 2){ flash("wcMmsg","Name the match and write something."); return; }
+      S.notes.push({ match:m, tag:sel.value, note:n });
+      put(LS_M,S.notes);
+      $("wcMname").value=""; $("wcMnote").value="";
+      renderNotes();
+      flash("wcMmsg","Saved.");
+    });
+    $("wcMexport").addEventListener("click", function(){
+      var out=["World Cup match notes",""];
+      for (var i=0;i<S.notes.length;i++){
+        out.push((i+1)+". "+S.notes[i].match+"  ["+S.notes[i].tag+"]");
+        out.push("   "+S.notes[i].note);
+        out.push("");
+      }
+      if (out.length<=2) out.push("Nothing saved yet.");
+      download("world-cup-match-notes.txt", out.join("\n"));
+      flash("wcMmsg","Exported.");
+    });
+    $("wcMwipe").addEventListener("click", function(){
+      if(!window.confirm("Clear every match note?")) return;
+      S.notes=[]; put(LS_M,S.notes); renderNotes();
+    });
+    $("wcPromptNext").addEventListener("click", function(){
+      S.promptIndex=(S.promptIndex+1)%WC.prompts.length;
+      showPrompt();
+    });
+    showPrompt();
+    renderNotes();
+  }
+
+  /* ---------- host cities ---------- */
+  function initCities(){
+    var countries=[];
+    for (var i=0;i<WC.cities.length;i++){
+      if (countries.indexOf(WC.cities[i].country) < 0) countries.push(WC.cities[i].country);
+    }
+    var sel=$("wcCcountry");
+    countries.forEach(function(c){
+      var o=document.createElement("option"); o.value=c; o.textContent=c; sel.appendChild(o);
+    });
+    function draw(){
+      var wc=sel.value;
+      var q=($("wcCfind").value||"").toLowerCase();
+      var body=$("wcCtable").querySelector("tbody");
+      var html="", n=0;
+      for (var i=0;i<WC.cities.length;i++){
+        var c=WC.cities[i];
+        if (wc && c.country !== wc) continue;
+        if (q && (c.city+" "+c.cond+" "+c.note).toLowerCase().indexOf(q) < 0) continue;
+        html += "<tr><td><strong>"+esc(c.city)+"</strong></td><td>"+esc(c.country)+
+                "</td><td>"+esc(c.cond)+"</td><td>"+esc(c.note)+"</td></tr>";
+        n++;
+      }
+      body.innerHTML = html || '<tr><td colspan="4" class="wc-empty">No city matches that filter.</td></tr>';
+      $("wcCcount").textContent = n+" of "+WC.cities.length+" cities";
+    }
+    sel.addEventListener("change", draw);
+    $("wcCfind").addEventListener("input", draw);
+    draw();
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    renderFormat();
+    renderWatch();
+    initGroups();
+    initBracket();
+    initPreds();
+    initNotes();
+    initCities();
+  });
+})();
+</script>

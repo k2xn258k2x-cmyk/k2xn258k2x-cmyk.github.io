@@ -5,7 +5,7 @@ date: 2020-01-03 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
 ---
 
-There is a quiet revolution happening in the way people think about their digital notes, files, and knowledge. For more than a decade, the tech industry pushed a single narrative: put everything in the cloud, sync everywhere, trust the platform. And for a while, that story worked — or at least, it seemed to. People uploaded their thoughts, their research, their client files, their medical records, and their most private reflections into apps that promised convenience in exchange for control. But something shifted. People started asking harder questions. Where exactly is my data? Who can see it? What happens if the service shuts down? What happens if I lose internet access at the worst possible moment?
+There is a quiet revolution happening in the way people think about their digital notes, files, and knowledge. For more than a decade, the tech industry pushed a single narrative: put everything in the cloud, sync everywhere, trust the platform. And for a while, that story worked — or at least, it seemed to. People uploaded their thoughts, their research, their client files, their medical records, and their most private reflections into apps that promised convenience in exchange for control. But something shifted. People started asking harder questions. Where exactly is my data? Who can see it? What happens if the service shuts down? What happens if I lose internet access at the worst possible moment? 
 
 <!--more-->
 

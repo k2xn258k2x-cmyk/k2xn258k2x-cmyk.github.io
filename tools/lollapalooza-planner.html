@@ -1,0 +1,886 @@
+---
+layout: default
+title: Lollapalooza Planner
+description: Plan your festival weekend. Build a four day schedule with clash detection, track costs, run a packing checklist, and set group meetup points. Free, no signup.
+permalink: /tools/lollapalooza-planner.html
+body_class: tool-page
+---
+
+<style>
+  .lp-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .lp-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .lp-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .lp-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .lp-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .lp-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .lp-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .lp-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .lp-row::-webkit-scrollbar{display:none}
+  .lp-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .lp-btn:hover{background:var(--tint);color:var(--text)}
+  .lp-btn.is-active{background:var(--text);color:#fff}
+  .lp-panel{display:none;padding:34px 0 60px}
+  .lp-panel.is-active{display:block}
+  .lp-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .lp-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .lp-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .lp-grid{display:grid;gap:16px}
+  .lp-grid.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .lp-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .lp-grid.four{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .lp-in,.lp-sel,.lp-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .lp-txt{min-height:90px;resize:vertical;line-height:1.6}
+  .lp-in:focus,.lp-sel:focus,.lp-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .lp-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .lp-b:hover{background:var(--tint)}
+  .lp-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .lp-b.primary:hover{background:var(--blue2)}
+  .lp-b.sm{font-size:13px;padding:6px 10px}
+  .lp-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .lp-muted{color:var(--muted);font-size:13.5px}
+  .lp-tiny{font-size:12px;color:var(--muted2)}
+  .lp-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.lp-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.lp-tbl th,table.lp-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.lp-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.lp-tbl tr:last-child td{border-bottom:0}
+  .lp-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .lp-clash{background:rgba(217,45,32,.08);border-color:rgba(217,45,32,.35)}
+  .lp-warn{color:#b3261e;font-weight:700}
+  .lp-ok{color:#128a55;font-weight:700}
+  .lp-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .lp-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .lp-acc-b:hover{background:var(--tint)}
+  .lp-acc-t{font-weight:700;font-size:16.5px}
+  .lp-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .lp-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .lp-acc.is-open .lp-acc-body{display:block}
+  .lp-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .lp-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .lp-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .lp-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .lp-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .lp-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .lp-empty{padding:26px;text-align:center;color:var(--muted)}
+  .lp-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .lp-check:last-child{border-bottom:0}
+  .lp-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .lp-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .lp-check .lp-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .lp-done label{text-decoration:line-through;color:var(--muted2)}
+  .lp-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+
+<section class="lp-hero">
+  <div class="container">
+    <div class="lp-eyebrow">VaultBook Study Library</div>
+    <h1 class="lp-title">The festival planner</h1>
+    <p class="lp-sub">Everything a four day festival weekend needs in one place. Build a schedule and get told immediately where your sets clash, work out what the weekend will actually cost before you commit, run a packing checklist that explains why each item matters, and agree meetup points that survive a dead phone. Built to be reused every year, and everything stays on your device.</p>
+    <div class="lp-badges">
+      <span class="lp-badge">Clash detection</span>
+      <span class="lp-badge">Four day schedule</span>
+      <span class="lp-badge">Real cost calculator</span>
+      <span class="lp-badge">Packing checklist</span>
+      <span class="lp-badge">Heat and crowd safety</span>
+      <span class="lp-badge">Group meetup plan</span>
+      <span class="lp-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="lp-tabs">
+  <div class="container">
+    <div class="lp-row" role="tablist" aria-label="Planner tools">
+      <button class="lp-btn is-active" data-tab="schedule" role="tab" aria-selected="true">Schedule</button>
+      <button class="lp-btn" data-tab="budget" role="tab" aria-selected="false">Budget</button>
+      <button class="lp-btn" data-tab="packing" role="tab" aria-selected="false">Packing</button>
+      <button class="lp-btn" data-tab="safety" role="tab" aria-selected="false">Heat and crowds</button>
+      <button class="lp-btn" data-tab="group" role="tab" aria-selected="false">Group plan</button>
+      <button class="lp-btn" data-tab="craft" role="tab" aria-selected="false">Doing it well</button>
+      <button class="lp-btn" data-tab="plan" role="tab" aria-selected="false">My plan</button>
+    </div>
+  </div>
+</div>
+
+<section class="lp-panel is-active" id="lp-schedule">
+  <div class="container">
+    <h2 class="lp-head">Schedule</h2>
+    <p class="lp-lede">Add every set you want across the four days with its stage and time, and the planner flags overlaps the moment they appear. Set times shift right up to the week of the festival, so treat this as a living sheet rather than a decision made once.</p>
+
+    <div class="lp-card" style="margin-bottom:18px">
+      <div class="lp-grid four">
+        <div>
+          <label class="lp-tiny" for="lpDay">Day</label>
+          <select class="lp-sel" id="lpDay" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpAct">Act or event</label>
+          <input class="lp-in" id="lpAct" type="text" placeholder="Who you want to see" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpStage">Stage</label>
+          <input class="lp-in" id="lpStage" type="text" placeholder="Stage name" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpPriority">Priority</label>
+          <select class="lp-sel" id="lpPriority" style="margin-top:5px">
+            <option value="3">Unmissable</option>
+            <option value="2" selected>Want to see</option>
+            <option value="1">If convenient</option>
+          </select>
+        </div>
+      </div>
+      <div class="lp-grid four" style="margin-top:12px">
+        <div>
+          <label class="lp-tiny" for="lpStart">Start</label>
+          <input class="lp-in lp-mono" id="lpStart" type="time" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpEnd">End</label>
+          <input class="lp-in lp-mono" id="lpEnd" type="time" style="margin-top:5px">
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="lp-b primary" id="lpAdd" type="button" style="width:100%">Add to schedule</button>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="lp-b" id="lpExportSched" type="button" style="width:100%">Export schedule</button>
+        </div>
+      </div>
+      <div class="lp-flex" style="margin-top:10px">
+        <span class="lp-tiny" id="lpSchedMsg"></span>
+      </div>
+    </div>
+
+    <div class="lp-stat" style="margin-bottom:16px">
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpNsets">0</div><div class="lp-stat-l">Sets planned</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpNclash">0</div><div class="lp-stat-l">Clashes</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpNhours">0</div><div class="lp-stat-l">Hours on your feet</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpNstages">0</div><div class="lp-stat-l">Stages to reach</div></div>
+    </div>
+
+    <div id="lpClashBox" style="margin-bottom:16px"></div>
+    <div id="lpSchedList"></div>
+
+    <div class="lp-card" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">How to resolve a clash</div>
+      <p class="lp-muted" style="margin:0;line-height:1.75">Rank honestly before the day rather than in the moment, because in the moment you will follow whoever your group is walking toward. When two sets you rated unmissable overlap, the usual answer is to take the first half of one and walk during the changeover, accepting that you will arrive at the back of the second crowd. Do not plan back to back sets on stages at opposite ends of the site. Crossing a large festival footprint through a moving crowd takes far longer than the map suggests, and the planner counts your stage changes for exactly this reason.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-budget">
+  <div class="container">
+    <h2 class="lp-head">Budget</h2>
+    <p class="lp-lede">The ticket is rarely the largest line. Fill in what applies and the total updates as you type, with a per day figure that tends to be the number people actually get wrong.</p>
+
+    <div class="lp-grid two" style="margin-bottom:18px">
+      <div class="lp-card">
+        <div style="font-weight:700;margin-bottom:12px">Your numbers</div>
+        <div id="lpBudgetRows"></div>
+        <div class="lp-flex" style="margin-top:14px">
+          <span class="lp-tiny">People in your group</span>
+          <input class="lp-in" id="lpPeople" type="number" min="1" value="1" style="max-width:90px">
+          <span class="lp-tiny">Days attending</span>
+          <input class="lp-in" id="lpDays" type="number" min="1" max="4" value="4" style="max-width:90px">
+        </div>
+        <div class="lp-flex" style="margin-top:14px">
+          <button class="lp-b primary" id="lpBudgetSave" type="button">Save budget</button>
+          <button class="lp-b" id="lpBudgetExport" type="button">Export</button>
+          <span class="lp-tiny" id="lpBudgetMsg"></span>
+        </div>
+      </div>
+      <div class="lp-card">
+        <div style="font-weight:700;margin-bottom:12px">Totals</div>
+        <div class="lp-stat">
+          <div class="lp-stat-c"><div class="lp-stat-n" id="lpTotal">0</div><div class="lp-stat-l">Total for the group</div></div>
+          <div class="lp-stat-c"><div class="lp-stat-n" id="lpPerPerson">0</div><div class="lp-stat-l">Per person</div></div>
+          <div class="lp-stat-c"><div class="lp-stat-n" id="lpPerDay">0</div><div class="lp-stat-l">Per person per day</div></div>
+        </div>
+        <div id="lpBudgetBreak" style="margin-top:14px"></div>
+      </div>
+    </div>
+
+    <div class="lp-card">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">Where budgets actually break</div>
+      <p class="lp-muted" style="margin:0;line-height:1.75">Three lines account for most overspend. On site food and drink is the first, because prices inside a festival footprint bear no relation to prices outside it and four days of them compound quickly. Transport is the second, since late night surge pricing arrives exactly when the whole site empties at once and everyone reaches for the same app. The third is the one nobody plans for: the replacement purchase. A lost charger, a soaked jacket, a phone battery bought at a stall for three times its worth. Add a contingency line and treat it as spent rather than as savings.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-packing">
+  <div class="container">
+    <h2 class="lp-head">Packing</h2>
+    <p class="lp-lede">Grouped by category, with a line on why each item earns its place. Tick as you pack and the list remembers across visits, so next year you start from what worked rather than from memory.</p>
+
+    <div class="lp-flex" style="margin-bottom:16px">
+      <span class="lp-tiny" id="lpPackCount"></span>
+      <button class="lp-b" id="lpPackReset" type="button">Untick everything</button>
+      <button class="lp-b" id="lpPackExport" type="button">Export list</button>
+      <span class="lp-tiny" id="lpPackMsg"></span>
+    </div>
+
+    <div id="lpPackList"></div>
+
+    <div class="lp-card" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">Check the rules before you pack</div>
+      <p class="lp-muted" style="margin:0;line-height:1.75">Bag size limits, what counts as a permitted container, whether reusable bottles are allowed empty, and re-entry policy all vary by festival and change between editions. Everything on this list is chosen to be broadly sensible, but the official policy page for your event is the authority and it is worth reading the week before rather than at the gate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-safety">
+  <div class="container">
+    <h2 class="lp-head">Heat and crowds</h2>
+    <p class="lp-lede">The two things most likely to end a festival day early, and both are largely preventable. Read this once before the weekend rather than looking it up when someone is already in trouble.</p>
+    <div id="lpSafetyAcc"></div>
+    <div class="lp-note" style="margin-top:16px">This is general preparation guidance, not medical advice. If someone is confused, has stopped sweating, faints, or does not recover quickly in shade with water, find festival medical staff immediately rather than waiting to see whether it improves. Every large festival has medical tents, and using them early is the correct call.</div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-group">
+  <div class="container">
+    <h2 class="lp-head">Group plan</h2>
+    <p class="lp-lede">Phones die, signal collapses when eighty thousand people try to post at once, and groups split within the first hour. The fix is agreeing in advance what happens when that occurs, and writing it somewhere that is not a group chat you cannot load.</p>
+
+    <div class="lp-card" style="margin-bottom:18px">
+      <div class="lp-grid two">
+        <div>
+          <label class="lp-tiny" for="lpMeetMain">Primary meetup point</label>
+          <input class="lp-in" id="lpMeetMain" type="text" placeholder="A fixed landmark, not a stage or a food stall" style="margin-top:5px">
+          <div class="lp-tiny" style="margin-top:5px">Pick something that cannot move or close. A permanent structure, a monument, a specific gate.</div>
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpMeetBackup">Backup point</label>
+          <input class="lp-in" id="lpMeetBackup" type="text" placeholder="Somewhere outside the crowd, usually near an exit" style="margin-top:5px">
+          <div class="lp-tiny" style="margin-top:5px">Used if the primary point is inside a crowd nobody can cross.</div>
+        </div>
+      </div>
+      <div class="lp-grid two" style="margin-top:12px">
+        <div>
+          <label class="lp-tiny" for="lpMeetTimes">Check-in times</label>
+          <input class="lp-in" id="lpMeetTimes" type="text" placeholder="For example every set changeover on the hour" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="lp-tiny" for="lpEndPlan">End of night plan</label>
+          <input class="lp-in" id="lpEndPlan" type="text" placeholder="Where you regroup and how everyone gets home" style="margin-top:5px">
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="lp-tiny" for="lpGroupNote">Anything else the group needs to know</label>
+        <textarea class="lp-txt" id="lpGroupNote" placeholder="Allergies, medication, who is carrying what, who is not drinking, who has the portable charger" style="margin-top:5px"></textarea>
+      </div>
+      <div class="lp-flex" style="margin-top:12px">
+        <button class="lp-b primary" id="lpGroupSave" type="button">Save group plan</button>
+        <button class="lp-b" id="lpGroupExport" type="button">Export</button>
+        <span class="lp-tiny" id="lpGroupMsg"></span>
+      </div>
+    </div>
+
+    <div id="lpGroupRules"></div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-craft">
+  <div class="container">
+    <h2 class="lp-head">Doing it well</h2>
+    <p class="lp-lede">Ten things that separate a weekend you enjoyed from a weekend you survived. None of them costs anything and most people learn them the expensive way.</p>
+    <div id="lpCraftAcc"></div>
+  </div>
+</section>
+
+<section class="lp-panel" id="lp-plan">
+  <div class="container">
+    <h2 class="lp-head">My plan</h2>
+    <p class="lp-lede">Schedule, budget, packing list, and group plan in one sheet you can export and send to everyone going. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="lp-stat" style="margin-bottom:18px">
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpPsets">0</div><div class="lp-stat-l">Sets planned</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpPclash">0</div><div class="lp-stat-l">Unresolved clashes</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpPpacked">0</div><div class="lp-stat-l">Items packed</div></div>
+      <div class="lp-stat-c"><div class="lp-stat-n" id="lpPbudget">0</div><div class="lp-stat-l">Budget per person</div></div>
+    </div>
+
+    <div class="lp-flex" style="margin-bottom:16px">
+      <button class="lp-b primary" id="lpExpAll" type="button">Export everything</button>
+      <button class="lp-b" id="lpCopyAll" type="button">Copy to clipboard</button>
+      <button class="lp-b" id="lpWipeAll" type="button">Clear all</button>
+      <span class="lp-tiny" id="lpPlanMsg"></span>
+    </div>
+
+    <div id="lpPlanPreview"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="lp-grid three">
+      <div class="lp-card">
+        <div class="card-kicker">Keep it all together</div>
+        <div class="card-title" style="margin:6px 0">One vault for the weekend</div>
+        <p class="card-text">VaultBook holds your tickets, travel documents, group plan, and notes in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="lp-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New planners and study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="lp-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your schedule, budget, packing list, and group plan stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var LP = {};
+
+LP.days = ["Day one","Day two","Day three","Day four"];
+
+LP.budget = [
+{id:"ticket",  label:"Festival ticket",        per:"person", hint:"Four day pass or the sum of single days"},
+{id:"travel",  label:"Getting there and back", per:"person", hint:"Flights, train, fuel and parking"},
+{id:"stay",    label:"Accommodation",          per:"group",  hint:"Total for the whole stay, not per night"},
+{id:"transit", label:"Local transport",        per:"person", hint:"Daily transit to and from the site"},
+{id:"food",    label:"Food and drink on site", per:"person", hint:"Per day. This is the line people underestimate most"},
+{id:"offsite", label:"Food off site",          per:"person", hint:"Per day. Breakfast and late meals outside the gates"},
+{id:"gear",    label:"Gear and clothing",      per:"group",  hint:"Anything you are buying specifically for this"},
+{id:"merch",   label:"Merchandise",            per:"person", hint:"Set a figure now or it sets itself later"},
+{id:"buffer",  label:"Contingency",            per:"person", hint:"Treat this as spent. Replacements, surge fares, the unplanned"}
+];
+
+LP.packing = [
+{cat:"Documents and money", items:[
+ {t:"Ticket or wristband", why:"Photograph it and save the image offline in case the app will not load at the gate"},
+ {t:"Photo identification", why:"Required for age verification and for collecting anything held at a box office"},
+ {t:"A payment card and a small amount of cash", why:"Card systems fail under load and some independent vendors are cash only"},
+ {t:"Emergency contact written on paper", why:"A locked phone helps nobody if you are unconscious. Put it in a pocket"},
+ {t:"Any prescription medication in its labelled packaging", why:"Loose pills in a bag create problems at a security check"}
+]},
+{cat:"Water, sun and heat", items:[
+ {t:"An empty refillable bottle", why:"Most festivals allow empty containers and provide free refill stations. It is the single highest value item you can carry"},
+ {t:"High factor sunscreen", why:"A full day outdoors burns skin badly even under partial cloud. Reapply, do not just apply once"},
+ {t:"A hat with a brim", why:"Shade you carry with you matters far more than shade you have to queue for"},
+ {t:"Sunglasses", why:"Squinting for eight hours produces a headache that will end your night early"},
+ {t:"Electrolyte sachets or tablets", why:"Heavy sweating loses salts as well as water, and water alone does not replace them"}
+]},
+{cat:"Clothing", items:[
+ {t:"Broken-in footwear you have already walked in", why:"New shoes over four days is the most common self-inflicted injury at any festival"},
+ {t:"A second pair of shoes", why:"One wet pair ends a day. Two pairs means one is always drying"},
+ {t:"A light waterproof layer", why:"Weather turns fast on open ground and a soaked person gets cold quickly even in summer"},
+ {t:"A warm layer for after dark", why:"Temperatures drop sharply once the sun goes and standing still makes it worse"},
+ {t:"Spare socks in a sealed bag", why:"Dry socks mid afternoon changes an entire day, and the sealed bag keeps them dry"}
+]},
+{cat:"Power and connection", items:[
+ {t:"Portable battery pack, charged", why:"Networks are congested and phones burn battery searching for signal. Assume no charging on site"},
+ {t:"Short charging cable", why:"Long cables tangle and snap in a bag. Short is more robust"},
+ {t:"Offline copies of your map, schedule and tickets", why:"Screenshots work when the app does not, and the app will not at some point"},
+ {t:"Earplugs", why:"Filtered plugs preserve sound quality while protecting hearing. Four days at volume causes permanent damage"}
+]},
+{cat:"Comfort and small mercies", items:[
+ {t:"A small clear bag that meets the venue policy", why:"Bag rules are enforced strictly and a rejected bag means a long walk back"},
+ {t:"Wet wipes and hand sanitiser", why:"Sanitation degrades across a long day and this is the cheapest form of prevention"},
+ {t:"Tissue or toilet paper", why:"Assume there is none by mid afternoon, because there usually is not"},
+ {t:"Plasters and blister treatment", why:"Treat a hot spot before it becomes a blister and you keep walking. Afterwards you do not"},
+ {t:"A packable snack", why:"Queues are long and low blood sugar in heat is how people end up in a medical tent"},
+ {t:"Something to sit on", why:"Sitting down between sets is the difference between day four being enjoyable and being endured"}
+]}
+];
+
+LP.safety = [
+{t:"Heat exhaustion, and catching it early", k:"heat",
+ body:"Heat exhaustion builds over hours rather than arriving suddenly, which is why people miss it in themselves. The early signs are heavy sweating, headache, dizziness, nausea, muscle cramps, and a feeling of weakness that seems out of proportion to what you have done. The correct response is to stop, get out of direct sun, sit down, drink water with something containing salts, and cool the skin. The mistake almost everyone makes is deciding to push through one more set.",
+ tell:"If someone stops sweating, becomes confused, or their skin goes hot and dry, that is no longer heat exhaustion and it is a medical emergency. Find festival medical staff immediately."},
+{t:"Hydration that actually works", k:"heat",
+ body:"Drinking large amounts of plain water while sweating heavily replaces the fluid but not the salts, and in extreme cases that imbalance causes its own problems. Steady intake throughout the day beats large amounts occasionally, and alternating water with something containing electrolytes handles both halves of the loss. Alcohol and long periods in the sun work against each other, and caffeine is not a substitute for water.",
+ tell:"Use the refill stations at every opportunity rather than when you feel thirsty. Thirst arrives after the deficit has already started."},
+{t:"Crowd density and how to read it", k:"crowds",
+ body:"The risk in a crowd is not the number of people but the density, and the change is felt before it is seen. If you can no longer choose your own direction, if you are being moved rather than walking, or if you feel pressure from more than one side, the density has passed the point where you can extract yourself easily. Move outward and diagonally toward the edge early, because it becomes far harder once the crowd compresses further.",
+ tell:"Position yourself so you always know where the nearest edge is. In a dense crowd the useful direction is sideways rather than backwards."},
+{t:"Front of the barrier, honestly assessed", k:"crowds",
+ body:"The barrier is the best view and the worst position. Getting there means holding a spot for hours in sun with no shade, no easy exit, and no realistic way to reach water or a toilet without losing the place. It is a genuine choice with a genuine cost, and it works far better for one set you truly care about than as a default strategy across four days.",
+ tell:"If you commit to the barrier, go with a plan for water and a person who knows where you are, and accept that you are there until the set ends."},
+{t:"Hearing, and why it does not come back", k:"hearing",
+ body:"Sustained exposure to high volume across four consecutive days causes damage that is cumulative and permanent. Ringing after a set is a warning rather than a normal outcome. Filtered earplugs designed for music reduce volume across frequencies rather than muffling, so the sound stays clear while the load on your ears drops substantially.",
+ tell:"Distance from the speaker stacks matters as much as plugs. Standing directly in front of a stack is the loudest position at the whole festival."},
+{t:"Pacing across four days", k:"stamina",
+ body:"Day one is where four day weekends are lost. The temptation is to treat the first day as the whole festival, and the cost lands on day three when the acts you most wanted are playing. Sleep, food, and time off your feet are the three inputs that decide whether you are still functional at the end. Building a deliberate gap into each day, somewhere shaded and away from the noise, does more for the weekend than any individual set.",
+ tell:"If you are already exhausted before the headline act on day one, the schedule is wrong rather than you being unfit."},
+{t:"Looking after the people you came with", k:"group",
+ body:"Groups drift apart, and the person who most needs checking on is usually the one insisting they are fine. Agree at the start that anyone can call a stop without argument, and make the check-in times real rather than aspirational. Someone who has become quiet, stopped drinking water, or is sitting down when they would normally be standing is worth a direct question.",
+ tell:"Never let someone leave the site alone at night if they are unwell or heavily drunk. That is the moment where festival problems become serious problems."}
+];
+
+LP.craft = [
+{t:"Build the schedule around gaps, not sets", body:"Most people fill every slot and then discover that the walking, queuing, and eating had nowhere to happen. Deliberately leave two clear slots each day. They will get used, and if they do not you have found a set you did not know about."},
+{t:"Arrive early on day one, not on time", body:"The first entry of a festival is the slowest queue of the weekend, because everyone is being processed for the first time and nobody knows the layout. Arriving early on day one buys you an unhurried walk of the site, and knowing the geography pays back every day after."},
+{t:"Walk the site once with no destination", body:"Twenty minutes spent finding the water stations, the toilets, the quiet corners, and the actual walking time between the far stages is the highest return investment of the weekend. Do it before you need any of them."},
+{t:"Eat before you are hungry", body:"Queues lengthen exactly when everyone else gets hungry, which is between sets. Eating slightly off the peak means a shorter queue, a better choice, and no missed set."},
+{t:"Pick one discovery slot a day", body:"Deliberately spend one slot on something you have never heard, chosen with no information beyond the stage. This is where festival memories actually come from, and a schedule packed entirely with acts you already love removes the possibility."},
+{t:"Decide the leaving time in advance", body:"The end of the night is when the whole site tries to move at once, transport surges, and groups fragment. Choosing beforehand whether you are leaving before the last song or waiting out the crush removes the argument at the exact moment nobody is capable of having it well."},
+{t:"Take fewer photographs than you want to", body:"Filming a whole set gives you a video nobody watches and a memory you were not present for. One or two deliberate captures per day, then the phone goes away. The people who remember festivals best are the ones who were looking at the stage."},
+{t:"Treat day three as the real test", body:"Enthusiasm carries days one and two. Day three is where sleep debt, sun exposure, and accumulated walking land at the same time. Plan the lightest schedule of the weekend for it, and you will get day four back."},
+{t:"Have a plan for the thing that goes wrong", body:"Something will. A lost phone, a separated friend, a cancelled set, weather that closes a stage. Groups that agreed what happens in that case handle it in five minutes. Groups that did not lose an evening to it."},
+{t:"Write it down before you forget", body:"The morning after, spend five minutes noting what worked and what you would change. Next year that note is worth more than any guide, because it is specific to you, your group, and how you actually like to do this."}
+];
+
+LP.groupRules = [
+{t:"Agree the meetup point before you enter", body:"Not a stage, not a food stall, not a bar. Those move, close, and are surrounded by crowds. Pick a fixed permanent structure and make sure everyone has physically seen it before you split up."},
+{t:"Set check-in times rather than relying on messages", body:"Signal is unreliable when a large crowd is all using data at once. Agreeing to be at a point at a fixed time works when messaging does not, and it costs nothing when messaging works."},
+{t:"Share the offline essentials with everyone", body:"Every person should have their own screenshot of the map, the schedule, and the meetup plan. Do not rely on one person being the group's memory, because that person's battery will die."},
+{t:"Name who is carrying what", body:"One portable battery for six people is a single point of failure. Spread the charger, the sunscreen, the plasters, and the cash across the group rather than loading one bag."},
+{t:"Say the health things out loud at the start", body:"Allergies, medication, conditions, and who is not drinking. It is a thirty second conversation that occasionally matters enormously, and nobody regrets having had it."},
+{t:"Agree that anyone can call it", body:"The person who most needs to leave is usually the one least willing to say so. Deciding in advance that a request to stop is honoured without discussion removes the social cost of asking."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_S="vb_lp_sched_v1", K_B="vb_lp_budget_v1", K_P="vb_lp_pack_v1", K_G="vb_lp_group_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ window.localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(k,f){ try{ var r=window.localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function mins(t){
+    if (!t) return null;
+    var p=String(t).split(":");
+    if (p.length<2) return null;
+    var h=parseInt(p[0],10), m=parseInt(p[1],10);
+    if (isNaN(h)||isNaN(m)) return null;
+    var v=h*60+m;
+    if (h<6) v += 24*60;   /* after midnight belongs to the same festival night */
+    return v;
+  }
+  function money(n){
+    return (Math.round(n*100)/100).toLocaleString(undefined,{maximumFractionDigits:0});
+  }
+
+  var S = { sched:get(K_S,[]), budget:get(K_B,{}), pack:get(K_P,{}), group:get(K_G,{}) };
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".lp-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".lp-panel"), function(p){
+          p.classList.remove("is-active");
+        });
+        var t=$("lp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="plan") renderPlan();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- schedule and clash detection ---------- */
+  function clashes(){
+    var out=[];
+    for (var i=0;i<S.sched.length;i++){
+      for (var j=i+1;j<S.sched.length;j++){
+        var a=S.sched[i], b=S.sched[j];
+        if (a.day!==b.day) continue;
+        var as=mins(a.start), ae=mins(a.end), bs=mins(b.start), be=mins(b.end);
+        if (as===null||ae===null||bs===null||be===null) continue;
+        if (as < be && bs < ae) out.push([i,j]);
+      }
+    }
+    return out;
+  }
+
+  function renderSched(){
+    var cl=clashes();
+    var flagged={};
+    cl.forEach(function(p){ flagged[p[0]]=true; flagged[p[1]]=true; });
+
+    var stages={}, total=0;
+    for (var i=0;i<S.sched.length;i++){
+      if (S.sched[i].stage) stages[S.sched[i].stage]=true;
+      var a=mins(S.sched[i].start), b=mins(S.sched[i].end);
+      if (a!==null && b!==null && b>a) total += (b-a);
+    }
+    $("lpNsets").textContent=S.sched.length;
+    $("lpNclash").textContent=cl.length;
+    $("lpNhours").textContent=(total/60).toFixed(1);
+    $("lpNstages").textContent=Object.keys(stages).length;
+
+    if (cl.length){
+      var rows="";
+      cl.forEach(function(p){
+        var a=S.sched[p[0]], b=S.sched[p[1]];
+        rows += "<li style='margin-bottom:6px'><strong>"+esc(a.act)+"</strong> ("+esc(a.start)+" to "+esc(a.end)+
+          ") overlaps <strong>"+esc(b.act)+"</strong> ("+esc(b.start)+" to "+esc(b.end)+") on "+esc(a.day)+"</li>";
+      });
+      $("lpClashBox").innerHTML='<div class="lp-card lp-clash"><div class="lp-warn" style="margin-bottom:8px">'+
+        cl.length+" clash"+(cl.length>1?"es":"")+" to resolve</div><ul style='margin:0;padding-left:20px;font-size:14px;line-height:1.6'>"+
+        rows+"</ul></div>";
+    } else {
+      $("lpClashBox").innerHTML = S.sched.length
+        ? '<div class="lp-card"><span class="lp-ok">No clashes.</span> <span class="lp-muted">Every set in the schedule fits.</span></div>'
+        : "";
+    }
+
+    if (!S.sched.length){
+      $("lpSchedList").innerHTML='<div class="lp-empty">Nothing scheduled yet. Add the sets you want and clashes appear automatically.</div>';
+      return;
+    }
+
+    var html="";
+    for (var d=0;d<LP.days.length;d++){
+      var day=LP.days[d];
+      var items=[];
+      for (var k=0;k<S.sched.length;k++){ if (S.sched[k].day===day) items.push([k,S.sched[k]]); }
+      if (!items.length) continue;
+      items.sort(function(x,y){
+        var a=mins(x[1].start), b=mins(y[1].start);
+        if (a===null) return 1;
+        if (b===null) return -1;
+        return a-b;
+      });
+      var rows="";
+      items.forEach(function(pair){
+        var idx=pair[0], s=pair[1];
+        var pr=["","If convenient","Want to see","Unmissable"][s.priority] || "";
+        rows += "<tr"+(flagged[idx]?' class="lp-clash"':"")+"><td class='lp-mono'>"+esc(s.start||"")+" to "+esc(s.end||"")+
+          "</td><td><strong>"+esc(s.act)+"</strong></td><td>"+esc(s.stage||"")+"</td><td>"+esc(pr)+
+          "</td><td>"+(flagged[idx]?'<span class="lp-warn">clash</span>':"")+
+          '</td><td><button class="lp-b sm" type="button" data-del="'+idx+'">Remove</button></td></tr>';
+      });
+      html += '<div class="lp-card" style="margin-bottom:14px;padding:16px"><div style="font-weight:700;margin-bottom:10px">'+
+        esc(day)+"</div><div class='lp-tblw'><table class='lp-tbl'><thead><tr><th style='min-width:130px'>Time</th>"+
+        "<th style='min-width:140px'>Act</th><th style='min-width:110px'>Stage</th><th style='min-width:110px'>Priority</th>"+
+        "<th></th><th></th></tr></thead><tbody>"+rows+"</tbody></table></div></div>";
+    }
+    $("lpSchedList").innerHTML=html;
+
+    Array.prototype.forEach.call($("lpSchedList").querySelectorAll("button[data-del]"), function(b){
+      b.addEventListener("click", function(){
+        S.sched.splice(parseInt(b.getAttribute("data-del"),10),1);
+        put(K_S,S.sched); renderSched();
+      });
+    });
+  }
+
+  function schedText(){
+    var out=["Festival schedule",""];
+    var cl=clashes(), flagged={};
+    cl.forEach(function(p){ flagged[p[0]]=true; flagged[p[1]]=true; });
+    for (var d=0;d<LP.days.length;d++){
+      var items=[];
+      for (var k=0;k<S.sched.length;k++){ if (S.sched[k].day===LP.days[d]) items.push([k,S.sched[k]]); }
+      if (!items.length) continue;
+      items.sort(function(x,y){ return (mins(x[1].start)||0)-(mins(y[1].start)||0); });
+      out.push(LP.days[d]);
+      items.forEach(function(p){
+        out.push("  "+(p[1].start||"--:--")+" to "+(p[1].end||"--:--")+"  "+p[1].act+
+                 (p[1].stage? "  ["+p[1].stage+"]":"")+(flagged[p[0]]? "  CLASH":""));
+      });
+      out.push("");
+    }
+    if (out.length<=2) out.push("Nothing scheduled yet.");
+    return out.join("\n");
+  }
+
+  function initSched(){
+    LP.days.forEach(function(d){
+      var o=document.createElement("option"); o.value=d; o.textContent=d; $("lpDay").appendChild(o);
+    });
+    $("lpAdd").addEventListener("click", function(){
+      var act=$("lpAct").value.trim();
+      if (act.length<1){ flash("lpSchedMsg","Name the act first."); return; }
+      if (!$("lpStart").value || !$("lpEnd").value){ flash("lpSchedMsg","Add a start and end time."); return; }
+      S.sched.push({
+        day:$("lpDay").value, act:act, stage:$("lpStage").value.trim(),
+        start:$("lpStart").value, end:$("lpEnd").value,
+        priority:parseInt($("lpPriority").value,10)
+      });
+      put(K_S,S.sched);
+      $("lpAct").value=""; $("lpStage").value="";
+      renderSched();
+      flash("lpSchedMsg","Added.");
+    });
+    $("lpExportSched").addEventListener("click", function(){
+      download("festival-schedule.txt", schedText()); flash("lpSchedMsg","Exported.");
+    });
+    renderSched();
+  }
+
+  /* ---------- budget ---------- */
+  function renderBudgetRows(){
+    var html="";
+    for (var i=0;i<LP.budget.length;i++){
+      var b=LP.budget[i];
+      var v=(S.budget[b.id]!=null) ? S.budget[b.id] : "";
+      html += '<div class="lp-flex" style="margin-bottom:10px;align-items:flex-start">'+
+        '<div style="flex:1;min-width:150px"><div style="font-weight:600;font-size:14px">'+esc(b.label)+"</div>"+
+        '<div class="lp-tiny">'+esc(b.hint)+"</div></div>"+
+        '<input class="lp-in lp-mono" type="number" min="0" step="1" data-bud="'+b.id+
+        '" value="'+esc(v)+'" placeholder="0" style="max-width:120px">'+
+        '<span class="lp-chip">'+(b.per==="person"?"per person":"whole group")+"</span></div>";
+    }
+    $("lpBudgetRows").innerHTML=html;
+    Array.prototype.forEach.call($("lpBudgetRows").querySelectorAll("input[data-bud]"), function(inp){
+      inp.addEventListener("input", function(){
+        var n=parseFloat(inp.value);
+        S.budget[inp.getAttribute("data-bud")] = isNaN(n) ? 0 : n;
+        computeBudget();
+      });
+    });
+  }
+
+  function computeBudget(){
+    var people=Math.max(1, parseInt($("lpPeople").value,10)||1);
+    var days=Math.max(1, Math.min(4, parseInt($("lpDays").value,10)||4));
+    S.budget.people=people; S.budget.days=days;
+
+    var total=0, parts=[];
+    for (var i=0;i<LP.budget.length;i++){
+      var b=LP.budget[i];
+      var v=parseFloat(S.budget[b.id])||0;
+      if (!v) continue;
+      var line;
+      if (b.per==="group") line=v;
+      else if (b.id==="food" || b.id==="offsite" || b.id==="transit") line=v*people*days;
+      else line=v*people;
+      total += line;
+      parts.push([b.label, line]);
+    }
+    $("lpTotal").textContent=money(total);
+    $("lpPerPerson").textContent=money(total/people);
+    $("lpPerDay").textContent=money(total/people/days);
+
+    parts.sort(function(a,b){ return b[1]-a[1]; });
+    var rows="";
+    for (var j=0;j<parts.length;j++){
+      var pct = total ? Math.round(parts[j][1]/total*100) : 0;
+      rows += "<tr><td>"+esc(parts[j][0])+"</td><td class='lp-mono'>"+money(parts[j][1])+"</td><td>"+pct+"%</td></tr>";
+    }
+    $("lpBudgetBreak").innerHTML = rows
+      ? "<div class='lp-tblw'><table class='lp-tbl' style='min-width:auto'><thead><tr><th>Line</th><th>Total</th><th>Share</th></tr></thead><tbody>"+rows+"</tbody></table></div>"
+      : '<div class="lp-tiny">Enter figures on the left and the breakdown appears here, largest line first.</div>';
+  }
+
+  function budgetText(){
+    var people=S.budget.people||1, days=S.budget.days||4, total=0, out=["Festival budget",""];
+    for (var i=0;i<LP.budget.length;i++){
+      var b=LP.budget[i], v=parseFloat(S.budget[b.id])||0;
+      if (!v) continue;
+      var line = b.per==="group" ? v : ((b.id==="food"||b.id==="offsite"||b.id==="transit") ? v*people*days : v*people);
+      total += line;
+      out.push("  "+b.label+": "+money(line));
+    }
+    out.push("");
+    out.push("  Group of "+people+" across "+days+" day(s)");
+    out.push("  Total: "+money(total));
+    out.push("  Per person: "+money(total/people));
+    out.push("  Per person per day: "+money(total/people/days));
+    if (total===0) return "Festival budget\n\nNothing entered yet.";
+    return out.join("\n");
+  }
+
+  function initBudget(){
+    if (S.budget.people) $("lpPeople").value=S.budget.people;
+    if (S.budget.days) $("lpDays").value=S.budget.days;
+    renderBudgetRows();
+    $("lpPeople").addEventListener("input", computeBudget);
+    $("lpDays").addEventListener("input", computeBudget);
+    $("lpBudgetSave").addEventListener("click", function(){
+      put(K_B,S.budget); flash("lpBudgetMsg","Saved on this device.");
+    });
+    $("lpBudgetExport").addEventListener("click", function(){
+      download("festival-budget.txt", budgetText()); flash("lpBudgetMsg","Exported.");
+    });
+    computeBudget();
+  }
+
+  /* ---------- packing ---------- */
+  function packKey(c,i){ return c+"-"+i; }
+
+  function renderPack(){
+    var html="", done=0, total=0;
+    for (var c=0;c<LP.packing.length;c++){
+      var g=LP.packing[c], rows="";
+      for (var i=0;i<g.items.length;i++){
+        total++;
+        var k=packKey(c,i), on=!!S.pack[k];
+        if (on) done++;
+        rows += '<div class="lp-check'+(on?" lp-done":"")+'">'+
+          '<input type="checkbox" id="pk-'+k+'" data-pk="'+k+'"'+(on?" checked":"")+">"+
+          '<label for="pk-'+k+'">'+esc(g.items[i].t)+
+          '<span class="lp-why">'+esc(g.items[i].why)+"</span></label></div>";
+      }
+      html += '<div class="lp-card" style="margin-bottom:14px;padding:18px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:16px">'+esc(g.cat)+"</div>"+rows+"</div>";
+    }
+    $("lpPackList").innerHTML=html;
+    $("lpPackCount").textContent=done+" of "+total+" packed";
+    Array.prototype.forEach.call($("lpPackList").querySelectorAll("input[data-pk]"), function(cb){
+      cb.addEventListener("change", function(){
+        S.pack[cb.getAttribute("data-pk")]=cb.checked;
+        put(K_P,S.pack);
+        renderPack();
+      });
+    });
+  }
+
+  function packCount(){
+    var n=0;
+    for (var k in S.pack){ if (S.pack[k]) n++; }
+    return n;
+  }
+
+  function packText(){
+    var out=["Festival packing list",""];
+    for (var c=0;c<LP.packing.length;c++){
+      out.push(LP.packing[c].cat);
+      for (var i=0;i<LP.packing[c].items.length;i++){
+        out.push("  ["+(S.pack[packKey(c,i)]?"x":" ")+"] "+LP.packing[c].items[i].t);
+      }
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  function initPack(){
+    renderPack();
+    $("lpPackReset").addEventListener("click", function(){
+      if(!window.confirm("Untick every item?")) return;
+      S.pack={}; put(K_P,S.pack); renderPack();
+    });
+    $("lpPackExport").addEventListener("click", function(){
+      download("festival-packing-list.txt", packText()); flash("lpPackMsg","Exported.");
+    });
+  }
+
+  /* ---------- accordions ---------- */
+  function buildAcc(target, list, keyName){
+    var html="";
+    for (var i=0;i<list.length;i++){
+      var e=list[i];
+      html += '<div class="lp-acc"><button class="lp-acc-b" type="button">'+
+        '<span class="lp-acc-t">'+esc(e.t)+"</span>"+
+        (e[keyName] ? '<span class="lp-acc-k">'+esc(e[keyName])+"</span>" : "")+"</button>"+
+        '<div class="lp-acc-body"><p>'+esc(e.body)+"</p>"+
+        (e.tell ? '<div class="lp-note"><strong>Watch for.</strong> '+esc(e.tell)+"</div>" : "")+
+        "</div></div>";
+    }
+    $(target).innerHTML=html;
+    Array.prototype.forEach.call($(target).querySelectorAll(".lp-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- group plan ---------- */
+  var GFIELDS=["lpMeetMain","lpMeetBackup","lpMeetTimes","lpEndPlan","lpGroupNote"];
+
+  function groupText(){
+    return ["Festival group plan","",
+      "  Primary meetup point: "+(S.group.lpMeetMain||"-"),
+      "  Backup point: "+(S.group.lpMeetBackup||"-"),
+      "  Check-in times: "+(S.group.lpMeetTimes||"-"),
+      "  End of night plan: "+(S.group.lpEndPlan||"-"),
+      "",
+      "  Notes: "+(S.group.lpGroupNote||"-")].join("\n");
+  }
+
+  function initGroup(){
+    GFIELDS.forEach(function(id){
+      if (S.group[id]) $(id).value=S.group[id];
+      $(id).addEventListener("input", function(){ S.group[id]=$(id).value; });
+    });
+    $("lpGroupSave").addEventListener("click", function(){
+      put(K_G,S.group); flash("lpGroupMsg","Saved on this device.");
+    });
+    $("lpGroupExport").addEventListener("click", function(){
+      download("festival-group-plan.txt", groupText()); flash("lpGroupMsg","Exported.");
+    });
+    buildAcc("lpGroupRules", LP.groupRules, "");
+  }
+
+  /* ---------- my plan ---------- */
+  function everything(){
+    return [schedText(), "", "=".repeat(58), "", budgetText(), "",
+            "=".repeat(58), "", packText(), "=".repeat(58), "", groupText()].join("\n");
+  }
+
+  function renderPlan(){
+    var people=S.budget.people||1, days=S.budget.days||4, total=0;
+    for (var i=0;i<LP.budget.length;i++){
+      var b=LP.budget[i], v=parseFloat(S.budget[b.id])||0;
+      if (!v) continue;
+      total += b.per==="group" ? v : ((b.id==="food"||b.id==="offsite"||b.id==="transit") ? v*people*days : v*people);
+    }
+    $("lpPsets").textContent=S.sched.length;
+    $("lpPclash").textContent=clashes().length;
+    $("lpPpacked").textContent=packCount();
+    $("lpPbudget").textContent=money(total/people);
+
+    $("lpPlanPreview").innerHTML='<div class="lp-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(everything().slice(0,4000))+"</pre></div>";
+  }
+
+  function initPlan(){
+    $("lpExpAll").addEventListener("click", function(){
+      download("festival-plan.txt", everything()); flash("lpPlanMsg","Exported.");
+    });
+    $("lpCopyAll").addEventListener("click", function(){
+      var text=everything();
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("lpPlanMsg","Copied."); },
+          function(){ flash("lpPlanMsg","Copy failed, use Export instead."); });
+      } else {
+        flash("lpPlanMsg","Copy not supported here, use Export instead.");
+      }
+    });
+    $("lpWipeAll").addEventListener("click", function(){
+      if(!window.confirm("Clear the schedule, budget, packing list and group plan?")) return;
+      S.sched=[]; S.budget={}; S.pack={}; S.group={};
+      put(K_S,S.sched); put(K_B,S.budget); put(K_P,S.pack); put(K_G,S.group);
+      GFIELDS.forEach(function(id){ $(id).value=""; });
+      $("lpPeople").value=1; $("lpDays").value=4;
+      renderSched(); renderBudgetRows(); computeBudget(); renderPack(); renderPlan();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initSched();
+    initBudget();
+    initPack();
+    buildAcc("lpSafetyAcc", LP.safety, "k");
+    buildAcc("lpCraftAcc", LP.craft, "");
+    initGroup();
+    initPlan();
+    renderPlan();
+  });
+})();
+</script>

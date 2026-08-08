@@ -1,0 +1,1017 @@
+---
+layout: default
+title: Film Study Notebook
+description: A close-reading workspace for film. Shot logs with timecodes, beat maps, side-by-side comparison, a film language reference, and notes organised by director.
+permalink: /tools/film-study-notebook.html
+body_class: tool-page
+---
+
+<style>
+  .fs-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .fs-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .fs-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .fs-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .fs-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .fs-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .fs-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .fs-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .fs-row::-webkit-scrollbar{display:none}
+  .fs-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .fs-btn:hover{background:var(--tint);color:var(--text)}
+  .fs-btn.is-active{background:var(--text);color:#fff}
+  .fs-panel{display:none;padding:34px 0 60px}
+  .fs-panel.is-active{display:block}
+  .fs-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .fs-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .fs-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .fs-grid{display:grid;gap:16px}
+  .fs-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .fs-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .fs-grid.four{grid-template-columns:repeat(auto-fit,minmax(175px,1fr))}
+  .fs-in,.fs-sel,.fs-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .fs-txt{min-height:110px;resize:vertical;line-height:1.6}
+  .fs-in:focus,.fs-sel:focus,.fs-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .fs-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .fs-b:hover{background:var(--tint)}
+  .fs-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .fs-b.primary:hover{background:var(--blue2)}
+  .fs-b.sm{font-size:13px;padding:6px 10px}
+  .fs-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .fs-muted{color:var(--muted);font-size:13.5px}
+  .fs-tiny{font-size:12px;color:var(--muted2)}
+  .fs-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.fs-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:600px}
+  table.fs-tbl th,table.fs-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.fs-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.fs-tbl tr:last-child td{border-bottom:0}
+  .fs-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .fs-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .fs-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .fs-acc-b:hover{background:var(--tint)}
+  .fs-acc-t{font-weight:700;font-size:16.5px}
+  .fs-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .fs-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .fs-acc.is-open .fs-acc-body{display:block}
+  .fs-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .fs-tell{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .fs-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .fs-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .fs-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .fs-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .fs-empty{padding:26px;text-align:center;color:var(--muted)}
+  .fs-beat{display:grid;grid-template-columns:70px 1fr;gap:10px;align-items:start;margin-bottom:8px}
+  .fs-beat input[type=text]{font:inherit;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--text)}
+  .fs-beat .fs-mark{font-size:12px;font-weight:700;color:var(--muted2);padding-top:10px}
+  .fs-split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){.fs-split{grid-template-columns:1fr}}
+  .fs-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+
+<section class="fs-hero">
+  <div class="container">
+    <div class="fs-eyebrow">VaultBook Study Library</div>
+    <h1 class="fs-title">The film study notebook</h1>
+    <p class="fs-sub">A workspace for taking a film apart properly. Log shots against timecodes, map the structure beat by beat, hold two films side by side to see what one took from the other, and organise every close reading by director and era. Built on a film language reference you can actually learn from, and everything you write stays on your device.</p>
+    <div class="fs-badges">
+      <span class="fs-badge">Film language reference</span>
+      <span class="fs-badge">Seven critical frameworks</span>
+      <span class="fs-badge">Beat map</span>
+      <span class="fs-badge">Timecoded shot log</span>
+      <span class="fs-badge">Side-by-side comparison</span>
+      <span class="fs-badge">Organised by director</span>
+      <span class="fs-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="fs-tabs">
+  <div class="container">
+    <div class="fs-row" role="tablist" aria-label="Study tools">
+      <button class="fs-btn is-active" data-tab="language" role="tab" aria-selected="true">Watch closely</button>
+      <button class="fs-btn" data-tab="frameworks" role="tab" aria-selected="false">Frameworks</button>
+      <button class="fs-btn" data-tab="beats" role="tab" aria-selected="false">Beat map</button>
+      <button class="fs-btn" data-tab="shots" role="tab" aria-selected="false">Shot log</button>
+      <button class="fs-btn" data-tab="compare" role="tab" aria-selected="false">Compare</button>
+      <button class="fs-btn" data-tab="library" role="tab" aria-selected="false">Library</button>
+      <button class="fs-btn" data-tab="notes" role="tab" aria-selected="false">My notebook</button>
+    </div>
+  </div>
+</div>
+
+<section class="fs-panel is-active" id="fp-language">
+  <div class="container">
+    <h2 class="fs-head">Watch closely</h2>
+    <p class="fs-lede">Twelve elements of film language, each with what it is, what it does to a viewer, and the tell that gives away a deliberate choice. Read one before a rewatch and you will spend that viewing noticing things you have looked at a hundred times without seeing.</p>
+
+    <div class="fs-flex" style="margin-bottom:16px">
+      <input class="fs-in" id="fsLangFind" type="search" placeholder="Filter the reference" style="max-width:280px">
+      <span class="fs-tiny" id="fsLangCount"></span>
+    </div>
+
+    <div id="fsLangAcc"></div>
+
+    <div class="fs-card" style="margin-top:22px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">The single habit that changes everything</div>
+      <p class="fs-muted" style="margin:0;line-height:1.75">Watch a scene twice. The first time, follow the story the way the film wants you to. The second time, refuse to follow it: pick one element from the list above and track only that. Where is the camera and why. What is the cut rate doing. What is lit and what has been allowed to fall into shadow. Almost every reading worth writing comes from a second pass in which you deliberately stopped watching the plot.</p>
+    </div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-frameworks">
+  <div class="container">
+    <h2 class="fs-head">Critical frameworks</h2>
+    <p class="fs-lede">Seven ways of asking what a film is doing. None of them is the correct one, and the useful move is knowing which question a given film rewards. Each entry gives the core claim, the method, the strongest objection, and the kind of film it works best on.</p>
+    <div id="fsFrameAcc"></div>
+    <div class="fs-card" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">Choosing one, and admitting it</div>
+      <p class="fs-muted" style="margin:0;line-height:1.75">The weakest film writing borrows a sentence from each framework and commits to none, which produces an essay that cannot be disagreed with because it has not claimed anything. Pick the frame that the film actually rewards, name it in your opening, and accept the objection that comes with it. An argument someone can push back on is worth more than a survey nobody can dispute.</p>
+    </div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-beats">
+  <div class="container">
+    <h2 class="fs-head">Beat map</h2>
+    <p class="fs-lede">Lay the structure out and the film stops being a stream and becomes a shape. Pick a template, fill in what happens at each beat with its timecode, and the proportions tell you where the film thinks its own weight sits.</p>
+
+    <div class="fs-flex" style="margin-bottom:16px">
+      <input class="fs-in" id="fsBeatFilm" type="text" placeholder="Film title" style="max-width:250px">
+      <select class="fs-sel" id="fsBeatModel" style="max-width:250px"></select>
+      <button class="fs-b primary" id="fsBeatSave" type="button">Save beat map</button>
+      <button class="fs-b" id="fsBeatExport" type="button">Export</button>
+      <span class="fs-tiny" id="fsBeatMsg"></span>
+    </div>
+
+    <div class="fs-card" id="fsBeatIntro" style="margin-bottom:16px">
+      <div style="font-weight:700;margin-bottom:6px" id="fsBeatName"></div>
+      <p class="fs-muted" style="margin:0;line-height:1.7" id="fsBeatAbout"></p>
+    </div>
+
+    <div class="fs-card"><div id="fsBeatRows"></div></div>
+
+    <div class="fs-card" style="margin-top:16px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">Reading the proportions</div>
+      <p class="fs-muted" style="margin:0;line-height:1.75">Once the timecodes are in, look at the gaps rather than the beats. A first act that runs to the halfway mark is telling you the film is about the situation rather than the resolution. A climax that arrives with thirty minutes left means the real subject is the aftermath. Structure templates are descriptive rather than prescriptive, and the interesting films are usually the ones that fit badly. When a film refuses the shape, ask what it gained by refusing.</p>
+    </div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-shots">
+  <div class="container">
+    <h2 class="fs-head">Shot log</h2>
+    <p class="fs-lede">The record that separates an impression from an argument. Log the shot, its scale, what the camera does, and what you noticed. Twenty entries across a sequence will show you a pattern you would never have held in your head.</p>
+
+    <div class="fs-card" style="margin-bottom:18px">
+      <div class="fs-grid four">
+        <div>
+          <label class="fs-tiny" for="fsShotFilm">Film</label>
+          <input class="fs-in" id="fsShotFilm" type="text" placeholder="Title" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsShotTime">Timecode</label>
+          <input class="fs-in fs-mono" id="fsShotTime" type="text" placeholder="00:42:15" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsShotScale">Shot scale</label>
+          <select class="fs-sel" id="fsShotScale" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsShotMove">Camera</label>
+          <select class="fs-sel" id="fsShotMove" style="margin-top:5px"></select>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="fs-tiny" for="fsShotNote">What you noticed</label>
+        <textarea class="fs-txt" id="fsShotNote" placeholder="What the shot is doing, what it withholds, how it sits against the one before it" style="margin-top:5px;min-height:80px"></textarea>
+      </div>
+      <div class="fs-flex" style="margin-top:12px">
+        <button class="fs-b primary" id="fsShotAdd" type="button">Log shot</button>
+        <button class="fs-b" id="fsShotExport" type="button">Export log</button>
+        <button class="fs-b" id="fsShotWipe" type="button">Clear log</button>
+        <span class="fs-tiny" id="fsShotMsg"></span>
+      </div>
+    </div>
+
+    <div class="fs-card" style="margin-bottom:18px">
+      <div style="font-weight:700;margin-bottom:8px">Watch for this</div>
+      <p class="fs-muted" id="fsShotPrompt" style="margin:0;line-height:1.7">Loading.</p>
+      <button class="fs-b sm" id="fsShotPromptNext" type="button" style="margin-top:12px">Another prompt</button>
+    </div>
+
+    <div class="fs-flex" style="margin-bottom:12px">
+      <select class="fs-sel" id="fsShotFilter" style="max-width:250px"><option value="">All films</option></select>
+      <span class="fs-tiny" id="fsShotCount"></span>
+    </div>
+    <div id="fsShotList"></div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-compare">
+  <div class="container">
+    <h2 class="fs-head">Compare</h2>
+    <p class="fs-lede">Two columns, one question. Use it for a source and its adaptation, an original and a remake, two films by the same director, or two treatments of the same genre problem. The comparison rows force you to answer the same question of both, which is where the argument comes from.</p>
+
+    <div class="fs-flex" style="margin-bottom:16px">
+      <input class="fs-in" id="fsCmpA" type="text" placeholder="First title" style="max-width:230px">
+      <input class="fs-in" id="fsCmpB" type="text" placeholder="Second title" style="max-width:230px">
+      <select class="fs-sel" id="fsCmpMode" style="max-width:230px"></select>
+      <button class="fs-b primary" id="fsCmpSave" type="button">Save comparison</button>
+      <button class="fs-b" id="fsCmpExport" type="button">Export</button>
+      <span class="fs-tiny" id="fsCmpMsg"></span>
+    </div>
+
+    <div class="fs-card" style="margin-bottom:16px">
+      <div style="font-weight:700;margin-bottom:6px" id="fsCmpModeName"></div>
+      <p class="fs-muted" style="margin:0;line-height:1.7" id="fsCmpModeAbout"></p>
+    </div>
+
+    <div id="fsCmpRows"></div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-library">
+  <div class="container">
+    <h2 class="fs-head">Library</h2>
+    <p class="fs-lede">Every reading you have written, filed by director and era so a body of work builds up instead of scattering. Add a film once and every note, beat map, and shot log attached to it collects here.</p>
+
+    <div class="fs-card" style="margin-bottom:18px">
+      <div class="fs-grid four">
+        <div>
+          <label class="fs-tiny" for="fsLibFilm">Film</label>
+          <input class="fs-in" id="fsLibFilm" type="text" placeholder="Title" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsLibDir">Director</label>
+          <input class="fs-in" id="fsLibDir" type="text" placeholder="Director" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsLibEra">Era</label>
+          <select class="fs-sel" id="fsLibEra" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="fs-tiny" for="fsLibFrame">Framework used</label>
+          <select class="fs-sel" id="fsLibFrame" style="margin-top:5px"></select>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="fs-tiny" for="fsLibClaim">Your claim, in one sentence</label>
+        <input class="fs-in" id="fsLibClaim" type="text" placeholder="The argument this film supports, stated so someone could disagree with it" style="margin-top:5px">
+      </div>
+      <div style="margin-top:12px">
+        <label class="fs-tiny" for="fsLibNote">Reading</label>
+        <textarea class="fs-txt" id="fsLibNote" placeholder="The evidence, the strongest objection, and what you concluded" style="margin-top:5px"></textarea>
+      </div>
+      <div class="fs-flex" style="margin-top:12px">
+        <button class="fs-b primary" id="fsLibAdd" type="button">Add to library</button>
+        <span class="fs-tiny" id="fsLibMsg"></span>
+      </div>
+    </div>
+
+    <div class="fs-flex" style="margin-bottom:14px">
+      <select class="fs-sel" id="fsLibByDir" style="max-width:220px"><option value="">All directors</option></select>
+      <select class="fs-sel" id="fsLibByEra" style="max-width:220px"><option value="">All eras</option></select>
+      <input class="fs-in" id="fsLibFind" type="search" placeholder="Search the library" style="max-width:230px">
+      <span class="fs-tiny" id="fsLibCount"></span>
+    </div>
+    <div id="fsLibList"></div>
+  </div>
+</section>
+
+<section class="fs-panel" id="fp-notes">
+  <div class="container">
+    <h2 class="fs-head">My notebook</h2>
+    <p class="fs-lede">Everything you have written, in one sheet you can export and take into an essay. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="fs-stat" style="margin-bottom:18px">
+      <div class="fs-stat-c"><div class="fs-stat-n" id="fsNfilms">0</div><div class="fs-stat-l">Films in library</div></div>
+      <div class="fs-stat-c"><div class="fs-stat-n" id="fsNshots">0</div><div class="fs-stat-l">Shots logged</div></div>
+      <div class="fs-stat-c"><div class="fs-stat-n" id="fsNbeats">0</div><div class="fs-stat-l">Beat maps</div></div>
+      <div class="fs-stat-c"><div class="fs-stat-n" id="fsNcmp">0</div><div class="fs-stat-l">Comparisons</div></div>
+      <div class="fs-stat-c"><div class="fs-stat-n" id="fsNdirs">0</div><div class="fs-stat-l">Directors covered</div></div>
+    </div>
+
+    <div class="fs-flex" style="margin-bottom:16px">
+      <button class="fs-b primary" id="fsExpAll" type="button">Export everything</button>
+      <button class="fs-b" id="fsCopyAll" type="button">Copy to clipboard</button>
+      <button class="fs-b" id="fsWipeAll" type="button">Clear all notes</button>
+      <span class="fs-tiny" id="fsNotesMsg"></span>
+    </div>
+
+    <div id="fsNotesList"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="fs-grid three">
+      <div class="fs-card">
+        <div class="card-kicker">Keep the whole body of work</div>
+        <div class="card-title" style="margin:6px 0">One vault for every reading</div>
+        <p class="card-text">VaultBook holds your film notes, essay drafts, screenshots, and reading in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have written.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="fs-card">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="fs-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your logs, beat maps, comparisons, and readings stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var FS = {};
+
+FS.language = [
+{t:"Shot scale", k:"camera", tags:["framing","distance","intimacy"],
+ what:"How much of the subject fills the frame, running from the extreme wide that places a figure in a landscape to the extreme close that fills the screen with an eye or a hand.",
+ does:"Scale governs how close you are allowed to stand. A wide shot makes you an observer of a situation, a close-up makes you a participant in a face. Directors control sympathy almost entirely through this dial, and a character the camera never gets close to is a character you are being kept from.",
+ watch:"Track the closest shot each character receives across a film. The person granted the most intimate scale is usually the one the film wants you to forgive, regardless of what they do.",
+ tell:"A withheld close-up. When a film denies you a face at the moment you most want it, that refusal is the point. Ask what you would have learned from the expression you were not shown."},
+
+{t:"Camera movement", k:"camera", tags:["dolly","pan","handheld","crane","steadicam"],
+ what:"Whether the camera holds still, turns on its axis, travels through space, or is carried. Each has a distinct feel and a distinct cost to produce.",
+ does:"A still camera asks you to watch. A moving camera asks you to follow, and it makes you complicit in the pursuit. Handheld introduces a body between you and the subject, which reads as urgency or as documentary honesty depending on how deliberately it is used. A crane pulling back at an ending converts a personal story into a general one in a single gesture.",
+ watch:"Note the first camera move in a film and the last. Directors frequently rhyme them, and the pair states the film's argument about its own subject.",
+ tell:"Motivated versus unmotivated movement. If the camera moves because a character moves, it is serving the scene. If it moves when nothing does, the film is speaking in its own voice, and that is always worth marking."},
+
+{t:"Lens and focus", k:"camera", tags:["depth of field","wide angle","telephoto","rack focus"],
+ what:"Focal length changes the apparent depth of a space, and aperture governs how much of that depth is sharp. A wide lens exaggerates distance, a long lens compresses it.",
+ does:"Deep focus lets you choose where to look and puts foreground and background in the same argument. Shallow focus takes the choice away and isolates a subject inside a blur. A rack focus does the editing inside a single shot, moving your attention without a cut and therefore without your noticing you were moved.",
+ watch:"Look for the moment a film switches its default. A picture that has been shallow throughout and suddenly goes deep is opening the world up for a reason.",
+ tell:"A long lens on a character walking toward camera. The compression means they close no distance no matter how long they walk, which is why it is used for futility and dread."},
+
+{t:"Composition and framing", k:"image", tags:["blocking","balance","negative space","frames within frames"],
+ what:"Where things sit inside the rectangle, and how the rectangle is divided by doorways, mirrors, windows, and bodies.",
+ does:"Composition assigns power without dialogue. Height in frame, centrality, and the amount of empty space around a figure all read instantly and unconsciously. A character boxed inside a doorway is contained by something. A character with a great deal of space above them is diminished by it.",
+ watch:"Freeze on a two shot and ask who has more room. Then ask whether the film gives that room away as the scene proceeds. Blocking changes are argument.",
+ tell:"Frames within frames. When a director repeatedly shoots people through openings, the film is making a claim about confinement, and counting the instances turns an impression into evidence."},
+
+{t:"Editing and rhythm", k:"cutting", tags:["cut rate","continuity","montage","match cut","long take"],
+ what:"How shots are joined, how long each is held, and what the joins conceal or expose.",
+ does:"Continuity editing is designed to be invisible, which means noticing it is already an analytical act. Cut rate is a tempo control that works on the body before the mind, and a scene that accelerates its cutting raises your pulse whether or not anything has happened. A long take does the opposite: it refuses relief and makes duration itself the subject.",
+ watch:"Time the longest take and the shortest run of cuts in a film. Those two extremes usually mark the scenes the director cared most about.",
+ tell:"A match cut. Joining two shots on a shared shape or motion asserts a relationship between things that are not otherwise connected, and the assertion is the argument. Ask what claim the pairing makes."},
+
+{t:"Mise en scene", k:"image", tags:["production design","props","costume","staging"],
+ what:"Everything arranged in front of the camera: sets, objects, costume, and the physical placement of performers within them.",
+ does:"This is where a film does its unspoken characterisation. A room tells you what a person believes about themselves before they speak. Costume tracks change more reliably than dialogue does, since a character can lie about who they are but the wardrobe department cannot.",
+ watch:"Follow one object across a film. A recurring prop that changes hands is almost always carrying the theme, and the moment of transfer is the moment to write about.",
+ tell:"Something that does not belong. A single object out of period, out of class, or out of taste is rarely an error. Find it and ask who put it there and why the film wanted you to see it."},
+
+{t:"Lighting", k:"image", tags:["key","fill","high key","low key","practical"],
+ what:"The direction, hardness, and ratio of light on a subject, from flat and even to a single hard source carving a face into halves.",
+ does:"Lighting sets the moral weather. High key illumination flattens and reassures. Low key with a wide ratio between light and shadow creates the visual grammar an entire tradition of crime cinema was built on. Where the light comes from matters as much as how much there is, since underlighting and toplighting both distort a face in ways audiences read instantly.",
+ watch:"Ask what is being allowed to go black. Shadow is a decision to withhold information, and the choice of what to hide is a choice about what the scene is about.",
+ tell:"A practical source in shot. When a lamp, window, or fire is visible and motivating the light, the film is grounding you. When light arrives from nowhere identifiable, it is expressive rather than realistic, and that shift is deliberate."},
+
+{t:"Colour", k:"image", tags:["palette","grading","saturation","motif"],
+ what:"The palette of a film, how saturated it is, and how consistently it is applied across sequences.",
+ does:"Colour organises a film into zones faster than any other element. Two locations graded differently become two worlds, and a character who carries one palette into another is visibly out of place. Saturation controls how heightened or how documentary a world feels before you have processed a single image consciously.",
+ watch:"Chart the palette by sequence rather than by shot. The pattern that emerges usually maps onto the structure, and where it breaks is where the film turns.",
+ tell:"A single saturated colour in a desaturated film. It is never decorative. Track every appearance and the meaning assembles itself."},
+
+{t:"Sound design", k:"sound", tags:["diegetic","ambience","foley","silence","off-screen"],
+ what:"Everything you hear that is not score: dialogue, effects, room tone, and the deliberate absence of any of them.",
+ does:"Sound builds the world that the frame cannot show, and off-screen sound is the cheapest and most powerful suspense device in cinema because the audience does the work. Silence is the strongest sound cue available, and a film that drops its ambience entirely has just told you something is wrong.",
+ watch:"Close your eyes for a minute of a scene. What you can still follow tells you how much of the storytelling is carried by sound, and it is usually far more than you assumed.",
+ tell:"A sound that crosses a cut. When audio from the next scene arrives early, or the previous scene's sound persists, the film is insisting the two are connected. That is an editing argument made in the sound mix."},
+
+{t:"Music and score", k:"sound", tags:["score","source music","leitmotif","absence"],
+ what:"Composed music laid over the film, and source music that exists inside its world.",
+ does:"Score is the most direct instruction a film gives about how to feel, which is why its absence is so conspicuous. A leitmotif attached to a character makes their presence felt before they appear. Source music is more interesting because it is chosen by someone inside the story, which makes it characterisation rather than commentary.",
+ watch:"Note the scenes with no music at all. In a heavily scored film those are the scenes the director trusted to work unaided, and they are usually the important ones.",
+ tell:"Score arriving late. When a scene plays dry and the music enters partway through, the entry point marks the exact moment the film wants you to commit emotionally. That timestamp is worth writing down."},
+
+{t:"Performance", k:"people", tags:["gesture","stillness","reaction","ensemble"],
+ what:"What performers do with face, voice, and body, and crucially what they do when they are not speaking.",
+ does:"Film performance is largely reaction, because editing gives the camera to the listener as often as the speaker. Stillness reads as power on screen in a way it does not on stage. The scale of a performance has to be matched to the shot scale it will be cut into, which is why the same choice can look controlled in a wide and inert in a close-up.",
+ watch:"Watch the person who is not talking. Directors cut to reactions to tell you how to interpret the line, and whose reaction you are given is a choice about whose experience matters.",
+ tell:"A repeated physical gesture. When an actor returns to the same small action, it has usually been built deliberately, and its final appearance almost always carries the character's resolution."},
+
+{t:"Time and duration", k:"structure", tags:["ellipsis","flashback","real time","repetition"],
+ what:"How a film handles the gap between screen time and story time, through cuts that skip, sequences that compress, and structures that loop or reverse.",
+ does:"Ellipsis is the default and it is invisible, so the moments a film refuses to skip are the ones it considers important. Real time sequences create pressure precisely because the audience knows relief is being withheld. Repetition with variation, showing the same event twice from different vantage points, converts a plot into an epistemological problem about who is telling the truth.",
+ watch:"Find the largest ellipsis in the film and ask what happened in the gap. What a film declines to show is frequently its actual subject.",
+ tell:"A scene allowed to run past its narrative usefulness. When the information has been delivered and the camera stays, the film has stopped telling the story and started making an argument about it."}
+];
+
+FS.frameworks = [
+{t:"Auteur reading", k:"authorship",
+ claim:"A film is best understood as the work of its director, whose recurring preoccupations and formal habits constitute a signature traceable across a body of work.",
+ method:"Watch three or more films by the same director and catalogue what repeats: framing habits, recurring character types, the same moral problem returning in different costume. Then read the individual film as a variation on that pattern.",
+ objection:"Filmmaking is industrial and collaborative. Cinematographers, editors, and production designers carry their own signatures across directors, and attributing everything to one name flattens the labour of dozens. Studio-era films complicate the theory badly.",
+ best:"Directors with long careers and unusual consistency, and any film that looks strange on its own but obvious inside a body of work."},
+
+{t:"Genre reading", k:"convention",
+ claim:"A film means what it means in relation to the rules of its genre, and the interesting content lives in where it obeys and where it breaks.",
+ method:"Establish the convention first, in specific terms rather than vague ones, then find the deviation. A genre reading is worthless without a clear statement of what the audience was expecting.",
+ objection:"Genres are not stable categories. They shift by decade and by country, and the boundaries are drawn retrospectively by critics rather than by the films. A reading can smuggle in its conclusion by defining the genre conveniently.",
+ best:"Late entries in a cycle, deliberate revisionist works, and any film marketed as one thing that behaves as another."},
+
+{t:"Formalist reading", k:"technique",
+ claim:"Meaning is produced by technique rather than by story, so the proper object of study is the arrangement of shots, sounds, and cuts rather than the events they depict.",
+ method:"Analyse a sequence shot by shot. Count cuts, log scales, map camera positions. Build the argument entirely from what is measurable in the material before interpreting any of it.",
+ objection:"Rigorous description does not automatically produce insight, and a formalist reading can become a catalogue that proves nothing. Technique also carries historical and cultural meaning that a purely internal analysis cannot see.",
+ best:"Films where style is conspicuously doing the work, and any sequence you find powerful without being able to say why."},
+
+{t:"Ideological reading", k:"politics",
+ claim:"Films carry the assumptions of the society that produced them, most powerfully where those assumptions go unstated, and analysis makes the unstated visible.",
+ method:"Ask what the film treats as natural and requiring no explanation. Who has power at the start, who has it at the end, and what the film considers a happy resolution. The default settings are the argument.",
+ objection:"The approach can find its conclusion in any film, since every work reflects its context. Without care it flattens artistic choice into symptom and leaves no room for a filmmaker who was actually arguing with their own culture.",
+ best:"Popular films made inside strong consensus, and any film whose politics feel invisible because you share them."},
+
+{t:"Spectatorship and the look", k:"viewer",
+ claim:"Cinema positions its viewer, deciding who looks and who is looked at, and that positioning carries meaning independent of the plot.",
+ method:"Track the point of view structure. Whose eyeline governs the cutting, who is granted subjectivity through their own gaze, and who appears mainly as an object within someone else's. Then ask what the arrangement asks of you.",
+ objection:"Real audiences are not uniform and do not identify as the theory predicts. Readings drawn from a handful of films have often been generalised further than the evidence supports.",
+ best:"Films with strong point of view structures, and any film where you feel implicated in the watching."},
+
+{t:"Historical and industrial reading", k:"context",
+ claim:"A film is a product of specific material conditions: financing, censorship, available technology, exhibition, and the labour arrangements of its industry.",
+ method:"Establish the production circumstances first, from documented sources rather than anecdote, then read the film's choices as responses to constraint. What was impossible, what was forbidden, and what was cheap.",
+ objection:"Context can be made to explain everything and therefore explains nothing in particular. It also risks reducing artistic decisions to the limits the artist happened to be working against.",
+ best:"Films made under censorship or severe budget limits, and anything from a period of major technological transition."},
+
+{t:"Adaptation reading", k:"source",
+ claim:"An adaptation is an argument about its source, and every retention, cut, and invention is a claim about what the original was really about.",
+ method:"Build a change log rather than a fidelity scorecard. For each significant departure ask what it gains, not whether it is faithful. Pay particular attention to what the film converts from words into image or silence.",
+ objection:"Fidelity is the wrong axis and treating the source as the standard imports a hierarchy of media that neither work asked for. The strongest adaptations are often the least faithful.",
+ best:"Any film with a literary source, remakes, and films drawn from history where the source is a contested record."}
+];
+
+FS.models = [
+{id:"three-act", name:"Three act", about:"The default description of mainstream narrative shape. Useful precisely because it is the expectation most films are written against, so deviation from it is legible.",
+ beats:["Opening image","Inciting incident","End of act one turn","Midpoint reversal","All is lost","End of act two turn","Climax","Closing image"]},
+{id:"sequence", name:"Eight sequence", about:"Treats a feature as eight units of roughly a reel each, each with its own small arc. It maps onto how films are actually constructed and shot far better than the three act description does.",
+ beats:["Sequence one, status quo","Sequence two, predicament","Sequence three, first attempt","Sequence four, raised stakes","Sequence five, midpoint shift","Sequence six, mounting pressure","Sequence seven, lowest point","Sequence eight, resolution"]},
+{id:"five-act", name:"Five act", about:"Inherited from dramatic tradition and still the best fit for tragedy, ensemble drama, and anything with a slow structural collapse rather than a single reversal.",
+ beats:["Exposition","Rising action","Turning point","Falling action","Catastrophe or resolution"]},
+{id:"journey", name:"Departure and return", about:"The mythic pattern of leaving, ordeal, and coming back changed. Overused as a writing template, genuinely useful as an analytical one for anything with a journey structure.",
+ beats:["Ordinary world","Call and refusal","Crossing the threshold","Trials and allies","The ordeal","The reward","The road back","Return changed"]},
+{id:"free", name:"Free form", about:"For films that refuse a template. Log the beats you actually observe and let the shape emerge, then ask what the film gained by not fitting anything.",
+ beats:["Beat one","Beat two","Beat three","Beat four","Beat five","Beat six","Beat seven","Beat eight"]}
+];
+
+FS.compareModes = [
+{id:"adaptation", name:"Source and adaptation", about:"Use this when a film is drawn from a book, play, or documented history. The rows push you toward the changes rather than a fidelity score, because what a film alters is what it believes the source was about.",
+ rows:["What the opening establishes","What was cut, and what that cut costs","What was invented, and what it buys","A passage kept almost intact, and why","Something converted from words into image or silence","Who the story now belongs to","What the ending claims that the source did not"]},
+{id:"remake", name:"Original and remake", about:"Two films, the same story, different decades. The gap between them is usually a record of what changed in the culture rather than in the material.",
+ rows:["What the story was about the first time","What it is about now","What the remake could show that the original could not","What the original could imply that the remake spells out","How the ending shifts, and who benefits","Which version trusts the audience more"]},
+{id:"director", name:"Two films, one director", about:"Test an auteur claim properly by holding two works side by side and asking whether the pattern survives contact with both.",
+ rows:["The recurring formal habit","The recurring moral problem","What changed between them","What refused to change","Which film states the preoccupation more openly","Whether the pattern is signature or reflex"]},
+{id:"genre", name:"Two treatments of one genre", about:"Two films facing the same generic problem. The comparison exposes what is convention and what is choice, which is impossible to see in a single film.",
+ rows:["The shared convention","How each obeys it","How each breaks it","What the audience is assumed to know","Which is arguing with the genre and which is using it","What each thinks the genre is for"]}
+];
+
+FS.scales = ["Extreme wide","Wide","Medium wide","Medium","Medium close","Close-up","Extreme close-up","Insert","Two shot","Over the shoulder","Point of view","Establishing"];
+FS.moves  = ["Static","Pan","Tilt","Dolly in","Dolly out","Tracking","Crane","Handheld","Steadicam","Zoom","Rack focus","Whip pan"];
+FS.eras   = ["Silent","Early sound","Classical studio","Postwar","New wave","New Hollywood","Blockbuster era","Independent","Digital","Contemporary","Not sure"];
+
+FS.prompts = [
+"Freeze on any frame and ask who has the most space around them. Then ask whether they earned it.",
+"Count the cuts in one minute. Do the same for a minute you found calm. Compare the numbers.",
+"Watch a dialogue scene and note who the camera gives you during each line. Not the speaker, the listener.",
+"Find the longest take in the film. Ask what would have been lost if it had been cut into pieces.",
+"Track one costume across the film. Note every change and what happened immediately before it.",
+"Identify a sound you can hear but cannot see. Ask what the film gains by keeping its source off screen.",
+"Find a moment where the score enters partway through a scene. Mark the exact line it arrives on.",
+"Ask what is lit and what has been allowed to go black. The shadow is the decision.",
+"Locate the biggest jump in time. What happened in the gap, and why did the film refuse to show it?",
+"Note the first camera movement and the last. Do they rhyme? Most films make them rhyme.",
+"Pick a recurring object and log every appearance. By the third you will know what it means.",
+"Find the shot the film denies you. The withheld image is usually the argument."
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_SHOTS = "vb_fs_shots_v1";
+  var K_BEATS = "vb_fs_beats_v1";
+  var K_CMP   = "vb_fs_compare_v1";
+  var K_LIB   = "vb_fs_library_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ window.localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(k,f){ try{ var r=window.localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function fill(sel, list){
+    list.forEach(function(v){
+      var o=document.createElement("option");
+      o.value=v; o.textContent=v;
+      sel.appendChild(o);
+    });
+  }
+
+  var S = {
+    shots: get(K_SHOTS, []),
+    beats: get(K_BEATS, {}),
+    cmp:   get(K_CMP, {}),
+    lib:   get(K_LIB, []),
+    promptIndex: 0
+  };
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".fs-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".fs-panel"), function(p){
+          p.classList.remove("is-active");
+        });
+        var t=$("fp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="notes") renderNotes();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- film language ---------- */
+  function renderLanguage(){
+    function draw(){
+      var q=($("fsLangFind").value||"").toLowerCase();
+      var html=""; var n=0;
+      for (var i=0;i<FS.language.length;i++){
+        var e=FS.language[i];
+        var hay=(e.t+" "+e.k+" "+e.tags.join(" ")+" "+e.what+" "+e.does+" "+e.watch+" "+e.tell).toLowerCase();
+        if (q && hay.indexOf(q)<0) continue;
+        n++;
+        var chips="";
+        for (var g=0;g<e.tags.length;g++){ chips+='<span class="fs-chip">'+esc(e.tags[g])+"</span>"; }
+        html += '<div class="fs-acc"><button class="fs-acc-b" type="button">'+
+          '<span class="fs-acc-t">'+esc(e.t)+'</span><span class="fs-acc-k">'+esc(e.k)+"</span></button>"+
+          '<div class="fs-acc-body">'+
+          "<p><strong>What it is.</strong> "+esc(e.what)+"</p>"+
+          "<p><strong>What it does.</strong> "+esc(e.does)+"</p>"+
+          "<p><strong>What to watch for.</strong> "+esc(e.watch)+"</p>"+
+          '<div class="fs-tell"><strong>The tell.</strong> '+esc(e.tell)+"</div>"+
+          '<div style="margin-top:12px">'+chips+"</div></div></div>";
+      }
+      $("fsLangAcc").innerHTML = html || '<div class="fs-empty">Nothing matches that filter.</div>';
+      $("fsLangCount").textContent = n+" of "+FS.language.length+" elements";
+      Array.prototype.forEach.call($("fsLangAcc").querySelectorAll(".fs-acc-b"), function(b){
+        b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+      });
+    }
+    $("fsLangFind").addEventListener("input", draw);
+    draw();
+  }
+
+  /* ---------- frameworks ---------- */
+  function renderFrameworks(){
+    var html="";
+    for (var i=0;i<FS.frameworks.length;i++){
+      var f=FS.frameworks[i];
+      html += '<div class="fs-acc"><button class="fs-acc-b" type="button">'+
+        '<span class="fs-acc-t">'+esc(f.t)+'</span><span class="fs-acc-k">'+esc(f.k)+"</span></button>"+
+        '<div class="fs-acc-body">'+
+        "<p><strong>The claim.</strong> "+esc(f.claim)+"</p>"+
+        "<p><strong>The method.</strong> "+esc(f.method)+"</p>"+
+        "<p><strong>The strongest objection.</strong> "+esc(f.objection)+"</p>"+
+        '<div class="fs-tell"><strong>Works best on.</strong> '+esc(f.best)+"</div></div></div>";
+    }
+    $("fsFrameAcc").innerHTML=html;
+    Array.prototype.forEach.call($("fsFrameAcc").querySelectorAll(".fs-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- beat map ---------- */
+  function currentModel(){
+    var id=$("fsBeatModel").value;
+    for (var i=0;i<FS.models.length;i++){ if (FS.models[i].id===id) return FS.models[i]; }
+    return FS.models[0];
+  }
+
+  function renderBeats(){
+    var m=currentModel();
+    $("fsBeatName").textContent=m.name+" structure";
+    $("fsBeatAbout").textContent=m.about;
+    var store=S.beats[m.id] || {};
+    var html="";
+    for (var i=0;i<m.beats.length;i++){
+      var tc=(store["t"+i]||""), what=(store["w"+i]||"");
+      html += '<div class="fs-beat"><div class="fs-mark">'+(i+1)+'</div>'+
+        '<div><div style="font-weight:600;font-size:14px;margin-bottom:6px">'+esc(m.beats[i])+"</div>"+
+        '<div class="fs-flex" style="gap:8px">'+
+        '<input type="text" class="fs-mono" data-bt="'+i+'" value="'+esc(tc)+'" placeholder="00:00:00" style="max-width:110px">'+
+        '<input type="text" data-bw="'+i+'" value="'+esc(what)+'" placeholder="What happens here" style="flex:1;min-width:180px">'+
+        "</div></div></div>";
+    }
+    $("fsBeatRows").innerHTML=html;
+    Array.prototype.forEach.call($("fsBeatRows").querySelectorAll("input"), function(inp){
+      inp.addEventListener("input", function(){
+        var key = inp.hasAttribute("data-bt") ? "t"+inp.getAttribute("data-bt") : "w"+inp.getAttribute("data-bw");
+        if (!S.beats[m.id]) S.beats[m.id]={};
+        S.beats[m.id][key]=inp.value;
+        S.beats[m.id].film=$("fsBeatFilm").value;
+      });
+    });
+  }
+
+  function beatsText(){
+    var out=["Film beat maps",""];
+    for (var i=0;i<FS.models.length;i++){
+      var m=FS.models[i], st=S.beats[m.id];
+      if (!st) continue;
+      var any=false;
+      for (var b=0;b<m.beats.length;b++){ if (st["t"+b] || st["w"+b]) any=true; }
+      if (!any) continue;
+      out.push(m.name+(st.film ? " . "+st.film : ""));
+      for (var j=0;j<m.beats.length;j++){
+        out.push("  "+(j+1)+". "+m.beats[j]+"  ["+(st["t"+j]||"--:--:--")+"]  "+(st["w"+j]||""));
+      }
+      out.push("");
+    }
+    if (out.length<=2) out.push("No beat maps yet.");
+    return out.join("\n");
+  }
+
+  function initBeats(){
+    FS.models.forEach(function(m){
+      var o=document.createElement("option");
+      o.value=m.id; o.textContent=m.name;
+      $("fsBeatModel").appendChild(o);
+    });
+    $("fsBeatModel").addEventListener("change", renderBeats);
+    $("fsBeatFilm").addEventListener("input", function(){
+      var m=currentModel();
+      if (!S.beats[m.id]) S.beats[m.id]={};
+      S.beats[m.id].film=$("fsBeatFilm").value;
+    });
+    $("fsBeatSave").addEventListener("click", function(){
+      put(K_BEATS, S.beats); flash("fsBeatMsg","Saved on this device.");
+    });
+    $("fsBeatExport").addEventListener("click", function(){
+      download("film-beat-maps.txt", beatsText()); flash("fsBeatMsg","Exported.");
+    });
+    renderBeats();
+  }
+
+  /* ---------- shot log ---------- */
+  function renderShots(){
+    var films=[];
+    for (var i=0;i<S.shots.length;i++){
+      if (S.shots[i].film && films.indexOf(S.shots[i].film)<0) films.push(S.shots[i].film);
+    }
+    var sel=$("fsShotFilter"), keep=sel.value;
+    sel.innerHTML='<option value="">All films</option>';
+    fill(sel, films.sort());
+    if (films.indexOf(keep)>=0) sel.value=keep;
+
+    var want=sel.value;
+    var rows="", n=0;
+    var list=S.shots.slice().sort(function(a,b){
+      if (a.film!==b.film) return a.film<b.film?-1:1;
+      return a.time<b.time?-1:(a.time>b.time?1:0);
+    });
+    for (var j=0;j<list.length;j++){
+      var s=list[j];
+      if (want && s.film!==want) continue;
+      n++;
+      rows += "<tr><td class='fs-mono'>"+esc(s.time||"")+"</td><td><strong>"+esc(s.film||"")+
+        "</strong></td><td>"+esc(s.scale||"")+"</td><td>"+esc(s.move||"")+"</td><td>"+esc(s.note||"")+
+        '</td><td><button class="fs-b sm" type="button" data-sdel="'+S.shots.indexOf(s)+'">Remove</button></td></tr>';
+    }
+    $("fsShotList").innerHTML = n
+      ? '<div class="fs-tblw"><table class="fs-tbl"><thead><tr><th style="min-width:90px">Time</th><th style="min-width:130px">Film</th><th style="min-width:110px">Scale</th><th style="min-width:110px">Camera</th><th>Note</th><th></th></tr></thead><tbody>'+rows+"</tbody></table></div>"
+      : '<div class="fs-empty">No shots logged yet. Log a sequence and the pattern appears.</div>';
+    $("fsShotCount").textContent = n+" of "+S.shots.length+" shots";
+
+    Array.prototype.forEach.call($("fsShotList").querySelectorAll("button[data-sdel]"), function(b){
+      b.addEventListener("click", function(){
+        S.shots.splice(parseInt(b.getAttribute("data-sdel"),10),1);
+        put(K_SHOTS,S.shots); renderShots();
+      });
+    });
+  }
+
+  function shotsText(){
+    var out=["Film shot log",""];
+    var list=S.shots.slice().sort(function(a,b){
+      if (a.film!==b.film) return a.film<b.film?-1:1;
+      return a.time<b.time?-1:(a.time>b.time?1:0);
+    });
+    var last="";
+    for (var i=0;i<list.length;i++){
+      var s=list[i];
+      if (s.film!==last){ out.push(s.film); last=s.film; }
+      out.push("  ["+(s.time||"--:--:--")+"]  "+s.scale+" / "+s.move);
+      if (s.note) out.push("      "+s.note);
+    }
+    if (out.length<=2) out.push("No shots logged yet.");
+    return out.join("\n");
+  }
+
+  function showPrompt(){ $("fsShotPrompt").textContent = FS.prompts[S.promptIndex]; }
+
+  function initShots(){
+    fill($("fsShotScale"), FS.scales);
+    fill($("fsShotMove"), FS.moves);
+    $("fsShotAdd").addEventListener("click", function(){
+      var film=$("fsShotFilm").value.trim();
+      if (film.length<1){ flash("fsShotMsg","Name the film first."); return; }
+      S.shots.push({
+        film:film,
+        time:$("fsShotTime").value.trim(),
+        scale:$("fsShotScale").value,
+        move:$("fsShotMove").value,
+        note:$("fsShotNote").value.trim()
+      });
+      put(K_SHOTS,S.shots);
+      $("fsShotTime").value=""; $("fsShotNote").value="";
+      renderShots();
+      flash("fsShotMsg","Logged.");
+    });
+    $("fsShotExport").addEventListener("click", function(){
+      download("film-shot-log.txt", shotsText()); flash("fsShotMsg","Exported.");
+    });
+    $("fsShotWipe").addEventListener("click", function(){
+      if(!window.confirm("Clear every logged shot?")) return;
+      S.shots=[]; put(K_SHOTS,S.shots); renderShots();
+    });
+    $("fsShotFilter").addEventListener("change", renderShots);
+    $("fsShotPromptNext").addEventListener("click", function(){
+      S.promptIndex=(S.promptIndex+1)%FS.prompts.length;
+      showPrompt();
+    });
+    showPrompt();
+    renderShots();
+  }
+
+  /* ---------- compare ---------- */
+  function currentMode(){
+    var id=$("fsCmpMode").value;
+    for (var i=0;i<FS.compareModes.length;i++){ if (FS.compareModes[i].id===id) return FS.compareModes[i]; }
+    return FS.compareModes[0];
+  }
+
+  function renderCompare(){
+    var m=currentMode();
+    $("fsCmpModeName").textContent=m.name;
+    $("fsCmpModeAbout").textContent=m.about;
+    var st=S.cmp[m.id] || {};
+    $("fsCmpA").value = st.a || $("fsCmpA").value;
+    $("fsCmpB").value = st.b || $("fsCmpB").value;
+    var a=$("fsCmpA").value||"First title", b=$("fsCmpB").value||"Second title";
+    var html="";
+    for (var i=0;i<m.rows.length;i++){
+      html += '<div class="fs-card" style="padding:16px;margin-bottom:12px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:15px">'+esc(m.rows[i])+"</div>"+
+        '<div class="fs-split">'+
+        '<div><div class="fs-tiny" style="margin-bottom:4px">'+esc(a)+"</div>"+
+        '<textarea class="fs-txt" data-ca="'+i+'" style="min-height:80px">'+esc(st["a"+i]||"")+"</textarea></div>"+
+        '<div><div class="fs-tiny" style="margin-bottom:4px">'+esc(b)+"</div>"+
+        '<textarea class="fs-txt" data-cb="'+i+'" style="min-height:80px">'+esc(st["b"+i]||"")+"</textarea></div>"+
+        "</div></div>";
+    }
+    $("fsCmpRows").innerHTML=html;
+    Array.prototype.forEach.call($("fsCmpRows").querySelectorAll("textarea"), function(t){
+      t.addEventListener("input", function(){
+        if (!S.cmp[m.id]) S.cmp[m.id]={};
+        var key = t.hasAttribute("data-ca") ? "a"+t.getAttribute("data-ca") : "b"+t.getAttribute("data-cb");
+        S.cmp[m.id][key]=t.value;
+        S.cmp[m.id].a=$("fsCmpA").value;
+        S.cmp[m.id].b=$("fsCmpB").value;
+      });
+    });
+  }
+
+  function compareText(){
+    var out=["Film comparisons",""];
+    for (var i=0;i<FS.compareModes.length;i++){
+      var m=FS.compareModes[i], st=S.cmp[m.id];
+      if (!st) continue;
+      var any=false;
+      for (var r=0;r<m.rows.length;r++){ if (st["a"+r] || st["b"+r]) any=true; }
+      if (!any) continue;
+      out.push(m.name+": "+(st.a||"?")+" versus "+(st.b||"?"));
+      for (var j=0;j<m.rows.length;j++){
+        if (!st["a"+j] && !st["b"+j]) continue;
+        out.push("  "+m.rows[j]);
+        out.push("    "+(st.a||"A")+": "+(st["a"+j]||"-"));
+        out.push("    "+(st.b||"B")+": "+(st["b"+j]||"-"));
+      }
+      out.push("");
+    }
+    if (out.length<=2) out.push("No comparisons yet.");
+    return out.join("\n");
+  }
+
+  function initCompare(){
+    FS.compareModes.forEach(function(m){
+      var o=document.createElement("option");
+      o.value=m.id; o.textContent=m.name;
+      $("fsCmpMode").appendChild(o);
+    });
+    $("fsCmpMode").addEventListener("change", renderCompare);
+    $("fsCmpA").addEventListener("input", renderCompare);
+    $("fsCmpB").addEventListener("input", renderCompare);
+    $("fsCmpSave").addEventListener("click", function(){
+      put(K_CMP,S.cmp); flash("fsCmpMsg","Saved on this device.");
+    });
+    $("fsCmpExport").addEventListener("click", function(){
+      download("film-comparisons.txt", compareText()); flash("fsCmpMsg","Exported.");
+    });
+    renderCompare();
+  }
+
+  /* ---------- library ---------- */
+  function renderLibrary(){
+    var dirs=[], eras=[];
+    for (var i=0;i<S.lib.length;i++){
+      if (S.lib[i].dir && dirs.indexOf(S.lib[i].dir)<0) dirs.push(S.lib[i].dir);
+      if (S.lib[i].era && eras.indexOf(S.lib[i].era)<0) eras.push(S.lib[i].era);
+    }
+    var d=$("fsLibByDir"), e=$("fsLibByEra");
+    var kd=d.value, ke=e.value;
+    d.innerHTML='<option value="">All directors</option>'; fill(d, dirs.sort());
+    e.innerHTML='<option value="">All eras</option>'; fill(e, eras.sort());
+    if (dirs.indexOf(kd)>=0) d.value=kd;
+    if (eras.indexOf(ke)>=0) e.value=ke;
+
+    var q=($("fsLibFind").value||"").toLowerCase();
+    var html='<div class="fs-grid two">', n=0;
+    for (var j=S.lib.length-1;j>=0;j--){
+      var it=S.lib[j];
+      if (d.value && it.dir!==d.value) continue;
+      if (e.value && it.era!==e.value) continue;
+      if (q && (it.film+" "+it.dir+" "+it.claim+" "+it.note).toLowerCase().indexOf(q)<0) continue;
+      n++;
+      html += '<div class="fs-card" style="padding:16px"><div class="fs-flex" style="justify-content:space-between">'+
+        '<span class="fs-chip">'+esc(it.era||"")+"</span>"+
+        '<button class="fs-b sm" type="button" data-ldel="'+j+'">Remove</button></div>'+
+        '<div style="font-weight:700;font-size:17px;margin:10px 0 2px">'+esc(it.film)+"</div>"+
+        '<div class="fs-tiny" style="margin-bottom:10px">'+esc(it.dir||"Director unknown")+
+        (it.frame? " . "+esc(it.frame) : "")+"</div>"+
+        (it.claim? '<p style="margin:0 0 8px;font-weight:600;font-size:14.5px;line-height:1.6">'+esc(it.claim)+"</p>" : "")+
+        (it.note? '<p class="fs-muted" style="margin:0;white-space:pre-wrap;line-height:1.65">'+esc(it.note)+"</p>" : "")+
+        "</div>";
+    }
+    $("fsLibList").innerHTML = n ? html+"</div>" : '<div class="fs-empty">Nothing in the library yet. Add a film and its reading above.</div>';
+    $("fsLibCount").textContent = n+" of "+S.lib.length+" readings";
+
+    Array.prototype.forEach.call($("fsLibList").querySelectorAll("button[data-ldel]"), function(b){
+      b.addEventListener("click", function(){
+        S.lib.splice(parseInt(b.getAttribute("data-ldel"),10),1);
+        put(K_LIB,S.lib); renderLibrary();
+      });
+    });
+  }
+
+  function libraryText(){
+    var out=["Film library",""];
+    var byDir={};
+    for (var i=0;i<S.lib.length;i++){
+      var k=S.lib[i].dir || "Director unknown";
+      if (!byDir[k]) byDir[k]=[];
+      byDir[k].push(S.lib[i]);
+    }
+    Object.keys(byDir).sort().forEach(function(k){
+      out.push(k);
+      byDir[k].forEach(function(it){
+        out.push("  "+it.film+(it.era? "  ["+it.era+"]" : "")+(it.frame? "  {"+it.frame+"}" : ""));
+        if (it.claim) out.push("    Claim: "+it.claim);
+        if (it.note)  out.push("    "+it.note);
+        out.push("");
+      });
+    });
+    if (out.length<=2) out.push("Library is empty.");
+    return out.join("\n");
+  }
+
+  function initLibrary(){
+    fill($("fsLibEra"), FS.eras);
+    var fsel=$("fsLibFrame");
+    FS.frameworks.forEach(function(f){
+      var o=document.createElement("option");
+      o.value=f.t; o.textContent=f.t;
+      fsel.appendChild(o);
+    });
+    $("fsLibAdd").addEventListener("click", function(){
+      var film=$("fsLibFilm").value.trim();
+      if (film.length<1){ flash("fsLibMsg","Name the film first."); return; }
+      S.lib.push({
+        film:film,
+        dir:$("fsLibDir").value.trim(),
+        era:$("fsLibEra").value,
+        frame:fsel.value,
+        claim:$("fsLibClaim").value.trim(),
+        note:$("fsLibNote").value.trim()
+      });
+      put(K_LIB,S.lib);
+      $("fsLibFilm").value=""; $("fsLibClaim").value=""; $("fsLibNote").value="";
+      renderLibrary();
+      flash("fsLibMsg","Added to library.");
+    });
+    ["fsLibByDir","fsLibByEra"].forEach(function(id){ $(id).addEventListener("change", renderLibrary); });
+    $("fsLibFind").addEventListener("input", renderLibrary);
+    renderLibrary();
+  }
+
+  /* ---------- notebook ---------- */
+  function everything(){
+    return [libraryText(), "", "=".repeat(60), "", beatsText(), "",
+            "=".repeat(60), "", shotsText(), "", "=".repeat(60), "", compareText()].join("\n");
+  }
+
+  function renderNotes(){
+    var dirs={};
+    for (var i=0;i<S.lib.length;i++){ if (S.lib[i].dir) dirs[S.lib[i].dir]=true; }
+    var nb=0;
+    for (var k=0;k<FS.models.length;k++){
+      var st=S.beats[FS.models[k].id];
+      if (!st) continue;
+      for (var b=0;b<FS.models[k].beats.length;b++){
+        if (st["t"+b] || st["w"+b]){ nb++; break; }
+      }
+    }
+    var nc=0;
+    for (var m=0;m<FS.compareModes.length;m++){
+      var cs=S.cmp[FS.compareModes[m].id];
+      if (!cs) continue;
+      for (var r=0;r<FS.compareModes[m].rows.length;r++){
+        if (cs["a"+r] || cs["b"+r]){ nc++; break; }
+      }
+    }
+    $("fsNfilms").textContent=S.lib.length;
+    $("fsNshots").textContent=S.shots.length;
+    $("fsNbeats").textContent=nb;
+    $("fsNcmp").textContent=nc;
+    $("fsNdirs").textContent=Object.keys(dirs).length;
+
+    if (!S.lib.length && !S.shots.length && !nb && !nc){
+      $("fsNotesList").innerHTML='<div class="fs-empty">Nothing saved yet. Everything you write in the other tabs collects here.</div>';
+      return;
+    }
+    $("fsNotesList").innerHTML='<div class="fs-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(everything().slice(0,4000))+"</pre></div>";
+  }
+
+  function initNotes(){
+    $("fsExpAll").addEventListener("click", function(){
+      download("film-study-notebook.txt", everything());
+      flash("fsNotesMsg","Exported.");
+    });
+    $("fsCopyAll").addEventListener("click", function(){
+      var text=everything();
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("fsNotesMsg","Copied."); },
+          function(){ flash("fsNotesMsg","Copy failed, use Export instead."); });
+      } else {
+        flash("fsNotesMsg","Copy not supported here, use Export instead.");
+      }
+    });
+    $("fsWipeAll").addEventListener("click", function(){
+      if(!window.confirm("Clear the library, shot log, beat maps, and comparisons?")) return;
+      S.lib=[]; S.shots=[]; S.beats={}; S.cmp={};
+      put(K_LIB,S.lib); put(K_SHOTS,S.shots); put(K_BEATS,S.beats); put(K_CMP,S.cmp);
+      renderLibrary(); renderShots(); renderBeats(); renderCompare(); renderNotes();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    renderLanguage();
+    renderFrameworks();
+    initBeats();
+    initShots();
+    initCompare();
+    initLibrary();
+    initNotes();
+    renderNotes();
+  });
+})();
+</script>

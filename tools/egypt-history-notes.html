@@ -1,0 +1,642 @@
+---
+layout: default
+title: Egypt History Notes
+description: Build your own Egypt timeline. Add events, auto-sort by date, see the period each falls in, and keep notes across three thousand years of Egyptian history.
+permalink: /tools/egypt-history-notes.html
+body_class: tool-page
+---
+
+<style>
+  .eg-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .eg-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .eg-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .eg-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .eg-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .eg-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .eg-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .eg-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .eg-row::-webkit-scrollbar{display:none}
+  .eg-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .eg-btn:hover{background:var(--tint);color:var(--text)}
+  .eg-btn.is-active{background:var(--text);color:#fff}
+  .eg-panel{display:none;padding:34px 0 60px}
+  .eg-panel.is-active{display:block}
+  .eg-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .eg-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .eg-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .eg-grid{display:grid;gap:16px}
+  .eg-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .eg-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .eg-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .eg-in,.eg-sel,.eg-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .eg-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .eg-in:focus,.eg-sel:focus,.eg-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .eg-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .eg-b:hover{background:var(--tint)}
+  .eg-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .eg-b.primary:hover{background:var(--blue2)}
+  .eg-b.sm{font-size:13px;padding:6px 10px}
+  .eg-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .eg-muted{color:var(--muted);font-size:13.5px}
+  .eg-tiny{font-size:12px;color:var(--muted2)}
+  .eg-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.eg-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:600px}
+  table.eg-tbl th,table.eg-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.eg-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.eg-tbl tr:last-child td{border-bottom:0}
+  .eg-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .eg-line{position:relative;padding-left:26px}
+  .eg-line:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .eg-ev{position:relative;border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:#fff;margin-bottom:10px}
+  .eg-ev:before{content:"";position:absolute;left:-22px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .eg-ev-y{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;font-weight:700;color:var(--muted2)}
+  .eg-ev-t{font-weight:700;font-size:15.5px;margin:3px 0}
+  .eg-per{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff;margin-bottom:12px;scroll-margin-top:80px}
+  .eg-per-h{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+  .eg-per-t{font-weight:700;font-size:17px}
+  .eg-per-d{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--muted2);font-weight:700}
+  .eg-bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin:10px 0}
+  .eg-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+  .eg-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .eg-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .eg-acc-b:hover{background:var(--tint)}
+  .eg-acc-t{font-weight:700;font-size:16.5px}
+  .eg-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .eg-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .eg-acc.is-open .eg-acc-body{display:block}
+  .eg-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .eg-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .eg-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .eg-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .eg-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .eg-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .eg-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .eg-empty{padding:26px;text-align:center;color:var(--muted)}
+  .eg-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+
+<section class="eg-hero">
+  <div class="container">
+    <div class="eg-eyebrow">VaultBook Study Library</div>
+    <h1 class="eg-title">Egypt history notes</h1>
+    <p class="eg-sub">Build your own timeline across three thousand years. Add any event with a date and it files itself in order and tells you which period it belongs to, alongside a full reference on the dynasties, the periodisation, and the reason Egyptian dates are argued over in the first place. Everything you write stays on your device.</p>
+    <div class="eg-badges">
+      <span class="eg-badge">Personal timeline builder</span>
+      <span class="eg-badge">Auto-sorted by date</span>
+      <span class="eg-badge">Period lookup</span>
+      <span class="eg-badge">All 31 dynasties</span>
+      <span class="eg-badge">Why the dates disagree</span>
+      <span class="eg-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="eg-tabs">
+  <div class="container">
+    <div class="eg-row" role="tablist" aria-label="Study tools">
+      <button class="eg-btn is-active" data-tab="timeline" role="tab" aria-selected="true">My timeline</button>
+      <button class="eg-btn" data-tab="periods" role="tab" aria-selected="false">Periods</button>
+      <button class="eg-btn" data-tab="dynasties" role="tab" aria-selected="false">Dynasties</button>
+      <button class="eg-btn" data-tab="dating" role="tab" aria-selected="false">Why dates disagree</button>
+      <button class="eg-btn" data-tab="sources" role="tab" aria-selected="false">How we know</button>
+      <button class="eg-btn" data-tab="export" role="tab" aria-selected="false">Export</button>
+    </div>
+  </div>
+</div>
+
+<section class="eg-panel is-active" id="ep-timeline">
+  <div class="container">
+    <h2 class="eg-head">My timeline</h2>
+    <p class="eg-lede">Add an event with a year and it drops into place chronologically and picks up its period automatically. Work through a guide adding what matters as you read, and by the end you have a timeline you built rather than one you copied.</p>
+
+    <div class="eg-card" style="margin-bottom:18px">
+      <div class="eg-grid four">
+        <div>
+          <label class="eg-tiny" for="egEvent">Event</label>
+          <input class="eg-in" id="egEvent" type="text" placeholder="What happened" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="eg-tiny" for="egYear">Year BC</label>
+          <input class="eg-in eg-mono" id="egYear" type="number" min="1" max="6000" placeholder="1279" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="eg-tiny" for="egKind">Kind</label>
+          <select class="eg-sel" id="egKind" style="margin-top:5px"></select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="eg-b primary" id="egAdd" type="button" style="width:100%">Add to timeline</button>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="eg-tiny" for="egNote">Note, optional</label>
+        <input class="eg-in" id="egNote" type="text" placeholder="Why it matters, or which source it comes from" style="margin-top:5px">
+      </div>
+      <div class="eg-flex" style="margin-top:12px">
+        <span class="eg-tiny" id="egAddMsg"></span>
+      </div>
+    </div>
+
+    <div class="eg-stat" style="margin-bottom:18px">
+      <div class="eg-stat-c"><div class="eg-stat-n" id="egNev">0</div><div class="eg-stat-l">Events</div></div>
+      <div class="eg-stat-c"><div class="eg-stat-n" id="egNper">0</div><div class="eg-stat-l">Periods covered</div></div>
+      <div class="eg-stat-c"><div class="eg-stat-n" id="egSpan">-</div><div class="eg-stat-l">Span in years</div></div>
+      <div class="eg-stat-c"><div class="eg-stat-n" id="egEarliest">-</div><div class="eg-stat-l">Earliest</div></div>
+      <div class="eg-stat-c"><div class="eg-stat-n" id="egLatest">-</div><div class="eg-stat-l">Latest</div></div>
+    </div>
+
+    <div class="eg-flex" style="margin-bottom:14px">
+      <select class="eg-sel" id="egFilterPeriod" style="max-width:250px"><option value="">All periods</option></select>
+      <select class="eg-sel" id="egFilterKind" style="max-width:200px"><option value="">All kinds</option></select>
+      <input class="eg-in" id="egFind" type="search" placeholder="Search your timeline" style="max-width:220px">
+      <button class="eg-b" id="egClear" type="button">Clear timeline</button>
+      <span class="eg-tiny" id="egCount"></span>
+    </div>
+
+    <div id="egTimeline"></div>
+
+    <div class="eg-note" style="margin-top:16px">A timeline you assemble yourself is worth more than one you read, because the act of deciding what belongs on it is the analysis. If an event does not earn a line, ask why it appears in the guide at all, and if a period fills up while its neighbours stay empty, that imbalance is telling you something about the sources rather than about Egypt.</div>
+  </div>
+</section>
+
+<section class="eg-panel" id="ep-periods">
+  <div class="container">
+    <h2 class="eg-head">Periods</h2>
+    <p class="eg-lede">The conventional division of Egyptian history, with what defines each period and what ended it. The bar under each entry shows its share of the roughly three thousand years from unification to the Roman annexation, which is the fastest way to see how unevenly the familiar names are distributed.</p>
+    <div id="egPeriods"></div>
+    <div class="eg-warn" style="margin-top:16px">Every date on this page is conventional and approximate. Egyptian chronology is reconstructed rather than recorded, the margin of error widens the further back you go, and reputable scholars differ by decades in the New Kingdom and by considerably more before it. Treat these figures as a working framework and check the specific date any argument rests on.</div>
+  </div>
+</section>
+
+<section class="eg-panel" id="ep-dynasties">
+  <div class="container">
+    <h2 class="eg-head">Dynasties</h2>
+    <p class="eg-lede">All thirty one dynasties in the conventional scheme, plus the Ptolemaic line. The numbering comes from a single ancient source and it is a convenience rather than a natural division, which is why several dynasties overlap and one or two are largely a matter of convention.</p>
+    <div class="eg-flex" style="margin-bottom:14px">
+      <input class="eg-in" id="egDynFind" type="search" placeholder="Filter dynasties" style="max-width:250px">
+      <select class="eg-sel" id="egDynPeriod" style="max-width:250px"><option value="">All periods</option></select>
+      <span class="eg-tiny" id="egDynCount"></span>
+    </div>
+    <div class="eg-tblw">
+      <table class="eg-tbl" id="egDynTable">
+        <thead><tr><th style="min-width:70px">Dynasty</th><th style="min-width:150px">Period</th><th style="min-width:110px">Approx dates</th><th>What it is known for</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="eg-panel" id="ep-dating">
+  <div class="container">
+    <h2 class="eg-head">Why dates disagree</h2>
+    <p class="eg-lede">Eight reasons two reputable books will give you different years for the same pharaoh. Understanding these turns a frustrating inconsistency into something you can write about, and it is the single most useful thing to know before quoting any Egyptian date.</p>
+    <div id="egDatingAcc"></div>
+    <div class="eg-note" style="margin-top:16px">The practical rule for an essay is simple. State which chronology you are following, keep to it, and when a date matters to your argument, say how firm it is. A confident date with no attribution is weaker evidence than an approximate one that names its basis.</div>
+  </div>
+</section>
+
+<section class="eg-panel" id="ep-sources">
+  <div class="container">
+    <h2 class="eg-head">How we know</h2>
+    <p class="eg-lede">Seven kinds of evidence behind everything on this page, with what each can and cannot tell you. Knowing which source a claim rests on is what separates a history essay from a summary.</p>
+    <div id="egSourceAcc"></div>
+  </div>
+</section>
+
+<section class="eg-panel" id="ep-export">
+  <div class="container">
+    <h2 class="eg-head">Export</h2>
+    <p class="eg-lede">Your timeline as a plain text sheet you can paste into an essay plan or send to someone. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="eg-flex" style="margin-bottom:16px">
+      <button class="eg-b primary" id="egExp" type="button">Export timeline</button>
+      <button class="eg-b" id="egCopy" type="button">Copy to clipboard</button>
+      <button class="eg-b" id="egCsv" type="button">Export as CSV</button>
+      <span class="eg-tiny" id="egExpMsg"></span>
+    </div>
+
+    <div id="egPreview"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="eg-grid three">
+      <div class="eg-card">
+        <div class="card-kicker">Keep the whole body of work</div>
+        <div class="card-title" style="margin:6px 0">One vault for every note</div>
+        <p class="card-text">VaultBook holds your timelines, essay drafts, source material, and reading in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have written.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="eg-card">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="eg-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your timeline and every note attached to it stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var EG = {};
+
+/* Conventional dates, expressed as years BC. Approximate throughout.
+   Ranges follow the widely used middle chronology. */
+EG.periods = [
+{id:"predynastic", name:"Predynastic", from:5300, to:3100,
+ def:"The long stretch before a unified state, known almost entirely from cemeteries and settlement sites rather than from writing. Regional cultures in Upper and Lower Egypt developed distinct pottery, burial practice, and craft traditions, and the material record shows increasing social differentiation as some graves grow far richer than others.",
+ end:"Ends with the political unification of Upper and Lower Egypt, a process the sources present as a single event and the archaeology suggests was gradual."},
+{id:"early-dynastic", name:"Early Dynastic", from:3100, to:2686,
+ def:"The first two dynasties, when the institutions of the Egyptian state took shape: kingship expressed through titulary and iconography, a writing system used for administration, and royal burial on a monumental scale at Abydos and Saqqara.",
+ end:"Ends conventionally with the accession of the Third Dynasty and the shift to pyramid building."},
+{id:"old-kingdom", name:"Old Kingdom", from:2686, to:2181,
+ def:"The pyramid age, dynasties three to six. A centralised state with enormous organisational capacity built the largest stone monuments in the ancient world, supported by a bureaucracy, a system of royal estates, and a theology that placed the king at the centre of cosmic order.",
+ end:"Ends in the collapse of central authority, with drought, long reigns, and the growing independence of provincial governors all offered as contributing causes."},
+{id:"first-intermediate", name:"First Intermediate Period", from:2181, to:2055,
+ def:"A period of divided rule between rival centres, traditionally described as chaos by later Egyptian texts and increasingly read by historians as regional autonomy rather than simple collapse. Provincial art and local tomb building flourish precisely where central control weakens.",
+ end:"Ends with the reunification of the country under Theban rule."},
+{id:"middle-kingdom", name:"Middle Kingdom", from:2055, to:1650,
+ def:"Reunification and consolidation under the Eleventh and Twelfth Dynasties. A period of administrative reform, fortress building in Nubia, land reclamation in the Faiyum, and the literature later Egyptians treated as classical.",
+ end:"Ends with a weakening of central authority and the emergence of rival rule in the Delta."},
+{id:"second-intermediate", name:"Second Intermediate Period", from:1650, to:1550,
+ def:"Divided rule again, with the Hyksos governing from Avaris in the eastern Delta while a Theban line held the south. The period brought technologies including the composite bow, the horse and chariot, and new bronze working into Egypt.",
+ end:"Ends with the Theban expulsion of the Hyksos and the reunification of the country."},
+{id:"new-kingdom", name:"New Kingdom", from:1550, to:1069,
+ def:"Egypt at its greatest territorial extent, dynasties eighteen to twenty. An empire reaching into the Levant and deep into Nubia, monumental temple building at Karnak and Luxor, royal burial in the Valley of the Kings, and the diplomatic correspondence that shows Egypt operating within a system of great powers.",
+ end:"Ends in the fragmentation of royal authority, with the high priesthood of Amun effectively ruling the south."},
+{id:"third-intermediate", name:"Third Intermediate Period", from:1069, to:664,
+ def:"Divided and often overlapping rule, including Libyan dynasties in the Delta and a Kushite line from Nubia that ruled the whole country as the Twenty-fifth Dynasty. Political fragmentation coincides with considerable cultural continuity.",
+ end:"Ends with the Assyrian invasions and the establishment of the Saite Twenty-sixth Dynasty."},
+{id:"late-period", name:"Late Period", from:664, to:332,
+ def:"Reunification under the Saite kings, followed by two periods of Persian rule interrupted by a final phase of native kingship. A period of deliberate archaism in art and religion, growing Greek presence in trade and mercenary service, and repeated struggle for independence.",
+ end:"Ends with the arrival of Alexander and the surrender of Persian-held Egypt."},
+{id:"ptolemaic", name:"Ptolemaic Period", from:332, to:30,
+ def:"Rule by a Macedonian Greek dynasty from Alexandria, governing a country that remained Egyptian in its temples and its countryside while its capital became one of the great Greek cities of the Mediterranean. Two administrative and cultural systems operated in parallel.",
+ end:"Ends with the annexation of Egypt as a Roman province."},
+{id:"roman", name:"Roman Period", from:30, to:1,
+ def:"Egypt as a Roman province governed directly for the emperor, its grain supply central to Rome itself. Temple building in traditional style continued for generations under emperors depicted as pharaohs, while Greek remained the administrative language.",
+ end:"Continues past the conventional end point of this framework."}
+];
+
+EG.kinds = ["Reign or accession","Battle or campaign","Building or monument","Religious change","Administrative reform","Text or source","Foreign relations","Economic or environmental","Other"];
+
+EG.dynasties = [
+{n:"1",  p:"Early Dynastic",            d:"c. 3100 to 2890", k:"The first kings of a unified Egypt, with royal tombs at Abydos and the establishment of writing in administrative use."},
+{n:"2",  p:"Early Dynastic",            d:"c. 2890 to 2686", k:"Consolidation and apparent internal conflict, with a shift of royal burial to Saqqara and evidence of tension between rival cults."},
+{n:"3",  p:"Old Kingdom",               d:"c. 2686 to 2613", k:"The step pyramid at Saqqara, the first monumental stone building on this scale anywhere."},
+{n:"4",  p:"Old Kingdom",               d:"c. 2613 to 2494", k:"The Giza pyramids and the peak of centralised royal construction."},
+{n:"5",  p:"Old Kingdom",               d:"c. 2494 to 2345", k:"Sun temples, the rise of the cult of Ra, and the first appearance of the Pyramid Texts at the end of the dynasty."},
+{n:"6",  p:"Old Kingdom",               d:"c. 2345 to 2181", k:"Long reigns, expanding provincial power, and the expeditions recorded in officials' autobiographies."},
+{n:"7 and 8", p:"First Intermediate",   d:"c. 2181 to 2160", k:"A shadowy sequence of short reigns at Memphis, poorly attested and treated by some scholars as largely nominal."},
+{n:"9 and 10",p:"First Intermediate",   d:"c. 2160 to 2025", k:"Rule from Herakleopolis in the north, in competition with the rising Theban line."},
+{n:"11", p:"First Intermediate and Middle Kingdom", d:"c. 2125 to 1985", k:"The Theban dynasty that reunified Egypt, straddling the conventional boundary between periods."},
+{n:"12", p:"Middle Kingdom",            d:"c. 1985 to 1773", k:"Administrative reform, Nubian fortresses, Faiyum land reclamation, and the literature later treated as classical."},
+{n:"13", p:"Middle Kingdom and Second Intermediate", d:"c. 1773 to 1650", k:"Many short reigns with continuing central administration, gradually losing control of the Delta."},
+{n:"14", p:"Second Intermediate",       d:"c. 1773 to 1650", k:"A Delta line running in parallel with the Thirteenth Dynasty rather than after it."},
+{n:"15", p:"Second Intermediate",       d:"c. 1650 to 1550", k:"The Hyksos rulers at Avaris, governing much of the north and introducing significant military technology."},
+{n:"16", p:"Second Intermediate",       d:"c. 1650 to 1580", k:"A Theban line contemporary with Hyksos rule, poorly attested."},
+{n:"17", p:"Second Intermediate",       d:"c. 1580 to 1550", k:"The Theban dynasty that began the war against the Hyksos."},
+{n:"18", p:"New Kingdom",               d:"c. 1550 to 1295", k:"Empire, Hatshepsut, Thutmose III, the Amarna period, and Tutankhamun. The best documented dynasty in Egyptian history."},
+{n:"19", p:"New Kingdom",               d:"c. 1295 to 1186", k:"Ramesses II, the Hittite conflict and subsequent treaty, and a vast building programme."},
+{n:"20", p:"New Kingdom",               d:"c. 1186 to 1069", k:"The Sea Peoples conflicts, economic strain, the tomb robbery papyri, and the decline of royal authority."},
+{n:"21", p:"Third Intermediate",        d:"c. 1069 to 945", k:"Divided rule between Tanis in the north and the Theban high priesthood in the south."},
+{n:"22", p:"Third Intermediate",        d:"c. 945 to 715", k:"The Libyan dynasty at Bubastis, later fragmenting into competing lines."},
+{n:"23", p:"Third Intermediate",        d:"c. 818 to 715", k:"A parallel Libyan line, overlapping with the Twenty-second rather than following it."},
+{n:"24", p:"Third Intermediate",        d:"c. 727 to 715", k:"A short-lived Saite line at the moment of the Kushite advance."},
+{n:"25", p:"Third Intermediate",        d:"c. 747 to 656", k:"The Kushite dynasty from Nubia, ruling the whole country and reviving Old Kingdom artistic forms."},
+{n:"26", p:"Late Period",               d:"c. 664 to 525", k:"The Saite renaissance, reunification, deliberate archaism, and expanding Greek trade at Naucratis."},
+{n:"27", p:"Late Period",               d:"c. 525 to 404", k:"The first Persian period, with Egypt governed as a satrapy of the Achaemenid empire."},
+{n:"28", p:"Late Period",               d:"c. 404 to 399", k:"A single ruler at Sais during the recovery of independence."},
+{n:"29", p:"Late Period",               d:"c. 399 to 380", k:"Rule from Mendes, with repeated conflict against Persian attempts at reconquest."},
+{n:"30", p:"Late Period",               d:"c. 380 to 343", k:"The last native Egyptian dynasty, based at Sebennytos, with substantial temple building."},
+{n:"31", p:"Late Period",               d:"c. 343 to 332", k:"The second Persian period, ended by the arrival of Alexander."},
+{n:"Ptolemaic", p:"Ptolemaic",          d:"332 to 30",      k:"The Macedonian Greek dynasty ruling from Alexandria, ending with the Roman annexation."}
+];
+
+EG.dating = [
+{t:"Egyptians dated by reign, not by era", k:"the core problem",
+ body:"Documents are dated to a regnal year of a named king rather than to a fixed era counting from a single point. Reconstructing an absolute chronology therefore means establishing the length of every reign and the order they came in, then anchoring the whole chain to something datable in our own calendar. An error anywhere in the chain moves everything before it."},
+{t:"Reign lengths are often uncertain", k:"reign lengths",
+ body:"The highest attested regnal year for a king gives a minimum length, not the actual one. A king attested only to year four may have ruled fifteen. Where a king is poorly attested the uncertainty can be a decade, and those uncertainties accumulate as you work backwards."},
+{t:"Coregencies compress the total", k:"coregencies",
+ body:"When a king ruled jointly with his successor for a period, both reigns count those years and adding the two lengths double counts them. Whether a particular coregency happened, and for how long, is disputed for several reigns, and each disputed case shifts the chronology by the length of the overlap."},
+{t:"Dynasties overlap rather than follow", k:"overlap",
+ body:"The numbered dynasties were listed in sequence by an ancient source, but several ruled simultaneously in different parts of the country. Treating the intermediate periods as a straight succession stretches them far beyond their real length, which is why those periods have been repeatedly shortened by modern scholarship."},
+{t:"Astronomical anchors are contested", k:"anchors",
+ body:"A small number of texts record astronomical observations that can in principle be tied to a specific year. The difficulty is that the calculation depends on where the observation was made, and different assumed locations shift the result by decades. This is the origin of the high, middle, and low chronologies, and the choice between them is why two reputable books can differ so consistently."},
+{t:"Radiocarbon has a resolution limit", k:"science",
+ body:"Radiocarbon dating brackets a range rather than producing a year, and the width of that bracket is frequently comparable to the difference between competing chronologies. It has been valuable for testing whether a chronology is broadly right and less useful for settling a dispute measured in decades."},
+{t:"King lists were written with a purpose", k:"sources",
+ body:"Ancient lists of kings were produced for reasons that were not archival. Rulers regarded as illegitimate were omitted, and the Amarna kings were struck from later lists entirely. A list that is silent about a reign is evidence about the list makers rather than evidence that the reign did not happen."},
+{t:"Uncertainty widens the further back you go", k:"margin",
+ body:"Dates in the Late Period and Ptolemaic era can be fixed within a year or two because they connect to Greek and Near Eastern records. New Kingdom dates carry perhaps a decade or two of uncertainty, Middle Kingdom rather more, and Old Kingdom dates may be off by a century. Any argument depending on a precise early date needs to say how precise that date actually is."}
+];
+
+EG.sources = [
+{t:"Monumental inscriptions", k:"official record",
+ body:"Temple and tomb inscriptions are abundant, durable, and entirely official. They record what a king wished recorded, in a form designed to last, which makes them excellent evidence for royal ideology and unreliable as a neutral account of events. A defeat presented as a victory is a normal feature of the genre rather than an exception."},
+{t:"Papyri and ostraca", k:"everyday record",
+ body:"Administrative documents, letters, accounts, court records, and school exercises survive where conditions allowed, chiefly in dry sites. These are the closest thing to unfiltered evidence, because most were written for immediate practical use rather than for posterity, and they show a society the monuments do not."},
+{t:"King lists", k:"chronology",
+ body:"Several lists of rulers survive, on stone and on papyrus, and they are the backbone of the conventional dynastic scheme. They are also selective, damaged, and shaped by the concerns of the moment they were compiled in, so they are a framework requiring correction rather than a record to be trusted flat."},
+{t:"Manetho", k:"chronology",
+ body:"An Egyptian priest writing in Greek under the Ptolemies produced the division into thirty one dynasties still used today. His work survives only in quotations by later authors who disagree with each other, so what we have is a summary of a summary, valuable for structure and unreliable in detail."},
+{t:"Archaeology and settlement evidence", k:"material",
+ body:"Excavation supplies what the texts systematically omit: what ordinary people ate, how they were housed, how long they lived, and what they were buried with. Settlement archaeology has been comparatively neglected against tombs and temples, so the picture remains uneven, but it is the main corrective to a record written by and for elites."},
+{t:"Foreign records", k:"cross-check",
+ body:"Assyrian, Babylonian, Hittite, Hebrew, and later Greek sources mention Egypt from the outside, and where their chronologies are independently secure they help anchor Egyptian dates. They carry their own agendas, and an event described from two hostile directions is frequently the most informative kind of evidence available."},
+{t:"Scientific dating and analysis", k:"science",
+ body:"Radiocarbon, dendrochronology where wood survives, isotope analysis of human remains, and materials analysis of pigments and metals all add evidence independent of any text. Each has a resolution limit, and the useful question is always whether that limit is fine enough to settle the question being asked."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var KEY="vb_eg_timeline_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(v){ try{ window.localStorage.setItem(KEY, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(f){ try{ var r=window.localStorage.getItem(KEY); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text,mime){
+    var blob=new Blob([text],{type:(mime||"text/plain")+";charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  var EVENTS = get([]);
+
+  /* A year is expressed BC, so a larger number is earlier. */
+  function periodFor(year){
+    for(var i=0;i<EG.periods.length;i++){
+      var p=EG.periods[i];
+      if(year<=p.from && year>p.to) return p;
+    }
+    if(year>EG.periods[0].from) return null;
+    return EG.periods[EG.periods.length-1];
+  }
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".eg-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".eg-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("ep-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="export") renderPreview();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- timeline ---------- */
+  function sorted(){
+    return EVENTS.slice().sort(function(a,b){ return b.year-a.year; });
+  }
+
+  function renderTimeline(){
+    var q=($("egFind").value||"").toLowerCase();
+    var wp=$("egFilterPeriod").value;
+    var wk=$("egFilterKind").value;
+    var list=sorted().filter(function(e){
+      var p=periodFor(e.year);
+      if(wp && (!p || p.id!==wp)) return false;
+      if(wk && e.kind!==wk) return false;
+      if(q && (e.name+" "+(e.note||"")).toLowerCase().indexOf(q)<0) return false;
+      return true;
+    });
+
+    if(!list.length){
+      $("egTimeline").innerHTML = EVENTS.length
+        ? '<div class="eg-empty">Nothing matches those filters.</div>'
+        : '<div class="eg-empty">Your timeline is empty. Add the first event above and it will file itself in order.</div>';
+    } else {
+      var html='<div class="eg-line">';
+      var lastPeriod=null;
+      list.forEach(function(e){
+        var p=periodFor(e.year);
+        var pid=p?p.id:"none";
+        if(pid!==lastPeriod){
+          html += '<div class="eg-chip" style="margin:14px 0 8px">'+esc(p?p.name:"Outside the framework")+"</div>";
+          lastPeriod=pid;
+        }
+        html += '<div class="eg-ev"><div class="eg-flex" style="justify-content:space-between;align-items:flex-start">'+
+          '<div><div class="eg-ev-y">'+e.year+' BC</div>'+
+          '<div class="eg-ev-t">'+esc(e.name)+"</div></div>"+
+          '<button class="eg-b sm" type="button" data-del="'+EVENTS.indexOf(e)+'">Remove</button></div>'+
+          (e.note?'<div class="eg-muted" style="margin-top:4px">'+esc(e.note)+"</div>":"")+
+          '<div style="margin-top:8px"><span class="eg-chip">'+esc(e.kind)+"</span></div></div>";
+      });
+      $("egTimeline").innerHTML=html+"</div>";
+      Array.prototype.forEach.call($("egTimeline").querySelectorAll("button[data-del]"), function(b){
+        b.addEventListener("click", function(){
+          EVENTS.splice(parseInt(b.getAttribute("data-del"),10),1);
+          put(EVENTS); renderTimeline();
+        });
+      });
+    }
+    $("egCount").textContent=list.length+" of "+EVENTS.length+" events";
+    updateStats();
+  }
+
+  function updateStats(){
+    var pers={}, years=[];
+    EVENTS.forEach(function(e){
+      var p=periodFor(e.year);
+      if(p) pers[p.id]=true;
+      years.push(e.year);
+    });
+    $("egNev").textContent=EVENTS.length;
+    $("egNper").textContent=Object.keys(pers).length;
+    if(!years.length){
+      $("egSpan").textContent="-"; $("egEarliest").textContent="-"; $("egLatest").textContent="-";
+      return;
+    }
+    var mx=Math.max.apply(null,years), mn=Math.min.apply(null,years);
+    $("egSpan").textContent=(mx-mn).toLocaleString();
+    $("egEarliest").textContent=mx+" BC";
+    $("egLatest").textContent=mn+" BC";
+  }
+
+  function initTimeline(){
+    EG.kinds.forEach(function(k){
+      var o=document.createElement("option"); o.value=k; o.textContent=k; $("egKind").appendChild(o);
+      var o2=document.createElement("option"); o2.value=k; o2.textContent=k; $("egFilterKind").appendChild(o2);
+    });
+    EG.periods.forEach(function(p){
+      var o=document.createElement("option"); o.value=p.id; o.textContent=p.name; $("egFilterPeriod").appendChild(o);
+      var o2=document.createElement("option"); o2.value=p.name; o2.textContent=p.name; $("egDynPeriod").appendChild(o2);
+    });
+    $("egAdd").addEventListener("click", function(){
+      var name=$("egEvent").value.trim();
+      var year=parseInt($("egYear").value,10);
+      if(name.length<2){ flash("egAddMsg","Name the event first."); return; }
+      if(isNaN(year)||year<1){ flash("egAddMsg","Add a year in BC."); return; }
+      EVENTS.push({ name:name, year:year, kind:$("egKind").value, note:$("egNote").value.trim() });
+      put(EVENTS);
+      $("egEvent").value=""; $("egYear").value=""; $("egNote").value="";
+      renderTimeline();
+      var p=periodFor(year);
+      flash("egAddMsg", p ? ("Added to "+p.name+".") : "Added, outside the standard framework.");
+    });
+    ["egFilterPeriod","egFilterKind"].forEach(function(id){ $(id).addEventListener("change", renderTimeline); });
+    $("egFind").addEventListener("input", renderTimeline);
+    $("egClear").addEventListener("click", function(){
+      if(!window.confirm("Clear every event from your timeline?")) return;
+      EVENTS=[]; put(EVENTS); renderTimeline();
+    });
+    renderTimeline();
+  }
+
+  /* ---------- periods ---------- */
+  function renderPeriods(){
+    var earliest=EG.periods[1].from;   /* unification, the framework start */
+    var latest=EG.periods[EG.periods.length-1].to;
+    var span=earliest-latest;
+    var html="";
+    EG.periods.forEach(function(p){
+      var len=p.from-p.to;
+      var share=Math.max(1, Math.round(len/span*100));
+      var count=EVENTS.filter(function(e){ return e.year<=p.from && e.year>p.to; }).length;
+      html += '<div class="eg-per" id="per-'+esc(p.id)+'"><div class="eg-per-h">'+
+        '<div class="eg-per-t">'+esc(p.name)+"</div>"+
+        '<div class="eg-per-d">'+p.from+" to "+p.to+" BC</div></div>"+
+        '<div class="eg-tiny">'+len.toLocaleString()+" years"+
+        (count?" . "+count+" event"+(count===1?"":"s")+" on your timeline":"")+"</div>"+
+        '<div class="eg-bar"><i style="width:'+Math.min(100,share)+'%"></i></div>'+
+        "<p style='margin:10px 0 0;line-height:1.75;font-size:14.5px'>"+esc(p.def)+"</p>"+
+        '<div class="eg-note" style="margin-top:12px"><strong>How it ends.</strong> '+esc(p.end)+"</div></div>";
+    });
+    $("egPeriods").innerHTML=html;
+  }
+
+  /* ---------- dynasties ---------- */
+  function renderDynasties(){
+    function draw(){
+      var q=($("egDynFind").value||"").toLowerCase();
+      var wp=$("egDynPeriod").value;
+      var rows="", n=0;
+      EG.dynasties.forEach(function(d){
+        if(q && (d.n+" "+d.p+" "+d.d+" "+d.k).toLowerCase().indexOf(q)<0) return;
+        if(wp && d.p.indexOf(wp.replace(" Period",""))<0) return;
+        n++;
+        rows += "<tr><td><strong>"+esc(d.n)+"</strong></td><td>"+esc(d.p)+
+          "</td><td class='eg-mono'>"+esc(d.d)+"</td><td>"+esc(d.k)+"</td></tr>";
+      });
+      $("egDynTable").querySelector("tbody").innerHTML = rows ||
+        '<tr><td colspan="4" class="eg-empty">Nothing matches that filter.</td></tr>';
+      $("egDynCount").textContent=n+" of "+EG.dynasties.length+" dynasties";
+    }
+    $("egDynFind").addEventListener("input", draw);
+    $("egDynPeriod").addEventListener("change", draw);
+    draw();
+  }
+
+  /* ---------- accordions ---------- */
+  function accordion(target, list, keyName){
+    var html="";
+    list.forEach(function(e){
+      html += '<div class="eg-acc"><button class="eg-acc-b" type="button">'+
+        '<span class="eg-acc-t">'+esc(e.t)+"</span>"+
+        (keyName && e[keyName] ? '<span class="eg-acc-k">'+esc(e[keyName])+"</span>" : "")+"</button>"+
+        '<div class="eg-acc-body"><p>'+esc(e.body)+"</p></div></div>";
+    });
+    $(target).innerHTML=html;
+    Array.prototype.forEach.call($(target).querySelectorAll(".eg-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- export ---------- */
+  function timelineText(){
+    var out=["Egypt timeline",""];
+    var lastPeriod=null;
+    sorted().forEach(function(e){
+      var p=periodFor(e.year);
+      var pid=p?p.id:"none";
+      if(pid!==lastPeriod){
+        out.push("");
+        out.push((p?p.name:"Outside the framework").toUpperCase());
+        lastPeriod=pid;
+      }
+      out.push("  "+String(e.year).padStart(5)+" BC   "+e.name+"   ["+e.kind+"]");
+      if(e.note) out.push("              "+e.note);
+    });
+    if(!EVENTS.length) out.push("No events yet.");
+    out.push("");
+    out.push("All dates conventional and approximate. See the Why dates disagree section.");
+    return out.join("\n");
+  }
+
+  function timelineCsv(){
+    var rows=["year_bc,event,kind,period,note"];
+    sorted().forEach(function(e){
+      var p=periodFor(e.year);
+      rows.push([e.year,
+        '"'+String(e.name).replace(/"/g,'""')+'"',
+        '"'+String(e.kind).replace(/"/g,'""')+'"',
+        '"'+(p?p.name:"")+'"',
+        '"'+String(e.note||"").replace(/"/g,'""')+'"'].join(","));
+    });
+    return rows.join("\n");
+  }
+
+  function renderPreview(){
+    $("egPreview").innerHTML='<div class="eg-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(timelineText().slice(0,4000))+"</pre></div>";
+  }
+
+  function initExport(){
+    $("egExp").addEventListener("click", function(){
+      download("egypt-timeline.txt", timelineText()); flash("egExpMsg","Exported.");
+    });
+    $("egCsv").addEventListener("click", function(){
+      download("egypt-timeline.csv", timelineCsv(), "text/csv"); flash("egExpMsg","CSV exported.");
+    });
+    $("egCopy").addEventListener("click", function(){
+      var text=timelineText();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("egExpMsg","Copied."); },
+          function(){ flash("egExpMsg","Copy failed, use Export instead."); });
+      } else { flash("egExpMsg","Copy not supported here, use Export instead."); }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initTimeline();
+    renderPeriods();
+    renderDynasties();
+    accordion("egDatingAcc", EG.dating, "k");
+    accordion("egSourceAcc", EG.sources, "k");
+    initExport();
+    renderPreview();
+  });
+})();
+</script>

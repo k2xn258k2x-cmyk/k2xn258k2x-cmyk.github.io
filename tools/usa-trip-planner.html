@@ -1,0 +1,882 @@
+---
+layout: default
+title: USA Trip Planner
+description: Plan, save and cost out a trip across the United States. Day-by-day itinerary builder, real driving time estimates, full budget breakdown and a prep checklist.
+permalink: /tools/usa-trip-planner.html
+body_class: tool-page
+---
+
+<style>
+  .ut-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .ut-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .ut-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .ut-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .ut-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .ut-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .ut-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .ut-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .ut-row::-webkit-scrollbar{display:none}
+  .ut-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .ut-btn:hover{background:var(--tint);color:var(--text)}
+  .ut-btn.is-active{background:var(--text);color:#fff}
+  .ut-panel{display:none;padding:34px 0 60px}
+  .ut-panel.is-active{display:block}
+  .ut-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .ut-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .ut-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .ut-grid{display:grid;gap:16px}
+  .ut-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .ut-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .ut-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .ut-in,.ut-sel,.ut-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .ut-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .ut-in:focus,.ut-sel:focus,.ut-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .ut-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .ut-b:hover{background:var(--tint)}
+  .ut-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .ut-b.primary:hover{background:var(--blue2)}
+  .ut-b.sm{font-size:13px;padding:6px 10px}
+  .ut-b.icon{padding:6px 9px;font-size:13px;line-height:1}
+  .ut-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .ut-muted{color:var(--muted);font-size:13.5px}
+  .ut-tiny{font-size:12px;color:var(--muted2)}
+  .ut-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.ut-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.ut-tbl th,table.ut-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.ut-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.ut-tbl tr:last-child td{border-bottom:0}
+  table.ut-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .ut-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .ut-day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:14px}
+  .ut-day-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .ut-day-t{font-weight:700;font-size:16px}
+  .ut-stop{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--tint)}
+  .ut-stop-n{flex:0 0 24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted2)}
+  .ut-stop-body{flex:1;min-width:0}
+  .ut-stop-t{font-weight:600;font-size:14.5px}
+  .ut-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .ut-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .ut-acc-b:hover{background:var(--tint)}
+  .ut-acc-t{font-weight:700;font-size:16.5px}
+  .ut-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .ut-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .ut-acc.is-open .ut-acc-body{display:block}
+  .ut-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .ut-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .ut-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .ut-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .ut-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .ut-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .ut-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .ut-empty{padding:26px;text-align:center;color:var(--muted)}
+  .ut-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .ut-check:last-child{border-bottom:0}
+  .ut-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .ut-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .ut-check .ut-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .ut-done label{text-decoration:line-through;color:var(--muted2)}
+  .ut-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .ut-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:80px}
+  .ut-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+</style>
+
+<section class="ut-hero">
+  <div class="container">
+    <div class="ut-eyebrow">VaultBook Study Library</div>
+    <h1 class="ut-title">The USA trip planner</h1>
+    <p class="ut-sub">Plan it, save it, and cost it out before you commit. Build a day-by-day itinerary you can reorder, get honest driving estimates rather than optimistic ones, break the budget down to a per person per day figure, and work through a prep checklist written for the specific things a trip across the United States catches people out on. Everything stays on your device.</p>
+    <div class="ut-badges">
+      <span class="ut-badge">Day-by-day itinerary</span>
+      <span class="ut-badge">Reorder any stop</span>
+      <span class="ut-badge">Real driving estimates</span>
+      <span class="ut-badge">Full cost breakdown</span>
+      <span class="ut-badge">Prep checklist</span>
+      <span class="ut-badge">Export and share</span>
+      <span class="ut-badge">Saved locally</span>
+    </div>
+  </div>
+</section>
+
+<div class="ut-tabs">
+  <div class="container">
+    <div class="ut-row" role="tablist" aria-label="Planner tools">
+      <button class="ut-btn is-active" data-tab="itinerary" role="tab" aria-selected="true">Itinerary</button>
+      <button class="ut-btn" data-tab="driving" role="tab" aria-selected="false">Driving</button>
+      <button class="ut-btn" data-tab="budget" role="tab" aria-selected="false">Budget</button>
+      <button class="ut-btn" data-tab="prep" role="tab" aria-selected="false">Prep</button>
+      <button class="ut-btn" data-tab="craft" role="tab" aria-selected="false">Planning it well</button>
+      <button class="ut-btn" data-tab="trip" role="tab" aria-selected="false">My trip</button>
+    </div>
+  </div>
+</div>
+
+<section class="ut-panel is-active" id="up-itinerary">
+  <div class="container">
+    <h2 class="ut-head">Itinerary</h2>
+    <p class="ut-lede">Add days, then add stops to each one. Move any stop up or down, drag a whole day earlier or later, and the plan saves itself as you go. Add a driving leg between stops and the day total appears at the top of the card.</p>
+
+    <div class="ut-card" style="margin-bottom:18px">
+      <div class="ut-grid four">
+        <div>
+          <label class="ut-tiny" for="utTripName">Trip name</label>
+          <input class="ut-in" id="utTripName" type="text" placeholder="Southwest loop" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="ut-tiny" for="utStart">Start date</label>
+          <input class="ut-in" id="utStart" type="date" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="ut-tiny" for="utPeople">Travellers</label>
+          <input class="ut-in" id="utPeople" type="number" min="1" value="2" style="margin-top:5px">
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="ut-b primary" id="utAddDay" type="button" style="width:100%">Add a day</button>
+        </div>
+      </div>
+      <div class="ut-flex" style="margin-top:12px">
+        <button class="ut-b" id="utExportItin" type="button">Export itinerary</button>
+        <button class="ut-b" id="utClearItin" type="button">Clear itinerary</button>
+        <span class="ut-tiny" id="utItinMsg"></span>
+      </div>
+    </div>
+
+    <div class="ut-stat" style="margin-bottom:18px">
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utNdays">0</div><div class="ut-stat-l">Days</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utNstops">0</div><div class="ut-stat-l">Stops</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utNmiles">0</div><div class="ut-stat-l">Total miles</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utNdrive">0h</div><div class="ut-stat-l">Time behind the wheel</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utNworst">-</div><div class="ut-stat-l">Longest driving day</div></div>
+    </div>
+
+    <div id="utDays"></div>
+
+    <div class="ut-warn" style="margin-top:16px">The most common planning mistake on a United States trip is underestimating distance. Two places that look adjacent on a national map can be a full day apart, and a route that reads as a gentle loop on screen frequently means six hours of driving on four of its seven days. Add the driving legs honestly and let the totals above tell you whether the plan is a holiday or a haul.</div>
+  </div>
+</section>
+
+<section class="ut-panel" id="up-driving">
+  <div class="container">
+    <h2 class="ut-head">Driving</h2>
+    <p class="ut-lede">Mapping apps give the time a car takes at speed with no stops. Real travel days include fuel, food, photographs, and the twenty minutes lost every time somebody wants to look at something. This estimator applies the correction that mapping apps do not.</p>
+
+    <div class="ut-grid two" style="margin-bottom:18px">
+      <div class="ut-card">
+        <div style="font-weight:700;margin-bottom:12px;font-size:16px">Realistic day estimator</div>
+        <div class="ut-grid two">
+          <div>
+            <label class="ut-tiny" for="utMiles">Distance in miles</label>
+            <input class="ut-in ut-mono" id="utMiles" type="number" min="0" value="300" style="margin-top:5px">
+          </div>
+          <div>
+            <label class="ut-tiny" for="utRoad">Road type</label>
+            <select class="ut-sel" id="utRoad" style="margin-top:5px"></select>
+          </div>
+        </div>
+        <div class="ut-grid two" style="margin-top:12px">
+          <div>
+            <label class="ut-tiny" for="utStops">Planned stops</label>
+            <input class="ut-in" id="utStops" type="number" min="0" value="3" style="margin-top:5px">
+          </div>
+          <div>
+            <label class="ut-tiny" for="utDrivers">Drivers sharing</label>
+            <select class="ut-sel" id="utDrivers" style="margin-top:5px"><option value="1">One</option><option value="2" selected>Two or more</option></select>
+          </div>
+        </div>
+        <div class="ut-flex" style="margin-top:12px">
+          <button class="ut-b primary" id="utCalcDrive" type="button">Estimate</button>
+          <span class="ut-tiny" id="utDriveMsg"></span>
+        </div>
+      </div>
+      <div class="ut-card">
+        <div style="font-weight:700;margin-bottom:12px;font-size:16px">What the day actually looks like</div>
+        <div class="ut-stat">
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utPure">0h</div><div class="ut-stat-l">Moving time</div></div>
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utReal">0h</div><div class="ut-stat-l">Door to door</div></div>
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utVerdict">-</div><div class="ut-stat-l">Verdict</div></div>
+        </div>
+        <div class="ut-note" id="utDriveNote" style="margin-top:14px">Enter a distance and press estimate.</div>
+      </div>
+    </div>
+
+    <div id="utDriveAcc"></div>
+  </div>
+</section>
+
+<section class="ut-panel" id="up-budget">
+  <div class="container">
+    <h2 class="ut-head">Budget</h2>
+    <p class="ut-lede">Cost the whole trip out before you book anything. Enter what applies and the totals update as you type, including the per person per day figure that is the only number worth comparing between plans.</p>
+
+    <div class="ut-grid two" style="margin-bottom:18px">
+      <div class="ut-card">
+        <div style="font-weight:700;margin-bottom:12px">Your numbers</div>
+        <div id="utBudgetRows"></div>
+        <div class="ut-flex" style="margin-top:14px">
+          <span class="ut-tiny">Travellers</span>
+          <input class="ut-in" id="utBpeople" type="number" min="1" value="2" style="max-width:90px">
+          <span class="ut-tiny">Nights</span>
+          <input class="ut-in" id="utBnights" type="number" min="1" value="10" style="max-width:90px">
+          <button class="ut-b" id="utBudgetExport" type="button">Export</button>
+          <span class="ut-tiny" id="utBudgetMsg"></span>
+        </div>
+      </div>
+      <div class="ut-card">
+        <div style="font-weight:700;margin-bottom:12px">Totals</div>
+        <div class="ut-stat">
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utTotal">0</div><div class="ut-stat-l">Whole trip</div></div>
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utPer">0</div><div class="ut-stat-l">Per person</div></div>
+          <div class="ut-stat-c"><div class="ut-stat-n" id="utPerDay">0</div><div class="ut-stat-l">Per person per day</div></div>
+        </div>
+        <div id="utBreak" style="margin-top:14px"></div>
+      </div>
+    </div>
+
+    <div class="ut-card">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">The lines people forget</div>
+      <div class="ut-muted" style="line-height:1.75">Sales tax is added at the till rather than shown on the shelf, and it varies by state and sometimes by city, so a budget built from displayed prices runs short. Hotel taxes and resort fees are frequently charged on top of the rate you booked. Tipping is expected in restaurants, bars, and for many services, and it is a real percentage of the food budget rather than a rounding error. One-way car rental fees can exceed the rental itself on a long drop. Build all four into the plan and the final total stops being a surprise.</div>
+    </div>
+  </div>
+</section>
+
+<section class="ut-panel" id="up-prep">
+  <div class="container">
+    <h2 class="ut-head">Prep</h2>
+    <p class="ut-lede">Grouped by when it matters, with a line on why each item earns its place. Tick as you go and the list remembers, so next trip starts from what worked rather than from memory.</p>
+
+    <div class="ut-flex" style="margin-bottom:16px">
+      <span class="ut-tiny" id="utPrepCount"></span>
+      <button class="ut-b" id="utPrepReset" type="button">Untick everything</button>
+      <button class="ut-b" id="utPrepExport" type="button">Export checklist</button>
+      <span class="ut-tiny" id="utPrepMsg"></span>
+    </div>
+
+    <div id="utPrepList"></div>
+
+    <div class="ut-warn" style="margin-top:18px">Entry requirements, park reservation systems, and seasonal road closures all change, and several of them change without much notice. Everything here is chosen to be broadly sensible, but check the official source for your nationality, your parks, and your dates rather than relying on any guide including this one.</div>
+  </div>
+</section>
+
+<section class="ut-panel" id="up-craft">
+  <div class="container">
+    <h2 class="ut-head">Planning it well</h2>
+    <p class="ut-lede">Twelve things that separate a trip you enjoyed from a trip you survived. Most of them cost nothing and most people learn them the expensive way.</p>
+    <div id="utCraftAcc"></div>
+  </div>
+</section>
+
+<section class="ut-panel" id="up-trip">
+  <div class="container">
+    <h2 class="ut-head">My trip</h2>
+    <p class="ut-lede">Itinerary, budget and checklist in one sheet you can export and send to everyone travelling. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="ut-stat" style="margin-bottom:18px">
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utTdays">0</div><div class="ut-stat-l">Days planned</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utTstops">0</div><div class="ut-stat-l">Stops</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utTmiles">0</div><div class="ut-stat-l">Miles</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utTbudget">0</div><div class="ut-stat-l">Per person</div></div>
+      <div class="ut-stat-c"><div class="ut-stat-n" id="utTprep">0</div><div class="ut-stat-l">Prep items done</div></div>
+    </div>
+
+    <div class="ut-flex" style="margin-bottom:16px">
+      <button class="ut-b primary" id="utExpAll" type="button">Export everything</button>
+      <button class="ut-b" id="utCopyAll" type="button">Copy to clipboard</button>
+      <button class="ut-b" id="utWipeAll" type="button">Clear all</button>
+      <span class="ut-tiny" id="utTripMsg"></span>
+    </div>
+
+    <div id="utTripPreview"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="ut-grid three">
+      <div class="ut-card">
+        <div class="card-kicker">Keep it all together</div>
+        <div class="card-title" style="margin:6px 0">One vault for the whole trip</div>
+        <p class="card-text">VaultBook holds your bookings, passports, insurance documents, park passes, and this plan in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="ut-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New planners and study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="ut-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your itinerary, budget and checklist stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var UT = {};
+
+UT.roads = [
+ {id:"interstate", label:"Interstate", mph:65, note:"Long uninterrupted stretches, predictable timing"},
+ {id:"highway",    label:"US or state highway", mph:52, note:"Slower through towns, more to look at"},
+ {id:"park",       label:"National park road", mph:32, note:"Low limits, wildlife stops, traffic at overlooks"},
+ {id:"mountain",   label:"Mountain or canyon road", mph:34, note:"Switchbacks and grade, slower than the map suggests"},
+ {id:"urban",      label:"Urban and suburban", mph:26, note:"Traffic dominates, timing depends entirely on hour"},
+ {id:"unpaved",    label:"Unpaved or forest road", mph:20, note:"Check vehicle suitability before committing"}
+];
+
+UT.budget = [
+ {id:"flights",  label:"Flights",                  per:"person", hint:"Return, including bags"},
+ {id:"car",      label:"Vehicle hire",             per:"trip",   hint:"Whole rental, plus any one-way drop fee"},
+ {id:"fuel",     label:"Fuel",                     per:"trip",   hint:"Miles divided by economy, times price per gallon"},
+ {id:"lodging",  label:"Accommodation per night",  per:"night",  hint:"Add hotel tax and resort fees, they are not in the headline rate"},
+ {id:"food",     label:"Food per person per day",  per:"perday", hint:"Include tips, they are a real share of this line"},
+ {id:"parks",    label:"Park entry and passes",    per:"trip",   hint:"An annual pass often beats three or four single entries"},
+ {id:"activity", label:"Activities per person",    per:"person", hint:"Tours, permits, tickets booked ahead"},
+ {id:"insure",   label:"Travel and vehicle cover", per:"person", hint:"Check what your card already covers before buying twice"},
+ {id:"transit",  label:"Local transport and parking", per:"trip", hint:"City parking is a genuine line, not a rounding error"},
+ {id:"buffer",   label:"Contingency",              per:"person", hint:"Treat as spent. Weather, breakdowns, the unplanned detour"}
+];
+
+UT.prep = [
+ {cat:"Months ahead", items:[
+  {t:"Check entry requirements for your nationality", why:"Requirements and authorisation systems differ by passport and change without much warning"},
+  {t:"Confirm passport validity well past your return date", why:"Many carriers and countries require a margin beyond the trip itself"},
+  {t:"Book anything with a reservation system", why:"Popular parks, permits, and timed entries release on fixed dates and fill within minutes"},
+  {t:"Check seasonal road and pass closures on your route", why:"High elevation roads close for months and a closure can add a full day of driving"},
+  {t:"Compare an annual park pass against single entries", why:"If you are visiting several parks the pass usually wins, and it covers a whole vehicle"}
+ ]},
+ {cat:"Weeks ahead", items:[
+  {t:"Arrange travel and vehicle cover, checking what your card already includes", why:"Duplicate cover is common and expensive, and gaps are worse"},
+  {t:"Tell your bank and card issuer your travel dates", why:"Unexpected foreign transactions are a common trigger for a card being frozen"},
+  {t:"Download offline maps for every region on the route", why:"Signal disappears across large stretches of the interior and in canyon country"},
+  {t:"Check the vehicle class against the roads you plan to drive", why:"Some unpaved and forest roads void a standard rental agreement entirely"},
+  {t:"Note the time zones your route crosses", why:"A state line can move the clock and turn a comfortable arrival into a late one"}
+ ]},
+ {cat:"Days ahead", items:[
+  {t:"Save every booking confirmation offline", why:"A confirmation you cannot open at a desk with no signal is not a confirmation"},
+  {t:"Check the forecast for elevation, not just for the city", why:"A mountain pass can be freezing on the same day the nearest town is warm"},
+  {t:"Plan the first day light", why:"Long haul arrival plus a long drive is how trips start badly and stay that way"},
+  {t:"Agree a daily budget with everyone travelling", why:"Money disagreements on day four are almost always a conversation nobody had on day zero"}
+ ]},
+ {cat:"On the road", items:[
+  {t:"Refuel earlier than feels necessary in remote areas", why:"Distances between stations in the interior are longer than most visitors expect"},
+  {t:"Carry more water than you think you need", why:"Desert and high elevation both dehydrate faster than the temperature suggests"},
+  {t:"Never leave valuables visible in a parked car", why:"Trailhead and overlook car parks are a known target"},
+  {t:"Keep a paper note of your accommodation and emergency contacts", why:"A dead phone should not mean you cannot tell anyone where you are staying"}
+ ]}
+];
+
+UT.driveNotes = [
+ {t:"Why the mapping estimate is always optimistic", k:"timing",
+  body:"A mapping app gives moving time at the speed limit with no interruption. A real day includes fuel, food, photographs, toilet stops, and the twenty minutes lost every time somebody wants to look at something. On a long day the gap between the two figures is routinely two hours or more, and the plan that fails is the one built on the app figure."},
+ {t:"The five hour rule", k:"pacing",
+  body:"Around five hours of moving time is where a driving day stops being part of the holiday and becomes the holiday. Below it there is room to stop, arrive in daylight, and still want dinner. Above it the day is spent in the car and the destination gets the exhausted version of you. If several days exceed it, the route is too ambitious for the time available."},
+ {t:"Arrive before dark, deliberately", k:"safety",
+  body:"Unfamiliar roads, wildlife on rural highways, and finding accommodation in a place you have never been are all harder after sunset. Building arrival into daylight is the single easiest safety decision on a road trip, and it also means you see the place you drove all day to reach."},
+ {t:"Elevation changes everything", k:"terrain",
+  body:"Mountain and canyon roads take far longer than their mileage implies because of grade, switchbacks, and lower limits. Altitude also affects people, and a night at high elevation after a day at sea level can produce headaches and poor sleep. Build a gentler day into any itinerary that climbs sharply."},
+ {t:"Time zones move under you", k:"timing",
+  body:"A state line can move the clock forward or back, and some states do not observe the seasonal change while their neighbours do. A booking made in local time at the destination can be an hour off what your phone showed when you left, so check the zone at both ends of every long leg."},
+ {t:"Fuel range is a planning constraint", k:"remote",
+  body:"Across parts of the interior the distance between stations exceeds what many people are used to, and the last one before a long empty stretch is rarely signposted as such. Refuel at half a tank rather than at the warning light and the problem never arises."}
+];
+
+UT.craft = [
+ {t:"Plan around fewer places, not more", body:"The most common regret on a first trip is having seen many places briefly rather than a few properly. Cutting a destination usually improves a trip, because the time saved is spread across everything that remains rather than lost."},
+ {t:"Two nights minimum wherever you can", body:"A single night means arriving, sleeping, and leaving, with packing at both ends. Two nights gives one full day with no driving, and those are almost always the days people remember."},
+ {t:"Build the route around the drives, not the sights", body:"Choose destinations that form a sensible line or loop rather than the ones you most want to see. A route that doubles back burns days in the car that the extra destination will never repay."},
+ {t:"Book the immovable things first", body:"Reservation systems, permits, and timed entries dictate dates. Fix those, then arrange everything flexible around them. Doing it the other way round means discovering the permit sold out for the only day that works."},
+ {t:"Leave one unplanned day per week", body:"Weather, fatigue, a road closure, or something you found and want to spend longer on will all happen. A trip with no slack turns every one of those into a loss rather than a choice."},
+ {t:"Check what season you are actually travelling in", body:"The same destination can be pleasant, unbearable, or closed depending on the month. Desert summer heat, mountain snow, and hurricane season all reshape what is possible, and none of them is obvious from a photograph."},
+ {t:"Sales tax is added at the till", body:"Displayed prices generally exclude tax, which varies by state and sometimes by city. A budget built from shelf prices runs short by a consistent margin over a long trip."},
+ {t:"Tipping is part of the price, not a bonus", body:"In restaurants, bars, and for many services a tip is expected and forms a real percentage of the bill. Treating it as optional produces both an uncomfortable interaction and a budget that was never accurate."},
+ {t:"Compare the one-way drop fee before you commit", body:"Picking up in one city and dropping in another can cost more than the rental itself on a long route. Sometimes a loop back to the start is cheaper than the one-way convenience, and it is worth checking both."},
+ {t:"An annual park pass usually pays for itself fast", body:"If your route includes several parks, the annual pass typically beats paying at each gate, and it covers a whole vehicle rather than a person. Work out the arithmetic before the first entry rather than after the third."},
+ {t:"Distances are the thing visitors misjudge most", body:"States are frequently larger than entire countries elsewhere, and two points that look close on a national map can be a full day apart. Check the actual drive time for every leg rather than trusting the visual."},
+ {t:"Write down what worked the day after you get back", body:"Five minutes of notes while the trip is fresh is worth more than any guide next time, because it is specific to you, your pace, and what you actually enjoyed."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_I="vb_ut_itin_v1", K_B="vb_ut_budget_v1", K_P="vb_ut_prep_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ window.localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(k,f){ try{ var r=window.localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function money(n){ return (Math.round(n)).toLocaleString(); }
+  function hrs(h){ return (Math.round(h*10)/10)+"h"; }
+
+  var S = { itin:get(K_I,{name:"",start:"",people:2,days:[]}), budget:get(K_B,{}), prep:get(K_P,{}) };
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".ut-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".ut-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("up-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="trip") renderTrip();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- itinerary ---------- */
+  function dayDate(i){
+    if(!S.itin.start) return "";
+    var d=new Date(S.itin.start+"T00:00:00");
+    if(isNaN(d.getTime())) return "";
+    d.setDate(d.getDate()+i);
+    return d.toISOString().slice(0,10);
+  }
+
+  function dayMiles(day){
+    var m=0;
+    day.stops.forEach(function(s){ m += parseFloat(s.miles)||0; });
+    return m;
+  }
+  function dayHours(day){
+    var h=0;
+    day.stops.forEach(function(s){
+      var miles=parseFloat(s.miles)||0;
+      if(!miles) return;
+      var road=roadById(s.road);
+      h += miles/road.mph;
+    });
+    return h;
+  }
+  function roadById(id){
+    for(var i=0;i<UT.roads.length;i++){ if(UT.roads[i].id===id) return UT.roads[i]; }
+    return UT.roads[0];
+  }
+
+  function renderDays(){
+    var wrap=$("utDays");
+    if(!S.itin.days.length){
+      wrap.innerHTML='<div class="ut-empty">No days yet. Add a day and start dropping stops into it.</div>';
+      updateItinStats();
+      return;
+    }
+    var html="";
+    for(var d=0; d<S.itin.days.length; d++){
+      var day=S.itin.days[d];
+      var stops="";
+      for(var i=0;i<day.stops.length;i++){
+        var s=day.stops[i];
+        var leg = (parseFloat(s.miles)||0) ? '<div class="ut-tiny" style="margin-top:3px">'+
+          esc(s.miles)+' miles by '+esc(roadById(s.road).label.toLowerCase())+
+          ', about '+hrs((parseFloat(s.miles)||0)/roadById(s.road).mph)+' moving</div>' : "";
+        stops += '<div class="ut-stop"><div class="ut-stop-n">'+(i+1)+'</div>'+
+          '<div class="ut-stop-body"><div class="ut-stop-t">'+esc(s.name)+'</div>'+
+          (s.note?'<div class="ut-tiny" style="margin-top:2px">'+esc(s.note)+'</div>':"")+leg+'</div>'+
+          '<div class="ut-flex" style="gap:4px">'+
+          '<button class="ut-b icon" type="button" data-up="'+d+'-'+i+'" title="Move up">up</button>'+
+          '<button class="ut-b icon" type="button" data-down="'+d+'-'+i+'" title="Move down">down</button>'+
+          '<button class="ut-b icon" type="button" data-del="'+d+'-'+i+'" title="Remove">x</button>'+
+          '</div></div>';
+      }
+      var dt=dayDate(d);
+      html += '<div class="ut-day"><div class="ut-day-h">'+
+        '<div><div class="ut-day-t">Day '+(d+1)+(dt?' <span class="ut-tiny">'+dt+'</span>':"")+'</div>'+
+        '<div class="ut-tiny">'+Math.round(dayMiles(day))+' miles, about '+hrs(dayHours(day))+' moving</div></div>'+
+        '<div class="ut-flex" style="gap:6px">'+
+        '<button class="ut-b sm" type="button" data-dayup="'+d+'">Earlier</button>'+
+        '<button class="ut-b sm" type="button" data-daydown="'+d+'">Later</button>'+
+        '<button class="ut-b sm" type="button" data-daydel="'+d+'">Remove day</button>'+
+        '</div></div>'+
+        (stops || '<div class="ut-tiny" style="margin-bottom:8px">No stops yet.</div>')+
+        '<div class="ut-grid four" style="margin-top:10px">'+
+        '<input class="ut-in" type="text" data-sname="'+d+'" placeholder="Stop or place">'+
+        '<input class="ut-in" type="text" data-snote="'+d+'" placeholder="Note, optional">'+
+        '<input class="ut-in ut-mono" type="number" min="0" data-smiles="'+d+'" placeholder="Miles to get here">'+
+        '<select class="ut-sel" data-sroad="'+d+'"></select>'+
+        '</div>'+
+        '<div class="ut-flex" style="margin-top:8px"><button class="ut-b primary sm" type="button" data-addstop="'+d+'">Add stop</button></div>'+
+        '</div>';
+    }
+    wrap.innerHTML=html;
+
+    Array.prototype.forEach.call(wrap.querySelectorAll("select[data-sroad]"), function(sel){
+      UT.roads.forEach(function(r){
+        var o=document.createElement("option"); o.value=r.id; o.textContent=r.label; sel.appendChild(o);
+      });
+    });
+
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-addstop]"), function(b){
+      b.addEventListener("click", function(){
+        var d=parseInt(b.getAttribute("data-addstop"),10);
+        var name=wrap.querySelector('input[data-sname="'+d+'"]').value.trim();
+        if(!name){ flash("utItinMsg","Name the stop first."); return; }
+        S.itin.days[d].stops.push({
+          name:name,
+          note:wrap.querySelector('input[data-snote="'+d+'"]').value.trim(),
+          miles:wrap.querySelector('input[data-smiles="'+d+'"]').value.trim(),
+          road:wrap.querySelector('select[data-sroad="'+d+'"]').value
+        });
+        put(K_I,S.itin); renderDays();
+      });
+    });
+    function swap(arr,a,b){ var t=arr[a]; arr[a]=arr[b]; arr[b]=t; }
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-up]"), function(b){
+      b.addEventListener("click", function(){
+        var p=b.getAttribute("data-up").split("-").map(Number);
+        if(p[1]>0){ swap(S.itin.days[p[0]].stops,p[1],p[1]-1); put(K_I,S.itin); renderDays(); }
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-down]"), function(b){
+      b.addEventListener("click", function(){
+        var p=b.getAttribute("data-down").split("-").map(Number);
+        var st=S.itin.days[p[0]].stops;
+        if(p[1]<st.length-1){ swap(st,p[1],p[1]+1); put(K_I,S.itin); renderDays(); }
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-del]"), function(b){
+      b.addEventListener("click", function(){
+        var p=b.getAttribute("data-del").split("-").map(Number);
+        S.itin.days[p[0]].stops.splice(p[1],1); put(K_I,S.itin); renderDays();
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-dayup]"), function(b){
+      b.addEventListener("click", function(){
+        var d=parseInt(b.getAttribute("data-dayup"),10);
+        if(d>0){ swap(S.itin.days,d,d-1); put(K_I,S.itin); renderDays(); }
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-daydown]"), function(b){
+      b.addEventListener("click", function(){
+        var d=parseInt(b.getAttribute("data-daydown"),10);
+        if(d<S.itin.days.length-1){ swap(S.itin.days,d,d+1); put(K_I,S.itin); renderDays(); }
+      });
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("button[data-daydel]"), function(b){
+      b.addEventListener("click", function(){
+        if(!window.confirm("Remove this day and its stops?")) return;
+        S.itin.days.splice(parseInt(b.getAttribute("data-daydel"),10),1);
+        put(K_I,S.itin); renderDays();
+      });
+    });
+    updateItinStats();
+  }
+
+  function updateItinStats(){
+    var stops=0, miles=0, hours=0, worst=0, worstDay=0;
+    S.itin.days.forEach(function(day,i){
+      stops += day.stops.length;
+      var m=dayMiles(day), h=dayHours(day);
+      miles += m; hours += h;
+      if(h>worst){ worst=h; worstDay=i+1; }
+    });
+    $("utNdays").textContent=S.itin.days.length;
+    $("utNstops").textContent=stops;
+    $("utNmiles").textContent=Math.round(miles).toLocaleString();
+    $("utNdrive").textContent=hrs(hours);
+    $("utNworst").textContent = worst ? ("Day "+worstDay+", "+hrs(worst)) : "-";
+  }
+
+  function itinText(){
+    var out=[(S.itin.name||"USA trip")+"", ""];
+    if(S.itin.start) out.push("Starting "+S.itin.start+", "+(S.itin.people||1)+" travelling");
+    out.push("");
+    S.itin.days.forEach(function(day,d){
+      var dt=dayDate(d);
+      out.push("Day "+(d+1)+(dt?"  "+dt:"")+"   "+Math.round(dayMiles(day))+" miles, about "+hrs(dayHours(day))+" moving");
+      day.stops.forEach(function(s,i){
+        out.push("  "+(i+1)+". "+s.name+(s.miles?"  ["+s.miles+" mi by "+roadById(s.road).label.toLowerCase()+"]":""));
+        if(s.note) out.push("      "+s.note);
+      });
+      out.push("");
+    });
+    if(!S.itin.days.length) out.push("No days planned yet.");
+    return out.join("\n");
+  }
+
+  function initItin(){
+    if(S.itin.name) $("utTripName").value=S.itin.name;
+    if(S.itin.start) $("utStart").value=S.itin.start;
+    if(S.itin.people) $("utPeople").value=S.itin.people;
+    $("utTripName").addEventListener("input", function(){ S.itin.name=$("utTripName").value; put(K_I,S.itin); });
+    $("utStart").addEventListener("input", function(){ S.itin.start=$("utStart").value; put(K_I,S.itin); renderDays(); });
+    $("utPeople").addEventListener("input", function(){ S.itin.people=parseInt($("utPeople").value,10)||1; put(K_I,S.itin); });
+    $("utAddDay").addEventListener("click", function(){
+      S.itin.days.push({stops:[]}); put(K_I,S.itin); renderDays();
+    });
+    $("utExportItin").addEventListener("click", function(){
+      download("usa-trip-itinerary.txt", itinText()); flash("utItinMsg","Exported.");
+    });
+    $("utClearItin").addEventListener("click", function(){
+      if(!window.confirm("Clear every day and stop?")) return;
+      S.itin.days=[]; put(K_I,S.itin); renderDays();
+    });
+    renderDays();
+  }
+
+  /* ---------- driving estimator ---------- */
+  function initDriving(){
+    UT.roads.forEach(function(r){
+      var o=document.createElement("option"); o.value=r.id; o.textContent=r.label; $("utRoad").appendChild(o);
+    });
+    function calc(){
+      var miles=Math.max(0, parseFloat($("utMiles").value)||0);
+      var road=roadById($("utRoad").value);
+      var stops=Math.max(0, parseInt($("utStops").value,10)||0);
+      var shared=parseInt($("utDrivers").value,10)>1;
+      var pure=miles/road.mph;
+      /* Real day adds fuel and food, a fixed overhead per planned stop, and a
+         fatigue allowance that shrinks when driving is shared. */
+      var overhead = 0.35 + stops*0.4;
+      var fatigue = pure>4 ? (pure-4)*(shared?0.06:0.12) : 0;
+      var real = pure + overhead + fatigue;
+      $("utPure").textContent=hrs(pure);
+      $("utReal").textContent=hrs(real);
+      var verdict = real<3 ? "Easy" : (real<5 ? "Comfortable" : (real<7 ? "Long" : "Too long"));
+      $("utVerdict").textContent=verdict;
+      var note = road.note+". Moving time is "+hrs(pure)+", and the door to door figure adds "+
+        hrs(overhead)+" for fuel, food and your "+stops+" planned stop"+(stops===1?"":"s")+
+        (fatigue>0.05 ? " plus "+hrs(fatigue)+" of slower progress as the day wears on." : ".");
+      if(real>=7) note += " A day this long leaves nothing for the destination. Split it or cut a stop.";
+      else if(real>=5) note += " This is a driving day rather than a sightseeing day. Plan the evening accordingly.";
+      else note += " There is room here to stop properly and still arrive in daylight.";
+      $("utDriveNote").textContent=note;
+    }
+    ["utMiles","utStops"].forEach(function(id){ $(id).addEventListener("input", calc); });
+    ["utRoad","utDrivers"].forEach(function(id){ $(id).addEventListener("change", calc); });
+    $("utCalcDrive").addEventListener("click", function(){ calc(); flash("utDriveMsg","Estimated."); });
+    calc();
+    accordion("utDriveAcc", UT.driveNotes, "k");
+  }
+
+  /* ---------- generic accordion ---------- */
+  function accordion(target, list, keyName){
+    var html="";
+    for(var i=0;i<list.length;i++){
+      var e=list[i];
+      html += '<div class="ut-acc"><button class="ut-acc-b" type="button">'+
+        '<span class="ut-acc-t">'+esc(e.t)+"</span>"+
+        (keyName && e[keyName] ? '<span class="ut-acc-k">'+esc(e[keyName])+"</span>" : "")+"</button>"+
+        '<div class="ut-acc-body"><p>'+esc(e.body)+"</p></div></div>";
+    }
+    $(target).innerHTML=html;
+    Array.prototype.forEach.call($(target).querySelectorAll(".ut-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- budget ---------- */
+  function renderBudgetRows(){
+    var html="";
+    for(var i=0;i<UT.budget.length;i++){
+      var b=UT.budget[i];
+      var v=(S.budget[b.id]!=null)?S.budget[b.id]:"";
+      var tag = b.per==="person" ? "per person" : (b.per==="night" ? "per night" : (b.per==="perday" ? "per person per day" : "whole trip"));
+      html += '<div class="ut-flex" style="margin-bottom:10px;align-items:flex-start">'+
+        '<div style="flex:1;min-width:150px"><div style="font-weight:600;font-size:14px">'+esc(b.label)+"</div>"+
+        '<div class="ut-tiny">'+esc(b.hint)+"</div></div>"+
+        '<input class="ut-in ut-mono" type="number" min="0" step="1" data-bd="'+b.id+
+        '" value="'+esc(v)+'" placeholder="0" style="max-width:120px">'+
+        '<span class="ut-chip">'+tag+"</span></div>";
+    }
+    $("utBudgetRows").innerHTML=html;
+    Array.prototype.forEach.call($("utBudgetRows").querySelectorAll("input[data-bd]"), function(inp){
+      inp.addEventListener("input", function(){
+        var n=parseFloat(inp.value);
+        S.budget[inp.getAttribute("data-bd")] = isNaN(n)?0:n;
+        put(K_B,S.budget); computeBudget();
+      });
+    });
+  }
+
+  function budgetTotals(){
+    var people=Math.max(1, parseInt($("utBpeople").value,10)||1);
+    var nights=Math.max(1, parseInt($("utBnights").value,10)||1);
+    var days=nights+1;
+    var total=0, parts=[];
+    for(var i=0;i<UT.budget.length;i++){
+      var b=UT.budget[i];
+      var v=parseFloat(S.budget[b.id])||0;
+      if(!v) continue;
+      var line;
+      if(b.per==="person") line=v*people;
+      else if(b.per==="night") line=v*nights;
+      else if(b.per==="perday") line=v*people*days;
+      else line=v;
+      total+=line;
+      parts.push([b.label,line]);
+    }
+    return {total:total, people:people, nights:nights, days:days, parts:parts};
+  }
+
+  function computeBudget(){
+    var t=budgetTotals();
+    S.budget.people=t.people; S.budget.nights=t.nights;
+    put(K_B,S.budget);
+    $("utTotal").textContent=money(t.total);
+    $("utPer").textContent=money(t.total/t.people);
+    $("utPerDay").textContent=money(t.total/t.people/t.days);
+    t.parts.sort(function(a,b){ return b[1]-a[1]; });
+    var rows="";
+    t.parts.forEach(function(p){
+      var pct=t.total?Math.round(p[1]/t.total*100):0;
+      rows += "<tr><td>"+esc(p[0])+"</td><td class='num'>"+money(p[1])+
+        "</td><td><div class='ut-bar'><i style='width:"+pct+"%'></i></div></td><td class='num'>"+pct+"%</td></tr>";
+    });
+    $("utBreak").innerHTML = rows
+      ? "<div class='ut-tblw'><table class='ut-tbl' style='min-width:auto'><thead><tr><th>Line</th><th>Total</th><th>Share</th><th></th></tr></thead><tbody>"+rows+"</tbody></table></div>"
+      : '<div class="ut-tiny">Enter figures on the left and the breakdown appears here, largest line first.</div>';
+  }
+
+  function budgetText(){
+    var t=budgetTotals();
+    var out=["USA trip budget",""];
+    t.parts.forEach(function(p){ out.push("  "+p[0]+": "+money(p[1])); });
+    out.push("");
+    out.push("  "+t.people+" travelling, "+t.nights+" nights");
+    out.push("  Total: "+money(t.total));
+    out.push("  Per person: "+money(t.total/t.people));
+    out.push("  Per person per day: "+money(t.total/t.people/t.days));
+    if(!t.parts.length) return "USA trip budget\n\nNothing entered yet.";
+    return out.join("\n");
+  }
+
+  function initBudget(){
+    if(S.budget.people) $("utBpeople").value=S.budget.people;
+    if(S.budget.nights) $("utBnights").value=S.budget.nights;
+    renderBudgetRows();
+    $("utBpeople").addEventListener("input", computeBudget);
+    $("utBnights").addEventListener("input", computeBudget);
+    $("utBudgetExport").addEventListener("click", function(){
+      download("usa-trip-budget.txt", budgetText()); flash("utBudgetMsg","Exported.");
+    });
+    computeBudget();
+  }
+
+  /* ---------- prep checklist ---------- */
+  function prepKey(c,i){ return "p"+c+"-"+i; }
+  function prepCount(){ var n=0; for(var k in S.prep){ if(S.prep[k]) n++; } return n; }
+
+  function renderPrep(){
+    var html="", total=0;
+    for(var c=0;c<UT.prep.length;c++){
+      var g=UT.prep[c], rows="";
+      for(var i=0;i<g.items.length;i++){
+        total++;
+        var k=prepKey(c,i), on=!!S.prep[k];
+        rows += '<div class="ut-check'+(on?" ut-done":"")+'">'+
+          '<input type="checkbox" id="pk-'+k+'" data-pk="'+k+'"'+(on?" checked":"")+">"+
+          '<label for="pk-'+k+'">'+esc(g.items[i].t)+
+          '<span class="ut-why">'+esc(g.items[i].why)+"</span></label></div>";
+      }
+      html += '<div class="ut-card" style="margin-bottom:14px;padding:18px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:16px">'+esc(g.cat)+"</div>"+rows+"</div>";
+    }
+    $("utPrepList").innerHTML=html;
+    $("utPrepCount").textContent=prepCount()+" of "+total+" done";
+    Array.prototype.forEach.call($("utPrepList").querySelectorAll("input[data-pk]"), function(cb){
+      cb.addEventListener("change", function(){
+        S.prep[cb.getAttribute("data-pk")]=cb.checked;
+        put(K_P,S.prep); renderPrep();
+      });
+    });
+  }
+
+  function prepText(){
+    var out=["USA trip prep checklist",""];
+    for(var c=0;c<UT.prep.length;c++){
+      out.push(UT.prep[c].cat);
+      for(var i=0;i<UT.prep[c].items.length;i++){
+        out.push("  ["+(S.prep[prepKey(c,i)]?"x":" ")+"] "+UT.prep[c].items[i].t);
+      }
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  function initPrep(){
+    renderPrep();
+    $("utPrepReset").addEventListener("click", function(){
+      if(!window.confirm("Untick every item?")) return;
+      S.prep={}; put(K_P,S.prep); renderPrep();
+    });
+    $("utPrepExport").addEventListener("click", function(){
+      download("usa-trip-prep.txt", prepText()); flash("utPrepMsg","Exported.");
+    });
+  }
+
+  /* ---------- my trip ---------- */
+  function everything(){
+    return [itinText(), "", "=".repeat(58), "", budgetText(), "", "=".repeat(58), "", prepText()].join("\n");
+  }
+
+  function renderTrip(){
+    var stops=0, miles=0;
+    S.itin.days.forEach(function(d){ stops+=d.stops.length; miles+=dayMiles(d); });
+    var t=budgetTotals();
+    $("utTdays").textContent=S.itin.days.length;
+    $("utTstops").textContent=stops;
+    $("utTmiles").textContent=Math.round(miles).toLocaleString();
+    $("utTbudget").textContent=money(t.total/t.people);
+    $("utTprep").textContent=prepCount();
+    $("utTripPreview").innerHTML='<div class="ut-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(everything().slice(0,4000))+"</pre></div>";
+  }
+
+  function initTrip(){
+    $("utExpAll").addEventListener("click", function(){
+      download("usa-trip-plan.txt", everything()); flash("utTripMsg","Exported.");
+    });
+    $("utCopyAll").addEventListener("click", function(){
+      var text=everything();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("utTripMsg","Copied."); },
+          function(){ flash("utTripMsg","Copy failed, use Export instead."); });
+      } else { flash("utTripMsg","Copy not supported here, use Export instead."); }
+    });
+    $("utWipeAll").addEventListener("click", function(){
+      if(!window.confirm("Clear the itinerary, budget and checklist?")) return;
+      S.itin={name:"",start:"",people:2,days:[]}; S.budget={}; S.prep={};
+      put(K_I,S.itin); put(K_B,S.budget); put(K_P,S.prep);
+      $("utTripName").value=""; $("utStart").value=""; $("utPeople").value=2;
+      $("utBpeople").value=2; $("utBnights").value=10;
+      renderDays(); renderBudgetRows(); computeBudget(); renderPrep(); renderTrip();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initItin();
+    initDriving();
+    initBudget();
+    initPrep();
+    accordion("utCraftAcc", UT.craft, "");
+    initTrip();
+    renderTrip();
+  });
+})();
+</script>

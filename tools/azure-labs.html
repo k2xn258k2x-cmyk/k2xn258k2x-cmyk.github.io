@@ -1,0 +1,833 @@
+---
+layout: default
+title: Azure Labs
+description: Hands-on Azure labs and a searchable command library. Run practice labs without surprise bills, track what you have built, and tear it all down cleanly.
+permalink: /tools/azure-labs.html
+body_class: tool-page
+---
+
+<style>
+  .az-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .az-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .az-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .az-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .az-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .az-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .az-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .az-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .az-row::-webkit-scrollbar{display:none}
+  .az-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .az-btn:hover{background:var(--tint);color:var(--text)}
+  .az-btn.is-active{background:var(--text);color:#fff}
+  .az-panel{display:none;padding:34px 0 60px}
+  .az-panel.is-active{display:block}
+  .az-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .az-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .az-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .az-grid{display:grid;gap:16px}
+  .az-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .az-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .az-grid.four{grid-template-columns:repeat(auto-fit,minmax(175px,1fr))}
+  .az-in,.az-sel,.az-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .az-txt{min-height:90px;resize:vertical;line-height:1.6}
+  .az-in:focus,.az-sel:focus,.az-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .az-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .az-b:hover{background:var(--tint)}
+  .az-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .az-b.primary:hover{background:var(--blue2)}
+  .az-b.sm{font-size:13px;padding:6px 10px}
+  .az-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .az-muted{color:var(--muted);font-size:13.5px}
+  .az-tiny{font-size:12px;color:var(--muted2)}
+  .az-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.az-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:580px}
+  table.az-tbl th,table.az-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.az-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.az-tbl tr:last-child td{border-bottom:0}
+  .az-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .az-cmd{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;margin-bottom:10px}
+  .az-cmd-t{font-weight:700;font-size:14.5px;margin-bottom:8px}
+  .az-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.6;background:#0f1729;color:#e6edf7;border-radius:10px;padding:12px 14px;overflow-x:auto;white-space:pre;margin:0}
+  .az-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .az-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .az-acc-b:hover{background:var(--tint)}
+  .az-acc-t{font-weight:700;font-size:16.5px}
+  .az-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .az-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .az-acc.is-open .az-acc-body{display:block}
+  .az-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .az-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .az-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .az-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .az-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .az-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .az-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .az-empty{padding:26px;text-align:center;color:var(--muted)}
+  .az-step{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+  .az-step:last-child{border-bottom:0}
+  .az-step-n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted2)}
+  .az-ok{color:#128a55;font-weight:700}
+  .az-no{color:#b3261e;font-weight:700}
+</style>
+
+<section class="az-hero">
+  <div class="container">
+    <div class="az-eyebrow">VaultBook Study Library</div>
+    <h1 class="az-title">Hands-on Azure labs</h1>
+    <p class="az-sub">Twelve labs that build real skill rather than clicking through a tutorial, a searchable command library grouped by what you are actually trying to do, and the cost discipline that stops a practice environment turning into a bill. Track what you have built, tear it down properly, and keep your own notes. Everything stays on your device.</p>
+    <div class="az-badges">
+      <span class="az-badge">12 structured labs</span>
+      <span class="az-badge">Command library</span>
+      <span class="az-badge">Cost control</span>
+      <span class="az-badge">Teardown checklist</span>
+      <span class="az-badge">Troubleshooting method</span>
+      <span class="az-badge">Progress tracker</span>
+      <span class="az-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="az-tabs">
+  <div class="container">
+    <div class="az-row" role="tablist" aria-label="Lab tools">
+      <button class="az-btn is-active" data-tab="labs" role="tab" aria-selected="true">The labs</button>
+      <button class="az-btn" data-tab="commands" role="tab" aria-selected="false">Command library</button>
+      <button class="az-btn" data-tab="cost" role="tab" aria-selected="false">Cost control</button>
+      <button class="az-btn" data-tab="teardown" role="tab" aria-selected="false">Teardown</button>
+      <button class="az-btn" data-tab="debug" role="tab" aria-selected="false">Troubleshooting</button>
+      <button class="az-btn" data-tab="patterns" role="tab" aria-selected="false">Patterns</button>
+      <button class="az-btn" data-tab="progress" role="tab" aria-selected="false">My progress</button>
+    </div>
+  </div>
+</div>
+
+<section class="az-panel is-active" id="ap-labs">
+  <div class="container">
+    <h2 class="az-head">The labs</h2>
+    <p class="az-lede">Twelve labs ordered so each one depends on the last. Every lab states what you will actually learn, the steps in order, the mistake most people make, and roughly what it costs to leave running. Tick them off as you go and the tracker remembers.</p>
+
+    <div class="az-flex" style="margin-bottom:16px">
+      <input class="az-in" id="azLabFind" type="search" placeholder="Filter labs" style="max-width:250px">
+      <select class="az-sel" id="azLabLevel" style="max-width:190px"><option value="">Any level</option></select>
+      <span class="az-tiny" id="azLabCount"></span>
+    </div>
+
+    <div class="az-warn" style="margin-bottom:16px">Cloud platforms change. Service names, portal layouts, default SKUs, and free tier limits all move, and command flags are occasionally renamed. Every lab here is written around the concept rather than a screenshot, but check the current official documentation for exact syntax and current pricing before you run anything that costs money.</div>
+
+    <div id="azLabList"></div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-commands">
+  <div class="container">
+    <h2 class="az-head">Command library</h2>
+    <p class="az-lede">Grouped by what you are trying to do rather than by service, because that is how you actually reach for a command. Each entry says what it does and the thing worth knowing about it. Placeholders in angle brackets are yours to replace.</p>
+
+    <div class="az-flex" style="margin-bottom:16px">
+      <input class="az-in" id="azCmdFind" type="search" placeholder="Search commands" style="max-width:270px">
+      <select class="az-sel" id="azCmdGroup" style="max-width:220px"><option value="">All groups</option></select>
+      <span class="az-tiny" id="azCmdCount"></span>
+    </div>
+
+    <div id="azCmdList"></div>
+
+    <div class="az-note" style="margin-top:16px">Two habits worth forming early. Use a table output format when you are reading and a JSON format when you are scripting, because the default is verbose and hard to scan. And set a default resource group and location in your configuration so you stop typing them on every command, which removes a whole class of typing errors.</div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-cost">
+  <div class="container">
+    <h2 class="az-head">Cost control</h2>
+    <p class="az-lede">The part every tutorial leaves out, and the reason most people abandon cloud practice. A lab environment is cheap while you understand what is billing and expensive the moment you stop paying attention. Read this once before your first lab.</p>
+
+    <div class="az-card" style="margin-bottom:18px">
+      <div style="font-weight:700;margin-bottom:12px;font-size:16px">What is billing right now, rough estimator</div>
+      <div class="az-grid three" id="azCostRows"></div>
+      <div class="az-flex" style="margin-top:14px">
+        <span class="az-tiny">Hours left running</span>
+        <input class="az-in" id="azCostHours" type="number" min="0" value="24" style="max-width:100px">
+        <button class="az-b primary" id="azCostGo" type="button">Estimate</button>
+        <span class="az-tiny" id="azCostMsg"></span>
+      </div>
+      <div class="az-stat" style="margin-top:14px">
+        <div class="az-stat-c"><div class="az-stat-n" id="azCostUnits">0</div><div class="az-stat-l">Billable resources</div></div>
+        <div class="az-stat-c"><div class="az-stat-n" id="azCostHrs">0</div><div class="az-stat-l">Resource hours</div></div>
+        <div class="az-stat-c"><div class="az-stat-n" id="azCostRisk">Low</div><div class="az-stat-l">Bill surprise risk</div></div>
+      </div>
+      <div class="az-tiny" style="margin-top:10px">This counts what is left running, not currency. Pricing varies by region, SKU, and agreement, so use the official pricing calculator for figures. The point of this tool is to make you notice how many things are still on.</div>
+    </div>
+
+    <div id="azCostAcc"></div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-teardown">
+  <div class="container">
+    <h2 class="az-head">Teardown</h2>
+    <p class="az-lede">The discipline that separates people who learn cloud from people who get a bill and quit. Work through this at the end of every session. It takes two minutes and it is the highest value habit on this page.</p>
+
+    <div class="az-flex" style="margin-bottom:16px">
+      <span class="az-tiny" id="azTearCount"></span>
+      <button class="az-b" id="azTearReset" type="button">Untick everything</button>
+      <button class="az-b" id="azTearExport" type="button">Export checklist</button>
+      <span class="az-tiny" id="azTearMsg"></span>
+    </div>
+
+    <div id="azTearList"></div>
+
+    <div class="az-warn" style="margin-top:18px">The single most common and most expensive mistake in cloud practice is confusing stopping a virtual machine with deallocating it. A stopped machine that still holds its allocation continues to bill for the compute reservation. Deallocating releases it. If you take one thing from this page, take that distinction and check it every time.</div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-debug">
+  <div class="container">
+    <h2 class="az-head">Troubleshooting</h2>
+    <p class="az-lede">Eight failure patterns that account for most of the time people lose, each with the diagnostic order that finds the cause fastest. Method rather than answers, because the specific error messages change and the reasoning does not.</p>
+    <div id="azDebugAcc"></div>
+    <div class="az-note" style="margin-top:16px">The general rule underneath all eight. Work outward from the smallest thing you can verify. Confirm your identity, then your subscription context, then the resource exists, then the network path to it, then the permission on it, then the configuration inside it. Almost every cloud failure is one of those six, and checking them in that order costs less than guessing.</div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-patterns">
+  <div class="container">
+    <h2 class="az-head">Patterns</h2>
+    <p class="az-lede">Seven architectural shapes that keep reappearing regardless of which services are current. Learning the shape means you can read a design you have never seen before and recognise what it is doing.</p>
+    <div id="azPatternAcc"></div>
+  </div>
+</section>
+
+<section class="az-panel" id="ap-progress">
+  <div class="container">
+    <h2 class="az-head">My progress</h2>
+    <p class="az-lede">What you have completed, what you noted, and what is still running. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="az-stat" style="margin-bottom:18px">
+      <div class="az-stat-c"><div class="az-stat-n" id="azPdone">0</div><div class="az-stat-l">Labs completed</div></div>
+      <div class="az-stat-c"><div class="az-stat-n" id="azPnotes">0</div><div class="az-stat-l">Labs with notes</div></div>
+      <div class="az-stat-c"><div class="az-stat-n" id="azPtear">0</div><div class="az-stat-l">Teardown items ticked</div></div>
+      <div class="az-stat-c"><div class="az-stat-n" id="azPrunning">0</div><div class="az-stat-l">Resources still running</div></div>
+    </div>
+
+    <div class="az-flex" style="margin-bottom:16px">
+      <button class="az-b primary" id="azExpAll" type="button">Export everything</button>
+      <button class="az-b" id="azCopyAll" type="button">Copy to clipboard</button>
+      <button class="az-b" id="azWipeAll" type="button">Clear all</button>
+      <span class="az-tiny" id="azProgMsg"></span>
+    </div>
+
+    <div id="azProgList"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="az-grid three">
+      <div class="az-card">
+        <div class="card-kicker">Keep your work</div>
+        <div class="card-title" style="margin:6px 0">One vault for the whole path</div>
+        <p class="card-text">VaultBook holds your lab notes, architecture diagrams, scripts, and study material in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have written.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="az-card">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New labs and study companions are added to the VaultBook library over time, each built the same way: the method, the reference, and the tracking tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="az-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your progress, notes, and checklists stay in your own browser storage. There is no upload, no account, no credentials collected, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var AZ = {};
+
+AZ.labs = [
+{id:"l1", n:1, t:"Set up your working environment", level:"Foundation", cost:"Free",
+ learn:"How the command line tool authenticates, what a subscription context is, and why almost every confusing error later traces back to being pointed at the wrong one.",
+ steps:["Install the command line tool and confirm the version","Sign in and list the subscriptions your account can reach","Set an explicit default subscription rather than relying on whichever came first","Set a default resource group and location in your configuration","Confirm your identity and context with a single status command"],
+ mistake:"Skipping the explicit subscription selection. If your account has access to more than one, the default is whichever the platform picked, and you will eventually create something expensive in the wrong place.",
+ note:"Do this once properly and half the confusion in later labs disappears."},
+
+{id:"l2", n:2, t:"Resource groups and naming discipline", level:"Foundation", cost:"Free",
+ learn:"Why the resource group is the unit that matters most for a learner, and how a naming convention pays for itself the first time you need to delete everything.",
+ steps:["Create a resource group with a name that identifies it as a lab","Apply tags recording the purpose and the date you created it","Create a second group so you can see how scope works","List all groups in table format and read the output","Delete the second group and watch how the operation behaves"],
+ mistake:"Putting lab resources into a group that also contains something you care about. Keep every experiment in a group whose entire contents you would be happy to destroy.",
+ note:"A resource group you can delete without thinking is the single best safety mechanism available to a learner."},
+
+{id:"l3", n:3, t:"Your first virtual machine, and shutting it down", level:"Foundation", cost:"Bills hourly",
+ learn:"How compute is provisioned, and the difference between stopping and deallocating that catches almost everyone once.",
+ steps:["Create a small virtual machine in your lab resource group","Connect to it and confirm it responds","List your machines in table format and read the power state","Stop the machine, then check the power state again","Deallocate it and compare the state to the previous step","Start it once more, then deallocate before you finish"],
+ mistake:"Assuming a stopped machine costs nothing. The compute reservation continues until the machine is deallocated, and the difference over a forgotten weekend is real money.",
+ note:"Do this lab on the cheapest size available. The point is the lifecycle, not the performance."},
+
+{id:"l4", n:4, t:"Networking, subnets and security rules", level:"Core", cost:"Mostly free",
+ learn:"How a virtual network, its subnets, and the rules that govern traffic between them fit together, and why most connection failures are network rather than application failures.",
+ steps:["Create a virtual network with a defined address range","Add two subnets with non-overlapping ranges inside it","Create a network security group and attach it to one subnet","Add a rule allowing a specific port from a specific source","Place a machine in each subnet and test whether they can reach each other","Change one rule and observe how the result changes"],
+ mistake:"Opening a management port to the whole internet because it made the lab work. It will work, and it will also be found by automated scanning within hours.",
+ note:"This is the lab that most improves your troubleshooting later, because network path problems are the largest single category of cloud failure."},
+
+{id:"l5", n:5, t:"Storage accounts, containers and access", level:"Core", cost:"Very low",
+ learn:"How object storage is structured, what the access tiers mean, and how a time-limited access token differs from a permanent key.",
+ steps:["Create a storage account with the lowest redundancy option","Create a container inside it","Upload a file and list the contents","Generate a time-limited access token and use it to read the file","Wait for the token to expire and confirm access fails","Compare that behaviour with using the account key directly"],
+ mistake:"Using the account key for everything because it is simpler. A leaked key grants full access with no expiry and no scope limit, which is exactly why time-limited tokens exist.",
+ note:"Storage is cheap enough to leave running, which is precisely why people forget it exists. Include it in teardown anyway."},
+
+{id:"l6", n:6, t:"Identity, roles and least privilege", level:"Core", cost:"Free",
+ learn:"How access control assigns a role to an identity at a scope, and why that three-part structure explains every permission error you will ever see.",
+ steps:["List the built-in roles available and read three of their descriptions","Create a managed identity","Assign a read-only role to it, scoped to your lab resource group","Attempt an action the role does not permit and read the error carefully","Widen the role, retry, and confirm the change in behaviour","Remove the assignment when finished"],
+ mistake:"Granting a broad administrative role to make an error go away. It works, it teaches you nothing, and in a real environment it is the origin of most serious incidents.",
+ note:"Identity, role, scope. Say it while diagnosing and you will find permission problems far faster."},
+
+{id:"l7", n:7, t:"Secrets management", level:"Core", cost:"Very low",
+ learn:"Why credentials must never live in code or configuration files, and how a secret store plus a managed identity removes the need for a credential in your application at all.",
+ steps:["Create a secret store in your lab group","Store a value in it and retrieve it from the command line","Grant a managed identity permission to read that secret","Retrieve the secret using the identity rather than a key","Rotate the value and confirm the old version is retained","Review the access log for the store"],
+ mistake:"Treating the secret store as a place to keep secrets that are also still hard-coded somewhere else. The value only appears when the code has no credential of its own.",
+ note:"This is the lab that most changes how you write code, regardless of platform."},
+
+{id:"l8", n:8, t:"Deploy a web application", level:"Applied", cost:"Free tier available",
+ learn:"How a managed application platform removes server management, what a deployment slot is for, and how configuration is injected without touching the code.",
+ steps:["Deploy a simple application from a local folder","Confirm it responds on its assigned address","Add an application setting and read it from within the app","Create a second deployment slot","Deploy a changed version to the slot and verify it separately","Swap the slots and confirm the change is live"],
+ mistake:"Deploying straight to the live slot because the swap step seems like extra work. The swap is the entire point, and it is the difference between a deployment and an outage.",
+ note:"A free tier is usually available for this. Check before you provision anything larger."},
+
+{id:"l9", n:9, t:"Infrastructure as code", level:"Applied", cost:"Depends on what you deploy",
+ learn:"Why clicking through a portal does not scale, and how a declarative template makes an environment reproducible, reviewable, and deletable.",
+ steps:["Export an existing resource group as a template and read it","Write a minimal template that creates one resource","Deploy it in what-if mode and read the predicted changes","Deploy it for real and confirm the result","Change one parameter and redeploy to see how it reconciles","Delete the group and redeploy the whole thing from the template"],
+ mistake:"Skipping the what-if step. Previewing the change before applying it is the habit that prevents the worst class of infrastructure mistake.",
+ note:"The final step is the real lesson. If you cannot rebuild it from the template, you do not have infrastructure as code, you have a backup."},
+
+{id:"l10", n:10, t:"Containers and a registry", level:"Applied", cost:"Low",
+ learn:"How a container image is built, stored in a private registry, and pulled by a runtime, and where authentication sits in that chain.",
+ steps:["Create a container registry","Build an image from a simple application","Push the image and list the tags in the registry","Run the container on a managed container service","Grant the running service permission to pull from the registry","Update the image and redeploy"],
+ mistake:"Making the registry publicly readable to get past a pull failure. The failure is almost always a missing role assignment, and fixing it properly takes one command.",
+ note:"The pull permission step is where most people get stuck. It is an identity, role, scope problem like every other."},
+
+{id:"l11", n:11, t:"Monitoring, metrics and alerts", level:"Applied", cost:"Low",
+ learn:"The difference between metrics, logs, and traces, and how to build an alert that fires on something meaningful rather than on noise.",
+ steps:["Enable diagnostic collection on a resource you built earlier","Query the collected data and read the schema","Chart one metric over time","Create an alert rule with a threshold and a notification","Trigger the condition deliberately and confirm the alert fires","Review why the threshold you chose was or was not sensible"],
+ mistake:"Alerting on a metric that changes constantly. An alert that fires every day is an alert that will be ignored within a week, which is worse than no alert.",
+ note:"Deliberately triggering your own alert is the step people skip, and it is the only way to know the rule works."},
+
+{id:"l12", n:12, t:"Build and destroy a complete environment", level:"Capstone", cost:"Highest of the set",
+ learn:"Everything above, together, under the constraint that you must be able to remove all of it in a single operation.",
+ steps:["Design a small environment on paper first: network, compute, storage, identity, secrets, monitoring","Express the whole thing as a template with parameters","Deploy it into a fresh resource group","Verify each component works and each connection is permitted","Record the total resource count and what each one costs to run","Destroy the entire group and confirm nothing survives","Redeploy from the template and confirm you get the same environment"],
+ mistake:"Building it by hand first and writing the template afterwards. Do it the other way round and the lab is genuinely hard, which is the point.",
+ note:"If you can do this lab twice and get identical results, you have the skill the certification is testing."}
+];
+
+AZ.levels = ["Foundation","Core","Applied","Capstone"];
+
+AZ.commands = [
+{g:"Session and context", t:"Sign in", c:"az login", n:"Opens a browser to authenticate. Use a device code flow instead when you are on a machine without a browser."},
+{g:"Session and context", t:"See who you are and where you are pointed", c:"az account show --output table", n:"The first command to run when anything behaves unexpectedly. Most confusing errors are a wrong subscription context."},
+{g:"Session and context", t:"List every subscription you can reach", c:"az account list --output table", n:"If more than one appears, set the default explicitly rather than trusting the order."},
+{g:"Session and context", t:"Set the active subscription", c:"az account set --subscription \"<subscription name or id>\"", n:"Do this immediately after signing in, every session, until it is muscle memory."},
+{g:"Session and context", t:"Set defaults so you stop retyping", c:"az configure --defaults group=<resource group> location=<region>", n:"Removes a whole class of typing errors, and makes later commands much shorter."},
+{g:"Session and context", t:"Find a command when you cannot remember it", c:"az find \"<what you are trying to do>\"", n:"Faster than searching documentation for the common cases."},
+
+{g:"Resource groups", t:"Create a group", c:"az group create --name <group> --location <region>", n:"The container that makes everything else deletable in one operation."},
+{g:"Resource groups", t:"List groups", c:"az group list --output table", n:"Table output is far more readable than the default for anything you are reading rather than parsing."},
+{g:"Resource groups", t:"List everything inside a group", c:"az resource list --resource-group <group> --output table", n:"Run this before teardown so you know what you are about to destroy."},
+{g:"Resource groups", t:"Delete a group and everything in it", c:"az group delete --name <group> --yes --no-wait", n:"The most important teardown command on this page. It removes every resource inside, which is exactly why lab work belongs in its own group."},
+{g:"Resource groups", t:"Tag a group", c:"az group update --name <group> --tags purpose=lab created=<date>", n:"Tags are how you find forgotten resources later. Tag everything you create for practice."},
+
+{g:"Compute", t:"Create a virtual machine", c:"az vm create --resource-group <group> --name <vm> --image <image> --size <size> --admin-username <user> --generate-ssh-keys", n:"Choose the smallest size that will run what you need. Lab machines rarely need more."},
+{g:"Compute", t:"List machines and their power state", c:"az vm list --show-details --output table", n:"The details flag is what adds the power state column, which is the one you actually want."},
+{g:"Compute", t:"Stop a machine", c:"az vm stop --resource-group <group> --name <vm>", n:"Shuts down the operating system. The compute allocation is retained and continues to bill."},
+{g:"Compute", t:"Deallocate a machine", c:"az vm deallocate --resource-group <group> --name <vm>", n:"Releases the compute allocation and stops the compute charge. This is the one you want at the end of a session."},
+{g:"Compute", t:"Start a machine", c:"az vm start --resource-group <group> --name <vm>", n:"Reallocates and boots. A deallocated machine may come back with a different address unless you reserved one."},
+{g:"Compute", t:"Resize a machine", c:"az vm resize --resource-group <group> --name <vm> --size <new size>", n:"Requires a restart. Cheaper than rebuilding when you sized wrong."},
+
+{g:"Networking", t:"Create a virtual network with a subnet", c:"az network vnet create --resource-group <group> --name <vnet> --address-prefix <cidr> --subnet-name <subnet> --subnet-prefix <cidr>", n:"Plan the address ranges before you type. Overlapping ranges are painful to unpick later."},
+{g:"Networking", t:"Add a subnet", c:"az network vnet subnet create --resource-group <group> --vnet-name <vnet> --name <subnet> --address-prefix <cidr>", n:"Subnet ranges must sit inside the network range and must not overlap each other."},
+{g:"Networking", t:"Create a security group", c:"az network nsg create --resource-group <group> --name <nsg>", n:"Rules live here. Attaching it to a subnet applies it to everything in that subnet."},
+{g:"Networking", t:"Add a rule", c:"az network nsg rule create --resource-group <group> --nsg-name <nsg> --name <rule> --priority <number> --source-address-prefixes <source> --destination-port-ranges <port> --access Allow --protocol Tcp", n:"Lower priority numbers are evaluated first. Never use a source of any for a management port."},
+{g:"Networking", t:"Show the effective rules on a machine", c:"az network nic list-effective-nsg --resource-group <group> --name <nic>", n:"The command that resolves most connectivity mysteries, because it shows what is actually applied rather than what you think you configured."},
+
+{g:"Storage", t:"Create a storage account", c:"az storage account create --resource-group <group> --name <name> --location <region> --sku Standard_LRS", n:"The name must be globally unique and lowercase. Locally redundant storage is the cheapest option and is correct for a lab."},
+{g:"Storage", t:"Create a container", c:"az storage container create --account-name <account> --name <container>", n:"Containers are the top level grouping inside an account."},
+{g:"Storage", t:"Upload a file", c:"az storage blob upload --account-name <account> --container-name <container> --name <blob> --file <path>", n:"Use a batch upload variant when moving a whole directory."},
+{g:"Storage", t:"List what is in a container", c:"az storage blob list --account-name <account> --container-name <container> --output table", n:"Worth running before teardown, because storage is easy to forget."},
+
+{g:"Identity and access", t:"List available roles", c:"az role definition list --output table", n:"Read the descriptions before assigning. There is usually a narrower role that does what you need."},
+{g:"Identity and access", t:"Assign a role at a scope", c:"az role assignment create --assignee <identity> --role \"<role>\" --scope <resource id>", n:"Identity, role, scope. Every permission problem is a wrong value in one of those three."},
+{g:"Identity and access", t:"List assignments on a scope", c:"az role assignment list --scope <resource id> --output table", n:"The fastest way to answer who can do what here."},
+{g:"Identity and access", t:"Create a managed identity", c:"az identity create --resource-group <group> --name <identity>", n:"Lets a resource authenticate without a credential stored anywhere."},
+
+{g:"Secrets", t:"Create a secret store", c:"az keyvault create --resource-group <group> --name <vault> --location <region>", n:"The name must be globally unique."},
+{g:"Secrets", t:"Store a secret", c:"az keyvault secret set --vault-name <vault> --name <secret> --value <value>", n:"Be aware that a value passed on the command line may land in your shell history."},
+{g:"Secrets", t:"Read a secret", c:"az keyvault secret show --vault-name <vault> --name <secret> --query value --output tsv", n:"The query and output flags return just the value, which is what you want when scripting."},
+
+{g:"Deployment", t:"Preview a template deployment", c:"az deployment group what-if --resource-group <group> --template-file <file>", n:"Always run this before deploying. It prints what would change and prevents the worst class of mistake."},
+{g:"Deployment", t:"Deploy a template", c:"az deployment group create --resource-group <group> --template-file <file> --parameters <file or values>", n:"Deployments are incremental by default, which means existing resources not in the template are left alone."},
+{g:"Deployment", t:"Export an existing group as a template", c:"az group export --name <group>", n:"A useful starting point rather than a finished template. Expect to clean up the output substantially."},
+
+{g:"Monitoring", t:"List available metrics for a resource", c:"az monitor metrics list-definitions --resource <resource id> --output table", n:"Find out what you can actually measure before designing an alert."},
+{g:"Monitoring", t:"Read a metric", c:"az monitor metrics list --resource <resource id> --metric <metric> --output table", n:"Useful for confirming a resource is doing what you think it is."},
+{g:"Monitoring", t:"Show activity on a group", c:"az monitor activity-log list --resource-group <group> --output table", n:"The audit trail. Answers who changed what and when, which is the first question after anything unexpected."},
+
+{g:"Housekeeping", t:"Update the tool", c:"az upgrade", n:"Worth doing periodically. Commands and flags do change between versions."},
+{g:"Housekeeping", t:"Set a default output format", c:"az configure --defaults output=table", n:"Table for reading, JSON for scripting. Setting the default to table makes everyday work far easier."},
+{g:"Housekeeping", t:"Filter any output", c:"az <any command> --query \"<expression>\" --output tsv", n:"The query flag filters and reshapes results, which turns almost any command into something scriptable."}
+];
+
+AZ.costItems = [
+{id:"vm",      label:"Virtual machines running",     weight:10, note:"The largest single line in almost every abandoned lab"},
+{id:"vmalloc", label:"Machines stopped but allocated", weight:8,  note:"Still billing. Deallocate rather than stop"},
+{id:"disk",    label:"Managed disks",                weight:3,  note:"Persist after a machine is deleted unless removed"},
+{id:"ip",      label:"Reserved public addresses",    weight:2,  note:"Bill even when nothing is attached to them"},
+{id:"gateway", label:"Gateways and load balancers",  weight:9,  note:"Expensive, easy to forget, rarely needed in a lab"},
+{id:"db",      label:"Managed databases",            weight:7,  note:"Bill continuously regardless of query volume"},
+{id:"cluster", label:"Container clusters",           weight:9,  note:"Node pools bill as compute even when idle"},
+{id:"storage", label:"Storage accounts",             weight:1,  note:"Cheap, which is exactly why they get forgotten"},
+{id:"backup",  label:"Backups and snapshots",        weight:2,  note:"Accumulate silently and survive the thing they backed up"}
+];
+
+AZ.costAdvice = [
+{t:"Set a budget alert before your first lab", body:"Every cloud platform can notify you when spend crosses a threshold you choose. Set one at an amount that would annoy you, not an amount that would ruin you, because the point is to catch a mistake early rather than to cap the damage. Do it before you create anything, because the day you need it is the day you forgot to set it."},
+{t:"Understand what free tier actually means", body:"Free offerings usually combine a time-limited credit, a set of services free for a fixed period, and a smaller set free indefinitely within limits. The limits are the part people miss, and exceeding them converts a free resource into a billed one silently. Read which category each service you use falls into."},
+{t:"One resource group per lab, always", body:"The group is the deletion boundary. A lab whose resources are scattered across shared groups cannot be removed with confidence, which means it will not be removed at all. One group, one lab, deleted at the end of the session."},
+{t:"Tag everything with a date", body:"A tag recording when you created something turns a mystery resource into an obvious candidate for deletion. Without it, you will find things months later and be afraid to remove them because you cannot remember what depends on them."},
+{t:"Deallocate rather than stop", body:"Stopping a virtual machine shuts down the operating system while retaining the compute allocation, which continues to bill. Deallocating releases it. This single distinction accounts for more surprise bills among learners than everything else combined."},
+{t:"Check the leftovers, not just the obvious things", body:"Deleting a virtual machine frequently leaves its disk, its network interface, and its public address behind, each billing quietly. Always list what remains in the group after a deletion rather than assuming the operation was complete."},
+{t:"Prefer the smallest thing that demonstrates the concept", body:"A lab exists to teach a mechanism, not to perform. The smallest available size teaches the same lesson as the largest at a fraction of the cost, and choosing it deliberately is itself part of the discipline the job requires."},
+{t:"Review spend weekly while you are learning", body:"A weekly look at the cost breakdown teaches you what things actually cost far faster than any pricing page, because it attaches a number to something you personally built. It also catches the forgotten resource while it is still cheap to have forgotten."}
+];
+
+AZ.teardown = [
+{cat:"Before you finish the session", items:[
+ {t:"List every resource in the lab group and read it", why:"You cannot remove what you have not seen. This is the step that finds the thing you forgot you made"},
+ {t:"Deallocate every virtual machine", why:"Not stop. Deallocate. Confirm the power state afterwards rather than assuming"},
+ {t:"Delete any gateway or load balancer", why:"These are among the most expensive resources to leave running and are almost never needed between sessions"},
+ {t:"Scale container clusters to zero nodes or delete them", why:"Node pools bill as compute whether or not anything is scheduled on them"}
+]},
+{cat:"The leftovers people miss", items:[
+ {t:"Check for orphaned disks", why:"Deleting a machine often leaves its disks behind, and they continue to bill"},
+ {t:"Check for reserved public addresses", why:"A reserved address bills even when nothing is attached to it"},
+ {t:"Check for network interfaces with no parent", why:"Cheap individually, and they accumulate across many labs"},
+ {t:"Check for snapshots and backups", why:"These survive the resource they protected and are easy to lose track of entirely"}
+]},
+{cat:"The clean finish", items:[
+ {t:"Delete the entire lab resource group", why:"The single operation that removes everything inside. This is why lab work belongs in its own group"},
+ {t:"Confirm the group is gone rather than assuming", why:"Deletion is asynchronous. A command that returned does not mean the work is finished"},
+ {t:"Check the subscription for groups you did not expect", why:"Catches labs from previous sessions that were never cleaned up"},
+ {t:"Look at the current spend figure", why:"Ten seconds that closes the loop and tells you whether the session cost what you expected"}
+]}
+];
+
+AZ.debug = [
+{t:"Authentication and context failures", k:"identity",
+ body:"The symptom is usually a resource that does not exist or an authorisation refusal on something you are sure you created. The cause is almost always that you are pointed at a different subscription or signed in as a different account than you assume. Check your current identity and subscription first, every time, before investigating anything else. This single check resolves more problems than any other."},
+{t:"Permission denied on an action", k:"identity",
+ body:"Three things determine whether an action is permitted: which identity is acting, which role that identity holds, and at what scope the role was granted. Check all three in that order. The most common cause is a role assigned at the wrong scope, typically on the resource when it was needed on the group, or the reverse. Widening the role until it works teaches nothing, so find the specific gap instead."},
+{t:"Cannot connect to a resource", k:"network",
+ body:"Work outward. Does the resource exist and is it running. Is there a network path between you and it. Is a security rule blocking the port. Is the resource actually listening on that port. Is name resolution returning the address you expect. Checking the effective security rules on the interface resolves this faster than anything else, because it shows what is applied rather than what you configured."},
+{t:"Name already taken", k:"naming",
+ body:"Some resource types require globally unique names across the entire platform, notably storage accounts and secret stores, because their names become part of a public address. A name that seems obviously unavailable usually is. Adopt a convention with a short random suffix and the problem disappears permanently."},
+{t:"Quota or capacity refusal", k:"limits",
+ body:"Every subscription carries limits on how many of each resource type it may create, and some regions periodically run short of specific sizes. The message usually names the limit. Try a different region or a different size first, then request a limit increase if you genuinely need it. New subscriptions have low limits by design."},
+{t:"Deployment fails partway through", k:"deployment",
+ body:"Read the deployment operations rather than the summary error, because the summary reports the last failure and not the first. Find the earliest failed operation and start there. The most common causes are a dependency that was not declared, a parameter value that is invalid for the chosen region, and a name collision with something you deleted a moment earlier that has not finished being removed."},
+{t:"It worked yesterday and does not today", k:"drift",
+ body:"Something changed, and the activity log will tell you what. Check it for the resource group before you begin theorising. Common answers are a credential that expired, a token that reached its end date, a policy that was applied at a higher scope, and a resource that someone else in the subscription modified or removed."},
+{t:"Cannot delete something", k:"deletion",
+ body:"Usually a dependency or a lock. A resource with something attached to it will refuse to go until the attachment is removed, and a delete lock will refuse regardless. Check for locks first because they are quick to rule out, then work down the dependency chain from the resource you are trying to remove."}
+];
+
+AZ.patterns = [
+{t:"Layered network with a controlled entry point", k:"network",
+ body:"Traffic enters through one deliberately exposed layer, which is the only thing reachable from outside. Behind it sit application and data layers that accept connections only from the layer in front. The value is that the number of things exposed to the internet is small, known, and defensible, and every other component can be reasoned about as internal. Almost every production design is a variation on this shape."},
+{t:"Hub and spoke", k:"network",
+ body:"A central network holds shared services such as connectivity, inspection, and identity, and separate workload networks connect to it rather than to each other. It exists because duplicating shared services per workload is expensive and inconsistent. The trade is that the hub becomes a dependency for everything, so it has to be more reliable than any single workload."},
+{t:"Identity instead of credentials", k:"identity",
+ body:"Rather than storing a key in a service so it can call another, the calling service is given an identity and that identity is granted a role. No credential exists to leak, expire, or be committed to a repository by accident. Recognising this pattern is the difference between a design that is secure and one that merely has a secret store bolted on."},
+{t:"Queue between producer and consumer", k:"application",
+ body:"A component that produces work writes to a queue rather than calling the consumer directly. The consumer reads at its own pace. This absorbs bursts, survives the consumer being unavailable, and lets each side scale independently. The cost is that the system becomes eventually consistent, and any design using it must be honest about that."},
+{t:"Stateless compute with external state", k:"application",
+ body:"Compute instances hold nothing that matters, and all state lives in storage or a database. Any instance can be destroyed and replaced without loss, which is what makes autoscaling and rolling deployment possible. When a design resists this, the reason is almost always local state that nobody has moved out yet."},
+{t:"Landing zone", k:"governance",
+ body:"A prepared environment with identity, networking, policy, and monitoring already in place, into which workloads are deployed. It exists because letting each team build its own foundation produces an estate nobody can secure or audit. The pattern trades some autonomy for consistency, and the argument about where that line sits is a permanent feature of every organisation that adopts it."},
+{t:"Policy as a guardrail", k:"governance",
+ body:"Rather than reviewing every change, rules are applied at a scope that prevent or flag non-compliant configuration automatically. Requiring tags, restricting regions, and forbidding public exposure are typical. The value is that it scales where review does not. The risk is a rule written broadly enough to block legitimate work, which is why policies are usually introduced in an audit mode first."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_L="vb_az_labs_v1", K_T="vb_az_tear_v1", K_C="vb_az_cost_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ window.localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(k,f){ try{ var r=window.localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function copyText(text, msgId){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(
+        function(){ if(msgId) flash(msgId,"Copied."); },
+        function(){ if(msgId) flash(msgId,"Copy failed."); });
+    } else if (msgId){ flash(msgId,"Copy not supported here."); }
+  }
+
+  var S = { labs:get(K_L,{}), tear:get(K_T,{}), cost:get(K_C,{}) };
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".az-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".az-panel"), function(p){
+          p.classList.remove("is-active");
+        });
+        var t=$("ap-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="progress") renderProgress();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- labs ---------- */
+  function renderLabs(){
+    var q=($("azLabFind").value||"").toLowerCase();
+    var lvl=$("azLabLevel").value;
+    var html="", n=0;
+    for (var i=0;i<AZ.labs.length;i++){
+      var L=AZ.labs[i];
+      var hay=(L.t+" "+L.level+" "+L.learn+" "+L.steps.join(" ")+" "+L.mistake+" "+L.note).toLowerCase();
+      if (q && hay.indexOf(q)<0) continue;
+      if (lvl && L.level!==lvl) continue;
+      n++;
+      var st=S.labs[L.id]||{};
+      var steps="";
+      for (var s=0;s<L.steps.length;s++){
+        steps += '<div class="az-step"><div class="az-step-n">'+(s+1)+"</div><div>"+esc(L.steps[s])+"</div></div>";
+      }
+      html += '<div class="az-acc'+(st.open?" is-open":"")+'"><button class="az-acc-b" type="button" data-lab="'+L.id+'">'+
+        '<span class="az-acc-t">'+L.n+". "+esc(L.t)+(st.done?' <span class="az-ok">done</span>':"")+"</span>"+
+        '<span class="az-acc-k">'+esc(L.level)+" . "+esc(L.cost)+"</span></button>"+
+        '<div class="az-acc-body">'+
+        "<p><strong>What you will learn.</strong> "+esc(L.learn)+"</p>"+
+        '<div style="margin-top:14px">'+steps+"</div>"+
+        '<div class="az-warn" style="margin-top:14px"><strong>The mistake most people make.</strong> '+esc(L.mistake)+"</div>"+
+        '<div class="az-note"><strong>Note.</strong> '+esc(L.note)+"</div>"+
+        '<div style="margin-top:14px">'+
+        '<label class="az-tiny" for="ln-'+L.id+'">Your notes on this lab</label>'+
+        '<textarea class="az-txt" id="ln-'+L.id+'" data-ln="'+L.id+'" style="margin-top:5px;min-height:70px" placeholder="What went wrong, what you would do differently">'+
+        esc(st.note||"")+"</textarea>"+
+        '<div class="az-flex" style="margin-top:10px">'+
+        '<button class="az-b '+(st.done?"":"primary")+' sm" type="button" data-done="'+L.id+'">'+
+        (st.done?"Mark not done":"Mark complete")+"</button></div></div></div></div>";
+    }
+    $("azLabList").innerHTML = html || '<div class="az-empty">No lab matches that filter.</div>';
+    $("azLabCount").textContent = n+" of "+AZ.labs.length+" labs";
+
+    Array.prototype.forEach.call($("azLabList").querySelectorAll("button[data-lab]"), function(b){
+      b.addEventListener("click", function(){
+        var id=b.getAttribute("data-lab");
+        if (!S.labs[id]) S.labs[id]={};
+        S.labs[id].open = !b.parentNode.classList.contains("is-open");
+        b.parentNode.classList.toggle("is-open");
+        put(K_L,S.labs);
+      });
+    });
+    Array.prototype.forEach.call($("azLabList").querySelectorAll("textarea[data-ln]"), function(t){
+      t.addEventListener("input", function(){
+        var id=t.getAttribute("data-ln");
+        if (!S.labs[id]) S.labs[id]={};
+        S.labs[id].note=t.value;
+        put(K_L,S.labs);
+      });
+    });
+    Array.prototype.forEach.call($("azLabList").querySelectorAll("button[data-done]"), function(b){
+      b.addEventListener("click", function(){
+        var id=b.getAttribute("data-done");
+        if (!S.labs[id]) S.labs[id]={};
+        S.labs[id].done=!S.labs[id].done;
+        S.labs[id].open=true;
+        put(K_L,S.labs);
+        renderLabs();
+      });
+    });
+  }
+
+  function initLabs(){
+    AZ.levels.forEach(function(l){
+      var o=document.createElement("option"); o.value=l; o.textContent=l; $("azLabLevel").appendChild(o);
+    });
+    $("azLabFind").addEventListener("input", renderLabs);
+    $("azLabLevel").addEventListener("change", renderLabs);
+    renderLabs();
+  }
+
+  /* ---------- command library ---------- */
+  function renderCmds(){
+    var q=($("azCmdFind").value||"").toLowerCase();
+    var g=$("azCmdGroup").value;
+    var html="", n=0, lastGroup="";
+    for (var i=0;i<AZ.commands.length;i++){
+      var c=AZ.commands[i];
+      var hay=(c.g+" "+c.t+" "+c.c+" "+c.n).toLowerCase();
+      if (q && hay.indexOf(q)<0) continue;
+      if (g && c.g!==g) continue;
+      if (c.g!==lastGroup){
+        html += '<div style="font-weight:700;font-size:15px;margin:18px 0 10px;color:var(--muted2);letter-spacing:.05em;text-transform:uppercase">'+esc(c.g)+"</div>";
+        lastGroup=c.g;
+      }
+      n++;
+      html += '<div class="az-cmd"><div class="az-flex" style="justify-content:space-between;align-items:flex-start">'+
+        '<div class="az-cmd-t">'+esc(c.t)+"</div>"+
+        '<button class="az-b sm" type="button" data-cp="'+i+'">Copy</button></div>'+
+        '<pre class="az-code">'+esc(c.c)+"</pre>"+
+        '<div class="az-muted" style="margin-top:9px">'+esc(c.n)+"</div></div>";
+    }
+    $("azCmdList").innerHTML = html || '<div class="az-empty">No command matches that filter.</div>';
+    $("azCmdCount").textContent = n+" of "+AZ.commands.length+" commands";
+    Array.prototype.forEach.call($("azCmdList").querySelectorAll("button[data-cp]"), function(b){
+      b.addEventListener("click", function(){
+        copyText(AZ.commands[parseInt(b.getAttribute("data-cp"),10)].c, "azCmdCount");
+        b.textContent="Copied";
+        window.setTimeout(function(){ b.textContent="Copy"; }, 1800);
+      });
+    });
+  }
+
+  function initCmds(){
+    var groups=[];
+    AZ.commands.forEach(function(c){ if (groups.indexOf(c.g)<0) groups.push(c.g); });
+    groups.forEach(function(g){
+      var o=document.createElement("option"); o.value=g; o.textContent=g; $("azCmdGroup").appendChild(o);
+    });
+    $("azCmdFind").addEventListener("input", renderCmds);
+    $("azCmdGroup").addEventListener("change", renderCmds);
+    renderCmds();
+  }
+
+  /* ---------- cost estimator and advice ---------- */
+  function renderCostRows(){
+    var html="";
+    for (var i=0;i<AZ.costItems.length;i++){
+      var it=AZ.costItems[i];
+      var v=(S.cost[it.id]!=null) ? S.cost[it.id] : "";
+      html += '<div style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--tint)">'+
+        '<div style="font-weight:600;font-size:14px;margin-bottom:3px">'+esc(it.label)+"</div>"+
+        '<div class="az-tiny" style="margin-bottom:8px">'+esc(it.note)+"</div>"+
+        '<input class="az-in" type="number" min="0" step="1" data-ci="'+it.id+
+        '" value="'+esc(v)+'" placeholder="0" style="max-width:110px"></div>';
+    }
+    $("azCostRows").innerHTML=html;
+    Array.prototype.forEach.call($("azCostRows").querySelectorAll("input[data-ci]"), function(inp){
+      inp.addEventListener("input", function(){
+        var n=parseInt(inp.value,10);
+        S.cost[inp.getAttribute("data-ci")] = isNaN(n)?0:n;
+        put(K_C,S.cost);
+        computeCost();
+      });
+    });
+  }
+
+  function computeCost(){
+    var hours=Math.max(0, parseInt($("azCostHours").value,10)||0);
+    var units=0, weighted=0;
+    for (var i=0;i<AZ.costItems.length;i++){
+      var it=AZ.costItems[i];
+      var n=parseInt(S.cost[it.id],10)||0;
+      units += n;
+      weighted += n*it.weight;
+    }
+    var exposure = weighted*hours;
+    var risk = exposure===0 ? "None" : (exposure<200 ? "Low" : (exposure<1000 ? "Watch it" : "High"));
+    $("azCostUnits").textContent=units;
+    $("azCostHrs").textContent=units*hours;
+    $("azCostRisk").textContent=risk;
+    S.cost.hours=hours;
+    put(K_C,S.cost);
+  }
+
+  function initCost(){
+    if (S.cost.hours) $("azCostHours").value=S.cost.hours;
+    renderCostRows();
+    $("azCostHours").addEventListener("input", computeCost);
+    $("azCostGo").addEventListener("click", function(){
+      computeCost(); flash("azCostMsg","Estimated from what is left running.");
+    });
+    accordion("azCostAcc", AZ.costAdvice, null);
+    computeCost();
+  }
+
+  /* ---------- generic accordion ---------- */
+  function accordion(target, list, keyName){
+    var html="";
+    for (var i=0;i<list.length;i++){
+      var e=list[i];
+      html += '<div class="az-acc"><button class="az-acc-b" type="button">'+
+        '<span class="az-acc-t">'+esc(e.t)+"</span>"+
+        (keyName && e[keyName] ? '<span class="az-acc-k">'+esc(e[keyName])+"</span>" : "")+"</button>"+
+        '<div class="az-acc-body"><p>'+esc(e.body)+"</p></div></div>";
+    }
+    $(target).innerHTML=html;
+    Array.prototype.forEach.call($(target).querySelectorAll(".az-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- teardown checklist ---------- */
+  function tearKey(c,i){ return "t"+c+"-"+i; }
+
+  function tearCount(){
+    var n=0;
+    for (var k in S.tear){ if (S.tear[k]) n++; }
+    return n;
+  }
+
+  function renderTear(){
+    var html="", total=0;
+    for (var c=0;c<AZ.teardown.length;c++){
+      var g=AZ.teardown[c], rows="";
+      for (var i=0;i<g.items.length;i++){
+        total++;
+        var k=tearKey(c,i), on=!!S.tear[k];
+        rows += '<div class="az-step" style="align-items:flex-start">'+
+          '<input type="checkbox" id="td-'+k+'" data-td="'+k+'"'+(on?" checked":"")+
+          ' style="width:18px;height:18px;margin-top:3px;accent-color:var(--blue);flex:0 0 auto">'+
+          '<label for="td-'+k+'" style="cursor:pointer'+(on?";text-decoration:line-through;color:var(--muted2)":"")+'">'+
+          esc(g.items[i].t)+'<span style="display:block;font-size:12.5px;color:var(--muted2);margin-top:2px">'+
+          esc(g.items[i].why)+"</span></label></div>";
+      }
+      html += '<div class="az-card" style="margin-bottom:14px;padding:18px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:16px">'+esc(g.cat)+"</div>"+rows+"</div>";
+    }
+    $("azTearList").innerHTML=html;
+    $("azTearCount").textContent=tearCount()+" of "+total+" done";
+    Array.prototype.forEach.call($("azTearList").querySelectorAll("input[data-td]"), function(cb){
+      cb.addEventListener("change", function(){
+        S.tear[cb.getAttribute("data-td")]=cb.checked;
+        put(K_T,S.tear);
+        renderTear();
+      });
+    });
+  }
+
+  function tearText(){
+    var out=["Azure lab teardown checklist",""];
+    for (var c=0;c<AZ.teardown.length;c++){
+      out.push(AZ.teardown[c].cat);
+      for (var i=0;i<AZ.teardown[c].items.length;i++){
+        out.push("  ["+(S.tear[tearKey(c,i)]?"x":" ")+"] "+AZ.teardown[c].items[i].t);
+      }
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  function initTear(){
+    renderTear();
+    $("azTearReset").addEventListener("click", function(){
+      if(!window.confirm("Untick every teardown item?")) return;
+      S.tear={}; put(K_T,S.tear); renderTear();
+    });
+    $("azTearExport").addEventListener("click", function(){
+      download("azure-teardown-checklist.txt", tearText()); flash("azTearMsg","Exported.");
+    });
+  }
+
+  /* ---------- progress ---------- */
+  function everything(){
+    var out=["Azure labs progress",""];
+    var done=0;
+    for (var i=0;i<AZ.labs.length;i++){
+      var L=AZ.labs[i], st=S.labs[L.id]||{};
+      out.push("["+(st.done?"x":" ")+"] "+L.n+". "+L.t+"  ("+L.level+")");
+      if (st.note) out.push("      "+st.note);
+      if (st.done) done++;
+    }
+    out.push("");
+    out.push("Completed "+done+" of "+AZ.labs.length+" labs.");
+    out.push("");
+    out.push("=".repeat(58));
+    out.push("");
+    out.push(tearText());
+    var units=0;
+    for (var c=0;c<AZ.costItems.length;c++){ units += parseInt(S.cost[AZ.costItems[c].id],10)||0; }
+    out.push("=".repeat(58));
+    out.push("");
+    out.push("Resources recorded as still running: "+units);
+    return out.join("\n");
+  }
+
+  function renderProgress(){
+    var done=0, noted=0;
+    for (var i=0;i<AZ.labs.length;i++){
+      var st=S.labs[AZ.labs[i].id]||{};
+      if (st.done) done++;
+      if (st.note && st.note.trim().length) noted++;
+    }
+    var units=0;
+    for (var c=0;c<AZ.costItems.length;c++){ units += parseInt(S.cost[AZ.costItems[c].id],10)||0; }
+    $("azPdone").textContent=done;
+    $("azPnotes").textContent=noted;
+    $("azPtear").textContent=tearCount();
+    $("azPrunning").textContent=units;
+
+    if (!done && !noted && !tearCount() && !units){
+      $("azProgList").innerHTML='<div class="az-empty">Nothing recorded yet. Complete a lab and it collects here.</div>';
+      return;
+    }
+    $("azProgList").innerHTML='<div class="az-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(everything().slice(0,4000))+"</pre></div>";
+  }
+
+  function initProgress(){
+    $("azExpAll").addEventListener("click", function(){
+      download("azure-labs-progress.txt", everything()); flash("azProgMsg","Exported.");
+    });
+    $("azCopyAll").addEventListener("click", function(){ copyText(everything(), "azProgMsg"); });
+    $("azWipeAll").addEventListener("click", function(){
+      if(!window.confirm("Clear lab progress, notes, teardown ticks and the cost record?")) return;
+      S.labs={}; S.tear={}; S.cost={};
+      put(K_L,S.labs); put(K_T,S.tear); put(K_C,S.cost);
+      renderLabs(); renderTear(); renderCostRows(); computeCost(); renderProgress();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initLabs();
+    initCmds();
+    initCost();
+    initTear();
+    accordion("azDebugAcc", AZ.debug, "k");
+    accordion("azPatternAcc", AZ.patterns, "k");
+    initProgress();
+    renderProgress();
+  });
+})();
+</script>

@@ -1,0 +1,792 @@
+---
+layout: default
+title: Policy Research Notebook
+description: A reusable framework for analysing any executive action, with the doctrine, the remedies, a worked case file and a notebook you can run against your own.
+permalink: /tools/policy-research-notebook.html
+body_class: tool-page
+---
+
+<style>
+  .pl-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .pl-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .pl-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .pl-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .pl-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .pl-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .pl-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .pl-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .pl-row::-webkit-scrollbar{display:none}
+  .pl-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .pl-btn:hover{background:var(--tint);color:var(--text)}
+  .pl-btn.is-active{background:var(--text);color:#fff}
+  .pl-panel{display:none;padding:34px 0 60px}
+  .pl-panel.is-active{display:block}
+  .pl-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .pl-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .pl-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .pl-grid{display:grid;gap:16px}
+  .pl-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .pl-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .pl-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .pl-in,.pl-sel,.pl-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .pl-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .pl-in:focus,.pl-sel:focus,.pl-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .pl-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .pl-b:hover{background:var(--tint)}
+  .pl-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .pl-b.primary:hover{background:var(--blue2)}
+  .pl-b.sm{font-size:13px;padding:6px 10px}
+  .pl-b.icon{padding:6px 9px;font-size:13px;line-height:1}
+  .pl-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .pl-muted{color:var(--muted);font-size:13.5px}
+  .pl-tiny{font-size:12px;color:var(--muted2)}
+  .pl-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.pl-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.pl-tbl th,table.pl-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.pl-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.pl-tbl tr:last-child td{border-bottom:0}
+  table.pl-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pl-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .pl-day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:14px}
+  .pl-day-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .pl-day-t{font-weight:700;font-size:16px}
+  .pl-stop{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--tint)}
+  .pl-stop-n{flex:0 0 24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted2)}
+  .pl-stop-body{flex:1;min-width:0}
+  .pl-stop-t{font-weight:600;font-size:14.5px}
+  .pl-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .pl-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .pl-acc-b:hover{background:var(--tint)}
+  .pl-acc-t{font-weight:700;font-size:16.5px}
+  .pl-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .pl-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .pl-acc.is-open .pl-acc-body{display:block}
+  .pl-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .pl-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .pl-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .pl-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .pl-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .pl-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .pl-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .pl-empty{padding:26px;text-align:center;color:var(--muted)}
+  .pl-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .pl-check:last-child{border-bottom:0}
+  .pl-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .pl-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .pl-check .pl-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .pl-done label{text-decoration:line-through;color:var(--muted2)}
+  .pl-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .pl-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:80px}
+  .pl-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+
+  .pl-cite{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:3px 8px;display:inline-block;color:var(--muted);}
+  .pl-for{border-left:3px solid #2563eb;background:rgba(37,99,235,.06);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .pl-against{border-left:3px solid #b45309;background:rgba(180,83,9,.07);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .pl-mis{border-left:3px solid #64748b;background:rgba(100,116,139,.08);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .pl-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.75;background:#0f172a;color:#c7d9f0;border-radius:12px;padding:15px;overflow-x:auto;white-space:pre;}
+  .pl-cc{border:1px solid var(--line);border-radius:15px;background:var(--card);padding:15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+  .pl-cc:hover{transform:translateY(-2px);border-color:#94a3b8;}
+  .pl-cc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#2563eb;}
+  .pl-cc[data-area="Economics"]::before{background:#2563eb;}
+  .pl-cc[data-area="History and society"]::before{background:#7c3aed;}
+  .pl-cc[data-area="Ideology and culture"]::before{background:#0891b2;}
+  .pl-cc[data-area="Politics and the state"]::before{background:#b45309;}
+  .pl-cc[data-area="Method"]::before{background:#059669;}
+  .pl-cn{font-weight:700;font-size:15.5px;line-height:1.4;}
+  .pl-cm{font-size:11.5px;color:var(--muted2);margin-top:4px;}
+  .pl-cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:11px;}
+  .pl-dl{display:grid;grid-template-columns:165px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.8;}
+  .pl-dl:last-child{border-bottom:0;}
+  .pl-dl .k{font-weight:700;color:var(--muted2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;padding-top:3px;}
+  @media(max-width:660px){.pl-dl{grid-template-columns:1fr;gap:5px;}}
+</style>
+
+
+
+<section class="pl-hero">
+  <div class="container">
+    <div class="pl-eyebrow">VaultBook Study Library</div>
+    <h1 class="pl-title">The policy research notebook</h1>
+    <p class="pl-sub">A reusable method for working out whether an executive action is lawful, and what a court can actually do about it. Run eight questions against any proclamation, order or agency rule. Look up the doctrine that decides each one, including the difference between a fee, a tax and a penalty, and between vacating a rule and enjoining it. Then read the whole method applied to one worked case from start to finish. Everything you write stays on your device.</p>
+    <div class="pl-badges">
+      <span class="pl-badge">8 question framework</span>
+      <span class="pl-badge">23 doctrines</span>
+      <span class="pl-badge">Remedy explainer</span>
+      <span class="pl-badge">Worked case file</span>
+      <span class="pl-badge">Both sides stated</span>
+      <span class="pl-badge">Export your analysis</span>
+    </div>
+  </div>
+</section>
+
+<div class="pl-tabs">
+  <div class="container">
+    <div class="pl-row" role="tablist" aria-label="Notebook tools">
+      <button class="pl-btn is-active" data-tab="framework" role="tab" aria-selected="true">The framework</button>
+      <button class="pl-btn" data-tab="doctrine" role="tab" aria-selected="false">Doctrine</button>
+      <button class="pl-btn" data-tab="remedies" role="tab" aria-selected="false">Remedies</button>
+      <button class="pl-btn" data-tab="casefile" role="tab" aria-selected="false">Case file</button>
+      <button class="pl-btn" data-tab="notebook" role="tab" aria-selected="false">My notebook</button>
+      <button class="pl-btn" data-tab="extend" role="tab" aria-selected="false">Extending this</button>
+    </div>
+  </div>
+</div>
+
+<section class="pl-panel is-active" id="plp-framework">
+  <div class="container">
+    <h2 class="pl-head">The framework</h2>
+    <p class="pl-lede">Eight questions, in the order a court would reach them. Each names what to look for, the doctrine that governs it, and the mistake that most commentary makes. Work down the list and you will have the shape of the legal argument before anyone tells you what to think about it.</p>
+    <div id="plFramework"></div>
+    <div class="pl-warn" style="margin-top:16px">This is a study tool, not legal advice, and it describes general principles rather than the law of any particular jurisdiction or moment. Litigation moves, appeals are filed, stays are granted and statutes are amended. Anyone with a live matter needs a lawyer and the current record, not a page on the internet.</div>
+  </div>
+</section>
+
+<section class="pl-panel" id="plp-doctrine">
+  <div class="container">
+    <h2 class="pl-head">Doctrine</h2>
+    <p class="pl-lede">Sixteen doctrines that decide most challenges to executive action. Each gives the rule as courts state it, the test actually applied, and where it is genuinely contested.</p>
+
+    <div class="pl-flex" style="margin-bottom:14px">
+      <input class="pl-in" id="plFind" type="search" placeholder="Search doctrines and tests" style="max-width:300px">
+      <select class="pl-sel" id="plArea" style="max-width:230px"><option value="">Any area</option></select>
+      <span class="pl-tiny" id="plCount"></span>
+    </div>
+
+    <div class="pl-cgrid" id="plGrid"></div>
+    <div id="plDetail"></div>
+  </div>
+</section>
+
+<section class="pl-panel" id="plp-remedies">
+  <div class="container">
+    <h2 class="pl-head">Remedies</h2>
+    <p class="pl-lede">Winning on the merits and getting relief are two questions. This is the part almost every news account skips, and it is the part that decides who is actually affected by a ruling.</p>
+    <div id="plRemedies"></div>
+    <div class="pl-note" style="margin-top:16px">The single most useful distinction on this page. An injunction is a shield held over named parties and it leaves the rule on the books. Vacatur under the Administrative Procedure Act sets the rule aside, which erases it for everyone rather than protecting anyone in particular. A headline saying a court blocked a policy tells you nothing about which of these happened, and the difference decides whether a person who was not a party to the case is affected.</div>
+  </div>
+</section>
+
+<section class="pl-panel" id="plp-casefile">
+  <div class="container">
+    <h2 class="pl-head">Case file</h2>
+    <p class="pl-lede">The framework applied end to end to one contested executive charge, so you can see each question doing work rather than reading it in the abstract.</p>
+
+    <div class="pl-warn" style="margin-bottom:16px">This case file is a teaching example built from public reporting of a live dispute. Appeals, stays and further proceedings change the position, sometimes quickly, and nothing here should be relied on as a current statement of the law. Check the docket and current guidance before acting on anything.</div>
+
+    <div class="pl-flex" style="margin-bottom:14px">
+      <span class="pl-tiny" id="cfCount"></span>
+    </div>
+    <div id="plCase"></div>
+  </div>
+</section>
+
+<section class="pl-panel" id="plp-notebook">
+  <div class="container">
+    <h2 class="pl-head">My notebook</h2>
+    <p class="pl-lede">Track a policy action of your own. Answer the eight framework questions against it, record where you are confident and where you are guessing, and export the whole analysis.</p>
+
+    <div class="pl-card" style="margin-bottom:18px">
+      <div class="pl-grid three">
+        <div>
+          <label class="pl-tiny" for="nbName">What are you tracking</label>
+          <input class="pl-in" id="nbName" type="text" placeholder="Order, rule or proclamation" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="pl-tiny" for="nbBody">Which body issued it</label>
+          <input class="pl-in" id="nbBody" type="text" placeholder="President, agency, department" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="pl-tiny" for="nbDate">Date</label>
+          <input class="pl-in" id="nbDate" type="text" placeholder="When it issued" style="margin-top:5px">
+        </div>
+      </div>
+      <div class="pl-flex" style="margin-top:12px">
+        <button class="pl-b primary" id="nbSave" type="button">Save</button>
+        <button class="pl-b" id="nbExport" type="button">Export analysis</button>
+        <button class="pl-b" id="nbClear" type="button">Clear</button>
+        <span class="pl-tiny" id="nbMsg"></span>
+      </div>
+    </div>
+
+    <div class="pl-stat" style="margin-bottom:18px">
+      <div class="pl-stat-c"><div class="pl-stat-n" id="nbAns">0</div><div class="pl-stat-l">Answered</div></div>
+      <div class="pl-stat-c"><div class="pl-stat-n" id="nbTot">0</div><div class="pl-stat-l">Questions</div></div>
+      <div class="pl-stat-c"><div class="pl-stat-n" id="nbConf">0</div><div class="pl-stat-l">Confident</div></div>
+      <div class="pl-stat-c"><div class="pl-stat-n" id="nbGap">0</div><div class="pl-stat-l">Open gaps</div></div>
+    </div>
+
+    <div id="nbList"></div>
+  </div>
+</section>
+
+<section class="pl-panel" id="plp-extend">
+  <div class="container">
+    <h2 class="pl-head">Extending this</h2>
+    <p class="pl-lede">Everything renders from five arrays. Adding a doctrine, a framework question, a remedy or a case file section is appending one object.</p>
+    <div id="plExtend"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="pl-grid three">
+      <div class="pl-card">
+        <div class="card-kicker">Keep the whole file</div>
+        <div class="card-title" style="margin:6px 0">One vault for a long matter</div>
+        <p class="card-text">VaultBook holds your filings, orders, agency guidance, notes and drafts in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="pl-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="pl-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your notebook and every note you attach stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================================
+   POLICY RESEARCH NOTEBOOK - DATA
+   PL.framework  the eight questions, in the order a court reaches them
+   PL.doctrines  the rules that decide each question
+   PL.remedies   what a court can actually order, and who it reaches
+   PL.casefile   the framework applied end to end to one worked example
+   PL.extend     schema documentation
+
+   EDITORIAL RULE. Where a question is contested, both positions are stated in
+   the terms their own advocates use and neither is endorsed. A page that tells
+   you the answer to a live legal dispute is not teaching you to analyse one.
+   ========================================================================== */
+
+var PL = {};
+
+PL.areas = ["Source of power","Characterisation","Procedure","Access to court","Remedy","Review"];
+
+/* FRAMEWORK SCHEMA
+   n, q, look, doctrine (array of doctrine ids), why, mistake        */
+PL.framework = [
+{n:1, q:"Where does the power come from, and does the text actually grant it?",
+ look:"Find the specific statutory or constitutional provision the action cites, then read it. Executive actions name their authority in a whereas clause or a legal-authority paragraph, and the whole case usually turns on whether that provision says what the action needs it to say.",
+ doctrine:["enumerated","statutory","plenary"],
+ why:"Every challenge to executive action begins here, because an action within a granted power is generally lawful even if it is unpopular, and an action outside one is generally unlawful even if it is sensible.",
+ mistake:"Assuming a broad grant covers a novel use of it. A provision permitting an official to suspend entry is not obviously a provision permitting an official to charge for entry, and that gap is where litigation lives."},
+{n:2, q:"What kind of thing is this, really?",
+ look:"Ignore the label the action gives itself and describe what it does. A charge that raises revenue is analysed as a tax whatever it is called, and a condition on conduct backed by a penalty is analysed as a penalty.",
+ doctrine:["functional","taxfee","penalty"],
+ why:"Characterisation frequently decides the case before any argument about policy. Different categories are governed by different constitutional provisions and by different procedural rules.",
+ mistake:"Taking the label seriously. Courts apply functional tests precisely because a government that could rename a tax a fee could relocate its own constitutional constraints."},
+{n:3, q:"Which branch may do this thing?",
+ look:"Once you know what kind of thing it is, find which branch the constitution assigns it to. Some powers are exclusively legislative, some are shared, and some are executive.",
+ doctrine:["separation","origination","nondelegation"],
+ why:"An action characterised as a tax raises a separation of powers question rather than a policy question, because taxing power sits with the legislature.",
+ mistake:"Treating separation of powers as an abstraction. It is a question about which office may act, and it is answered by reading two texts against each other."},
+{n:4, q:"Was the procedure followed?",
+ look:"Ask whether the action was a rule requiring notice and comment, whether an exception was claimed, whether a reasoned explanation was given, and whether the record supports the findings the action rests on.",
+ doctrine:["apa","arbitrary","reasoned"],
+ why:"Procedure is the most common ground on which executive action fails, and it is the ground least discussed in public argument. An action can be entirely within the power granted and still be set aside for being adopted the wrong way.",
+ mistake:"Assuming a procedural defeat is a technicality. A reasoned explanation requirement exists to make the substance reviewable, so a failure of process is frequently a failure to justify."},
+{n:5, q:"Does the agency have the authority it is claiming under the statute?",
+ look:"Separate the question of whether the executive branch may act from the question of whether this particular agency may. Agencies have only the powers a statute gives them.",
+ doctrine:["ultravires","majorquestions","deference"],
+ why:"A single action can survive the constitutional question and fail the statutory one, and courts frequently decide on the narrower ground where they can.",
+ mistake:"Conflating the President and the agencies. A proclamation may be lawful while an implementing agency action exceeds what its own statute permits."},
+{n:6, q:"Who can bring the challenge, and where?",
+ look:"Identify the plaintiff and ask what concrete injury they have suffered, whether the court can redress it, and why the case was filed in that particular court.",
+ doctrine:["standing","forum"],
+ why:"Many strong legal arguments never get heard because no suitable plaintiff exists. Standing is a jurisdictional threshold and it is decided before the merits.",
+ mistake:"Assuming being harmed is enough. The injury must be concrete and particularised, traceable to the action, and capable of being fixed by the relief requested."},
+{n:7, q:"If the challenge succeeds, what can the court actually order?",
+ look:"Distinguish an injunction protecting named parties from vacatur setting the rule aside for everyone, and ask whether the court remanded with or without vacating.",
+ doctrine:["vacatur","injunction","severability"],
+ why:"The remedy determines who is affected. A win for a coalition of states may or may not help a person who was not a party, and only the form of the order tells you which.",
+ mistake:"Reading blocked in a headline as meaning gone. The two are different orders with different reach and different durability."},
+{n:8, q:"What happens next, and what would change the answer?",
+ look:"Map the appeal path, whether a stay was sought or granted, what the ruling deliberately did not decide, and which future events would move the position.",
+ doctrine:["stay","scope","precedent"],
+ why:"A first instance ruling is a stage rather than an ending. Writing down in advance what would change your assessment is what makes it revisable when the position moves.",
+ mistake:"Treating a district court judgment as final. A stay pending appeal can restore the position within days, and an appellate court can reach a different result on the same record."}
+];
+
+/* DOCTRINE SCHEMA
+   id, name, area, rule, test, contested                            */
+PL.doctrines = [
+{id:"enumerated", name:"Enumerated powers", area:"Source of power",
+ rule:"The federal government possesses only the powers granted to it, and each branch possesses only those assigned to it. An action must be traceable to a specific grant rather than to a general sense of authority.",
+ test:"Name the clause or the section. If nobody can point to the provision, the action is in difficulty before any argument about whether it is a good idea.",
+ contested:"How specifically the grant must speak to the action taken. Broad grants written for one purpose are frequently deployed for another, and how much stretch a text will bear is the recurring fight."},
+{id:"statutory", name:"Statutory authorisation", area:"Source of power",
+ rule:"Where a statute grants a power, the action must fall within the words Congress used, read in context and with attention to the statute's structure.",
+ test:"Read the operative verb. A power to suspend, restrict or condition entry is not automatically a power to charge for entry, and the distance between the two is the argument.",
+ contested:"Whether a long unbroken practice of reading a provision broadly should count in its favour, or whether novelty is itself a reason for suspicion."},
+{id:"plenary", name:"The plenary power doctrine", area:"Source of power",
+ rule:"Courts have historically given the political branches unusually wide latitude over the admission and exclusion of foreign nationals, and have reviewed such decisions less searchingly than most government action.",
+ test:"Ask whether the challenge is to an immigration judgement, where deference is at its highest, or to something else that happens to appear in an immigration instrument.",
+ contested:"Its reach. Defenders argue it covers the terms on which entry is granted, including conditions. Critics reply that it has never been read to relocate a power the constitution assigns elsewhere, so labelling a revenue measure an entry condition does not import the deference."},
+{id:"functional", name:"Substance over label", area:"Characterisation",
+ rule:"Courts characterise a government action by what it does rather than by what it is called, because a label chosen by the acting party cannot determine which constitutional constraints apply.",
+ test:"Describe the action to someone without using its official name. If the description is a charge collected from a defined class that produces revenue, it will be analysed as a revenue measure.",
+ contested:"How much weight to give the stated purpose against the practical operation, particularly where an action plainly has both a regulatory and a revenue effect."},
+{id:"taxfee", name:"Tax against fee", area:"Characterisation",
+ rule:"A fee is a charge for a service or privilege, set to recover the cost of providing it, and paid by the person who receives it. A tax raises revenue for general purposes and is not tied to the cost of anything.",
+ test:"Three questions. Does the amount bear a relationship to any cost the government incurs. Does the payer receive a corresponding service. Where does the money go. A charge that fails all three is very difficult to defend as a fee.",
+ contested:"Charges that do some regulatory work and also raise substantial revenue. The larger the gap between the charge and any identifiable cost, the harder the fee characterisation becomes."},
+{id:"penalty", name:"Penalty against tax", area:"Characterisation",
+ rule:"A penalty punishes unlawful conduct. A tax is a charge on lawful conduct. The distinction matters because the two are authorised by different provisions and reviewed under different standards.",
+ test:"Ask whether the conduct charged for is permitted. If it is lawful and the charge is simply the price of doing it, that points toward a tax rather than a penalty.",
+ contested:"Charges so large that they operate to prohibit the conduct in practice. At some magnitude a price becomes a prohibition, and where that line sits is genuinely unsettled."},
+{id:"separation", name:"Separation of powers", area:"Source of power",
+ rule:"Legislative power belongs to the legislature and executive power to the executive. An executive action that exercises a legislative power is unlawful regardless of its merits.",
+ test:"Once an action is characterised, ask which branch the constitution assigns that category to, and whether the acting branch had a delegation covering it.",
+ contested:"How much delegation is permissible, and whether long practice can establish an executive power the text does not obviously confer."},
+{id:"origination", name:"Taxing power and its location", area:"Source of power",
+ rule:"The power to lay and collect taxes is conferred on the legislature, with revenue measures subject to particular procedural requirements about where they must begin.",
+ test:"If an action is characterised as a tax, ask whether the legislature enacted it. An executive instrument imposing a tax has a problem that no amount of policy justification can cure.",
+ contested:"Whether a charge authorised in general terms by an old statute counts as having been imposed by the legislature, or whether the legislature must fix the charge itself."},
+{id:"nondelegation", name:"Limits on delegation", area:"Source of power",
+ rule:"The legislature may authorise the executive to fill in details but is generally expected to supply an intelligible principle guiding the exercise of the delegated power.",
+ test:"Ask what the statute tells the executive to do and by what standard. A grant with no discernible limiting principle invites the objection that the legislature has handed over its own function.",
+ contested:"How demanding the intelligible principle requirement is. It has rarely been used to strike down statutes, and there is a live argument about whether it should be revived."},
+{id:"apa", name:"Notice and comment rulemaking", area:"Procedure",
+ rule:"An agency adopting a legislative rule must generally publish a proposal, take public comment, and respond to significant comments in the final rule.",
+ test:"Ask whether the action is a legislative rule binding the public, an interpretative rule, or a policy statement. Only the first ordinarily triggers the full requirement, and agencies frequently claim one of the other categories.",
+ contested:"The boundaries between the categories, and how readily the good cause exception can be invoked to skip the process entirely."},
+{id:"arbitrary", name:"Arbitrary and capricious review", area:"Review",
+ rule:"Agency action may be set aside if it is arbitrary, capricious, an abuse of discretion, or otherwise not in accordance with law. The agency must examine the relevant data and articulate a rational connection between the facts and the choice made.",
+ test:"Look for the reasoned explanation in the record contemporaneous with the decision. Reasons supplied afterwards by lawyers do not count.",
+ contested:"How searching the review should be. The standard is stated as deferential and is applied with a good deal of variation in practice."},
+{id:"reasoned", name:"Reliance interests and reasoned change", area:"Review",
+ rule:"An agency may change its position, and when it does it must acknowledge that it is changing, give reasons, and consider serious reliance interests the previous position engendered.",
+ test:"Ask whether the action acknowledges the prior position at all. Silence about a reversal is itself a defect.",
+ contested:"How much weight reliance interests carry against a new administration's entitlement to set different policy."},
+{id:"ultravires", name:"Acting beyond statutory authority", area:"Source of power",
+ rule:"An agency may do only what its enabling statute permits. Action outside that grant is invalid regardless of whether the executive branch as a whole might have some other route to the same result.",
+ test:"Read the specific agency's statute rather than the general policy. A proclamation may be lawful while the implementing agency instruction exceeds what its own statute allows.",
+ contested:"How to treat gap filling where a statute is silent rather than prohibitive."},
+{id:"majorquestions", name:"Major questions", area:"Review",
+ rule:"Where an agency claims a power of vast economic and political significance, courts have expected the legislature to have said so clearly rather than leaving it to be inferred from general language.",
+ test:"Ask about the scale of the claimed power and whether the statutory hook is an obscure or long dormant provision. Both features raise the clarity expected.",
+ contested:"How to measure significance, and whether the doctrine is a clear statement rule or a thumb on the scale. Critics argue it is applied unpredictably."},
+{id:"deference", name:"Deference to agency interpretation", area:"Review",
+ rule:"For decades courts frequently deferred to an agency's reasonable interpretation of an ambiguous statute it administers. That framework has been substantially narrowed, with courts now more willing to determine the best reading themselves.",
+ test:"Ask whether the argument depends on the statute being ambiguous and the agency reading being merely reasonable. That argument is now considerably weaker than it once was.",
+ contested:"What survives. Respect for agency expertise persists in some form, and how much weight it now carries is being worked out case by case."},
+{id:"standing", name:"Standing", area:"Access to court",
+ rule:"A plaintiff must show a concrete and particularised injury, fairly traceable to the challenged action, that a favourable decision would likely redress.",
+ test:"Name the injury in one sentence without using the word unlawful. If the only injury is that the law was broken, that is generally not enough.",
+ contested:"Standing for governmental plaintiffs asserting fiscal or sovereign injuries, which is both common in high profile challenges and genuinely unsettled."},
+{id:"forum", name:"Forum and venue", area:"Access to court",
+ rule:"Where a case is filed is governed by venue rules, and within those rules plaintiffs choose. Different courts sit within different appellate circuits with different precedent.",
+ test:"Ask what connects the plaintiffs to that district, and which appellate circuit sits above it.",
+ contested:"Forum shopping. Both sides of most political disputes have used it, and proposals to constrain it recur without resolution."},
+{id:"vacatur", name:"Vacatur", area:"Remedy",
+ rule:"A reviewing court shall set aside agency action found unlawful. Setting aside operates on the rule itself rather than on the parties, which is why its practical effect reaches beyond the plaintiffs.",
+ test:"Read the order. If it sets aside, vacates, or holds unlawful and vacates, the rule is gone rather than merely unenforceable against someone.",
+ contested:"Whether universal vacatur is what the statute authorises or an overreach. Several judges have argued it should be limited to the parties, and the question is unresolved."},
+{id:"injunction", name:"Injunction", area:"Remedy",
+ rule:"An injunction orders a defendant not to do something to someone. It is party specific by nature, and it leaves the underlying rule legally intact.",
+ test:"Ask who is protected. If the order restrains enforcement against named plaintiffs, a non-party gains nothing directly from it.",
+ contested:"Nationwide or universal injunctions, which extend protection to non-parties and have been criticised by judges appointed by both parties."},
+{id:"severability", name:"Severability", area:"Remedy",
+ rule:"Where part of an instrument is invalid, a court asks whether the remainder can operate independently and whether the issuing body would have adopted it alone.",
+ test:"Ask whether the unlawful provision is the engine of the instrument or a detachable component.",
+ contested:"How to determine hypothetical intent, particularly for executive instruments where there is no legislative history to consult."},
+{id:"stay", name:"Stay pending appeal", area:"Remedy",
+ rule:"A losing party may ask the court or the appellate court to suspend the effect of a judgment while the appeal proceeds, on a showing that includes likelihood of success and irreparable harm.",
+ test:"Watch for the stay application immediately after judgment. A granted stay can restore the previous position within days and the headline about the ruling will already have moved on.",
+ contested:"How much the merits should count against the harms at the stay stage, and how much reasoning a court should give when acting quickly."},
+{id:"scope", name:"What a ruling does not decide", area:"Review",
+ rule:"Courts decide the narrowest question that resolves the case and frequently say expressly that they are not reaching others. Those reservations are part of the holding's boundary.",
+ test:"Find the sentence beginning we do not decide or the court need not reach. That sentence tells you what remains open and where the next case will be fought.",
+ contested:"How much weight to give reasoning that was not necessary to the result, which is the perennial argument about what counts as binding."},
+{id:"precedent", name:"Precedent and its reach", area:"Review",
+ rule:"A first instance decision binds the parties. Its persuasive force elsewhere depends on the court, the reasoning, and whether other courts have reached the same or a different result.",
+ test:"Ask what level of court decided it and whether any court has gone the other way on the same question. A split makes higher review considerably more likely.",
+ contested:"How much a district court ruling on a novel question should influence others before an appellate court has spoken."}
+];
+
+/* REMEDY SCHEMA: id, name, what, reach, durability, tell */
+PL.remedies = [
+{id:"r1", name:"Declaratory judgment",
+ what:"A court declares the legal position without ordering anyone to do anything.",
+ reach:"The parties, formally. In practice a government usually conforms, but nothing compels it directly.",
+ durability:"Survives unless reversed. There is nothing to dissolve because nothing was enjoined.",
+ tell:"Look for the words declared unlawful with no accompanying order to refrain or set aside."},
+{id:"r2", name:"Injunction against named parties",
+ what:"An order restraining the defendant from enforcing the action against the plaintiffs.",
+ reach:"Only the plaintiffs. A person who was not a party gains no direct protection.",
+ durability:"Can be stayed pending appeal within days, which restores the previous position.",
+ tell:"Language restraining enforcement as to plaintiffs or against the named states."},
+{id:"r3", name:"Universal or nationwide injunction",
+ what:"An order restraining enforcement against anyone, not merely the plaintiffs.",
+ reach:"Everyone, but by protecting them rather than by removing the rule, which remains on the books.",
+ durability:"The most frequently stayed form of relief, and the most criticised by appellate judges of every persuasion.",
+ tell:"Enforcement restrained as to any person, or nationwide in scope."},
+{id:"r4", name:"Vacatur under the Administrative Procedure Act",
+ what:"The court sets the unlawful action aside. The instrument itself is nullified rather than the defendant being restrained.",
+ reach:"Everyone, because there is no longer a rule to apply. This is why it reaches non-parties without being an injunction at all.",
+ durability:"Also subject to a stay, but harder to work around, because there is nothing left to enforce selectively.",
+ tell:"The words set aside or vacated. This is the single most consequential phrase to look for in an order."},
+{id:"r5", name:"Remand without vacatur",
+ what:"The court finds a defect and sends the matter back to the agency while leaving the action in force meanwhile.",
+ reach:"Nobody is relieved of anything immediately. The agency gets an opportunity to cure the defect.",
+ durability:"Used where the disruption of vacating would be severe and the defect looks curable.",
+ tell:"Remanded for further proceedings with express language declining to vacate."},
+{id:"r6", name:"Partial or as-applied relief",
+ what:"The action is held unlawful only as applied to a category, or one provision falls while the rest stands.",
+ reach:"The category identified. Everyone else remains subject to the action.",
+ durability:"Frequently the most stable outcome, because it is the narrowest and gives the least to appeal.",
+ tell:"Qualifying words such as as applied to, or an express severability discussion."},
+{id:"r7", name:"Stay pending appeal",
+ what:"Not relief on the merits but a suspension of the judgment's effect while an appeal is heard.",
+ reach:"Whatever the judgment reached, suspended. It restores the position that existed before the ruling.",
+ durability:"Temporary by definition, and can last the years an appeal takes.",
+ tell:"Granted on an emergency application, frequently within days of judgment and with little reasoning."}
+];
+
+/* CASE FILE SCHEMA
+   n, t, q (which framework question it answers), body,
+   forT/forB and agT/agB where the point is contested,
+   note                                                              */
+PL.casefile = [
+{n:1, t:"The instrument", q:1,
+ body:"A presidential proclamation imposed a charge of one hundred thousand dollars in connection with certain new petitions for a specialty occupation work visa. It cited a statutory provision permitting the President to suspend or restrict the entry of foreign nationals whose entry is found detrimental to the national interest, and it opened with a predicate finding to that effect. The structural point to notice is that the operative statutory verb is about suspending or restricting entry, and the operative clause of the proclamation imposes a payment.",
+ note:"Read any proclamation the same way. Set the cited authority beside the operative clause and ask whether the verb in one covers the action in the other."},
+{n:2, t:"Who it reached, and who it did not", q:1,
+ body:"Coverage turned on location rather than on employer type or on the worker's nationality. New petitions for people outside the country were covered; renewals, extensions and continuations were not, and neither were petitions already in motion or visas already issued. That made the change of status route for someone already in the country on a student visa a materially different proposition from consular processing from abroad. A narrow national interest exception existed in the discretion of the executive.",
+ note:"Exemption structure is where a policy's real incidence lives. A charge that applies only to one filing route redirects behaviour toward the others rather than simply raising money."},
+{n:3, t:"Fee, tax or penalty", q:2,
+ body:"The characterisation question decided the case. A fee recovers the cost of a service; there was no suggestion the government incurred anything approaching this amount in processing a petition. A penalty punishes unlawful conduct; filing a petition is lawful. That left a charge on lawful conduct, unconnected to any cost, producing revenue, which is the description of a tax.",
+ forT:"It is a condition on entry", forB:"The government's position was that the charge was a condition attached to the privilege of entry rather than a revenue measure, that the power to restrict entry includes the power to attach terms to it, and that a charge deterring filings is regulatory in operation rather than fiscal in purpose.",
+ agT:"It is a tax in substance", agB:"The challengers' position was that the amount bore no relationship to any administrative cost, that the payer received nothing corresponding to it, that the money went to the general treasury, and that a charge failing all three tests is a tax whatever instrument imposes it and whatever it is called.",
+ note:"This is the framework's question two doing all the work. Once characterisation lands, the constitutional analysis follows almost mechanically."},
+{n:4, t:"Which branch may impose it", q:3,
+ body:"The taxing power is conferred on the legislature. If the charge is a tax, an executive instrument cannot impose it, and no amount of authority over immigration supplies the missing power. The government invoked the tradition of judicial deference over admission and exclusion. The response was that deference concerns immigration judgements and has never been understood to move a power the constitution assigns to another branch, so relabelling a revenue measure as an entry condition does not import it.",
+ note:"Notice the shape of this move. A doctrine of deference is being asked to do work outside the domain it was built for, and that is a recurring pattern worth recognising in other disputes."},
+{n:5, t:"The procedure that was skipped", q:4,
+ body:"Alongside the constitutional track ran an administrative one. A binding requirement imposed on the public through agency implementation ordinarily requires notice, an opportunity to comment, and a reasoned response to significant comments. Where that did not happen and no exception was established, the implementing action is vulnerable independently of whether the underlying power existed.",
+ note:"Two independent tracks is common and it matters for what an appeal can achieve. Winning on the constitutional point and losing on procedure produces a different future than the reverse."},
+{n:6, t:"Who sued, and where", q:6,
+ body:"A coalition of states brought the challenge, asserting injuries to their own institutions as employers of covered workers and to their public universities and hospitals. Filing in a particular district reflects both venue rules and the appellate circuit sitting above it. Parallel cases brought by other plaintiffs proceeded elsewhere on overlapping questions.",
+ note:"State coalition standing on fiscal and institutional injury is now a standard feature of challenges to federal executive action, and it is itself genuinely unsettled law."},
+{n:7, t:"Two courts, opposite results", q:8,
+ body:"Two judges considering the same charge reached different conclusions, and the difference traced to characterisation rather than to politics or to any disagreement about the facts. One treated the charge as an exercise of entry authority and reviewed it accordingly. The other treated it as a revenue measure and asked who may impose one. The same record produced two results because the first question was answered differently.",
+ note:"When two courts split, find the earliest point at which their reasoning diverges. It is almost always a characterisation or a standard of review rather than a factual disagreement."},
+{n:8, t:"The remedy, and why it reached everyone", q:7,
+ body:"The relief was a set aside of the action rather than an injunction protecting the plaintiff states. That distinction is why the effect extended to employers and workers who were not parties: there was no longer a rule to apply to anybody. Had the court instead enjoined enforcement against the plaintiffs, a non-party employer would have gained nothing directly. The court declined the alternative of remanding while leaving the charge in force.",
+ note:"If you take one thing from this case file, take this. Vacated and enjoined are different words describing different orders with different reach, and news coverage uses blocked for both."},
+{n:9, t:"The economics the court weighed", q:6,
+ body:"The scale of the charge did double work. It supported the tax characterisation, because a charge of that magnitude cannot plausibly be described as cost recovery, and it supported standing, because a measurable chilling effect on covered filings evidenced concrete injury. A flat charge also lands unevenly: identical in dollars for a large firm and a small one, it is a rounding error for one and prohibitive for the other.",
+ note:"Economic evidence in a constitutional case is usually doing one of two jobs, establishing injury for standing or establishing character for the merits. Work out which before assessing whether it is persuasive."},
+{n:10, t:"What is settled and what is open", q:8,
+ body:"Three senses of settled are worth separating. Settled between the parties, which a judgment achieves immediately. Settled as law, which requires appellate resolution. Settled in practice, which depends on whether anyone attempts the same thing again by a different route. A first instance judgment can accomplish the first while leaving the second and third entirely open.",
+ note:"Write down in advance what would change your assessment: a stay granted, an appellate reversal, a differently drafted successor instrument, or legislation. An analysis with no stated falsifier is a position rather than an assessment."}
+];
+
+PL.extend = [
+{t:"Where the data lives",
+ code:"PL.framework  the eight questions\nPL.doctrines  the rules that decide them\nPL.remedies   what a court can order\nPL.casefile   the framework applied end to end\nPL.areas      the vocabulary used for filtering",
+ body:"Every panel renders from these arrays. Doctrine filter buttons are generated from the data, so adding a doctrine in a new area creates its own filter without a code change."},
+{t:"Adding a doctrine",
+ code:'{id:"mootness", name:"Mootness",\n area:"Access to court",\n rule:"The rule as courts state it",\n test:"What to actually check, in practice",\n contested:"Where it is genuinely argued over"}',
+ body:"Append to PL.doctrines. The id must be unique. Any framework question referencing an id that does not exist is reported to the console and the link is dropped rather than breaking the page."},
+{t:"Adding a framework question",
+ code:'{n:9, q:"The question, phrased so it can be answered",\n look:"What to look for in the document",\n doctrine:["mootness","standing"],\n why:"Why this question comes at this point",\n mistake:"The error most commentary makes here"}',
+ body:"Append to PL.framework. Keep the order meaningful: the questions are sequenced the way a court reaches them, so a new question belongs where it would actually be decided rather than at the end."},
+{t:"Adding a case file section",
+ code:'{n:11, t:"Section title", q:5,\n body:"The analysis",\n forT:"Label", forB:"The strongest case one way",\n agT:"Label", agB:"The strongest case the other way",\n note:"The transferable lesson"}',
+ body:"Append to PL.casefile. The q field ties it to a framework question so the reader can see which question the section answers. The forT and agT pair is optional and should be used wherever the point is genuinely contested rather than settled."},
+{t:"Adding a second case file",
+ code:"Convert PL.casefile from an array of sections\ninto an array of cases:\n\nPL.cases = [\n  {id:'h1b', name:'...', sections:[ ... ]},\n  {id:'tariff', name:'...', sections:[ ... ]}\n];\n\nthen add a case selector above the section list.",
+ body:"The obvious next step once a second worked example exists. A tariff case, a student debt case and an environmental rule case would show the same eight questions producing different answers, which is the strongest possible demonstration that the framework is general rather than built backwards from one result."},
+{t:"The editorial rule",
+ code:"rule       as courts state it\ntest       what to actually check\ncontested  where it is genuinely argued\nforB/agB   both sides, in their own terms",
+ body:"This page must not tell a reader what to think about a live legal dispute. Where a question is settled, state it. Where it is contested, state both positions as their own advocates would and stop. A tool that teaches analysis has to model the thing it is teaching, and a reader who cannot state the other side has not understood their own."},
+{t:"Keeping the case file honest",
+ code:"No case names asserted as current law.\nNo predictions about outcomes.\nEvery section notes what remains open.",
+ body:"Litigation moves. A case file written as though a first instance judgment settled the matter will be wrong within months and will teach the wrong habit besides. Keep the analysis structural, keep the warning banner, and write every section so that it remains instructive even if the result is reversed on appeal."},
+{t:"Suggested order of expansion",
+ code:"1  A second and third worked case file\n2  Standing for state and organisational plaintiffs\n3  Emergency docket and stay practice\n4  Comparative: how other systems review executive action\n5  A timeline builder for tracking a live matter",
+ body:"The framework and doctrine sections are close to complete for challenges to federal executive action. The highest value additions are further worked cases, because the framework's claim to generality is only demonstrated by applying it to disputes with different subject matter and different outcomes."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_N="vb_pl_notebook_v1";
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function get(k,f){ try{ var r=localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,m){ var el=$(id); if(!el) return; el.textContent=m; setTimeout(function(){el.textContent="";},2600); }
+  function download(name,text){
+    var b=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var u=URL.createObjectURL(b); var a=document.createElement("a");
+    a.href=u; a.download=name; document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(u);
+  }
+  function docById(id){ for(var i=0;i<PL.doctrines.length;i++){ if(PL.doctrines[i].id===id) return PL.doctrines[i]; } return null; }
+  function qByN(n){ for(var i=0;i<PL.framework.length;i++){ if(PL.framework[i].n===n) return PL.framework[i]; } return null; }
+
+  /* Unknown doctrine references are dropped and logged rather than breaking. */
+  PL.framework.forEach(function(f){
+    f.doctrine=(f.doctrine||[]).filter(function(d){
+      if(docById(d)) return true;
+      console.warn("Policy notebook: framework question "+f.n+" references unknown doctrine "+d);
+      return false;
+    });
+  });
+
+  var NB=get(K_N,{}), openId=null;
+
+  function initTabs(){
+    var btns=document.querySelectorAll(".pl-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".pl-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("plp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="notebook") renderNotebook();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- framework ---------- */
+  function renderFramework(){
+    $("plFramework").innerHTML = PL.framework.map(function(f){
+      var links=f.doctrine.map(function(d){
+        return '<span class="pl-chip" style="cursor:pointer" data-dgoto="'+esc(d)+'">'+esc(docById(d).name)+"</span>";
+      }).join("");
+      return '<div class="pl-card" style="margin-bottom:14px">'+
+        '<div style="font-weight:700;font-size:17.5px;line-height:1.45">'+f.n+". "+esc(f.q)+"</div>"+
+        '<div class="pl-dl" style="margin-top:12px"><div class="k">What to look for</div><div>'+esc(f.look)+"</div></div>"+
+        '<div class="pl-dl"><div class="k">Why here</div><div>'+esc(f.why)+"</div></div>"+
+        '<div class="pl-dl"><div class="k">Common mistake</div><div><div class="pl-mis">'+esc(f.mistake)+"</div></div></div>"+
+        '<div class="pl-dl"><div class="k">Doctrine</div><div>'+links+"</div></div></div>";
+    }).join("");
+    $("plFramework").querySelectorAll("[data-dgoto]").forEach(function(el){
+      el.addEventListener("click", function(){
+        switchTab("doctrine"); openDoctrine(el.getAttribute("data-dgoto"));
+      });
+    });
+  }
+
+  /* ---------- doctrine ---------- */
+  function renderGrid(){
+    var q=($("plFind").value||"").toLowerCase();
+    var area=$("plArea").value;
+    var list=PL.doctrines.filter(function(d){
+      if(area && d.area!==area) return false;
+      if(q && (d.name+" "+d.rule+" "+d.test+" "+d.contested+" "+d.area).toLowerCase().indexOf(q)<0) return false;
+      return true;
+    });
+    $("plGrid").innerHTML = list.length ? list.map(function(d){
+      return '<div class="pl-cc" data-area="'+esc(d.area)+'" data-open="'+esc(d.id)+'">'+
+        '<div class="pl-cn">'+esc(d.name)+"</div>"+
+        '<div class="pl-cm">'+esc(d.area)+"</div>"+
+        '<div class="pl-cm" style="margin-top:7px;color:var(--text);opacity:.78">'+esc(d.test.split(".")[0])+".</div></div>";
+    }).join("") : '<div class="pl-empty">No doctrine matches those filters.</div>';
+    $("plCount").textContent=list.length+" of "+PL.doctrines.length+" doctrines";
+    $("plGrid").querySelectorAll("[data-open]").forEach(function(el){
+      el.addEventListener("click", function(){ openDoctrine(el.getAttribute("data-open")); });
+    });
+  }
+
+  function openDoctrine(id){
+    var d=docById(id); if(!d) return;
+    openId=id;
+    var used=PL.framework.filter(function(f){ return f.doctrine.indexOf(id)>=0; })
+      .map(function(f){ return '<span class="pl-chip">Question '+f.n+"</span>"; }).join("");
+    $("plDetail").innerHTML='<div class="pl-card" style="margin-top:18px">'+
+      '<div class="pl-flex" style="justify-content:space-between;align-items:flex-start">'+
+      "<div><h3 style='font-size:21px;margin:0'>"+esc(d.name)+"</h3>"+
+      "<div class='pl-tiny' style='margin-top:4px'>"+esc(d.area)+"</div></div>"+
+      '<button class="pl-b sm" id="plClose" type="button">Close</button></div>'+
+      '<div style="margin-top:16px">'+
+      '<div class="pl-dl"><div class="k">The rule</div><div>'+esc(d.rule)+"</div></div>"+
+      '<div class="pl-dl"><div class="k">What to check</div><div><div class="pl-for">'+esc(d.test)+"</div></div></div>"+
+      '<div class="pl-dl"><div class="k">Where it is argued</div><div><div class="pl-against">'+esc(d.contested)+"</div></div></div>"+
+      (used?'<div class="pl-dl"><div class="k">Used at</div><div>'+used+"</div></div>":"")+
+      "</div></div>";
+    $("plClose").addEventListener("click", function(){ openId=null; $("plDetail").innerHTML=""; });
+    $("plDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  /* ---------- remedies ---------- */
+  function renderRemedies(){
+    $("plRemedies").innerHTML = PL.remedies.map(function(r){
+      return '<div class="pl-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px'>"+esc(r.name)+"</div>"+
+        '<div class="pl-dl" style="margin-top:10px"><div class="k">What it is</div><div>'+esc(r.what)+"</div></div>"+
+        '<div class="pl-dl"><div class="k">Who it reaches</div><div>'+esc(r.reach)+"</div></div>"+
+        '<div class="pl-dl"><div class="k">How durable</div><div>'+esc(r.durability)+"</div></div>"+
+        '<div class="pl-dl"><div class="k">How to spot it</div><div><div class="pl-cite">'+esc(r.tell)+"</div></div></div></div>";
+    }).join("");
+  }
+
+  /* ---------- case file ---------- */
+  function renderCase(){
+    $("cfCount").textContent=PL.casefile.length+" sections, mapped to the framework questions";
+    $("plCase").innerHTML = PL.casefile.map(function(c){
+      var f=qByN(c.q);
+      return '<div class="pl-card" style="margin-bottom:14px">'+
+        '<div class="pl-flex" style="justify-content:space-between;align-items:flex-start;gap:12px">'+
+        "<div style='font-weight:700;font-size:17px'>"+c.n+". "+esc(c.t)+"</div>"+
+        (f?'<span class="pl-chip" style="cursor:pointer" data-qgoto="'+f.n+'">Question '+f.n+"</span>":"")+"</div>"+
+        '<div style="margin-top:10px;font-size:14.5px;line-height:1.85">'+esc(c.body)+"</div>"+
+        (c.forB?'<div class="pl-for"><strong>'+esc(c.forT)+".</strong> "+esc(c.forB)+"</div>":"")+
+        (c.agB?'<div class="pl-against"><strong>'+esc(c.agT)+".</strong> "+esc(c.agB)+"</div>":"")+
+        '<div class="pl-note" style="margin-top:12px"><strong>Transferable.</strong> '+esc(c.note)+"</div></div>";
+    }).join("");
+    $("plCase").querySelectorAll("[data-qgoto]").forEach(function(el){
+      el.addEventListener("click", function(){ switchTab("framework"); });
+    });
+  }
+
+  /* ---------- notebook ---------- */
+  function renderNotebook(){
+    ["nbName","nbBody","nbDate"].forEach(function(id){
+      if(NB[id] !== undefined && $(id).value === "") $(id).value = NB[id];
+    });
+    var ans=0, conf=0, gap=0;
+    PL.framework.forEach(function(f){
+      var v=(NB["q"+f.n]||"").trim();
+      if(v) ans++;
+      if(NB["c"+f.n]==="yes") conf++;
+      else if(v) gap++;
+    });
+    $("nbAns").textContent=ans;
+    $("nbTot").textContent=PL.framework.length;
+    $("nbConf").textContent=conf;
+    $("nbGap").textContent=gap;
+
+    $("nbList").innerHTML = PL.framework.map(function(f){
+      var v=NB["q"+f.n]||"", c=NB["c"+f.n]||"";
+      return '<div class="pl-card" style="margin-bottom:12px">'+
+        '<div style="font-weight:700;font-size:15.5px;line-height:1.5">'+f.n+". "+esc(f.q)+"</div>"+
+        '<div class="pl-tiny" style="margin:5px 0 9px;line-height:1.65">'+esc(f.look)+"</div>"+
+        '<textarea class="pl-txt" data-nq="'+f.n+'" placeholder="Your answer for the action you are tracking">'+esc(v)+"</textarea>"+
+        '<div class="pl-flex" style="margin-top:9px">'+
+        '<button class="pl-b sm'+(c==="yes"?" primary":"")+'" data-nc="'+f.n+'|yes" type="button">Confident</button>'+
+        '<button class="pl-b sm'+(c==="no"?" primary":"")+'" data-nc="'+f.n+'|no" type="button">Still a gap</button>'+
+        "</div></div>";
+    }).join("");
+
+    $("nbList").querySelectorAll("[data-nq]").forEach(function(t){
+      t.addEventListener("input", function(){
+        NB["q"+t.getAttribute("data-nq")]=t.value; put(K_N,NB);
+        renderStatsOnly();
+      });
+    });
+    $("nbList").querySelectorAll("[data-nc]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var p=b.getAttribute("data-nc").split("|");
+        NB["c"+p[0]] = NB["c"+p[0]]===p[1] ? "" : p[1];
+        put(K_N,NB); renderNotebook();
+      });
+    });
+  }
+
+  function renderStatsOnly(){
+    var ans=0, conf=0, gap=0;
+    PL.framework.forEach(function(f){
+      var v=(NB["q"+f.n]||"").trim();
+      if(v) ans++;
+      if(NB["c"+f.n]==="yes") conf++; else if(v) gap++;
+    });
+    $("nbAns").textContent=ans; $("nbConf").textContent=conf; $("nbGap").textContent=gap;
+  }
+
+  function nbText(){
+    var out=["Policy analysis"];
+    if(NB.nbName) out.push("Action:   "+NB.nbName);
+    if(NB.nbBody) out.push("Issued by: "+NB.nbBody);
+    if(NB.nbDate) out.push("Date:     "+NB.nbDate);
+    out.push("");
+    PL.framework.forEach(function(f){
+      out.push(f.n+". "+f.q);
+      var v=(NB["q"+f.n]||"").trim();
+      out.push("     "+(v||"Not yet answered."));
+      var c=NB["c"+f.n];
+      out.push("     Confidence: "+(c==="yes"?"confident":(c==="no"?"still a gap":"not stated")));
+      out.push("");
+    });
+    out.push("This is the author's own working analysis against a study framework.");
+    out.push("It is not legal advice and states no position on any live dispute.");
+    return out.join("\n");
+  }
+
+  /* ---------- extend ---------- */
+  function renderExtend(){
+    var counts='<div class="pl-card" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px;margin-bottom:12px">Currently covered</div>'+
+      '<div class="pl-stat">'+
+      '<div class="pl-stat-c"><div class="pl-stat-n">'+PL.framework.length+'</div><div class="pl-stat-l">Questions</div></div>'+
+      '<div class="pl-stat-c"><div class="pl-stat-n">'+PL.doctrines.length+'</div><div class="pl-stat-l">Doctrines</div></div>'+
+      '<div class="pl-stat-c"><div class="pl-stat-n">'+PL.remedies.length+'</div><div class="pl-stat-l">Remedies</div></div>'+
+      '<div class="pl-stat-c"><div class="pl-stat-n">'+PL.casefile.length+'</div><div class="pl-stat-l">Case sections</div></div>'+
+      "</div></div>";
+    $("plExtend").innerHTML = counts + PL.extend.map(function(x){
+      return '<div class="pl-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px;margin-bottom:10px'>"+esc(x.t)+"</div>"+
+        '<div style="font-size:14.5px;line-height:1.8;margin-bottom:12px;color:var(--muted)">'+esc(x.body)+"</div>"+
+        '<div class="pl-code">'+esc(x.code)+"</div></div>";
+    }).join("");
+  }
+
+  function switchTab(name){
+    var btns=document.querySelectorAll(".pl-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      var on=b.getAttribute("data-tab")===name;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".pl-panel"), function(p){ p.classList.remove("is-active"); });
+    var t=$("plp-"+name); if(t) t.classList.add("is-active");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    PL.areas.forEach(function(a){
+      var o=document.createElement("option"); o.value=a; o.textContent=a; $("plArea").appendChild(o);
+    });
+    $("plFind").addEventListener("input", renderGrid);
+    $("plArea").addEventListener("change", renderGrid);
+    ["nbName","nbBody","nbDate"].forEach(function(id){
+      $(id).addEventListener("input", function(){ NB[id]=$(id).value; put(K_N,NB); });
+    });
+    $("nbSave").addEventListener("click", function(){ put(K_N,NB); flash("nbMsg","Saved on this device."); });
+    $("nbExport").addEventListener("click", function(){ download("policy-analysis.txt", nbText()); flash("nbMsg","Exported."); });
+    $("nbClear").addEventListener("click", function(){
+      if(!confirm("Clear the notebook?")) return;
+      NB={}; put(K_N,NB);
+      ["nbName","nbBody","nbDate"].forEach(function(id){ $(id).value=""; });
+      renderNotebook();
+    });
+
+    renderFramework();
+    renderGrid();
+    renderRemedies();
+    renderCase();
+    renderNotebook();
+    renderExtend();
+  });
+})();
+</script>

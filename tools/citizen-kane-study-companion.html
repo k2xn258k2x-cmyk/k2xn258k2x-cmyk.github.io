@@ -1,0 +1,753 @@
+---
+layout: default
+title: Citizen Kane Companion
+description: Study and annotate Citizen Kane. Scene-by-scene navigator, technique galleries, the five narrator accounts, a shot log and essay angles. Free, no signup.
+permalink: /tools/citizen-kane-study-companion.html
+body_class: tool-page
+---
+
+<style>
+  .ck-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .ck-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .ck-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .ck-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .ck-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .ck-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .ck-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .ck-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .ck-row::-webkit-scrollbar{display:none}
+  .ck-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .ck-btn:hover{background:var(--tint);color:var(--text)}
+  .ck-btn.is-active{background:var(--text);color:#fff}
+  .ck-panel{display:none;padding:34px 0 60px}
+  .ck-panel.is-active{display:block}
+  .ck-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .ck-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .ck-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .ck-grid{display:grid;gap:16px}
+  .ck-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .ck-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .ck-grid.four{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .ck-in,.ck-sel,.ck-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .ck-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .ck-in:focus,.ck-sel:focus,.ck-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .ck-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .ck-b:hover{background:var(--tint)}
+  .ck-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .ck-b.primary:hover{background:var(--blue2)}
+  .ck-b.sm{font-size:13px;padding:6px 10px}
+  .ck-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .ck-muted{color:var(--muted);font-size:13.5px}
+  .ck-tiny{font-size:12px;color:var(--muted2)}
+  .ck-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.ck-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:600px}
+  table.ck-tbl th,table.ck-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.ck-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.ck-tbl tr:last-child td{border-bottom:0}
+  .ck-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .ck-seq{border:1px solid var(--line);border-radius:14px;background:#fff;margin-bottom:10px;overflow:hidden}
+  .ck-seq-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:15px 17px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;color:var(--text)}
+  .ck-seq-b:hover{background:var(--tint)}
+  .ck-seq-n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--tint);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted2)}
+  .ck-seq-t{font-weight:700;font-size:16px}
+  .ck-seq-m{font-size:12px;color:var(--muted2);margin-top:2px}
+  .ck-seq-body{display:none;padding:0 17px 17px 59px;border-top:1px solid var(--line)}
+  .ck-seq.is-open .ck-seq-body{display:block}
+  .ck-seq-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .ck-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .ck-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .ck-acc-b:hover{background:var(--tint)}
+  .ck-acc-t{font-weight:700;font-size:16.5px}
+  .ck-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .ck-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .ck-acc.is-open .ck-acc-body{display:block}
+  .ck-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .ck-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .ck-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .ck-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .ck-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .ck-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .ck-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .ck-empty{padding:26px;text-align:center;color:var(--muted)}
+  .ck-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .ck-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:70px}
+  .ck-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+</style>
+
+<section class="ck-hero">
+  <div class="container">
+    <div class="ck-eyebrow">VaultBook Study Library</div>
+    <h1 class="ck-title">The Citizen Kane companion</h1>
+    <p class="ck-sub">Study it properly and annotate as you watch. Move through the film sequence by sequence, work out which narrator is telling you each part and what they were positioned to know, look up the techniques the film is famous for and where to find them, and keep a shot log that turns an impression into evidence. Everything you write stays on your device.</p>
+    <div class="ck-badges">
+      <span class="ck-badge">Scene navigator</span>
+      <span class="ck-badge">Technique galleries</span>
+      <span class="ck-badge">Five narrator accounts</span>
+      <span class="ck-badge">Shot-level annotation</span>
+      <span class="ck-badge">Essay angles</span>
+      <span class="ck-badge">Notes stay local</span>
+    </div>
+  </div>
+</section>
+
+<div class="ck-tabs">
+  <div class="container">
+    <div class="ck-row" role="tablist" aria-label="Study tools">
+      <button class="ck-btn is-active" data-tab="scenes" role="tab" aria-selected="true">Scene navigator</button>
+      <button class="ck-btn" data-tab="technique" role="tab" aria-selected="false">Techniques</button>
+      <button class="ck-btn" data-tab="narrators" role="tab" aria-selected="false">Narrators</button>
+      <button class="ck-btn" data-tab="annotate" role="tab" aria-selected="false">Annotate</button>
+      <button class="ck-btn" data-tab="essay" role="tab" aria-selected="false">Essay angles</button>
+      <button class="ck-btn" data-tab="notes" role="tab" aria-selected="false">My notes</button>
+    </div>
+  </div>
+</div>
+
+<section class="ck-panel is-active" id="ck-scenes">
+  <div class="container">
+    <h2 class="ck-head">Scene navigator</h2>
+    <p class="ck-lede">Fifteen sequences in the order the film presents them, which is not the order the events happened in. Each entry gives what occurs, who is narrating it, the techniques worth watching for, and the question the sequence is built to raise. Open one before a rewatch and you will notice things you have looked at without seeing.</p>
+
+    <div class="ck-flex" style="margin-bottom:16px">
+      <input class="ck-in" id="ckSceneFind" type="search" placeholder="Filter sequences" style="max-width:260px">
+      <select class="ck-sel" id="ckSceneNarr" style="max-width:230px"><option value="">Any narrator</option></select>
+      <span class="ck-tiny" id="ckSceneCount"></span>
+    </div>
+
+    <div id="ckScenes"></div>
+
+    <div class="ck-warn" style="margin-top:16px">Positions are given as a rough share of the running time rather than as timecodes, because different releases carry different front matter and a timecode from one edition will not match another. When you cite a moment in an essay, name the release you watched alongside the timecode so a reader can find it.</div>
+  </div>
+</section>
+
+<section class="ck-panel" id="ck-technique">
+  <div class="container">
+    <h2 class="ck-head">Techniques</h2>
+    <p class="ck-lede">Twelve techniques the film is known for, each with what it is, what it achieves here specifically, and where to look for a clear example. Almost none of these were invented for this film, and the interesting claim is about how systematically they were combined rather than about who did them first.</p>
+
+    <div class="ck-flex" style="margin-bottom:16px">
+      <input class="ck-in" id="ckTechFind" type="search" placeholder="Filter techniques" style="max-width:260px">
+      <select class="ck-sel" id="ckTechDept" style="max-width:200px"><option value="">Any department</option></select>
+      <span class="ck-tiny" id="ckTechCount"></span>
+    </div>
+
+    <div id="ckTech"></div>
+
+    <div class="ck-note" style="margin-top:16px">The strongest essays on this film resist the temptation to list techniques. Naming deep focus proves you recognised it. Explaining what a shot holding two planes in focus does to the viewer's freedom to choose where to look, and why that matters in a film about competing accounts of one man, is the analysis the marks are actually for.</div>
+  </div>
+</section>
+
+<section class="ck-panel" id="ck-narrators">
+  <div class="container">
+    <h2 class="ck-head">Narrators</h2>
+    <p class="ck-lede">The film's structure is its argument. Five people account for the same life and none of them was present for all of it. Work out what each was positioned to know, what each has reason to shade, and where two accounts cover the same ground differently, and the film stops being a biography and becomes a problem about evidence.</p>
+    <div id="ckNarr"></div>
+
+    <div class="ck-card" style="margin-top:18px">
+      <div style="font-weight:700;margin-bottom:8px;font-size:16px">The gap nobody fills</div>
+      <div class="ck-muted" style="line-height:1.75">No narrator was in the room at the moment the film opens with. The reporter never learns what the audience is shown at the end, and the audience is given an answer that explains nothing about the man. The structure withholds the meaning of the object from every person inside the story and hands it to the viewer alone, which is why an essay treating the ending as a solution usually misses what the film is doing with it.</div>
+    </div>
+  </div>
+</section>
+
+<section class="ck-panel" id="ck-annotate">
+  <div class="container">
+    <h2 class="ck-head">Annotate</h2>
+    <p class="ck-lede">Log shots as you watch. Record the timecode, the sequence, what the camera is doing, and what you noticed. Twenty entries across the film will show you a pattern you could never have held in your head.</p>
+
+    <div class="ck-card" style="margin-bottom:18px">
+      <div class="ck-grid four">
+        <div>
+          <label class="ck-tiny" for="ckTime">Timecode</label>
+          <input class="ck-in ck-mono" id="ckTime" type="text" placeholder="00:42:15" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="ck-tiny" for="ckSeq">Sequence</label>
+          <select class="ck-sel" id="ckSeq" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="ck-tiny" for="ckTechPick">Technique</label>
+          <select class="ck-sel" id="ckTechPick" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="ck-tiny" for="ckScale">Shot scale</label>
+          <select class="ck-sel" id="ckScale" style="margin-top:5px"></select>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="ck-tiny" for="ckNote">What you noticed</label>
+        <textarea class="ck-txt" id="ckNote" placeholder="What the shot is doing, what it withholds, how it sits against the one before it" style="margin-top:5px"></textarea>
+      </div>
+      <div class="ck-flex" style="margin-top:12px">
+        <button class="ck-b primary" id="ckAdd" type="button">Log shot</button>
+        <button class="ck-b" id="ckPromptNext" type="button">Another watching prompt</button>
+        <span class="ck-tiny" id="ckAddMsg"></span>
+      </div>
+      <div class="ck-note" style="margin-top:12px" id="ckPrompt">Loading.</div>
+    </div>
+
+    <div class="ck-flex" style="margin-bottom:12px">
+      <select class="ck-sel" id="ckFilterSeq" style="max-width:250px"><option value="">All sequences</option></select>
+      <select class="ck-sel" id="ckFilterTech" style="max-width:230px"><option value="">All techniques</option></select>
+      <span class="ck-tiny" id="ckLogCount"></span>
+    </div>
+    <div id="ckLog"></div>
+  </div>
+</section>
+
+<section class="ck-panel" id="ck-essay">
+  <div class="container">
+    <h2 class="ck-head">Essay angles</h2>
+    <p class="ck-lede">Ten arguable positions, each with the counter-reading you have to handle and the evidence trail that supports it. A claim nobody could dispute is not an argument, so every one of these has an opposing case attached.</p>
+    <div id="ckEssay"></div>
+  </div>
+</section>
+
+<section class="ck-panel" id="ck-notes">
+  <div class="container">
+    <h2 class="ck-head">My notes</h2>
+    <p class="ck-lede">Everything you logged, in one sheet you can export into an essay plan. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="ck-stat" style="margin-bottom:18px">
+      <div class="ck-stat-c"><div class="ck-stat-n" id="ckNlog">0</div><div class="ck-stat-l">Shots logged</div></div>
+      <div class="ck-stat-c"><div class="ck-stat-n" id="ckNseq">0</div><div class="ck-stat-l">Sequences covered</div></div>
+      <div class="ck-stat-c"><div class="ck-stat-n" id="ckNtech">0</div><div class="ck-stat-l">Techniques spotted</div></div>
+      <div class="ck-stat-c"><div class="ck-stat-n" id="ckNcov">0%</div><div class="ck-stat-l">Film coverage</div></div>
+    </div>
+
+    <div class="ck-flex" style="margin-bottom:16px">
+      <button class="ck-b primary" id="ckExp" type="button">Export notes</button>
+      <button class="ck-b" id="ckCopy" type="button">Copy to clipboard</button>
+      <button class="ck-b" id="ckWipe" type="button">Clear all</button>
+      <span class="ck-tiny" id="ckNotesMsg"></span>
+    </div>
+
+    <div id="ckPreview"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="ck-grid three">
+      <div class="ck-card">
+        <div class="card-kicker">Keep every reading</div>
+        <div class="card-title" style="margin:6px 0">One vault for the whole module</div>
+        <p class="card-text">VaultBook holds your shot logs, essay drafts, screenshots, and reading in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have written.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="ck-card">
+        <div class="card-kicker">More study tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New annotated works and study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="ck-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your shot log and every note attached to it stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var CK = {};
+
+CK.narrators = [
+{id:"none",     name:"No narrator",  knows:"Nobody in the story witnessed this. The camera is the only observer.",
+ shades:"Nothing, because no character is accountable for it. That is precisely why these passages carry a different authority from everything between them.",
+ note:"The opening and the closing belong to no account. The film brackets five subjective versions inside two passages nobody vouches for, and the object that supplies the title of the mystery appears only in those brackets."},
+{id:"newsreel", name:"News on the March", knows:"The public record: dates, holdings, marriages, political defeat, and a version of the man assembled from footage and headlines.",
+ shades:"Everything, in the direction of a summary that satisfies an audience. It is journalism about a journalist, and its confidence is the joke.",
+ note:"A pastiche of a real newsreel style, complete with scratched stock and grandiose narration. It gives the whole plot in the first minutes, which frees the rest of the film to be about interpretation rather than events."},
+{id:"thatcher", name:"Thatcher",     knows:"The boy taken from his mother, the young man who bought a newspaper, and the financial collapse. He was there for the beginning and the money.",
+ shades:"Toward disapproval. He is a banker recording a memoir for posterity and his account is of a ward who defied him.",
+ note:"Delivered from a written memoir in a mausoleum-like library, so the audience receives it as a document being read rather than as a person remembering. The framing makes it the coldest of the five."},
+{id:"bernstein",name:"Bernstein",    knows:"The newspaper years, the takeover, the staff, the parties, the first marriage from the outside.",
+ shades:"Toward loyalty. He is the only witness who never turned against Kane, and his warmth is both his value and his limit.",
+ note:"His account contains the film's most generous material and its most famous digression about memory, which has nothing to do with Kane at all and everything to do with what the film thinks a life consists of."},
+{id:"leland",   name:"Leland",       knows:"The friendship, the first marriage, the political campaign, the affair, and the opera debut. He saw more of the private man than anyone else who talks.",
+ shades:"Toward bitterness. He was discarded and he knows it, and he is telling the story from a hospital as an old man with reason to settle a score.",
+ note:"The longest and most damaging account, and the one an essay most often takes at face value. Asking why the film gives its sharpest verdict to its most wounded witness is where the interesting reading starts."},
+{id:"susan",    name:"Susan",        knows:"The affair, the opera career forced on her, and the years at Xanadu. She is the only narrator who lived inside the marriage.",
+ shades:"Toward the version of a woman being interviewed while drunk in a failing nightclub, by a reporter who has already been turned away once.",
+ note:"Her account covers the same opera debut that Leland described, from inside it. Comparing the two versions of one night is the single most productive close-reading exercise the film offers."},
+{id:"raymond",  name:"Raymond",      knows:"The last years at Xanadu, the destruction of the room, and the word spoken at the end.",
+ shades:"Toward whatever is worth a payment. He offers the information for money and the film lets you see him do it.",
+ note:"The shortest account and the only one explicitly purchased. It supplies the film's final piece of testimony from its least disinterested source, which is a deliberate arrangement rather than an accident."}
+];
+
+CK.scenes = [
+{n:1,  t:"Xanadu and the death",             pos:"opening",     narr:"none",     tech:["low-angle","dissolve","chiaroscuro","composition"],
+ what:"A fence, a series of dissolves through the estate, a lit window that goes dark, then the interior, the falling globe, and the word.",
+ watch:"The dissolves hold the estate at the same point in frame while everything else changes around it, so the camera advances without appearing to move. The scale of the place is established before a single person appears.",
+ question:"Why does the film show you the moment of death before establishing whose it is?"},
+{n:2,  t:"News on the March",                pos:"opening",     narr:"newsreel", tech:["newsreel","montage","sound-design"],
+ what:"A full newsreel obituary covering the fortune, the marriages, the political campaign, the estate, and the death.",
+ watch:"Deliberately degraded film stock, jumpy editing, and an overbearing commentary that tells you everything and explains nothing. The pastiche is precise enough that first audiences reportedly took a moment to place it.",
+ question:"If the plot is delivered in the first ten minutes, what is the remaining two hours for?"},
+{n:3,  t:"The projection room",              pos:"early",       narr:"none",     tech:["chiaroscuro","overlapping","composition"],
+ what:"Journalists in near darkness argue that the newsreel lacks an angle, and the reporter is sent to find one.",
+ watch:"Faces are barely lit and shafts of projector light cut the room. The reporter is never given a clear face for the whole film, which is a decision rather than an oversight.",
+ question:"What does it mean that the film's investigator is deliberately kept featureless?"},
+{n:4,  t:"El Rancho, the first refusal",     pos:"early",       narr:"none",     tech:["crane","dissolve","chiaroscuro"],
+ what:"The camera climbs a rain-soaked nightclub roof and descends through a skylight to find Susan, who refuses to talk.",
+ watch:"The apparently continuous descent through a sign, rain, and a skylight is assembled from separate elements. It is a bravura entrance for a character who will not cooperate.",
+ question:"Why open her story with a refusal that the film will later overturn?"},
+{n:5,  t:"The Thatcher library",             pos:"early",       narr:"thatcher", tech:["low-angle","chiaroscuro","composition"],
+ what:"The reporter is admitted to read a private memoir under guard in a vast stone room.",
+ watch:"Extreme height in the framing, a single shaft of light, and a guard who watches the pages turn. The room is shot like a tomb, which colours everything read inside it.",
+ question:"How does the setting of a document change how the audience receives its contents?"},
+{n:6,  t:"The snow, the sled, the separation",pos:"early",      narr:"thatcher", tech:["deep-focus","composition","sound-design"],
+ what:"A boy plays in snow outside a window while inside the frame his mother signs him away.",
+ watch:"The most discussed deep-focus shot in the film. The boy stays sharp and small in the window while the adults deciding his life fill the foreground, and all three planes are legible at once.",
+ question:"What does holding both planes in focus do that cutting between them would not?"},
+{n:7,  t:"Taking over the Inquirer",         pos:"early-mid",   narr:"bernstein",tech:["deep-focus","overlapping","long-take","composition"],
+ what:"A young man arrives at a small newspaper, displaces its editor, and publishes a statement of principles.",
+ watch:"Energy expressed through staging in depth rather than cutting, with action running from foreground to background and dialogue crossing between speakers.",
+ question:"Is the statement of principles presented as sincere, and does the film ever settle that?"},
+{n:8,  t:"The Chronicle staff and the party",pos:"early-mid",   narr:"bernstein",tech:["dissolve","montage","composition"],
+ what:"A photograph of a rival newspaper's staff becomes the same men working for Kane, followed by a celebration.",
+ watch:"A still photograph coming to life is a compressed argument about buying a reputation rather than building one. Watch what the party sequence does with foreground and background.",
+ question:"Does acquiring the best people make the paper his, and what does the film think?"},
+{n:9,  t:"The breakfast table montage",      pos:"middle",      narr:"leland",   tech:["montage","whip-pan","composition","sound-design"],
+ what:"A marriage compressed into a series of breakfasts, linked by fast pans, ending in silence and separate newspapers.",
+ watch:"Costume, seating distance, lighting, and pace of speech all change across the sequence while the setting stays fixed. The technique is the argument.",
+ question:"Could this marriage have been dramatised at length to better effect, or is compression the point?"},
+{n:10, t:"The political rally",              pos:"middle",      narr:"leland",   tech:["low-angle","composition","chiaroscuro"],
+ what:"A campaign speech in a vast hall beneath an enormous image of the candidate.",
+ watch:"The candidate is dwarfed by his own poster, and the composition places the real power in the room at the back of the frame rather than on the platform.",
+ question:"What is the film saying by making a man smaller than his own image?"},
+{n:11, t:"The confrontation on the stairs",  pos:"middle",      narr:"leland",   tech:["low-angle","deep-focus","chiaroscuro","composition"],
+ what:"Four people on a staircase decide a political career and a marriage in one scene.",
+ watch:"Camera position keeps shifting who dominates the frame as the balance of power changes, and the staircase supplies the vertical arrangement the scene needs.",
+ question:"Who actually holds power in this scene, and does the staging agree with the dialogue?"},
+{n:12, t:"The opera debut, from outside",    pos:"middle-late", narr:"leland",   tech:["crane","chiaroscuro","sound-design","dissolve"],
+ what:"A debut performance witnessed from the audience and from high above the stage.",
+ watch:"The camera leaves the performance entirely and climbs into the flies to find two stagehands, which delivers a verdict without a word of dialogue.",
+ question:"Why give the judgement to two people with no stake in the outcome?"},
+{n:13, t:"The opera debut, from inside",     pos:"middle-late", narr:"susan",    tech:["montage","sound-design","dissolve"],
+ what:"The same career from the singer's position, through lessons, performances, reviews, and collapse.",
+ watch:"Compare directly with the previous sequence. The same events carry entirely different weight depending on who is telling them, and neither version is presented as false.",
+ question:"Which account does the film endorse, and is refusing to choose the actual answer?"},
+{n:14, t:"Xanadu, the jigsaws and the picnic",pos:"late",       narr:"susan",    tech:["deep-focus","composition","chiaroscuro","sound-design"],
+ what:"Years in an enormous house, a series of puzzles, an unhappy expedition, and a departure.",
+ watch:"The interiors place two people at impossible distances inside one frame, and their voices carry an echo that no domestic room would produce. Scale is used as emotional statement.",
+ question:"How does the film make wealth itself read as isolation rather than as comfort?"},
+{n:15, t:"The room, the inventory, the answer",pos:"closing",   narr:"raymond",  tech:["deep-focus","crane","dissolve","composition"],
+ what:"A destroyed room, a purchased final testimony, a warehouse of possessions being catalogued, and a fire.",
+ watch:"The crane pulling back across the crated collection turns a life into an inventory, and the answer the audience receives is one no character in the film ever learns.",
+ question:"Does the ending explain the man, and would the film be better or worse if it did?"}
+];
+
+CK.techniques = [
+{id:"deep-focus", name:"Deep focus", dept:"Camera",
+ what:"Foreground, middle ground, and background all held in acceptable focus within a single shot, achieved through a combination of wide-angle lenses, small apertures, very high light levels, and optical work where the physics would not cooperate.",
+ does:"It hands the choice of where to look back to the viewer. In a film about competing accounts of one man, a frame that refuses to tell you which plane matters is doing thematic work rather than showing off. It also allows a scene to play without cutting, so relationships are stated by arrangement in space instead of by editing.",
+ where:"The snow and the signing, the newspaper office, and the Xanadu interiors. The snow sequence is the standard teaching example because the three planes carry three different levels of power."},
+{id:"low-angle", name:"Low angle and visible ceilings", dept:"Camera",
+ what:"Camera placed near or below floor level, looking up, with muslin ceilings built over the sets so the top of the frame shows a room rather than open studio space.",
+ does:"Studio interiors conventionally had no ceilings because lights hung above. Showing them makes rooms feel enclosed and makes figures loom or shrink depending on the shot. The technique carries the film's argument about a man both enlarged and boxed in.",
+ where:"The newspaper office confrontations, the political rally, and the staircase scene."},
+{id:"chiaroscuro", name:"Low key lighting and shadow", dept:"Lighting",
+ what:"High contrast between lit areas and deep shadow, with faces frequently obscured entirely and light shaped into shafts and pools.",
+ does:"Shadow is a decision to withhold information, and this film withholds constantly. The reporter is never clearly lit, the projection room is nearly dark, and the library is a single beam in a stone volume. Concealment is the visual grammar of a story about an unknowable subject.",
+ where:"The projection room, the Thatcher library, and the final warehouse."},
+{id:"composition", name:"Composition in depth", dept:"Camera",
+ what:"Deliberate arrangement of figures at different distances from the camera so that relative size, height, and position within the frame carry meaning.",
+ does:"Power is assigned without dialogue. A figure closer to the lens dominates, a figure elevated commands, and a figure pushed to the edge is being written out of the scene. Watching who occupies which position, and when that changes mid-scene, is the fastest route into any sequence.",
+ where:"The staircase confrontation and the Xanadu interiors, where two people are placed at absurd distances inside one room."},
+{id:"long-take", name:"The long take", dept:"Direction",
+ what:"Extended shots that let a scene play out without cutting, with action moving toward and away from the camera rather than between shots.",
+ does:"Refusing to cut keeps the spatial relationships visible and makes the viewer responsible for tracking them. It also removes the editor's ability to rescue a performance, which is why the technique is difficult and why it reads as confidence.",
+ where:"The newspaper office sequences and several of the two-person scenes."},
+{id:"dissolve", name:"Dissolves and transitions", dept:"Editing",
+ what:"One image fading into another rather than cutting, used here far more systematically than as a simple marker of elapsed time.",
+ does:"The opening series of dissolves advances through the estate while holding one element fixed in frame, so the audience travels without the camera appearing to move. Elsewhere dissolves link objects and faces to assert connections the dialogue never states.",
+ where:"The opening approach to Xanadu and the transitions across the newspaper years."},
+{id:"whip-pan", name:"Whip pans", dept:"Editing",
+ what:"Extremely fast camera movement between subjects, blurring the intervening space and functioning almost as a cut.",
+ does:"Compresses time and creates a rhythm no ordinary cut would. In the breakfast montage the pans stitch years into moments, and the increasing violence of the movement carries the deterioration.",
+ where:"The breakfast table montage."},
+{id:"montage", name:"Montage sequences", dept:"Editing",
+ what:"Compressed sequences assembling many moments into a short passage that stands for a long period.",
+ does:"The film uses montage to state things drama would take an hour to show. A marriage, a singing career, and a public reputation are each delivered as sequence rather than scene, and in each case the compression is itself the judgement.",
+ where:"The newsreel, the breakfast table, and the opera career."},
+{id:"newsreel", name:"Newsreel pastiche", dept:"Direction",
+ what:"A sustained imitation of a contemporary newsreel format, including its stock, its editing rhythm, its narration style, and its air of authority.",
+ does:"It delivers the plot up front so the film can be about interpretation, and it satirises the confident public summary of a life. Placing a fake documentary inside a fiction sets up the whole question of whose account to trust.",
+ where:"The second sequence, entire."},
+{id:"overlapping", name:"Overlapping dialogue", dept:"Sound",
+ what:"Characters speaking across each other rather than waiting for a line to finish, with the mix allowing several voices at once.",
+ does:"It produces the sound of a real room and the energy of people who are not taking turns. It also means the viewer misses things, which suits a film about incomplete accounts.",
+ where:"The newspaper office and the projection room."},
+{id:"sound-design", name:"Sound bridges and acoustics", dept:"Sound",
+ what:"Audio carried across cuts, and interiors given acoustic properties that match their emotional rather than physical scale.",
+ does:"A line begun in one place and completed in another compresses time and asserts a connection. The Xanadu rooms carry an echo that no domestic space would produce, so the house sounds as isolating as it looks.",
+ where:"Several transitions across the newspaper years, and every interior at Xanadu."},
+{id:"crane", name:"Crane and travelling shots", dept:"Camera",
+ what:"Sustained camera movement through and across space, frequently rising or descending across a boundary.",
+ does:"Movement establishes scale and delivers verdicts. Climbing into the flies during a performance to find two stagehands passes judgement without dialogue, and the final pull back across a warehouse converts a life into an inventory.",
+ where:"The nightclub descent, the opera house ascent, and the closing warehouse."}
+];
+
+CK.scales = ["Extreme wide","Wide","Medium wide","Medium","Medium close","Close-up","Extreme close-up","Insert","Two shot","Over the shoulder","Point of view","Establishing"];
+
+CK.prompts = [
+ "Pick one sequence and note every plane held in focus. Ask what you were free to look at.",
+ "Watch a scene and track the camera height. When it changes, ask what changed with it.",
+ "Find a moment where a face is deliberately unlit. Ask what you would have learned from it.",
+ "Note who is closest to the lens in each shot of a conversation. Does it match who is winning?",
+ "Listen for a line that starts in one place and finishes in another. What does the join assert?",
+ "Compare the two versions of the opera debut. Which details appear in both, and which do not?",
+ "Count how many times you see the estate before you enter it. What is the repetition doing?",
+ "Find a ceiling in shot. Ask what the enclosed frame does to the figure inside it.",
+ "Watch one sequence with the sound off, then again with the picture ignored. What survives each?",
+ "Identify a shot you would use as evidence for a claim, then write the claim it proves.",
+ "Ask which narrator is speaking during the moment you find most convincing, and why that matters.",
+ "Find the point where the film stops being about a mystery and starts being about testimony."
+];
+
+CK.essays = [
+{t:"The structure is the argument, not the plot",
+ claim:"Delivering the entire plot in a newsreel within ten minutes frees the film to be about how a life is accounted for rather than what happened in it. Everything after the projection room is a study in testimony.",
+ counter:"A reader can argue the mystery still drives the film, since the reporter's search structures every sequence. Answer by noting that the audience is given the answer and the reporter never is.",
+ trail:"The newsreel, the projection room assignment, the final warehouse."},
+{t:"The film distrusts every account it presents, including its own",
+ claim:"Each narrator is compromised in a specific way, and the film shows you why before letting them speak. The framing passages that no character vouches for are the only ones offered without a witness, and even those give an answer that explains nothing.",
+ counter:"Some readings treat Leland as the reliable centre. Meet that by asking why the film locates its harshest verdict in its most wounded witness and stages it in a hospital.",
+ trail:"The Thatcher library framing, Leland's hospital setting, Raymond's payment, the final object."},
+{t:"Deep focus is a moral technique rather than a technical one",
+ claim:"Holding several planes in focus refuses to tell the viewer where to look, which places the burden of interpretation on the audience. In a film about competing versions of a man that refusal is the thesis expressed as photography.",
+ counter:"It can be argued the technique is primarily a solution to production constraints and a display of craft. Address that by showing the sequences where the choice of plane changes the meaning of the scene.",
+ trail:"The snow and the signing, the newspaper office, the Xanadu interiors."},
+{t:"Two accounts of one night are the film in miniature",
+ claim:"The opera debut appears twice, from outside and from inside, and neither version is marked as false. The pair demonstrates the whole method more economically than any other passage.",
+ counter:"A reader might say the second version is simply more sympathetic and therefore preferred. Counter by identifying what each version omits rather than what each includes.",
+ trail:"Leland's account of the debut, Susan's account of the same events."},
+{t:"Scale is used to argue that accumulation is isolation",
+ claim:"The film consistently makes wealth read as distance. Rooms are too large, echoes too pronounced, and two people are placed at impossible separations inside a single frame. The estate is presented as a container rather than a reward.",
+ counter:"One could argue this reads a modern attitude back into the film. Defend it by tracing the acoustic and compositional choices, which are consistent from the first dissolve to the last crane.",
+ trail:"The opening approach, the Xanadu interiors, the closing inventory."},
+{t:"The reporter is deliberately hollow",
+ claim:"The investigator is never clearly lit, never given a developed interior life, and never learns the answer. He is a device for gathering testimony rather than a character, and that choice keeps attention on the accounts rather than on the search.",
+ counter:"Some find this a weakness of the script rather than a design. Answer by noting the consistency of the lighting choice across every one of his scenes.",
+ trail:"The projection room, each interview framing, the final scene."},
+{t:"The film is about American self-invention rather than one man",
+ claim:"A boy separated from his origins, given a fortune he did not build, who purchases reputation and then cannot purchase belief in it. The specific biography matters less than the pattern it demonstrates.",
+ counter:"A biographical reading grounded in the film's real-world model resists this. Handle it by distinguishing what the film borrows from what it argues.",
+ trail:"The separation, the acquisition of the rival staff, the political campaign."},
+{t:"The famous techniques are combinations rather than inventions",
+ claim:"Almost every device the film is credited with existed beforehand. The achievement is the systematic combination of deep staging, sound design, and structure in service of a single argument, and claiming invention weakens rather than strengthens the case for it.",
+ counter:"The conventional account emphasises innovation. Meet it by naming precedents and then arguing that integration is the harder accomplishment.",
+ trail:"Any technique entry on this page, checked against film history before this production."},
+{t:"The ending withholds rather than resolves",
+ claim:"The audience is given an object and no character is. The answer is delivered in a passage nobody in the story witnesses, and it explains a feeling rather than a life, which leaves the central question deliberately open.",
+ counter:"Many readings treat the ending as a key that unlocks the man. Counter by asking what it actually explains about the newspapers, the campaign, or either marriage.",
+ trail:"The opening, the warehouse inventory, the fire."},
+{t:"The film argues that a life cannot be summarised, then summarises one",
+ claim:"The newsreel is mocked for reducing a man to a montage, and the film then offers five accounts that also fail. The self-awareness is the point: any account, including this one, is partial, and the film includes itself in the charge.",
+ counter:"This can be read as having it both ways. Strengthen the claim by showing the film marks its own framing passages as unwitnessed rather than authoritative.",
+ trail:"The newsreel, the five accounts, the unattributed opening and closing."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var KEY="vb_ck_log_v1";
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(v){ try{ window.localStorage.setItem(KEY, JSON.stringify(v)); return true; }catch(e){ return false; } }
+  function get(f){ try{ var r=window.localStorage.getItem(KEY); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,msg){
+    var el=$(id); if(!el) return;
+    el.textContent=msg;
+    window.setTimeout(function(){ el.textContent=""; }, 2600);
+  }
+  function download(name,text){
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function narrName(id){
+    for(var i=0;i<CK.narrators.length;i++){ if(CK.narrators[i].id===id) return CK.narrators[i].name; }
+    return id;
+  }
+  function techName(id){
+    for(var i=0;i<CK.techniques.length;i++){ if(CK.techniques[i].id===id) return CK.techniques[i].name; }
+    return id;
+  }
+
+  var LOG = get([]);
+  var promptIndex = 0;
+
+  /* ---------- tabs ---------- */
+  function initTabs(){
+    var btns=document.querySelectorAll(".ck-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".ck-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("ck-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="notes") renderNotes();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- scene navigator ---------- */
+  function renderScenes(){
+    var q=($("ckSceneFind").value||"").toLowerCase();
+    var wn=$("ckSceneNarr").value;
+    var html="", n=0;
+    CK.scenes.forEach(function(s){
+      var hay=(s.t+" "+s.what+" "+s.watch+" "+s.question+" "+narrName(s.narr)+" "+
+               s.tech.map(techName).join(" ")).toLowerCase();
+      if(q && hay.indexOf(q)<0) return;
+      if(wn && s.narr!==wn) return;
+      n++;
+      var chips=s.tech.map(function(t){ return '<span class="ck-chip">'+esc(techName(t))+"</span>"; }).join("");
+      var logged=LOG.filter(function(l){ return String(l.seq)===String(s.n); }).length;
+      html += '<div class="ck-seq"><button class="ck-seq-b" type="button">'+
+        '<div class="ck-seq-n">'+s.n+"</div><div style='flex:1'>"+
+        '<div class="ck-seq-t">'+esc(s.t)+"</div>"+
+        '<div class="ck-seq-m">'+esc(narrName(s.narr))+" . "+esc(s.pos)+
+        (logged?" . "+logged+" shot"+(logged===1?"":"s")+" logged":"")+"</div></div></button>"+
+        '<div class="ck-seq-body">'+
+        "<p><strong>What happens.</strong> "+esc(s.what)+"</p>"+
+        "<p><strong>Watch for.</strong> "+esc(s.watch)+"</p>"+
+        '<div class="ck-note"><strong>The question it raises.</strong> '+esc(s.question)+"</div>"+
+        '<div style="margin-top:12px">'+chips+"</div></div></div>";
+    });
+    $("ckScenes").innerHTML = html || '<div class="ck-empty">No sequence matches that filter.</div>';
+    $("ckSceneCount").textContent=n+" of "+CK.scenes.length+" sequences";
+    Array.prototype.forEach.call($("ckScenes").querySelectorAll(".ck-seq-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- techniques ---------- */
+  function renderTech(){
+    var q=($("ckTechFind").value||"").toLowerCase();
+    var wd=$("ckTechDept").value;
+    var html="", n=0;
+    CK.techniques.forEach(function(t){
+      var hay=(t.name+" "+t.dept+" "+t.what+" "+t.does+" "+t.where).toLowerCase();
+      if(q && hay.indexOf(q)<0) return;
+      if(wd && t.dept!==wd) return;
+      n++;
+      var seqs=CK.scenes.filter(function(s){ return s.tech.indexOf(t.id)>=0; })
+                        .map(function(s){ return s.n; });
+      html += '<div class="ck-acc"><button class="ck-acc-b" type="button">'+
+        '<span class="ck-acc-t">'+esc(t.name)+'</span><span class="ck-acc-k">'+esc(t.dept)+"</span></button>"+
+        '<div class="ck-acc-body">'+
+        "<p><strong>What it is.</strong> "+esc(t.what)+"</p>"+
+        "<p><strong>What it does here.</strong> "+esc(t.does)+"</p>"+
+        '<div class="ck-note"><strong>Where to look.</strong> '+esc(t.where)+"</div>"+
+        (seqs.length?'<div style="margin-top:12px"><span class="ck-tiny">Sequences using it: '+seqs.join(", ")+"</span></div>":"")+
+        "</div></div>";
+    });
+    $("ckTech").innerHTML = html || '<div class="ck-empty">No technique matches that filter.</div>';
+    $("ckTechCount").textContent=n+" of "+CK.techniques.length+" techniques";
+    Array.prototype.forEach.call($("ckTech").querySelectorAll(".ck-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- narrators ---------- */
+  function renderNarrators(){
+    var total=CK.scenes.length;
+    var html='<div class="ck-grid two">';
+    CK.narrators.forEach(function(nr){
+      var count=CK.scenes.filter(function(s){ return s.narr===nr.id; }).length;
+      var pct=Math.round(count/total*100);
+      html += '<div class="ck-card"><div class="card-kicker">'+count+" of "+total+" sequences</div>"+
+        '<div style="font-weight:700;font-size:18px;margin:6px 0 4px">'+esc(nr.name)+"</div>"+
+        '<div class="ck-bar" style="margin-bottom:12px"><i style="width:'+Math.max(pct,2)+'%"></i></div>'+
+        '<p style="margin:0 0 8px;font-size:14.5px;line-height:1.7"><strong>Positioned to know.</strong> '+esc(nr.knows)+"</p>"+
+        '<p style="margin:0 0 8px;font-size:14.5px;line-height:1.7"><strong>Reason to shade it.</strong> '+esc(nr.shades)+"</p>"+
+        '<div class="ck-muted" style="line-height:1.7">'+esc(nr.note)+"</div></div>";
+    });
+    $("ckNarr").innerHTML=html+"</div>";
+  }
+
+  /* ---------- annotate ---------- */
+  function renderLog(){
+    var ws=$("ckFilterSeq").value, wt=$("ckFilterTech").value;
+    var list=LOG.slice().sort(function(a,b){
+      if(a.seq!==b.seq) return a.seq-b.seq;
+      return String(a.time).localeCompare(String(b.time));
+    });
+    var rows="", n=0;
+    list.forEach(function(l){
+      if(ws && String(l.seq)!==ws) return;
+      if(wt && l.tech!==wt) return;
+      n++;
+      var sc=CK.scenes.filter(function(s){ return s.n===l.seq; })[0];
+      rows += "<tr><td class='ck-mono'>"+esc(l.time||"")+"</td>"+
+        "<td>"+(sc?esc(sc.n+". "+sc.t):"")+"</td>"+
+        "<td>"+esc(l.tech?techName(l.tech):"")+"</td>"+
+        "<td>"+esc(l.scale||"")+"</td>"+
+        "<td>"+esc(l.note||"")+"</td>"+
+        '<td><button class="ck-b sm" type="button" data-ldel="'+LOG.indexOf(l)+'">Remove</button></td></tr>';
+    });
+    $("ckLog").innerHTML = n
+      ? '<div class="ck-tblw"><table class="ck-tbl"><thead><tr><th style="min-width:90px">Time</th>'+
+        '<th style="min-width:150px">Sequence</th><th style="min-width:120px">Technique</th>'+
+        '<th style="min-width:110px">Scale</th><th>Note</th><th></th></tr></thead><tbody>'+rows+"</tbody></table></div>"
+      : '<div class="ck-empty">Nothing logged yet. Watch a sequence and record what you see.</div>';
+    $("ckLogCount").textContent=n+" of "+LOG.length+" shots";
+    Array.prototype.forEach.call($("ckLog").querySelectorAll("button[data-ldel]"), function(b){
+      b.addEventListener("click", function(){
+        LOG.splice(parseInt(b.getAttribute("data-ldel"),10),1);
+        put(LOG); renderLog(); renderScenes();
+      });
+    });
+  }
+
+  function showPrompt(){ $("ckPrompt").textContent=CK.prompts[promptIndex]; }
+
+  function initAnnotate(){
+    CK.scenes.forEach(function(s){
+      [ $("ckSeq"), $("ckFilterSeq") ].forEach(function(sel){
+        var o=document.createElement("option"); o.value=s.n; o.textContent=s.n+". "+s.t; sel.appendChild(o);
+      });
+    });
+    CK.techniques.forEach(function(t){
+      [ $("ckTechPick"), $("ckFilterTech") ].forEach(function(sel){
+        var o=document.createElement("option"); o.value=t.id; o.textContent=t.name; sel.appendChild(o);
+      });
+      var o=document.createElement("option"); o.value=t.dept; o.textContent=t.dept;
+      if(!Array.prototype.some.call($("ckTechDept").options, function(x){ return x.value===t.dept; })){
+        $("ckTechDept").appendChild(o);
+      }
+    });
+    CK.scales.forEach(function(s){
+      var o=document.createElement("option"); o.value=s; o.textContent=s; $("ckScale").appendChild(o);
+    });
+    CK.narrators.forEach(function(nr){
+      var o=document.createElement("option"); o.value=nr.id; o.textContent=nr.name; $("ckSceneNarr").appendChild(o);
+    });
+
+    $("ckAdd").addEventListener("click", function(){
+      var note=$("ckNote").value.trim();
+      if(note.length<2){ flash("ckAddMsg","Write what you noticed first."); return; }
+      LOG.push({
+        time:$("ckTime").value.trim(),
+        seq:parseInt($("ckSeq").value,10),
+        tech:$("ckTechPick").value,
+        scale:$("ckScale").value,
+        note:note
+      });
+      put(LOG);
+      $("ckTime").value=""; $("ckNote").value="";
+      renderLog(); renderScenes();
+      flash("ckAddMsg","Logged.");
+    });
+    $("ckPromptNext").addEventListener("click", function(){
+      promptIndex=(promptIndex+1)%CK.prompts.length; showPrompt();
+    });
+    ["ckFilterSeq","ckFilterTech"].forEach(function(id){ $(id).addEventListener("change", renderLog); });
+    showPrompt();
+    renderLog();
+  }
+
+  /* ---------- essay angles ---------- */
+  function renderEssays(){
+    var html="";
+    CK.essays.forEach(function(e,i){
+      html += '<div class="ck-acc"><button class="ck-acc-b" type="button">'+
+        '<span class="ck-acc-t">'+esc(e.t)+'</span><span class="ck-acc-k">Angle '+(i+1)+"</span></button>"+
+        '<div class="ck-acc-body">'+
+        "<p><strong>The claim.</strong> "+esc(e.claim)+"</p>"+
+        "<p><strong>The counter-reading.</strong> "+esc(e.counter)+"</p>"+
+        '<div class="ck-note"><strong>Evidence trail.</strong> '+esc(e.trail)+"</div></div></div>";
+    });
+    $("ckEssay").innerHTML=html;
+    Array.prototype.forEach.call($("ckEssay").querySelectorAll(".ck-acc-b"), function(b){
+      b.addEventListener("click", function(){ b.parentNode.classList.toggle("is-open"); });
+    });
+  }
+
+  /* ---------- notes ---------- */
+  function notesText(){
+    var out=["Citizen Kane shot log",""];
+    var list=LOG.slice().sort(function(a,b){ return a.seq-b.seq; });
+    var last=null;
+    list.forEach(function(l){
+      if(l.seq!==last){
+        var sc=CK.scenes.filter(function(s){ return s.n===l.seq; })[0];
+        out.push("");
+        out.push((sc?sc.n+". "+sc.t:"Unassigned").toUpperCase());
+        last=l.seq;
+      }
+      out.push("  ["+(l.time||"--:--:--")+"]  "+(l.scale||"")+
+               (l.tech?"  /  "+techName(l.tech):""));
+      out.push("      "+l.note);
+    });
+    if(!LOG.length) out.push("Nothing logged yet.");
+    out.push("");
+    out.push("Timecodes refer to the release you watched. Name it when citing.");
+    return out.join("\n");
+  }
+
+  function renderNotes(){
+    var seqs={}, techs={};
+    LOG.forEach(function(l){ if(l.seq) seqs[l.seq]=true; if(l.tech) techs[l.tech]=true; });
+    $("ckNlog").textContent=LOG.length;
+    $("ckNseq").textContent=Object.keys(seqs).length;
+    $("ckNtech").textContent=Object.keys(techs).length;
+    $("ckNcov").textContent=Math.round(Object.keys(seqs).length/CK.scenes.length*100)+"%";
+    $("ckPreview").innerHTML='<div class="ck-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(notesText().slice(0,4000))+"</pre></div>";
+  }
+
+  function initNotes(){
+    $("ckExp").addEventListener("click", function(){
+      download("citizen-kane-shot-log.txt", notesText()); flash("ckNotesMsg","Exported.");
+    });
+    $("ckCopy").addEventListener("click", function(){
+      var text=notesText();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("ckNotesMsg","Copied."); },
+          function(){ flash("ckNotesMsg","Copy failed, use Export instead."); });
+      } else { flash("ckNotesMsg","Copy not supported here, use Export instead."); }
+    });
+    $("ckWipe").addEventListener("click", function(){
+      if(!window.confirm("Clear every logged shot?")) return;
+      LOG=[]; put(LOG); renderLog(); renderScenes(); renderNotes();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initAnnotate();
+    renderScenes();
+    renderTech();
+    renderNarrators();
+    renderEssays();
+    initNotes();
+    renderNotes();
+    $("ckSceneFind").addEventListener("input", renderScenes);
+    $("ckSceneNarr").addEventListener("change", renderScenes);
+    $("ckTechFind").addEventListener("input", renderTech);
+    $("ckTechDept").addEventListener("change", renderTech);
+  });
+})();
+</script>

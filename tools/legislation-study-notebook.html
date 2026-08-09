@@ -1,0 +1,745 @@
+---
+layout: default
+title: Legislation Study Notebook
+description: The Civil Rights Act of 1964 taken apart: all eleven titles, the six gates it passed through, the four roll calls, and the case and amendment ledger.
+permalink: /tools/legislation-study-notebook.html
+body_class: tool-page
+---
+
+<style>
+  .cr-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .cr-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .cr-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .cr-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .cr-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .cr-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .cr-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .cr-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .cr-row::-webkit-scrollbar{display:none}
+  .cr-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .cr-btn:hover{background:var(--tint);color:var(--text)}
+  .cr-btn.is-active{background:var(--text);color:#fff}
+  .cr-panel{display:none;padding:34px 0 60px}
+  .cr-panel.is-active{display:block}
+  .cr-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .cr-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .cr-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .cr-grid{display:grid;gap:16px}
+  .cr-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .cr-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .cr-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .cr-in,.cr-sel,.cr-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .cr-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .cr-in:focus,.cr-sel:focus,.cr-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .cr-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .cr-b:hover{background:var(--tint)}
+  .cr-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .cr-b.primary:hover{background:var(--blue2)}
+  .cr-b.sm{font-size:13px;padding:6px 10px}
+  .cr-b.icon{padding:6px 9px;font-size:13px;line-height:1}
+  .cr-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .cr-muted{color:var(--muted);font-size:13.5px}
+  .cr-tiny{font-size:12px;color:var(--muted2)}
+  .cr-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.cr-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.cr-tbl th,table.cr-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.cr-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.cr-tbl tr:last-child td{border-bottom:0}
+  table.cr-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .cr-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .cr-day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:14px}
+  .cr-day-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .cr-day-t{font-weight:700;font-size:16px}
+  .cr-stop{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--tint)}
+  .cr-stop-n{flex:0 0 24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted2)}
+  .cr-stop-body{flex:1;min-width:0}
+  .cr-stop-t{font-weight:600;font-size:14.5px}
+  .cr-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .cr-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .cr-acc-b:hover{background:var(--tint)}
+  .cr-acc-t{font-weight:700;font-size:16.5px}
+  .cr-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .cr-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .cr-acc.is-open .cr-acc-body{display:block}
+  .cr-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .cr-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .cr-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .cr-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .cr-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .cr-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .cr-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .cr-empty{padding:26px;text-align:center;color:var(--muted)}
+  .cr-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .cr-check:last-child{border-bottom:0}
+  .cr-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .cr-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .cr-check .cr-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .cr-done label{text-decoration:line-through;color:var(--muted2)}
+  .cr-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .cr-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:80px}
+  .cr-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+
+  .cr-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:14px;}
+  .cr-o{padding:14px 12px;border-radius:12px;border:1px solid var(--line);background:var(--tint);text-align:center;}
+  .cr-o .v{font-size:17px;font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .cr-o .l{font-size:10.5px;color:var(--muted2);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-top:4px;}
+  .cr-bar{display:flex;height:26px;border-radius:8px;overflow:hidden;margin:8px 0 4px;border:1px solid var(--line);}
+  .cr-bar span{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+  .cr-cite{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:3px 8px;display:inline-block;color:var(--muted);}
+  .cr-for{border-left:3px solid #2563eb;background:rgba(37,99,235,.06);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .cr-against{border-left:3px solid #b45309;background:rgba(180,83,9,.07);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .cr-mis{border-left:3px solid #64748b;background:rgba(100,116,139,.08);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .cr-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.75;background:#0f172a;color:#c7d9f0;border-radius:12px;padding:15px;overflow-x:auto;white-space:pre;}
+  .cr-cc{border:1px solid var(--line);border-radius:15px;background:var(--card);padding:15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+  .cr-cc:hover{transform:translateY(-2px);border-color:#94a3b8;}
+  .cr-cc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#2563eb;}
+  .cr-cc[data-area="Economics"]::before{background:#2563eb;}
+  .cr-cc[data-area="History and society"]::before{background:#7c3aed;}
+  .cr-cc[data-area="Ideology and culture"]::before{background:#0891b2;}
+  .cr-cc[data-area="Politics and the state"]::before{background:#b45309;}
+  .cr-cc[data-area="Method"]::before{background:#059669;}
+  .cr-cn{font-weight:700;font-size:15.5px;line-height:1.4;}
+  .cr-cm{font-size:11.5px;color:var(--muted2);margin-top:4px;}
+  .cr-cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:11px;}
+  .cr-dl{display:grid;grid-template-columns:165px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.8;}
+  .cr-dl:last-child{border-bottom:0;}
+  .cr-dl .k{font-weight:700;color:var(--muted2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;padding-top:3px;}
+  @media(max-width:660px){.cr-dl{grid-template-columns:1fr;gap:5px;}}
+</style>
+
+
+
+
+<section class="cr-hero">
+  <div class="container">
+    <div class="cr-eyebrow">VaultBook Study Library</div>
+    <h1 class="cr-title">The legislation study notebook</h1>
+    <p class="cr-sub">One statute taken completely apart. All eleven titles with what each actually requires, the six procedural gates the bill had to clear and what was traded at each, the four roll calls with the regional pattern that party columns conceal, the Title VII charge process with a working deadline calculator, and the ledger of every major holding alongside the amendments Congress passed to overturn them. The method transfers to any bill.</p>
+    <div class="cr-badges">
+      <span class="cr-badge">All 11 titles</span>
+      <span class="cr-badge">6 legislative gates</span>
+      <span class="cr-badge">4 roll calls analysed</span>
+      <span class="cr-badge">Charge clock calculator</span>
+      <span class="cr-badge">Case and amendment ledger</span>
+      <span class="cr-badge">Export your notes</span>
+    </div>
+  </div>
+</section>
+
+<div class="cr-tabs">
+  <div class="container">
+    <div class="cr-row" role="tablist" aria-label="Study tools">
+      <button class="cr-btn is-active" data-tab="titles" role="tab" aria-selected="true">The titles</button>
+      <button class="cr-btn" data-tab="passage" role="tab" aria-selected="false">How it passed</button>
+      <button class="cr-btn" data-tab="votes" role="tab" aria-selected="false">The votes</button>
+      <button class="cr-btn" data-tab="titlevii" role="tab" aria-selected="false">Title VII in practice</button>
+      <button class="cr-btn" data-tab="ledger" role="tab" aria-selected="false">The ledger</button>
+      <button class="cr-btn" data-tab="extend" role="tab" aria-selected="false">Extending this</button>
+    </div>
+  </div>
+</div>
+
+<section class="cr-panel is-active" id="crp-titles">
+  <div class="container">
+    <h2 class="cr-head">The titles</h2>
+    <p class="cr-lede">Eleven titles, each with what it requires, the authority Congress claimed for it, and how much of it survives in the form it was written. Tap a title to open it.</p>
+
+    <div class="cr-flex" style="margin-bottom:14px">
+      <input class="cr-in" id="crFind" type="search" placeholder="Search titles, requirements and exemptions" style="max-width:320px">
+      <span class="cr-tiny" id="crCount"></span>
+    </div>
+
+    <div class="cr-cgrid" id="crGrid"></div>
+    <div id="crDetail"></div>
+  </div>
+</section>
+
+<section class="cr-panel" id="crp-passage">
+  <div class="container">
+    <h2 class="cr-head">How it passed</h2>
+    <p class="cr-lede">Six procedural gates, in order. Each is a place where a bill can die, each has a standard technique for getting through it, and each cost something. The gates are general: any major bill faces the same sequence.</p>
+    <div id="crGates"></div>
+    <div class="cr-note" style="margin-top:16px">The reusable lesson. A bill is not passed by persuading a majority, it is passed by clearing every gate in turn, and a majority that exists at gate one is worthless if the bill never reaches gate five. Most legislation dies in committee or on the calendar rather than on the floor, which is why procedural control matters more than headcount.</div>
+  </div>
+</section>
+
+<section class="cr-panel" id="crp-votes">
+  <div class="container">
+    <h2 class="cr-head">The votes</h2>
+    <p class="cr-lede">Four roll calls decided it. Each is shown two ways, by party and by region, because the two tell different stories and only one of them is a good predictor of how a member voted.</p>
+    <div id="crVotes"></div>
+    <div class="cr-warn" style="margin-top:16px">Vote totals here follow the standard published tallies and are given to show the pattern rather than to settle a dispute about any individual member. For a specific member's vote, check the official roll call record, which is the only authority.</div>
+  </div>
+</section>
+
+<section class="cr-panel" id="crp-titlevii">
+  <div class="container">
+    <h2 class="cr-head">Title VII in practice</h2>
+    <p class="cr-lede">What the enforcement process actually looks like, stage by stage, and a calculator for the deadlines that end more claims than any argument on the merits.</p>
+
+    <div class="cr-card" style="margin-bottom:18px">
+      <div style="font-weight:700;font-size:17px;margin-bottom:12px">Charge clock calculator</div>
+      <div class="cr-grid three">
+        <div>
+          <label class="cr-tiny" for="ccDate">Date of the alleged practice</label>
+          <input class="cr-in" id="ccDate" type="date" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="cr-tiny" for="ccState">Is there a state or local fair employment agency</label>
+          <select class="cr-sel" id="ccState" style="margin-top:5px">
+            <option value="300">Yes, a deferral jurisdiction</option>
+            <option value="180">No, or unsure</option>
+          </select>
+        </div>
+        <div>
+          <label class="cr-tiny" for="ccRTS">Date a right to sue letter was received, optional</label>
+          <input class="cr-in" id="ccRTS" type="date" style="margin-top:5px">
+        </div>
+      </div>
+      <div class="cr-out" id="ccOut"></div>
+      <div class="cr-warn" style="margin-top:14px">These are the general federal periods and they are not the only rule that can apply. Continuing violations, pay discrimination under the Ledbetter amendment, different state deadlines, and equitable tolling all change the answer. This calculator shows the ordinary case so you know roughly where you stand, and anyone with a real claim needs a lawyer well before the date it produces.</div>
+    </div>
+
+    <div id="crStages"></div>
+  </div>
+</section>
+
+<section class="cr-panel" id="crp-ledger">
+  <div class="container">
+    <h2 class="cr-head">The ledger</h2>
+    <p class="cr-lede">The construction history as a single sequence. Courts read the statute, Congress sometimes disagreed and amended it, and the pattern of who moved last is the most instructive thing about the whole statute.</p>
+
+    <div class="cr-flex" style="margin-bottom:14px">
+      <span id="ledBtns"></span>
+      <span class="cr-tiny" id="ledCount"></span>
+    </div>
+
+    <div id="crLedger"></div>
+    <div class="cr-note" style="margin-top:16px">The pattern worth writing about. On several occasions the Supreme Court narrowed the statute and Congress responded by amending the text to restore the broader reading. That sequence is unusual, and it makes this statute one of the clearest available demonstrations that statutory interpretation is a conversation between branches rather than a final word by either.</div>
+  </div>
+</section>
+
+<section class="cr-panel" id="crp-extend">
+  <div class="container">
+    <h2 class="cr-head">Extending this</h2>
+    <p class="cr-lede">Everything renders from five arrays. Adding a title, a gate, a roll call or a ledger entry is appending one object, and the framework generalises to any statute.</p>
+    <div id="crExtend"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="cr-grid three">
+      <div class="cr-card">
+        <div class="card-kicker">Keep the whole file</div>
+        <div class="card-title" style="margin:6px 0">One vault for a long subject</div>
+        <p class="card-text">VaultBook holds your statutes, case notes, lecture material and essay drafts in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="cr-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="cr-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Anything you type into this page stays in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================================
+   LEGISLATION STUDY NOTEBOOK - CIVIL RIGHTS ACT OF 1964
+   CR.titles   the eleven titles
+   CR.gates    the six procedural gates, generalised
+   CR.votes    the four roll calls, by party and by region
+   CR.stages   the Title VII enforcement process
+   CR.ledger   cases and amendments as one interleaved sequence
+   CR.extend   schema documentation
+   ========================================================================== */
+
+var CR = {};
+
+/* TITLE SCHEMA: id, num, name, does, authority, exempt, today */
+CR.titles = [
+{id:"t1", num:"I", name:"Voting",
+ does:"Barred unequal application of voter registration requirements and prohibited denying registration for immaterial errors on an application. It did not reach literacy tests generally or provide any federal registration machinery.",
+ authority:"The Fifteenth Amendment enforcement power.",
+ exempt:"Nothing was exempted, but the coverage was narrow by design, since a stronger voting title would have cost votes the bill could not spare.",
+ today:"Largely superseded. Its weakness is why Congress returned to the subject the following year with a far stronger voting statute."},
+{id:"t2", num:"II", name:"Public accommodations",
+ does:"Prohibited discrimination or segregation on the ground of race, colour, religion or national origin in places of public accommodation whose operations affect commerce.",
+ authority:"The Commerce Clause, with the Fourteenth Amendment as a secondary argument. The choice was deliberate and it determined the shape of the litigation that followed.",
+ exempt:"Private clubs not open to the public, and owner-occupied lodging houses with no more than five rooms for rent, the provision usually referred to by the name of a hypothetical landlady.",
+ today:"Intact and the least contested part of the statute. Compliance in the covered categories was rapid and the constitutional challenges failed within six months."},
+{id:"t3", num:"III", name:"Public facilities",
+ does:"Authorised the Attorney General to sue to desegregate publicly owned or operated facilities such as parks, pools and libraries.",
+ authority:"The Fourteenth Amendment.",
+ exempt:"The authority is conditional. The Attorney General must receive a written complaint from a person unable to sue effectively and must certify that suit is in the public interest.",
+ today:"Intact, and used far less than Title VI, because withholding money proved a faster instrument than litigation."},
+{id:"t4", num:"IV", name:"Public education",
+ does:"Authorised the Attorney General to sue to desegregate public schools, provided technical assistance to districts, and directed a survey of the availability of equal educational opportunity.",
+ authority:"The Fourteenth Amendment.",
+ exempt:"Expressly stated that desegregation does not mean assignment to overcome racial imbalance, a limitation that mattered enormously in later busing litigation.",
+ today:"The directed survey produced one of the most influential pieces of social research of the century, on the relative weight of school resources and family background."},
+{id:"t5", num:"V", name:"The Commission on Civil Rights",
+ does:"Extended and strengthened the Commission created in 1957, giving it powers to investigate, hold hearings and report.",
+ authority:"Congress's general legislative power.",
+ exempt:"The Commission investigates and recommends. It has never had enforcement power, which is the point people most often miss about it.",
+ today:"Still in existence. Its reports remain a primary source for anyone studying enforcement of the statute."},
+{id:"t6", num:"VI", name:"Federal funding",
+ does:"Prohibited discrimination on the ground of race, colour or national origin in any programme receiving federal financial assistance, with termination of funds as the ultimate sanction.",
+ authority:"The Spending Power. Congress attaches conditions to money it chooses to give.",
+ exempt:"Termination requires a hearing, a written finding, a report to the relevant congressional committees, and a thirty day wait. The procedure was designed to make the sanction credible and slow.",
+ today:"The most consequential title by measured effect. Once federal education money became substantial the following year, the funding condition moved more school districts faster than a decade of litigation had."},
+{id:"t7", num:"VII", name:"Employment",
+ does:"Prohibited employment discrimination because of race, colour, religion, sex or national origin, and created the Equal Employment Opportunity Commission to receive and investigate charges.",
+ authority:"The Commerce Clause.",
+ exempt:"Bona fide occupational qualification for religion, sex or national origin but never for race. Also religious organisations as to religion, and originally a phased coverage threshold by employer size.",
+ today:"The most amended and most litigated title. The word sex was added on the House floor and the Commission was created without power to sue, both of which shaped everything that followed."},
+{id:"t8", num:"VIII", name:"Voting statistics",
+ does:"Directed the Census Bureau to compile registration and voting statistics by race, colour and national origin in areas the Commission on Civil Rights designated.",
+ authority:"Congress's general legislative power.",
+ exempt:"Nothing, but participation in the survey was not compulsory for individuals.",
+ today:"A fact-finding provision whose data supported the case for the voting statute passed the following year."},
+{id:"t9", num:"IX", name:"Intervention and removal",
+ does:"Permitted appeal of orders remanding civil rights cases back to state courts, and allowed the Attorney General to intervene in private suits alleging denial of equal protection where the case is of general public importance.",
+ authority:"Congress's power over the federal courts.",
+ exempt:"Intervention is discretionary and requires certification of general public importance.",
+ today:"Procedural and rarely discussed, and it materially improved the position of private plaintiffs by allowing federal weight behind a private case."},
+{id:"t10", num:"X", name:"Community Relations Service",
+ does:"Created a federal mediation service to help communities resolve disputes arising from discriminatory practices, working confidentially and without enforcement power.",
+ authority:"Congress's general legislative power.",
+ exempt:"Its proceedings are confidential and its work is voluntary, which is the source of both its usefulness and its limits.",
+ today:"Still operating. The least known part of the statute and the only part built on persuasion rather than compulsion."},
+{id:"t11", num:"XI", name:"Miscellaneous",
+ does:"Contained criminal contempt procedures including a right to jury trial in certain contempt cases, plus definitions and severability provisions applying across the statute.",
+ authority:"Congress's general legislative power.",
+ exempt:"The jury trial provision was itself a concession to opponents who argued that contempt proceedings without juries were a route around local resistance.",
+ today:"Rarely studied and worth reading, because the severability clause and the jury trial concession are both records of what the bill had to give up to pass."}
+];
+
+/* GATE SCHEMA: n, name, whatitis, whathappened, cost, general */
+CR.gates = [
+{n:1, name:"The decision to send a broad bill",
+ whatitis:"Before any procedure, the sponsoring administration must decide how much to ask for. A narrow bill passes more easily and achieves less; a broad one may die.",
+ whathappened:"The administration sent a broad bill covering accommodations, education, funding and eventually employment, rather than a narrow voting measure with a better chance of passage. Earlier civil rights acts in 1957 and 1960 had been narrowed to the point where their practical effect was small, and that history was the argument for asking for more.",
+ cost:"A broad bill guarantees a filibuster, which means the whole strategy must be built around obtaining cloture rather than around a simple majority.",
+ general:"Ask what the sponsors could have asked for and did not. The gap between the introduced bill and the final text is where the real negotiation is recorded."},
+{n:2, name:"The committee of jurisdiction",
+ whatitis:"A bill goes first to the committee with subject matter jurisdiction, whose chair controls whether it is heard at all.",
+ whathappened:"House Judiciary reported a bill stronger than the administration had sent. That created a problem rather than a victory, because a bill too strong to attract the votes needed later is as dead as one too weak to be worth passing. The resolution was a negotiation with the committee's senior minority member, who supplied a bloc of votes in exchange for a commitment that the bill would not be weakened later in the Senate.",
+ cost:"A binding commitment on future amendments, which constrained what could be traded at gate six.",
+ general:"Identify who on the other side is genuinely persuadable and what they need. Bipartisan legislation is usually built on one such bargain rather than on general goodwill."},
+{n:3, name:"The Rules Committee",
+ whatitis:"In the House, a bill needs a rule setting the terms of floor debate. The Rules Committee chair can simply decline to schedule it, and there is no ordinary remedy.",
+ whathappened:"The chair opposed the bill and held it. The counter-technique was a discharge petition, which extracts a bill from a committee if a majority of the House signs it. The petition did not need to succeed; it needed to become plausible enough that continuing to hold the bill was no longer sustainable.",
+ cost:"Time, and the expenditure of political capital on procedure rather than substance.",
+ general:"Every chamber has a scheduling chokepoint and a rarely used override. The override usually works by threat rather than by use."},
+{n:4, name:"The floor and the unplanned amendment",
+ whatitis:"On the floor, members may offer amendments. Some are improvements, some are attempts to load a bill with provisions that will sink it.",
+ whathappened:"An opponent of the bill moved to add the word sex to the employment title. Whether the motive was to broaden the protection or to make the bill unpassable has been argued ever since and the record supports more than one reading. The amendment carried, the bill passed anyway, and one word added on the floor became the basis of an enormous body of law.",
+ cost:"None that was intended. The episode is the standard illustration that legislative intent is frequently unrecoverable and that consequences outrun purposes.",
+ general:"Read floor amendments carefully. A hostile amendment that survives becomes law identical in force to a friendly one, and courts read the text rather than the motive."},
+{n:5, name:"The other chamber's calendar",
+ whatitis:"In the Senate, a bill can be referred to a committee whose chair will bury it. Placing it directly on the calendar avoids that at a procedural cost.",
+ whathappened:"The Senate Judiciary chair opposed the bill, so the majority leader used the procedure that places a bill directly on the calendar without committee referral. This preserved the bill and removed the committee stage entirely.",
+ cost:"No committee report and no committee record, which weakens the legislative history a court can later consult, and which irritates senators who value the committee system.",
+ general:"Bypassing a committee saves a bill and costs it a record. Both effects show up years later in litigation about what Congress meant."},
+{n:6, name:"The filibuster and the cloture arithmetic",
+ whatitis:"Extended debate in the Senate can only be ended by cloture, which at the time required two thirds of senators present and voting. That is an arithmetic problem, not a persuasion problem.",
+ whathappened:"Opponents held the floor for a period measured in weeks. Cloture required roughly sixty seven votes, which could not be reached without a substantial bloc from the minority party. The minority leader's support was obtained through a negotiated package of amendments, chiefly narrowing federal enforcement powers in favour of deference to state remedies and to voluntary compliance. Cloture was then invoked for the first time in the chamber's history on a civil rights measure.",
+ cost:"The negotiated amendments. Federal enforcement was weakened in exchange for the votes needed to pass anything at all, and the consequences of those trades occupied the next thirty years of amendment.",
+ general:"A supermajority requirement converts a political question into an arithmetic one. Work out who the last needed votes are and what they want, because that group writes the final text."}
+];
+
+/* VOTE SCHEMA
+   id, name, date, chamber, result, threshold,
+   party  [{label, yes, no}]  region [{label, yes, no}]
+   note                                                             */
+CR.votes = [
+{id:"v1", name:"House passage of the bill", date:"10 February 1964", chamber:"House",
+ result:"290 to 130", threshold:"Simple majority of those voting",
+ party:[{label:"Democrats", yes:152, no:96},{label:"Republicans", yes:138, no:34}],
+ region:[{label:"Southern states", yes:8, no:103},{label:"Rest of the country", yes:282, no:27}],
+ note:"Read the party columns and you see a bill Democrats supported by three to two and Republicans by four to one. Read the regional columns and you see something far starker: outside the South the bill carried by better than ten to one, and within it the bill was almost unanimously opposed regardless of party. Region is the variable doing the work."},
+{id:"v2", name:"Senate cloture", date:"10 June 1964", chamber:"Senate",
+ result:"71 to 29", threshold:"Two thirds of senators present and voting, roughly 67",
+ party:[{label:"Democrats", yes:44, no:23},{label:"Republicans", yes:27, no:6}],
+ region:[{label:"Southern states", yes:1, no:20},{label:"Rest of the country", yes:70, no:9}],
+ note:"The decisive vote of the whole sequence, and the reason the minority party's votes were indispensable. Democrats alone could not reach the threshold, which is precisely why the negotiation at gate six had to happen and why the amendments it produced were the price of the statute existing at all."},
+{id:"v3", name:"Senate passage", date:"19 June 1964", chamber:"Senate",
+ result:"73 to 27", threshold:"Simple majority of those voting",
+ party:[{label:"Democrats", yes:46, no:21},{label:"Republicans", yes:27, no:6}],
+ region:[{label:"Southern states", yes:1, no:20},{label:"Rest of the country", yes:72, no:7}],
+ note:"Once cloture was obtained, passage was never in doubt. Two senators who had voted against cloture voted for the bill, which is a reminder that a procedural vote and a substantive one measure different things."},
+{id:"v4", name:"House agreement to the Senate version", date:"2 July 1964", chamber:"House",
+ result:"289 to 126", threshold:"Simple majority of those voting",
+ party:[{label:"Democrats", yes:153, no:91},{label:"Republicans", yes:136, no:35}],
+ region:[{label:"Southern states", yes:8, no:98},{label:"Rest of the country", yes:281, no:28}],
+ note:"The House had to accept the Senate's amended text rather than go to conference, because a conference report would have faced a fresh filibuster. Agreeing to the other chamber's version is how a bill avoids being killed twice."}
+];
+
+/* STAGE SCHEMA: n, name, what, watch */
+CR.stages = [
+{n:1, name:"File a charge, not a lawsuit",
+ what:"Title VII requires a charge with the Commission before any court action. A person who goes straight to court will have the case dismissed for failure to exhaust, regardless of the merits.",
+ watch:"The charge is the jurisdictional gateway. Everything about the case depends on filing it within the period."},
+{n:2, name:"Deferral to a state or local agency",
+ what:"Where a state or local fair employment agency exists with authority over the practice, the charge is deferred to it for a period and the federal filing window is longer.",
+ watch:"This is why the deadline is 180 days in some places and 300 in others. Determining which applies is the first practical question in any charge."},
+{n:3, name:"Investigation",
+ what:"The Commission investigates, and it can require the production of evidence relevant to the charge. Employers respond with a position statement and documents.",
+ watch:"The investigation is not adversarial in the way litigation is, and what an employer says here becomes part of the record later."},
+{n:4, name:"Cause or no cause",
+ what:"The Commission makes a determination on whether there is reasonable cause to believe the statute was violated. A no cause finding is not a decision that nothing happened and it does not prevent a private suit.",
+ watch:"People routinely read a no cause determination as a loss. It is an administrative conclusion on the material gathered, and the charging party retains the right to sue."},
+{n:5, name:"Conciliation",
+ what:"Where cause is found, the Commission must attempt to resolve the matter by conference and conciliation before any litigation.",
+ watch:"Conciliation is confidential and its adequacy is reviewable only in a limited way, which was itself the subject of later litigation."},
+{n:6, name:"Right to sue and the ninety day clock",
+ what:"The charging party receives a notice of right to sue, and a civil action must be filed within ninety days of receiving it.",
+ watch:"Ninety days is short and it is strictly applied. This deadline ends more claims than any substantive defence."},
+{n:7, name:"Who brings the suit",
+ what:"As originally enacted the Commission could investigate and conciliate but could not sue. Litigation authority was added in 1972, and even now most Title VII cases are brought privately.",
+ watch:"The 1972 amendment is the single most important structural change to the enforcement regime, and it exists because the original design was a concession made to obtain cloture."}
+];
+
+/* LEDGER SCHEMA
+   year, kind (Case|Amendment), name, held, effect, answered
+   answered: what happened to it afterwards, or null if it stands  */
+CR.ledger = [
+{year:1964, kind:"Case", name:"The two public accommodations decisions",
+ held:"Title II was upheld as a valid exercise of the commerce power, in two decisions handed down on the same day, one concerning a motel serving interstate travellers and one a restaurant buying food that had moved in commerce.",
+ effect:"The constitutional attack on the statute's central provision failed within six months of enactment. The choice of the Commerce Clause over the Fourteenth Amendment was vindicated.",
+ answered:null},
+{year:1971, kind:"Case", name:"Disparate impact recognised",
+ held:"Practices neutral on their face but exclusionary in operation violate Title VII unless shown to be related to job performance, and intent to discriminate is not required.",
+ effect:"Created the disparate impact theory, which became one of the two principal routes to a Title VII claim.",
+ answered:"Narrowed by the Court in 1989 and then restored and codified by Congress in the Civil Rights Act of 1991."},
+{year:1972, kind:"Amendment", name:"Equal Employment Opportunity Act",
+ held:"Congress gave the Commission authority to bring civil actions, extended coverage to state and local government and to educational institutions, and lowered the employer size threshold.",
+ effect:"Repaired the central weakness of the original Title VII, which had been a deliberate concession made to obtain cloture eight years earlier.",
+ answered:null},
+{year:1973, kind:"Case", name:"The burden shifting framework",
+ held:"Established the sequence for an individual disparate treatment claim: the plaintiff makes a prima facie showing, the employer articulates a legitimate reason, and the plaintiff may then show the reason is pretextual.",
+ effect:"Became the standard analytical structure for individual discrimination claims and remains so.",
+ answered:null},
+{year:1976, kind:"Case", name:"Pregnancy held outside sex discrimination",
+ held:"An employer disability plan excluding pregnancy was held not to discriminate because of sex, on the reasoning that the distinction was between pregnant and non-pregnant persons.",
+ effect:"Removed pregnancy from Title VII's protection.",
+ answered:"Overturned by Congress two years later."},
+{year:1978, kind:"Amendment", name:"Pregnancy Discrimination Act",
+ held:"Congress amended the definitions to state that discrimination because of sex includes discrimination on the basis of pregnancy, childbirth and related medical conditions.",
+ effect:"Directly reversed the 1976 decision by amending the text it had construed.",
+ answered:null},
+{year:1984, kind:"Case", name:"Programme specific funding coverage",
+ held:"Title VI style funding conditions were read to reach only the specific programme receiving federal money rather than the whole institution.",
+ effect:"Substantially narrowed the reach of the funding condition across education and other sectors.",
+ answered:"Overturned by Congress in 1988 over a presidential veto."},
+{year:1986, kind:"Case", name:"Hostile environment harassment",
+ held:"A hostile or abusive working environment can constitute discrimination because of sex under Title VII, without any tangible economic loss.",
+ effect:"Established harassment as a recognised Title VII theory.",
+ answered:null},
+{year:1988, kind:"Amendment", name:"Civil Rights Restoration Act",
+ held:"Congress defined programme or activity to mean all the operations of a covered institution, restoring institution wide coverage.",
+ effect:"Reversed the 1984 construction. Enacted over a veto, which is itself a rare and instructive fact about the political position by then.",
+ answered:null},
+{year:1989, kind:"Case", name:"The 1989 term and the contraction",
+ held:"In a single term the Court decided several cases narrowing employment discrimination law, including shifting the burden of proof in disparate impact cases to the plaintiff, narrowing a Reconstruction era statute's reach to contract formation, altering the treatment of mixed motive cases, restricting when a seniority system could be challenged, and permitting collateral attacks on consent decrees.",
+ effect:"The most significant single term contraction in the statute's history, and the direct cause of the legislation that followed.",
+ answered:"Substantially reversed by the Civil Rights Act of 1991."},
+{year:1990, kind:"Amendment", name:"The vetoed predecessor",
+ held:"Congress passed a bill to reverse the 1989 decisions. It was vetoed and the override attempt failed by a single vote in the Senate.",
+ effect:"Nothing became law, and the near miss shaped the negotiation that produced the successful bill the following year.",
+ answered:"Superseded by the 1991 Act."},
+{year:1991, kind:"Amendment", name:"Civil Rights Act of 1991",
+ held:"Congress codified disparate impact and restored the employer's burden of justification, reversed the narrowing of the Reconstruction era statute, addressed mixed motive cases, changed the seniority filing rule, restricted collateral attacks on consent decrees, and for the first time permitted compensatory and punitive damages with jury trials in intentional discrimination cases.",
+ effect:"The most substantial amendment to the statute. It both reversed specific holdings and changed the remedial structure, which altered the economics of bringing a claim.",
+ answered:null},
+{year:1998, kind:"Case", name:"The employer liability settlement",
+ held:"Two decisions the same term set out when an employer is liable for supervisor harassment, including an affirmative defence available where no tangible employment action occurred and the employer exercised reasonable care while the employee unreasonably failed to use it.",
+ effect:"Created the practical structure of modern harassment policy, since the defence rewards having a complaints procedure and using it.",
+ answered:null},
+{year:2001, kind:"Case", name:"No private action on funding regulations",
+ held:"Private individuals may not sue to enforce disparate impact regulations issued under the federal funding title, which reaches only intentional discrimination in a private action.",
+ effect:"Left enforcement of the regulations to the agencies, which had already proved slow. Title VI's path diverged sharply from Title VII's here.",
+ answered:null},
+{year:2007, kind:"Case", name:"The pay discrimination filing rule",
+ held:"The charge period for a discriminatory pay decision ran from the decision itself rather than from each subsequent paycheck reflecting it.",
+ effect:"Made many pay discrimination claims untimely before the employee could plausibly have discovered them.",
+ answered:"Overturned by Congress two years later."},
+{year:2009, kind:"Amendment", name:"Lilly Ledbetter Fair Pay Act",
+ held:"Congress provided that an unlawful practice occurs each time compensation is paid pursuant to a discriminatory decision, restarting the clock with each payment.",
+ effect:"Directly reversed the 2007 decision, and it is the clearest short example available of Congress amending a statute to overturn a construction of it.",
+ answered:null},
+{year:2020, kind:"Case", name:"The text first turn",
+ held:"Discrimination because of sex under Title VII encompasses discrimination on the basis of sexual orientation and gender identity, on the reasoning that it is impossible to discriminate on either ground without taking sex into account.",
+ effect:"Extended coverage substantially, and did so through close reading of the 1964 text rather than through legislative history or evolving standards.",
+ answered:null}
+];
+
+CR.extend = [
+{t:"Where the data lives",
+ code:"CR.titles  the eleven titles\nCR.gates   the six procedural gates\nCR.votes   the roll calls, by party and by region\nCR.stages  the Title VII enforcement process\nCR.ledger  cases and amendments as one sequence",
+ body:"Every panel renders from these arrays. The ledger filter buttons are generated from the kind field, so adding a new category creates its own filter with no code change."},
+{t:"Adding a ledger entry",
+ code:'{year:2023, kind:"Case",\n name:"Short descriptive name",\n held:"What the decision or amendment did",\n effect:"Why it mattered",\n answered:"What happened to it afterwards, or null"}',
+ body:"Append to CR.ledger. Entries sort by year automatically. The answered field is what makes this a ledger rather than a case list: it records whether a construction survived, and the pattern of survival is the most interesting thing on the page."},
+{t:"Adding a roll call",
+ code:'{id:"v5", name:"...", date:"...", chamber:"Senate",\n result:"71 to 29",\n threshold:"What was required",\n party:[{label:"...", yes:44, no:23}, ...],\n region:[{label:"...", yes:1, no:20}, ...],\n note:"What the two breakdowns show"}',
+ body:"Append to CR.votes. The party and region arrays must each total to the stated result, and the page checks this and reports a mismatch in the console. A vote whose columns do not cross-foot is a data error and should be fixed rather than published."},
+{t:"Adding a gate",
+ code:'{n:7, name:"...",\n whatitis:"The procedural obstacle in general terms",\n whathappened:"What happened to this particular bill",\n cost:"What was given up to get through",\n general:"The transferable lesson"}',
+ body:"Append to CR.gates. Keep the general field genuinely general, because the gates are the part of this page that transfers to any other statute and they lose their value if they become anecdotes about one bill."},
+{t:"Using this for a different statute",
+ code:"1  Replace CR.titles with the new statute's structure\n2  Rewrite CR.gates for its actual passage history\n3  Replace CR.votes with its roll calls\n4  Replace CR.stages with its enforcement process\n5  Rebuild CR.ledger from its construction history",
+ body:"The five arrays are a template for any major statute. The gates and the ledger are the two that generalise best, since almost every significant law has a procedural history worth reconstructing and a sequence of judicial constructions some of which the legislature answered."},
+{t:"The editorial rule",
+ code:"Opposition reasons stated as they were stated.\nVote totals cross-checked, both ways.\nNo verdict on contested history.",
+ body:"Where contemporaries disagreed, record what each side actually argued rather than characterising one of them. The constitutional and federalism objections raised against this bill were argued seriously by people who held them, and a page that treats them as pretext teaches a student nothing about how to read a legislative debate."},
+{t:"Suggested order of expansion",
+ code:"1  The Voting Rights Act of 1965 as a second statute\n2  The Fair Housing Act of 1968\n3  The Americans with Disabilities Act\n4  A committee stage explorer for the gates tab\n5  A statute comparison view across all of them",
+ body:"The Voting Rights Act is the natural second entry, because Title I of this statute was deliberately weak and the 1965 Act exists precisely to answer that. Running both through the same five arrays would let a reader compare two passage histories directly."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function titleById(id){ for(var i=0;i<CR.titles.length;i++){ if(CR.titles[i].id===id) return CR.titles[i]; } return null; }
+
+  /* Vote columns must cross-foot to the stated result. A mismatch is a data
+     error, so it is reported rather than silently rendered. */
+  CR.votes.forEach(function(v){
+    var r=v.result.split(" to ").map(Number);
+    ["party","region"].forEach(function(k){
+      var y=v[k].reduce(function(a,x){ return a+x.yes; },0);
+      var n=v[k].reduce(function(a,x){ return a+x.no; },0);
+      if(y!==r[0] || n!==r[1]){
+        console.warn("Legislation notebook: "+v.name+" "+k+" columns total "+y+" to "+n+
+                     " but the stated result is "+v.result);
+      }
+    });
+  });
+
+  var openId=null, ledKind="All";
+
+  function initTabs(){
+    var btns=document.querySelectorAll(".cr-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".cr-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("crp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- titles ---------- */
+  function renderGrid(){
+    var q=($("crFind").value||"").toLowerCase();
+    var list=CR.titles.filter(function(t){
+      return !q || (t.num+" "+t.name+" "+t.does+" "+t.authority+" "+t.exempt+" "+t.today).toLowerCase().indexOf(q)>=0;
+    });
+    $("crGrid").innerHTML = list.length ? list.map(function(t){
+      return '<div class="cr-cc" data-open="'+esc(t.id)+'">'+
+        '<div class="cr-cn">Title '+esc(t.num)+"</div>"+
+        '<div class="cr-cm">'+esc(t.name)+"</div>"+
+        '<div class="cr-cm" style="margin-top:7px;color:var(--text);opacity:.78">'+esc(t.does.split(".")[0])+".</div></div>";
+    }).join("") : '<div class="cr-empty">No title matches that search.</div>';
+    $("crCount").textContent=list.length+" of "+CR.titles.length+" titles";
+    $("crGrid").querySelectorAll("[data-open]").forEach(function(el){
+      el.addEventListener("click", function(){ openTitle(el.getAttribute("data-open")); });
+    });
+  }
+
+  function openTitle(id){
+    var t=titleById(id); if(!t) return;
+    openId=id;
+    $("crDetail").innerHTML='<div class="cr-card" style="margin-top:18px">'+
+      '<div class="cr-flex" style="justify-content:space-between;align-items:flex-start">'+
+      "<div><h3 style='font-size:21px;margin:0'>Title "+esc(t.num)+". "+esc(t.name)+"</h3></div>"+
+      '<button class="cr-b sm" id="crClose" type="button">Close</button></div>'+
+      '<div style="margin-top:16px">'+
+      '<div class="cr-dl"><div class="k">What it requires</div><div>'+esc(t.does)+"</div></div>"+
+      '<div class="cr-dl"><div class="k">Authority claimed</div><div><div class="cr-for">'+esc(t.authority)+"</div></div></div>"+
+      '<div class="cr-dl"><div class="k">Exemptions and limits</div><div><div class="cr-against">'+esc(t.exempt)+"</div></div></div>"+
+      '<div class="cr-dl"><div class="k">Where it stands</div><div>'+esc(t.today)+"</div></div>"+
+      "</div></div>";
+    $("crClose").addEventListener("click", function(){ openId=null; $("crDetail").innerHTML=""; });
+    $("crDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  /* ---------- gates ---------- */
+  function renderGates(){
+    $("crGates").innerHTML = CR.gates.map(function(g){
+      return '<div class="cr-card" style="margin-bottom:14px">'+
+        '<div style="font-weight:700;font-size:17.5px;line-height:1.45">Gate '+g.n+". "+esc(g.name)+"</div>"+
+        '<div class="cr-dl" style="margin-top:12px"><div class="k">The obstacle</div><div>'+esc(g.whatitis)+"</div></div>"+
+        '<div class="cr-dl"><div class="k">What happened</div><div>'+esc(g.whathappened)+"</div></div>"+
+        '<div class="cr-dl"><div class="k">What it cost</div><div><div class="cr-against">'+esc(g.cost)+"</div></div></div>"+
+        '<div class="cr-dl"><div class="k">Transferable</div><div><div class="cr-note">'+esc(g.general)+"</div></div></div></div>";
+    }).join("");
+  }
+
+  /* ---------- votes ---------- */
+  function bar(rows, total){
+    var cols=["#2563eb","#7c3aed","#0891b2","#b45309"];
+    var out="";
+    rows.forEach(function(r,i){
+      var wy=r.yes/total*100, wn=r.no/total*100;
+      out += '<div style="margin-bottom:10px">'+
+        '<div class="cr-tiny" style="margin-bottom:3px"><strong>'+esc(r.label)+"</strong> "+r.yes+" for, "+r.no+" against</div>"+
+        '<div class="cr-bar">'+
+        (wy>0?'<span style="width:'+wy+'%;background:'+cols[i%cols.length]+'">'+(wy>7?r.yes:"")+"</span>":"")+
+        (wn>0?'<span style="width:'+wn+'%;background:#94a3b8">'+(wn>7?r.no:"")+"</span>":"")+
+        "</div></div>";
+    });
+    return out;
+  }
+
+  function renderVotes(){
+    $("crVotes").innerHTML = CR.votes.map(function(v){
+      var total=v.result.split(" to ").map(Number).reduce(function(a,b){ return a+b; },0);
+      return '<div class="cr-card" style="margin-bottom:14px">'+
+        '<div style="font-weight:700;font-size:17px">'+esc(v.name)+"</div>"+
+        '<div class="cr-tiny" style="margin-top:4px">'+esc(v.date)+" . "+esc(v.chamber)+" . "+esc(v.threshold)+"</div>"+
+        '<div class="cr-out" style="margin-top:12px">'+
+        '<div class="cr-o"><div class="v">'+esc(v.result)+'</div><div class="l">Result</div></div>'+
+        '<div class="cr-o"><div class="v">'+total+'</div><div class="l">Votes cast</div></div>'+
+        '<div class="cr-o"><div class="v">'+Math.round(v.result.split(" to ").map(Number)[0]/total*100)+'%</div><div class="l">In favour</div></div>'+
+        "</div>"+
+        '<div class="cr-dl" style="margin-top:14px"><div class="k">By party</div><div>'+bar(v.party,total)+"</div></div>"+
+        '<div class="cr-dl"><div class="k">By region</div><div>'+bar(v.region,total)+"</div></div>"+
+        '<div class="cr-dl"><div class="k">What it shows</div><div><div class="cr-note">'+esc(v.note)+"</div></div></div></div>";
+    }).join("");
+  }
+
+  /* ---------- title vii ---------- */
+  function addDays(d, n){ var x=new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+  function fmt(d){
+    if(isNaN(d.getTime())) return "-";
+    return d.toISOString().slice(0,10);
+  }
+
+  function renderClock(){
+    var v=$("ccDate").value;
+    var days=parseInt($("ccState").value,10);
+    var rts=$("ccRTS").value;
+    var out="";
+    if(!v){
+      out='<div class="cr-o" style="grid-column:1 / -1"><div class="v">-</div>'+
+          '<div class="l">Enter the date of the alleged practice</div></div>';
+    } else {
+      var d=new Date(v+"T00:00:00");
+      var deadline=addDays(d, days);
+      var today=new Date(); today.setHours(0,0,0,0);
+      var left=Math.round((deadline-today)/86400000);
+      var col = left<0 ? "#b91c1c" : (left<30 ? "#b45309" : "#047857");
+      out='<div class="cr-o"><div class="v">'+days+'</div><div class="l">Days to file a charge</div></div>'+
+          '<div class="cr-o"><div class="v">'+fmt(deadline)+'</div><div class="l">Charge deadline</div></div>'+
+          '<div class="cr-o"><div class="v" style="color:'+col+'">'+(left<0? "passed" : left+" days")+
+          '</div><div class="l">'+(left<0?"Deadline has passed":"Remaining")+"</div></div>";
+      if(rts){
+        var r=new Date(rts+"T00:00:00");
+        var suit=addDays(r, 90);
+        var sleft=Math.round((suit-today)/86400000);
+        var scol = sleft<0 ? "#b91c1c" : (sleft<21 ? "#b45309" : "#047857");
+        out+='<div class="cr-o"><div class="v">'+fmt(suit)+'</div><div class="l">Deadline to file suit</div></div>'+
+             '<div class="cr-o"><div class="v" style="color:'+scol+'">'+(sleft<0?"passed":sleft+" days")+
+             '</div><div class="l">'+(sleft<0?"Suit deadline passed":"Remaining to sue")+"</div></div>";
+      }
+    }
+    $("ccOut").innerHTML=out;
+  }
+
+  function renderStages(){
+    $("crStages").innerHTML='<div class="cr-card">'+ CR.stages.map(function(s){
+      return '<div class="cr-dl"><div class="k">Stage '+s.n+"</div><div><strong>"+esc(s.name)+
+        '</strong><div style="margin-top:6px;color:var(--muted)">'+esc(s.what)+"</div>"+
+        '<div class="cr-note" style="margin-top:9px">'+esc(s.watch)+"</div></div></div>";
+    }).join("")+"</div>";
+  }
+
+  /* ---------- ledger ---------- */
+  function renderLedger(){
+    var kinds=["All"].concat(CR.ledger.map(function(e){ return e.kind; })
+      .filter(function(v,i,a){ return a.indexOf(v)===i; }));
+    $("ledBtns").innerHTML = kinds.map(function(k){
+      var n = k==="All" ? CR.ledger.length : CR.ledger.filter(function(e){ return e.kind===k; }).length;
+      return '<button class="cr-b sm'+(ledKind===k?" primary":"")+'" data-lk="'+esc(k)+'">'+esc(k)+" ("+n+")</button>";
+    }).join(" ");
+    $("ledBtns").querySelectorAll("[data-lk]").forEach(function(b){
+      b.addEventListener("click", function(){ ledKind=b.getAttribute("data-lk"); renderLedger(); });
+    });
+
+    var list=CR.ledger.filter(function(e){ return ledKind==="All" || e.kind===ledKind; })
+                      .sort(function(a,b){ return a.year-b.year; });
+    $("ledCount").textContent=list.length+" of "+CR.ledger.length+" entries";
+    $("crLedger").innerHTML = list.length ? list.map(function(e){
+      return '<div class="cr-card" style="margin-bottom:12px">'+
+        '<div class="cr-flex" style="justify-content:space-between;align-items:flex-start;gap:12px">'+
+        "<div style='font-weight:700;font-size:16.5px'>"+e.year+". "+esc(e.name)+"</div>"+
+        '<span class="cr-chip">'+esc(e.kind)+"</span></div>"+
+        '<div class="cr-dl" style="margin-top:10px"><div class="k">What it did</div><div>'+esc(e.held)+"</div></div>"+
+        '<div class="cr-dl"><div class="k">Why it mattered</div><div>'+esc(e.effect)+"</div></div>"+
+        (e.answered
+          ? '<div class="cr-dl"><div class="k">What happened next</div><div><div class="cr-against">'+esc(e.answered)+"</div></div></div>"
+          : '<div class="cr-dl"><div class="k">What happened next</div><div><div class="cr-for">Stands as decided.</div></div></div>')+
+        "</div>";
+    }).join("") : '<div class="cr-empty">Nothing in that category.</div>';
+  }
+
+  /* ---------- extend ---------- */
+  function renderExtend(){
+    var counts='<div class="cr-card" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px;margin-bottom:12px">Currently covered</div>'+
+      '<div class="cr-stat">'+
+      '<div class="cr-stat-c"><div class="cr-stat-n">'+CR.titles.length+'</div><div class="cr-stat-l">Titles</div></div>'+
+      '<div class="cr-stat-c"><div class="cr-stat-n">'+CR.gates.length+'</div><div class="cr-stat-l">Gates</div></div>'+
+      '<div class="cr-stat-c"><div class="cr-stat-n">'+CR.votes.length+'</div><div class="cr-stat-l">Roll calls</div></div>'+
+      '<div class="cr-stat-c"><div class="cr-stat-n">'+CR.ledger.length+'</div><div class="cr-stat-l">Ledger entries</div></div>'+
+      '<div class="cr-stat-c"><div class="cr-stat-n">'+CR.ledger.filter(function(e){return e.answered;}).length+
+        '</div><div class="cr-stat-l">Later answered</div></div>'+
+      "</div></div>";
+    $("crExtend").innerHTML = counts + CR.extend.map(function(x){
+      return '<div class="cr-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px;margin-bottom:10px'>"+esc(x.t)+"</div>"+
+        '<div style="font-size:14.5px;line-height:1.8;margin-bottom:12px;color:var(--muted)">'+esc(x.body)+"</div>"+
+        '<div class="cr-code">'+esc(x.code)+"</div></div>";
+    }).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    $("crFind").addEventListener("input", renderGrid);
+    ["ccDate","ccState","ccRTS"].forEach(function(id){
+      $(id).addEventListener("change", renderClock);
+      $(id).addEventListener("input", renderClock);
+    });
+    renderGrid();
+    renderGates();
+    renderVotes();
+    renderClock();
+    renderStages();
+    renderLedger();
+    renderExtend();
+  });
+})();
+</script>

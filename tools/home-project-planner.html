@@ -1,0 +1,687 @@
+---
+layout: default
+title: Home Project Planner
+description: Keep quotes, contracts, licence numbers and project notes in one place. Compare bids properly, vet a contractor, and record what your home actually needs.
+permalink: /tools/home-project-planner.html
+body_class: tool-page
+---
+
+<style>
+  .hp-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .hp-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .hp-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .hp-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .hp-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .hp-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .hp-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .hp-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .hp-row::-webkit-scrollbar{display:none}
+  .hp-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .hp-btn:hover{background:var(--tint);color:var(--text)}
+  .hp-btn.is-active{background:var(--text);color:#fff}
+  .hp-panel{display:none;padding:34px 0 60px}
+  .hp-panel.is-active{display:block}
+  .hp-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .hp-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .hp-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .hp-grid{display:grid;gap:16px}
+  .hp-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .hp-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .hp-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .hp-in,.hp-sel,.hp-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .hp-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .hp-in:focus,.hp-sel:focus,.hp-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .hp-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .hp-b:hover{background:var(--tint)}
+  .hp-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .hp-b.primary:hover{background:var(--blue2)}
+  .hp-b.sm{font-size:13px;padding:6px 10px}
+  .hp-b.icon{padding:6px 9px;font-size:13px;line-height:1}
+  .hp-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .hp-muted{color:var(--muted);font-size:13.5px}
+  .hp-tiny{font-size:12px;color:var(--muted2)}
+  .hp-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.hp-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.hp-tbl th,table.hp-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.hp-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.hp-tbl tr:last-child td{border-bottom:0}
+  table.hp-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .hp-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .hp-day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:14px}
+  .hp-day-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .hp-day-t{font-weight:700;font-size:16px}
+  .hp-stop{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--tint)}
+  .hp-stop-n{flex:0 0 24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted2)}
+  .hp-stop-body{flex:1;min-width:0}
+  .hp-stop-t{font-weight:600;font-size:14.5px}
+  .hp-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .hp-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .hp-acc-b:hover{background:var(--tint)}
+  .hp-acc-t{font-weight:700;font-size:16.5px}
+  .hp-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .hp-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .hp-acc.is-open .hp-acc-body{display:block}
+  .hp-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .hp-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .hp-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .hp-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .hp-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .hp-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .hp-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .hp-empty{padding:26px;text-align:center;color:var(--muted)}
+  .hp-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .hp-check:last-child{border-bottom:0}
+  .hp-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .hp-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .hp-check .hp-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .hp-done label{text-decoration:line-through;color:var(--muted2)}
+  .hp-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .hp-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:80px}
+  .hp-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+</style>
+
+<section class="hp-hero">
+  <div class="container">
+    <div class="hp-eyebrow">VaultBook Study Library</div>
+    <h1 class="hp-title">The home project planner</h1>
+    <p class="hp-sub">Keep quotes, contracts, licence numbers and project notes in one place, and compare bids on the things that actually differ rather than on the headline figure. Vet a contractor properly before you sign, record where your shutoffs are before you need them, and keep a service history that outlives your memory. Everything stays on your device.</p>
+    <div class="hp-badges">
+      <span class="hp-badge">Project and quote tracker</span>
+      <span class="hp-badge">Side-by-side bid comparison</span>
+      <span class="hp-badge">Contractor vetting checklist</span>
+      <span class="hp-badge">Shutoff and emergency record</span>
+      <span class="hp-badge">Maintenance schedule</span>
+      <span class="hp-badge">Export everything</span>
+    </div>
+  </div>
+</section>
+
+<div class="hp-tabs">
+  <div class="container">
+    <div class="hp-row" role="tablist" aria-label="Planner tools">
+      <button class="hp-btn is-active" data-tab="projects" role="tab" aria-selected="true">Projects</button>
+      <button class="hp-btn" data-tab="compare" role="tab" aria-selected="false">Compare quotes</button>
+      <button class="hp-btn" data-tab="vetting" role="tab" aria-selected="false">Vetting</button>
+      <button class="hp-btn" data-tab="home" role="tab" aria-selected="false">Home record</button>
+      <button class="hp-btn" data-tab="maint" role="tab" aria-selected="false">Maintenance</button>
+      <button class="hp-btn" data-tab="export" role="tab" aria-selected="false">Export</button>
+    </div>
+  </div>
+</div>
+
+<section class="hp-panel is-active" id="hpp-projects">
+  <div class="container">
+    <h2 class="hp-head">Projects</h2>
+    <p class="hp-lede">One record per job, holding the quotes, the contractor details, the licence numbers, and the notes you will want six months later when something needs looking at again.</p>
+
+    <div class="hp-card" style="margin-bottom:18px">
+      <div class="hp-grid four">
+        <div>
+          <label class="hp-tiny" for="hpName">Project</label>
+          <input class="hp-in" id="hpName" type="text" placeholder="Replace the boiler" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="hp-tiny" for="hpTrade">Trade</label>
+          <select class="hp-sel" id="hpTrade" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="hp-tiny" for="hpStatus">Status</label>
+          <select class="hp-sel" id="hpStatus" style="margin-top:5px"></select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="hp-b primary" id="hpAdd" type="button" style="width:100%">Add project</button>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label class="hp-tiny" for="hpNote">Notes</label>
+        <input class="hp-in" id="hpNote" type="text" placeholder="What needs doing, and anything you have already been told" style="margin-top:5px">
+      </div>
+      <div class="hp-flex" style="margin-top:12px">
+        <span class="hp-tiny" id="hpMsg"></span>
+      </div>
+    </div>
+
+    <div class="hp-stat" style="margin-bottom:18px">
+      <div class="hp-stat-c"><div class="hp-stat-n" id="hpNproj">0</div><div class="hp-stat-l">Projects</div></div>
+      <div class="hp-stat-c"><div class="hp-stat-n" id="hpNquote">0</div><div class="hp-stat-l">Quotes recorded</div></div>
+      <div class="hp-stat-c"><div class="hp-stat-n" id="hpNopen">0</div><div class="hp-stat-l">Still open</div></div>
+      <div class="hp-stat-c"><div class="hp-stat-n" id="hpNtrades">0</div><div class="hp-stat-l">Trades involved</div></div>
+    </div>
+
+    <div id="hpProjects"></div>
+  </div>
+</section>
+
+<section class="hp-panel" id="hpp-compare">
+  <div class="container">
+    <h2 class="hp-head">Compare quotes</h2>
+    <p class="hp-lede">Two or three bids side by side against the same questions. The headline figure is the least informative number on a quote, and the differences that matter are almost always in what is excluded.</p>
+
+    <div class="hp-flex" style="margin-bottom:16px">
+      <select class="hp-sel" id="hpCmpProject" style="max-width:280px"></select>
+      <button class="hp-b" id="hpCmpExport" type="button">Export comparison</button>
+      <span class="hp-tiny" id="hpCmpMsg"></span>
+    </div>
+
+    <div id="hpCompare"></div>
+
+    <div class="hp-warn" style="margin-top:16px">A quote far below the others is information rather than a bargain. It usually means a different scope, a different material grade, work excluded that the others included, or no allowance for the thing everyone finds once the wall is open. Ask what the cheapest bid does not cover before you ask why it is cheaper.</div>
+  </div>
+</section>
+
+<section class="hp-panel" id="hpp-vetting">
+  <div class="container">
+    <h2 class="hp-head">Vetting</h2>
+    <p class="hp-lede">Twenty checks before you sign anything, grouped by when they matter. Most disputes trace back to one of these being skipped, and every one costs less to do than to fix.</p>
+
+    <div class="hp-flex" style="margin-bottom:16px">
+      <span class="hp-tiny" id="hpVetCount"></span>
+      <button class="hp-b" id="hpVetReset" type="button">Untick everything</button>
+      <button class="hp-b" id="hpVetExport" type="button">Export checklist</button>
+      <span class="hp-tiny" id="hpVetMsg"></span>
+    </div>
+
+    <div id="hpVetList"></div>
+
+    <div class="hp-warn" style="margin-top:16px">Licensing, permit requirements, insurance minimums, and contract rules vary by state, province, and municipality, and they change. Everything here is chosen to be broadly sensible, and the authority for your job is your local licensing body and building department rather than any guide including this one.</div>
+  </div>
+</section>
+
+<section class="hp-panel" id="hpp-home">
+  <div class="container">
+    <h2 class="hp-head">Home record</h2>
+    <p class="hp-lede">The details you cannot look up in an emergency. Fill these in once, export a copy, and put it somewhere a person who is not you could find it.</p>
+
+    <div class="hp-card" style="margin-bottom:18px">
+      <div id="hpHomeFields"></div>
+      <div class="hp-flex" style="margin-top:14px">
+        <button class="hp-b primary" id="hpHomeSave" type="button">Save record</button>
+        <button class="hp-b" id="hpHomeExport" type="button">Export</button>
+        <span class="hp-tiny" id="hpHomeMsg"></span>
+      </div>
+    </div>
+
+    <div class="hp-warn">Locate every shutoff physically before you need one, and check that each actually turns. A valve nobody has moved in fifteen years frequently will not, and discovering that during a leak is the worst possible moment. Take a photograph of each location and keep it with this record.</div>
+  </div>
+</section>
+
+<section class="hp-panel" id="hpp-maint">
+  <div class="container">
+    <h2 class="hp-head">Maintenance</h2>
+    <p class="hp-lede">What each system needs and roughly how often, with the reason. Tick items as you do them and the record persists, so next year you start from what was actually done rather than from memory.</p>
+
+    <div class="hp-flex" style="margin-bottom:16px">
+      <select class="hp-sel" id="hpMaintFreq" style="max-width:210px"><option value="">Any frequency</option></select>
+      <span class="hp-tiny" id="hpMaintCount"></span>
+      <button class="hp-b" id="hpMaintReset" type="button">Untick everything</button>
+      <button class="hp-b" id="hpMaintExport" type="button">Export</button>
+      <span class="hp-tiny" id="hpMaintMsg"></span>
+    </div>
+
+    <div id="hpMaintList"></div>
+  </div>
+</section>
+
+<section class="hp-panel" id="hpp-export">
+  <div class="container">
+    <h2 class="hp-head">Export</h2>
+    <p class="hp-lede">Everything in one sheet you can print or store. Notes live in your browser only, so export before clearing your browsing data.</p>
+
+    <div class="hp-flex" style="margin-bottom:16px">
+      <button class="hp-b primary" id="hpExpAll" type="button">Export everything</button>
+      <button class="hp-b" id="hpCopyAll" type="button">Copy to clipboard</button>
+      <button class="hp-b" id="hpWipeAll" type="button">Clear all</button>
+      <span class="hp-tiny" id="hpExpMsg"></span>
+    </div>
+
+    <div id="hpPreview"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="hp-grid three">
+      <div class="hp-card">
+        <div class="card-kicker">Keep the paperwork</div>
+        <div class="card-title" style="margin:6px 0">One vault for the whole house</div>
+        <p class="card-text">VaultBook holds your quotes, contracts, permits, warranties, licence numbers, and service records in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="hp-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New planners and study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="hp-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your projects, quotes and home record stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var HP = {};
+
+HP.trades = ["HVAC","Plumbing","Electrical","Roofing","General contracting","Windows and doors","Insulation","Other"];
+HP.statuses = ["Researching","Getting quotes","Quotes in","Contracted","In progress","Complete"];
+
+HP.quoteFields = [
+{k:"firm",  l:"Company"},
+{k:"price", l:"Total price"},
+{k:"lic",   l:"Licence number"},
+{k:"ins",   l:"Insurance confirmed"},
+{k:"scope", l:"What is included"},
+{k:"excl",  l:"What is excluded"},
+{k:"mat",   l:"Materials and grade"},
+{k:"time",  l:"Timeline and start date"},
+{k:"pay",   l:"Payment schedule"},
+{k:"warr",  l:"Warranty on labour and parts"},
+{k:"permit",l:"Who pulls the permit"},
+{k:"refs",  l:"References checked"}
+];
+
+HP.vetting = [
+{cat:"Before you invite anyone to quote", items:[
+ {t:"Write down the scope in your own words first", why:"Three quotes against three different assumptions cannot be compared. Give every firm the same description of the job"},
+ {t:"Find out whether the work needs a permit", why:"Permit requirements vary by locality and by scope. A contractor who says none is needed when one is should be treated as a warning"},
+ {t:"Decide your budget range before hearing a price", why:"An anchor set by the first quote is very hard to unset, and it is the most common way people spend more than intended"},
+ {t:"Get at least three quotes for anything substantial", why:"Two gives you no sense of the middle. Three shows you the spread and makes an outlier visible"}
+]},
+{cat:"Checking the firm", items:[
+ {t:"Verify the licence number with the issuing authority", why:"A number on a van or a website proves nothing. Check it against the register, which is usually searchable online and free"},
+ {t:"Confirm liability insurance and worker cover, in writing", why:"If someone is hurt on your property and the firm is not covered, the exposure can land on you. Ask for the certificate rather than a verbal assurance"},
+ {t:"Check how long the business has traded under this name", why:"A firm that has changed name recently may have done so for ordinary reasons and it is worth knowing which"},
+ {t:"Read reviews for the pattern rather than the score", why:"One furious review among many good ones is noise. The same complaint appearing repeatedly is a finding"},
+ {t:"Ask for and actually call two recent references", why:"Almost nobody calls. The ones who do learn things that never appear in a review"},
+ {t:"Check for unresolved complaints with a consumer body", why:"Free to do, takes minutes, and catches the small number of problems that matter most"}
+]},
+{cat:"Reading the quote", items:[
+ {t:"Insist on an itemised written quote, never verbal", why:"A single number is unarguable later. An itemised quote is the document that resolves a dispute"},
+ {t:"Read what is explicitly excluded", why:"Exclusions are where quotes actually differ, and they are what turns a cheap bid into an expensive job"},
+ {t:"Confirm the material grade and model, not just the type", why:"Two quotes for the same category of product can differ substantially in what is actually installed"},
+ {t:"Ask what happens if something unexpected is found", why:"Opening a wall or a roof frequently reveals more. A firm that has a stated process for this is a firm that has done it before"},
+ {t:"Check who is responsible for pulling the permit", why:"If it falls to you and you did not know, the work may proceed without one, which becomes your problem at sale"}
+]},
+{cat:"Before signing and paying", items:[
+ {t:"Never pay the full amount up front", why:"A deposit is normal and a full prepayment removes every incentive to finish. Tie payments to milestones"},
+ {t:"Get the warranty terms in writing, with duration", why:"Labour and parts are frequently warranted for different periods, and a verbal warranty is not one"},
+ {t:"Confirm start and completion dates in the contract", why:"A date in writing is the only version of a date that means anything"},
+ {t:"Keep every document, photograph, and message together", why:"Six months later, the record you can produce is the case you can make"},
+ {t:"Confirm the final inspection and sign-off process", why:"Knowing what a passed inspection looks like before work starts prevents an argument about whether the job is finished"}
+]}
+];
+
+HP.homeFields = [
+{id:"h1",  l:"Main water shutoff location", h:"Where it is, and which way it turns"},
+{id:"h2",  l:"Main electrical panel location", h:"And whether the circuits are actually labelled"},
+{id:"h3",  l:"Gas shutoff location", h:"And whether a tool is needed to turn it"},
+{id:"h4",  l:"Heating system make, model and age", h:"From the label on the unit itself"},
+{id:"h5",  l:"Cooling system make, model and age", h:"Including the outdoor unit if separate"},
+{id:"h6",  l:"Water heater make, model and age", h:"Age matters more than any other detail here"},
+{id:"h7",  l:"Roof material and approximate age", h:"Age drives every decision about repair against replacement"},
+{id:"h8",  l:"Plumber, name and number", h:"Found before an emergency, not during one"},
+{id:"h9",  l:"Electrician, name and number", h:""},
+{id:"h10", l:"HVAC firm, name and number", h:"Ideally the one that services the unit annually"},
+{id:"h11", l:"Insurance policy number and contact", h:""},
+{id:"h12", l:"Recurring problems and their dates", h:"A symptom logged with dates is worth far more to a technician than a description from memory"}
+];
+
+HP.maint = [
+{sys:"Heating and cooling", freq:"Monthly", t:"Check and replace the air filter as needed",
+ why:"A blocked filter reduces efficiency, raises running cost, and is the single most common cause of a system working harder than it needs to."},
+{sys:"Heating and cooling", freq:"Seasonal", t:"Clear vegetation and debris from around the outdoor unit",
+ why:"Restricted airflow around a condenser reduces capacity and shortens the life of the compressor."},
+{sys:"Heating and cooling", freq:"Annual", t:"Professional service before the season it is needed",
+ why:"Booked in autumn for heating and spring for cooling, when technicians are available and a fault can be fixed before you depend on it."},
+{sys:"Heating and cooling", freq:"Seasonal", t:"Check the condensate drain is clear",
+ why:"A blocked drain is a common cause of water damage that appears unrelated to the system."},
+{sys:"Plumbing", freq:"Annual", t:"Test every shutoff valve actually turns",
+ why:"A valve nobody has moved in years frequently seizes, and discovering that during a leak is the worst possible moment."},
+{sys:"Plumbing", freq:"Annual", t:"Check visible pipe joints and under sinks for damp",
+ why:"Slow leaks cause more cumulative damage than sudden ones because nobody notices them for months."},
+{sys:"Plumbing", freq:"Annual", t:"Flush or check the water heater per the manufacturer guidance",
+ why:"Sediment reduces efficiency and shortens tank life, and the procedure differs by type so check the manual first."},
+{sys:"Plumbing", freq:"Seasonal", t:"Protect exposed pipework before freezing weather",
+ why:"A burst pipe is among the most expensive and most preventable failures in a house."},
+{sys:"Electrical", freq:"Monthly", t:"Test smoke and carbon monoxide alarms",
+ why:"Takes seconds, and a non-functioning alarm is indistinguishable from a working one until it matters."},
+{sys:"Electrical", freq:"Monthly", t:"Test ground fault protection devices",
+ why:"They have a test button for a reason, and a failed device gives no indication it has failed."},
+{sys:"Electrical", freq:"Annual", t:"Check for warm outlets, flickering, or repeated breaker trips",
+ why:"Each of these is a symptom rather than a nuisance, and repeated tripping is a circuit telling you something."},
+{sys:"Electrical", freq:"Annual", t:"Confirm the panel is labelled correctly",
+ why:"An unlabelled panel costs time in an emergency and money on every subsequent job."},
+{sys:"Roof and exterior", freq:"Seasonal", t:"Clear gutters and downpipes",
+ why:"Overflowing gutters send water where the building is not designed to take it, and the damage appears at the foundation rather than the roof."},
+{sys:"Roof and exterior", freq:"Annual", t:"Inspect the roof from the ground with binoculars",
+ why:"Missing, lifted, or curling material is visible from below and is far cheaper to address early than after water enters."},
+{sys:"Roof and exterior", freq:"Annual", t:"Check flashing at every penetration",
+ why:"Most roof leaks begin at a chimney, vent, or valley rather than in the open field of the roof."},
+{sys:"Roof and exterior", freq:"Seasonal", t:"Check that ground slopes away from the building",
+ why:"Water directed toward a foundation is the origin of a large share of basement and structural problems."},
+{sys:"General", freq:"Annual", t:"Photograph the condition of major systems",
+ why:"A dated photograph is the record that settles an insurance question or an argument about when something started."},
+{sys:"General", freq:"Annual", t:"Review the home record and update anything that changed",
+ why:"A record nobody maintains becomes misleading, which is worse than having none."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_P="vb_hp_projects_v1", K_V="vb_hp_vet_v1", K_H="vb_hp_home_v1", K_M="vb_hp_maint_v1";
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function get(k,f){ try{ var r=localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,m){ var el=$(id); if(!el) return; el.textContent=m; setTimeout(function(){el.textContent="";},2600); }
+  function download(name,text){
+    var b=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var u=URL.createObjectURL(b); var a=document.createElement("a");
+    a.href=u; a.download=name; document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(u);
+  }
+
+  var PR=get(K_P,[]), V=get(K_V,{}), H=get(K_H,{}), M=get(K_M,{});
+
+  function initTabs(){
+    var btns=document.querySelectorAll(".hp-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".hp-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("hpp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="export") renderPreview();
+        if(b.getAttribute("data-tab")==="compare") renderCompare();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- projects ---------- */
+  function renderProjects(){
+    if(!PR.length){
+      $("hpProjects").innerHTML='<div class="hp-empty">No projects yet. Add one above and its quotes collect underneath it.</div>';
+      renderStats(); return;
+    }
+    $("hpProjects").innerHTML = PR.map(function(p,pi){
+      var quotes=(p.quotes||[]).map(function(q,qi){
+        return '<div class="hp-stop"><div class="hp-stop-n">'+(qi+1)+'</div><div class="hp-stop-body">'+
+          '<div class="hp-stop-t">'+esc(q.firm||"Unnamed")+(q.price?"  ("+esc(q.price)+")":"")+"</div>"+
+          '<div class="hp-tiny" style="margin-top:3px">'+
+          (q.lic?"Licence "+esc(q.lic)+" . ":"")+(q.time?esc(q.time):"")+"</div></div>"+
+          '<button class="hp-b sm" type="button" data-qdel="'+pi+"-"+qi+'">Remove</button></div>';
+      }).join("");
+      return '<div class="hp-day"><div class="hp-day-h">'+
+        '<div><div class="hp-day-t">'+esc(p.name)+"</div>"+
+        '<div class="hp-tiny">'+esc(p.trade)+" . "+esc(p.status)+" . "+((p.quotes||[]).length)+" quote"+((p.quotes||[]).length===1?"":"s")+"</div></div>"+
+        '<div class="hp-flex" style="gap:6px">'+
+        '<select class="hp-sel" data-pst="'+pi+'" style="max-width:170px">'+
+        HP.statuses.map(function(s){ return '<option'+(s===p.status?" selected":"")+">"+esc(s)+"</option>"; }).join("")+"</select>"+
+        '<button class="hp-b sm" type="button" data-pdel="'+pi+'">Remove</button></div></div>'+
+        (p.note?'<div class="hp-muted" style="margin-bottom:10px">'+esc(p.note)+"</div>":"")+
+        (quotes||'<div class="hp-tiny" style="margin-bottom:8px">No quotes recorded yet.</div>')+
+        '<div class="hp-grid four" style="margin-top:10px">'+
+        '<input class="hp-in" type="text" data-qf="'+pi+'" placeholder="Company">'+
+        '<input class="hp-in" type="text" data-qp="'+pi+'" placeholder="Total price">'+
+        '<input class="hp-in" type="text" data-ql="'+pi+'" placeholder="Licence number">'+
+        '<input class="hp-in" type="text" data-qt="'+pi+'" placeholder="Timeline"></div>'+
+        '<div class="hp-flex" style="margin-top:8px"><button class="hp-b primary sm" type="button" data-qadd="'+pi+'">Add quote</button></div>'+
+        "</div>";
+    }).join("");
+
+    $("hpProjects").querySelectorAll("[data-qadd]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var pi=parseInt(b.getAttribute("data-qadd"),10);
+        var firm=$("hpProjects").querySelector('[data-qf="'+pi+'"]').value.trim();
+        if(!firm){ flash("hpMsg","Name the company first."); return; }
+        if(!PR[pi].quotes) PR[pi].quotes=[];
+        PR[pi].quotes.push({
+          firm:firm,
+          price:$("hpProjects").querySelector('[data-qp="'+pi+'"]').value.trim(),
+          lic:$("hpProjects").querySelector('[data-ql="'+pi+'"]').value.trim(),
+          time:$("hpProjects").querySelector('[data-qt="'+pi+'"]').value.trim()
+        });
+        put(K_P,PR); renderProjects(); renderCompare();
+      });
+    });
+    $("hpProjects").querySelectorAll("[data-qdel]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var p=b.getAttribute("data-qdel").split("-").map(Number);
+        PR[p[0]].quotes.splice(p[1],1); put(K_P,PR); renderProjects(); renderCompare();
+      });
+    });
+    $("hpProjects").querySelectorAll("[data-pdel]").forEach(function(b){
+      b.addEventListener("click", function(){
+        if(!confirm("Remove this project and its quotes?")) return;
+        PR.splice(parseInt(b.getAttribute("data-pdel"),10),1);
+        put(K_P,PR); renderProjects(); renderCompare();
+      });
+    });
+    $("hpProjects").querySelectorAll("[data-pst]").forEach(function(sel){
+      sel.addEventListener("change", function(){
+        PR[parseInt(sel.getAttribute("data-pst"),10)].status=sel.value;
+        put(K_P,PR); renderProjects();
+      });
+    });
+    renderStats();
+  }
+
+  function renderStats(){
+    var q=0, open=0, trades={};
+    PR.forEach(function(p){
+      q += (p.quotes||[]).length;
+      if(p.status!=="Complete") open++;
+      trades[p.trade]=true;
+    });
+    $("hpNproj").textContent=PR.length;
+    $("hpNquote").textContent=q;
+    $("hpNopen").textContent=open;
+    $("hpNtrades").textContent=Object.keys(trades).length;
+  }
+
+  function projectsText(){
+    var out=["Home projects",""];
+    PR.forEach(function(p){
+      out.push(p.name+"   ["+p.trade+" . "+p.status+"]");
+      if(p.note) out.push("  "+p.note);
+      (p.quotes||[]).forEach(function(qq){
+        out.push("    "+(qq.firm||"?")+(qq.price?"   "+qq.price:"")+(qq.lic?"   licence "+qq.lic:"")+(qq.time?"   "+qq.time:""));
+      });
+      out.push("");
+    });
+    if(!PR.length) out.push("No projects yet.");
+    return out.join("\n");
+  }
+
+  function initProjects(){
+    HP.trades.forEach(function(t){ var o=document.createElement("option"); o.value=t; o.textContent=t; $("hpTrade").appendChild(o); });
+    HP.statuses.forEach(function(s){ var o=document.createElement("option"); o.value=s; o.textContent=s; $("hpStatus").appendChild(o); });
+    $("hpAdd").addEventListener("click", function(){
+      var n=$("hpName").value.trim();
+      if(n.length<2){ flash("hpMsg","Name the project first."); return; }
+      PR.push({name:n, trade:$("hpTrade").value, status:$("hpStatus").value, note:$("hpNote").value.trim(), quotes:[]});
+      put(K_P,PR); $("hpName").value=""; $("hpNote").value="";
+      renderProjects(); renderCompare(); flash("hpMsg","Added.");
+    });
+    renderProjects();
+  }
+
+  /* ---------- compare ---------- */
+  function renderCompare(){
+    var sel=$("hpCmpProject"), keep=sel.value;
+    sel.innerHTML = PR.length ? PR.map(function(p,i){ return '<option value="'+i+'">'+esc(p.name)+"</option>"; }).join("")
+                              : '<option value="">No projects yet</option>';
+    if(keep && PR[keep]) sel.value=keep;
+    var pi=parseInt(sel.value,10);
+    if(isNaN(pi) || !PR[pi] || !(PR[pi].quotes||[]).length){
+      $("hpCompare").innerHTML='<div class="hp-empty">Add a project with at least one quote and the comparison appears here.</div>';
+      return;
+    }
+    var qs=PR[pi].quotes.slice(0,3);
+    var html='<div class="hp-tblw"><table class="hp-tbl"><thead><tr><th style="min-width:160px">Question</th>'+
+      qs.map(function(q){ return "<th>"+esc(q.firm||"Unnamed")+"</th>"; }).join("")+"</tr></thead><tbody>";
+    HP.quoteFields.forEach(function(f){
+      html += "<tr><td><strong>"+esc(f.l)+"</strong></td>"+
+        qs.map(function(q,qi){
+          return '<td><input class="hp-in" data-cq="'+pi+"-"+qi+"-"+f.k+'" value="'+esc(q[f.k]||"")+'" placeholder="-"></td>';
+        }).join("")+"</tr>";
+    });
+    $("hpCompare").innerHTML=html+"</tbody></table></div>";
+    $("hpCompare").querySelectorAll("[data-cq]").forEach(function(inp){
+      inp.addEventListener("input", function(){
+        var p=inp.getAttribute("data-cq").split("-");
+        PR[+p[0]].quotes[+p[1]][p[2]]=inp.value;
+        put(K_P,PR);
+      });
+    });
+  }
+
+  /* ---------- checklists ---------- */
+  function vKey(c,i){ return "v"+c+"-"+i; }
+  function mKey(i){ return "m"+i; }
+  function countObj(o){ var n=0; for(var k in o){ if(o[k]) n++; } return n; }
+
+  function renderVet(){
+    var html="", total=0;
+    HP.vetting.forEach(function(g,c){
+      var rows="";
+      g.items.forEach(function(it,i){
+        total++;
+        var k=vKey(c,i), on=!!V[k];
+        rows += '<div class="hp-check'+(on?" hp-done":"")+'">'+
+          '<input type="checkbox" id="vt-'+k+'" data-vt="'+k+'"'+(on?" checked":"")+">"+
+          '<label for="vt-'+k+'">'+esc(it.t)+'<span class="hp-why">'+esc(it.why)+"</span></label></div>";
+      });
+      html += '<div class="hp-card" style="margin-bottom:14px;padding:18px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:16px">'+esc(g.cat)+"</div>"+rows+"</div>";
+    });
+    $("hpVetList").innerHTML=html;
+    $("hpVetCount").textContent=countObj(V)+" of "+total+" done";
+    $("hpVetList").querySelectorAll("input[data-vt]").forEach(function(cb){
+      cb.addEventListener("change", function(){ V[cb.getAttribute("data-vt")]=cb.checked; put(K_V,V); renderVet(); });
+    });
+  }
+
+  function vetText(){
+    var out=["Contractor vetting checklist",""];
+    HP.vetting.forEach(function(g,c){
+      out.push(g.cat);
+      g.items.forEach(function(it,i){ out.push("  ["+(V[vKey(c,i)]?"x":" ")+"] "+it.t); });
+      out.push("");
+    });
+    return out.join("\n");
+  }
+
+  function renderMaint(){
+    var f=$("hpMaintFreq").value;
+    var list=HP.maint.map(function(m,i){ return {m:m,i:i}; }).filter(function(x){ return !f || x.m.freq===f; });
+    var bySys={};
+    list.forEach(function(x){ (bySys[x.m.sys]=bySys[x.m.sys]||[]).push(x); });
+    var html="";
+    Object.keys(bySys).forEach(function(sys){
+      var rows=bySys[sys].map(function(x){
+        var k=mKey(x.i), on=!!M[k];
+        return '<div class="hp-check'+(on?" hp-done":"")+'">'+
+          '<input type="checkbox" id="mt-'+k+'" data-mt="'+k+'"'+(on?" checked":"")+">"+
+          '<label for="mt-'+k+'">'+esc(x.m.t)+' <span class="hp-chip">'+esc(x.m.freq)+"</span>"+
+          '<span class="hp-why">'+esc(x.m.why)+"</span></label></div>";
+      }).join("");
+      html += '<div class="hp-card" style="margin-bottom:14px;padding:18px">'+
+        '<div style="font-weight:700;margin-bottom:10px;font-size:16px">'+esc(sys)+"</div>"+rows+"</div>";
+    });
+    $("hpMaintList").innerHTML = html || '<div class="hp-empty">Nothing at that frequency.</div>';
+    $("hpMaintCount").textContent=countObj(M)+" of "+HP.maint.length+" done";
+    $("hpMaintList").querySelectorAll("input[data-mt]").forEach(function(cb){
+      cb.addEventListener("change", function(){ M[cb.getAttribute("data-mt")]=cb.checked; put(K_M,M); renderMaint(); });
+    });
+  }
+
+  function maintText(){
+    var out=["Maintenance schedule",""];
+    HP.maint.forEach(function(m,i){
+      out.push("  ["+(M[mKey(i)]?"x":" ")+"] "+m.sys+" . "+m.freq+" . "+m.t);
+    });
+    return out.join("\n");
+  }
+
+  /* ---------- home record ---------- */
+  function renderHome(){
+    $("hpHomeFields").innerHTML = HP.homeFields.map(function(f){
+      return '<div style="margin-bottom:12px"><label class="hp-tiny" for="'+f.id+'">'+esc(f.l)+"</label>"+
+        '<input class="hp-in" id="'+f.id+'" data-hf="'+f.id+'" style="margin-top:5px" placeholder="'+esc(f.h)+'" value="'+esc(H[f.id]||"")+'"></div>';
+    }).join("");
+    $("hpHomeFields").querySelectorAll("input[data-hf]").forEach(function(inp){
+      inp.addEventListener("input", function(){ H[inp.getAttribute("data-hf")]=inp.value; put(K_H,H); });
+    });
+  }
+
+  function homeText(){
+    var out=["Home record",""];
+    HP.homeFields.forEach(function(f){ out.push(f.l+": "+((H[f.id]||"").trim()||"-")); });
+    return out.join("\n");
+  }
+
+  /* ---------- export ---------- */
+  function everything(){
+    return [projectsText(), "", "=".repeat(56), "", homeText(), "", "=".repeat(56), "",
+            vetText(), "=".repeat(56), "", maintText()].join("\n");
+  }
+
+  function renderPreview(){
+    $("hpPreview").innerHTML='<div class="hp-card"><div style="font-weight:700;margin-bottom:10px">Preview</div>'+
+      '<pre style="white-space:pre-wrap;font-size:13px;line-height:1.6;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">'+
+      esc(everything().slice(0,4000))+"</pre></div>";
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    initProjects();
+    renderCompare();
+    renderVet();
+    ["Monthly","Seasonal","Annual"].forEach(function(f){
+      var o=document.createElement("option"); o.value=f; o.textContent=f; $("hpMaintFreq").appendChild(o);
+    });
+    $("hpMaintFreq").addEventListener("change", renderMaint);
+    renderMaint();
+    renderHome();
+
+    $("hpCmpProject").addEventListener("change", renderCompare);
+    $("hpCmpExport").addEventListener("click", function(){ download("quote-comparison.txt", projectsText()); flash("hpCmpMsg","Exported."); });
+    $("hpVetReset").addEventListener("click", function(){ if(!confirm("Untick every vetting item?")) return; V={}; put(K_V,V); renderVet(); });
+    $("hpVetExport").addEventListener("click", function(){ download("contractor-vetting.txt", vetText()); flash("hpVetMsg","Exported."); });
+    $("hpMaintReset").addEventListener("click", function(){ if(!confirm("Untick every maintenance item?")) return; M={}; put(K_M,M); renderMaint(); });
+    $("hpMaintExport").addEventListener("click", function(){ download("maintenance-schedule.txt", maintText()); flash("hpMaintMsg","Exported."); });
+    $("hpHomeSave").addEventListener("click", function(){ put(K_H,H); flash("hpHomeMsg","Saved on this device."); });
+    $("hpHomeExport").addEventListener("click", function(){ download("home-record.txt", homeText()); flash("hpHomeMsg","Exported."); });
+    $("hpExpAll").addEventListener("click", function(){ download("home-project-plan.txt", everything()); flash("hpExpMsg","Exported."); });
+    $("hpCopyAll").addEventListener("click", function(){
+      var text=everything();
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ flash("hpExpMsg","Copied."); },
+          function(){ flash("hpExpMsg","Copy failed, use Export instead."); });
+      } else { flash("hpExpMsg","Copy not supported here, use Export instead."); }
+    });
+    $("hpWipeAll").addEventListener("click", function(){
+      if(!confirm("Clear projects, quotes, home record and both checklists?")) return;
+      PR=[]; V={}; H={}; M={};
+      put(K_P,PR); put(K_V,V); put(K_H,H); put(K_M,M);
+      renderProjects(); renderCompare(); renderVet(); renderMaint(); renderHome(); renderPreview();
+    });
+    renderPreview();
+  });
+})();
+</script>
+

@@ -1,0 +1,1160 @@
+---
+layout: default
+title: Marxism Study Notes
+description: A concept explorer for Marx and the Marxist tradition, with the strongest critiques attached, plus a citation-linked reading list and note builder.
+permalink: /tools/marxism-study-notes.html
+body_class: tool-page
+---
+
+<style>
+  .mx-hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  .mx-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .mx-title{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:12px 0 10px}
+  .mx-sub{font-size:17px;color:var(--muted);max-width:66ch;margin:0}
+  .mx-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .mx-badge{font-size:12px;font-weight:600;padding:6px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--tint)}
+  .mx-tabs{position:sticky;top:0;z-index:12;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .mx-row{display:flex;gap:4px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+  .mx-row::-webkit-scrollbar{display:none}
+  .mx-btn{flex:0 0 auto;font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .mx-btn:hover{background:var(--tint);color:var(--text)}
+  .mx-btn.is-active{background:var(--text);color:#fff}
+  .mx-panel{display:none;padding:34px 0 60px}
+  .mx-panel.is-active{display:block}
+  .mx-head{margin:0 0 6px;font-size:24px;letter-spacing:-.01em}
+  .mx-lede{color:var(--muted);max-width:72ch;margin:0 0 22px;font-size:15.5px;line-height:1.7}
+  .mx-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:20px;box-shadow:var(--shadow)}
+  .mx-grid{display:grid;gap:16px}
+  .mx-grid.two{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+  .mx-grid.three{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .mx-grid.four{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+  .mx-in,.mx-sel,.mx-txt{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text)}
+  .mx-txt{min-height:80px;resize:vertical;line-height:1.6}
+  .mx-in:focus,.mx-sel:focus,.mx-txt:focus{outline:3px solid var(--focus);outline-offset:1px;border-color:var(--blue)}
+  .mx-b{font:inherit;font-weight:600;font-size:14px;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+  .mx-b:hover{background:var(--tint)}
+  .mx-b.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .mx-b.primary:hover{background:var(--blue2)}
+  .mx-b.sm{font-size:13px;padding:6px 10px}
+  .mx-b.icon{padding:6px 9px;font-size:13px;line-height:1}
+  .mx-flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .mx-muted{color:var(--muted);font-size:13.5px}
+  .mx-tiny{font-size:12px;color:var(--muted2)}
+  .mx-tblw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+  table.mx-tbl{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  table.mx-tbl th,table.mx-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.mx-tbl th{background:var(--tint);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2)}
+  table.mx-tbl tr:last-child td{border-bottom:0}
+  table.mx-tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .mx-chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--tint);border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .mx-day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px;margin-bottom:14px}
+  .mx-day-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .mx-day-t{font-weight:700;font-size:16px}
+  .mx-stop{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--tint)}
+  .mx-stop-n{flex:0 0 24px;height:24px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted2)}
+  .mx-stop-body{flex:1;min-width:0}
+  .mx-stop-t{font-weight:600;font-size:14.5px}
+  .mx-acc{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;background:#fff}
+  .mx-acc-b{font:inherit;width:100%;text-align:left;background:none;border:0;padding:16px 18px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--text)}
+  .mx-acc-b:hover{background:var(--tint)}
+  .mx-acc-t{font-weight:700;font-size:16.5px}
+  .mx-acc-k{font-size:12px;color:var(--muted2);font-weight:600;white-space:nowrap}
+  .mx-acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line)}
+  .mx-acc.is-open .mx-acc-body{display:block}
+  .mx-acc-body p{line-height:1.75;margin:14px 0 0;font-size:15px}
+  .mx-note{border-left:3px solid var(--blue);background:var(--tint);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.65;margin-top:14px}
+  .mx-warn{border-left:3px solid #d97706;background:rgba(217,119,6,.07);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;line-height:1.7}
+  .mx-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .mx-stat-c{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--tint)}
+  .mx-stat-n{font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .mx-stat-l{font-size:12px;color:var(--muted2);font-weight:600}
+  .mx-empty{padding:26px;text-align:center;color:var(--muted)}
+  .mx-check{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+  .mx-check:last-child{border-bottom:0}
+  .mx-check input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue);flex:0 0 auto}
+  .mx-check label{font-size:14.5px;line-height:1.5;cursor:pointer}
+  .mx-check .mx-why{display:block;font-size:12.5px;color:var(--muted2);margin-top:2px}
+  .mx-done label{text-decoration:line-through;color:var(--muted2)}
+  .mx-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+  .mx-bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:80px}
+  .mx-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#7cf7d4)}
+
+  .mx-cite{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--tint);border:1px solid var(--line);border-radius:8px;padding:3px 8px;display:inline-block;color:var(--muted);}
+  .mx-for{border-left:3px solid #2563eb;background:rgba(37,99,235,.06);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .mx-against{border-left:3px solid #b45309;background:rgba(180,83,9,.07);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .mx-mis{border-left:3px solid #64748b;background:rgba(100,116,139,.08);border-radius:0 12px 12px 0;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:10px;}
+  .mx-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.75;background:#0f172a;color:#c7d9f0;border-radius:12px;padding:15px;overflow-x:auto;white-space:pre;}
+  .mx-cc{border:1px solid var(--line);border-radius:15px;background:var(--card);padding:15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+  .mx-cc:hover{transform:translateY(-2px);border-color:#94a3b8;}
+  .mx-cc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#2563eb;}
+  .mx-cc[data-area="Economics"]::before{background:#2563eb;}
+  .mx-cc[data-area="History and society"]::before{background:#7c3aed;}
+  .mx-cc[data-area="Ideology and culture"]::before{background:#0891b2;}
+  .mx-cc[data-area="Politics and the state"]::before{background:#b45309;}
+  .mx-cc[data-area="Method"]::before{background:#059669;}
+  .mx-cn{font-weight:700;font-size:15.5px;line-height:1.4;}
+  .mx-cm{font-size:11.5px;color:var(--muted2);margin-top:4px;}
+  .mx-cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:11px;}
+  .mx-dl{display:grid;grid-template-columns:165px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.8;}
+  .mx-dl:last-child{border-bottom:0;}
+  .mx-dl .k{font-weight:700;color:var(--muted2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;padding-top:3px;}
+  @media(max-width:660px){.mx-dl{grid-template-columns:1fr;gap:5px;}}
+</style>
+
+
+<section class="mx-hero">
+  <div class="container">
+    <div class="mx-eyebrow">VaultBook Study Library</div>
+    <h1 class="mx-title">Marxism study notes</h1>
+    <p class="mx-sub">A concept explorer for Marx and the tradition that followed him. Every idea comes with where it is set out, what it is usually taken to mean and why that reading is thin, and the strongest objection its critics have raised. Build a citation-linked reading list and attach your own notes to any concept or text. Everything stays on your device.</p>
+    <div class="mx-badges">
+      <span class="mx-badge">42 concepts</span>
+      <span class="mx-badge">Citations on every entry</span>
+      <span class="mx-badge">Critiques attached</span>
+      <span class="mx-badge">10 live debates</span>
+      <span class="mx-badge">Reading list builder</span>
+      <span class="mx-badge">Export notes</span>
+    </div>
+  </div>
+</section>
+
+<div class="mx-tabs">
+  <div class="container">
+    <div class="mx-row" role="tablist" aria-label="Study tools">
+      <button class="mx-btn is-active" data-tab="concepts" role="tab" aria-selected="true">Concepts</button>
+      <button class="mx-btn" data-tab="debates" role="tab" aria-selected="false">Debates</button>
+      <button class="mx-btn" data-tab="texts" role="tab" aria-selected="false">Texts</button>
+      <button class="mx-btn" data-tab="reading" role="tab" aria-selected="false">Reading list</button>
+      <button class="mx-btn" data-tab="method" role="tab" aria-selected="false">Essay method</button>
+      <button class="mx-btn" data-tab="extend" role="tab" aria-selected="false">Extending this</button>
+    </div>
+  </div>
+</div>
+
+<section class="mx-panel is-active" id="mxp-concepts">
+  <div class="container">
+    <h2 class="mx-head">Concepts</h2>
+    <p class="mx-lede">Each entry gives the claim as its proponents state it, where it is set out, the reading students most often give, and the strongest objection raised against it. Tap a card to open the full entry and attach a note.</p>
+
+    <div class="mx-flex" style="margin-bottom:14px">
+      <input class="mx-in" id="mxFind" type="search" placeholder="Search concepts, definitions and critiques" style="max-width:300px">
+      <select class="mx-sel" id="mxArea" style="max-width:220px"><option value="">Any area</option></select>
+      <select class="mx-sel" id="mxWho" style="max-width:220px"><option value="">Any thinker</option></select>
+      <span class="mx-tiny" id="mxCount"></span>
+    </div>
+
+    <div class="mx-cgrid" id="mxGrid"></div>
+    <div id="mxDetail"></div>
+  </div>
+</section>
+
+<section class="mx-panel" id="mxp-debates">
+  <div class="container">
+    <h2 class="mx-head">Debates</h2>
+    <p class="mx-lede">Ten questions on which serious people disagree, with the case each side makes set out in its own terms. These are the questions examiners set, because they are the ones that are actually open.</p>
+    <div id="mxDebates"></div>
+    <div class="mx-warn" style="margin-top:16px">Each debate below states the strongest version of both positions rather than arguing for either. That is deliberate. An essay that can state the opposing case accurately before answering it is doing the thing the higher bands reward, and a page that only presents one side cannot teach you to do it.</div>
+  </div>
+</section>
+
+<section class="mx-panel" id="mxp-texts">
+  <div class="container">
+    <h2 class="mx-head">Texts</h2>
+    <p class="mx-lede">What each work is, when it was written, what state it was in when Marx left it, and a realistic route through it. Editorial history matters here more than in most fields, because several of the central texts were assembled after his death.</p>
+    <div id="mxTexts"></div>
+  </div>
+</section>
+
+<section class="mx-panel" id="mxp-reading">
+  <div class="container">
+    <h2 class="mx-head">Reading list</h2>
+    <p class="mx-lede">Build a citation-linked list. Add any text from the library or your own source, attach notes to it, and export the whole thing with references already formatted.</p>
+
+    <div class="mx-card" style="margin-bottom:18px">
+      <div class="mx-grid four">
+        <div>
+          <label class="mx-tiny" for="rlPick">Add from the library</label>
+          <select class="mx-sel" id="rlPick" style="margin-top:5px"></select>
+        </div>
+        <div>
+          <label class="mx-tiny" for="rlPart">Chapter or part, optional</label>
+          <input class="mx-in" id="rlPart" type="text" placeholder="Part One, chapters 1 to 3" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="mx-tiny" for="rlWhy">Why it is on the list</label>
+          <input class="mx-in" id="rlWhy" type="text" placeholder="What you need from it" style="margin-top:5px">
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="mx-b primary" id="rlAdd" type="button" style="width:100%">Add</button>
+        </div>
+      </div>
+      <div class="mx-grid three" style="margin-top:12px">
+        <div>
+          <label class="mx-tiny" for="rlOwnA">Or add your own, author</label>
+          <input class="mx-in" id="rlOwnA" type="text" placeholder="Author" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="mx-tiny" for="rlOwnT">Title</label>
+          <input class="mx-in" id="rlOwnT" type="text" placeholder="Title" style="margin-top:5px">
+        </div>
+        <div>
+          <label class="mx-tiny" for="rlOwnY">Year</label>
+          <input class="mx-in" id="rlOwnY" type="text" placeholder="Year" style="margin-top:5px">
+        </div>
+      </div>
+      <div class="mx-flex" style="margin-top:12px">
+        <button class="mx-b" id="rlAddOwn" type="button">Add my own source</button>
+        <select class="mx-sel" id="rlStyle" style="max-width:190px">
+          <option value="author-date">Author date style</option>
+          <option value="note">Note style</option>
+        </select>
+        <button class="mx-b" id="rlExport" type="button">Export list and notes</button>
+        <button class="mx-b" id="rlClear" type="button">Clear list</button>
+        <span class="mx-tiny" id="rlMsg"></span>
+      </div>
+    </div>
+
+    <div class="mx-stat" style="margin-bottom:18px">
+      <div class="mx-stat-c"><div class="mx-stat-n" id="rlN">0</div><div class="mx-stat-l">On the list</div></div>
+      <div class="mx-stat-c"><div class="mx-stat-n" id="rlNotes">0</div><div class="mx-stat-l">Notes attached</div></div>
+      <div class="mx-stat-c"><div class="mx-stat-n" id="rlConcepts">0</div><div class="mx-stat-l">Concept notes</div></div>
+      <div class="mx-stat-c"><div class="mx-stat-n" id="rlOwn">0</div><div class="mx-stat-l">Own sources</div></div>
+    </div>
+
+    <div id="rlList"></div>
+    <div id="rlConceptNotes" style="margin-top:20px"></div>
+  </div>
+</section>
+
+<section class="mx-panel" id="mxp-method">
+  <div class="container">
+    <h2 class="mx-head">Essay method</h2>
+    <p class="mx-lede">Nine moves for writing about Marx, and the failure each one prevents. Most marks are lost on the same handful of errors.</p>
+    <div id="mxMethod"></div>
+  </div>
+</section>
+
+<section class="mx-panel" id="mxp-extend">
+  <div class="container">
+    <h2 class="mx-head">Extending this</h2>
+    <p class="mx-lede">Everything here renders from five arrays. Adding a concept, a debate, a text, a thinker or a method entry is appending one object, and no application code changes.</p>
+    <div id="mxExtend"></div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <div class="mx-grid three">
+      <div class="mx-card">
+        <div class="card-kicker">Keep the whole reading</div>
+        <div class="card-title" style="margin:6px 0">One vault for a long course</div>
+        <p class="card-text">VaultBook holds your primary texts, secondary reading, lecture notes, and essay drafts in a single encrypted workspace with AES-256 per-entry passwords, deep file indexing across PDF and Office formats, and AI smart search that answers questions across everything you have saved.</p>
+        <a class="btn btn-primary" href="{{ '/download/' | relative_url }}">Get VaultBook</a>
+      </div>
+      <div class="mx-card">
+        <div class="card-kicker">More tools</div>
+        <div class="card-title" style="margin:6px 0">The library keeps growing</div>
+        <p class="card-text">New study companions are added to the VaultBook library over time, each built the same way: the reference, the trackers, and the note tools together in one page that works offline.</p>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read the blog</a>
+      </div>
+      <div class="mx-card">
+        <div class="card-kicker">Private by design</div>
+        <div class="card-title" style="margin:6px 0">Nothing leaves this page</div>
+        <p class="card-text">Your reading list and every note you attach stay in your own browser storage. There is no upload, no account, and no server processing anywhere in this tool.</p>
+        <a class="btn btn-ghost" href="{{ '/security/' | relative_url }}">How security works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ============================================================================
+   MARXISM STUDY NOTES - DATA
+   ----------------------------------------------------------------------------
+   MX.concepts  one object per concept
+   MX.debates   one object per open question, with both sides stated
+   MX.texts     one object per primary work
+   MX.method    essay method entries
+   MX.extend    the schema documentation rendered on the Extending tab
+
+   EDITORIAL RULE. Every concept states the claim as its proponents make it,
+   and every concept carries a critique field giving the strongest objection.
+   Neither field argues for a verdict. A concept without a critique should not
+   be added, because the value of this page over a summary site is precisely
+   that it presents the argument as contested where it is contested.
+   ========================================================================== */
+
+var MX = {};
+
+MX.areas = ["Economics","History and society","Ideology and culture","Politics and the state","Method"];
+
+/* CONCEPT SCHEMA
+   id       short lowercase key, unique
+   term     display name
+   area     one of MX.areas
+   who      principal thinker associated with the concept
+   short    one line for the card
+   claim    the concept as its proponents state it
+   detail   how the argument works, two or three sentences
+   cite     where it is set out, work and part, no page numbers
+   misread  the reading students usually give and why it is thin
+   critique the strongest objection raised against it
+   linked   array of other concept ids                                      */
+MX.concepts = [
+{id:"hm", term:"Historical materialism", area:"Method", who:"Marx and Engels",
+ short:"Material conditions shape ideas rather than the reverse",
+ claim:"Human history is driven primarily by the way societies organise the production of their material life, and the legal, political and intellectual forms of a society arise from that organisation rather than existing independently of it.",
+ detail:"The argument inverts a then dominant idealist account in which ideas move history. Marx proposes instead that the forces of production and the relations of production form a base, that these develop unevenly, and that the resulting conflicts drive change from one social form to another.",
+ cite:"The German Ideology, part one; A Contribution to the Critique of Political Economy, 1859 preface",
+ misread:"That it claims economics causes everything mechanically. The 1859 preface is careful about the word conditions rather than determines, and Engels wrote several late letters insisting the causation runs in both directions with the economic moment decisive only in the last instance.",
+ critique:"Critics argue the theory is either too strong to be true or too weak to be interesting. If economics determines everything it is refuted by cases where ideas plainly moved events; if it merely conditions them, it becomes compatible with almost any outcome and loses predictive content. Popper pressed a version of this as a falsifiability objection.",
+ linked:["base","mop","forces","classstruggle"]},
+
+{id:"base", term:"Base and superstructure", area:"History and society", who:"Marx",
+ short:"The economic base conditions the legal and political forms above it",
+ claim:"The sum of the relations of production constitutes the economic structure of society, on which arises a legal and political superstructure and to which correspond definite forms of social consciousness.",
+ detail:"The metaphor is architectural and appears most compactly in the 1859 preface. It proposes a direction of explanation rather than a mechanism, and later Marxists spent a century arguing about how much independent force the superstructure has.",
+ cite:"A Contribution to the Critique of Political Economy, 1859 preface",
+ misread:"As a claim that law and culture are simply reflections with no effect of their own. Gramsci, Althusser and Williams all built major positions precisely on the superstructure having real causal force.",
+ critique:"The metaphor is doing analytical work it cannot bear. Critics note that property law is arguably part of the economic base rather than above it, since relations of production cannot be described without legal categories, which makes the boundary between base and superstructure difficult to draw non-arbitrarily.",
+ linked:["hm","ideology","hegemony","relative"]},
+
+{id:"mop", term:"Mode of production", area:"History and society", who:"Marx",
+ short:"The unit of historical analysis, combining forces and relations",
+ claim:"A mode of production is the combination of the forces of production with the social relations of production, and it is the appropriate unit for analysing a whole social epoch rather than an individual society.",
+ detail:"Marx sketches a sequence including ancient, feudal and bourgeois modes, with an Asiatic mode mentioned and never developed. The concept is analytical rather than descriptive: real societies contain several modes at once, with one dominant.",
+ cite:"A Contribution to the Critique of Political Economy, 1859 preface; Grundrisse, the section on precapitalist formations",
+ misread:"As a fixed ladder every society climbs. Marx explicitly denied that his account of western European development was a universal historical schema when asked about Russia.",
+ critique:"Historians argue the categories fit western Europe reasonably and other regions poorly, and that the Asiatic mode in particular has been criticised as a residual category doing little work beyond marking what the schema does not explain.",
+ linked:["hm","forces","relations","feudalism"]},
+
+{id:"forces", term:"Forces of production", area:"Economics", who:"Marx",
+ short:"Tools, technique, and human labour power",
+ claim:"The forces of production comprise the means of production together with human labour power and the technical knowledge that puts them to use, and their development tends to be cumulative over long periods.",
+ detail:"Cohen's reconstruction gives the forces explanatory primacy: relations of production persist while they promote the development of the forces and are replaced when they fetter it. This is one of the two main readings and it is contested by other Marxists.",
+ cite:"A Contribution to the Critique of Political Economy, 1859 preface; Capital volume one, on machinery",
+ misread:"As simply technology. Labour power and organisational knowledge are part of the forces, which is why the concept is not equivalent to a claim about machines.",
+ critique:"The development thesis has been challenged empirically, since long periods of technological stagnation are common and productive capacity has sometimes been deliberately suppressed by those who controlled it.",
+ linked:["mop","relations","hm"]},
+
+{id:"relations", term:"Relations of production", area:"Economics", who:"Marx",
+ short:"Who controls the means of production and on what terms",
+ claim:"The relations of production are the social relationships people enter into in producing their material life, defined by effective control over the means of production and over the product.",
+ detail:"These relations define classes. Whether a group owns, controls without owning, or must sell labour power to gain access to the means of production is what places it in the structure, rather than income level or occupation.",
+ cite:"A Contribution to the Critique of Political Economy, 1859 preface; Capital volume one, part two",
+ misread:"As equivalent to legal ownership. Effective control matters more than title, which is why managerial and state forms of control raise genuine analytical problems.",
+ critique:"Critics note that defining relations of production without using legal concepts is difficult, which threatens the claim that the base is prior to the legal superstructure.",
+ linked:["mop","class","base"]},
+
+{id:"class", term:"Class", area:"History and society", who:"Marx",
+ short:"Position in the relations of production, not income bracket",
+ claim:"Classes are defined by their position within the relations of production, principally by whether they own means of production or must sell their labour power to gain access to them.",
+ detail:"Marx never completed his own chapter on class; the manuscript of Capital volume three breaks off shortly after beginning it. What survives is a structural definition applied throughout his historical and economic writing rather than a finished theory.",
+ cite:"Capital volume three, the unfinished final chapter; The Eighteenth Brumaire, on the peasantry",
+ misread:"As a synonym for income group or social status. On the structural definition a highly paid employee and a low paid one occupy the same class position, which is counterintuitive and is the point.",
+ critique:"Critics argue the two class model fits an industrial economy poorly once managers, professionals, small proprietors and public employees are large, and that the middle strata have grown rather than polarising as expected.",
+ linked:["relations","classconsc","classstruggle","prole"]},
+
+{id:"classstruggle", term:"Class struggle", area:"Politics and the state", who:"Marx and Engels",
+ short:"The proposed motor of historical change",
+ claim:"The history of all hitherto existing society is presented as the history of class struggles, with conflict between classes over the surplus product driving transitions between social forms.",
+ detail:"The claim is about the mechanism of change rather than about the content of every event. Engels later added a footnote qualifying the scope to written history, acknowledging earlier communal forms.",
+ cite:"The Communist Manifesto, part one; The Class Struggles in France",
+ misread:"As predicting continuous open conflict. The theory concerns structural antagonism, which may be latent for long periods and is compatible with visible social peace.",
+ critique:"Critics argue that national, religious and ethnic identification have repeatedly proved stronger mobilising forces than class, most conspicuously in 1914, and that a theory whose predicted actor keeps failing to act needs revision rather than defence.",
+ linked:["class","classconsc","revolution"]},
+
+{id:"prole", term:"Proletariat", area:"History and society", who:"Marx",
+ short:"Those who must sell labour power to live",
+ claim:"The proletariat is the class of people who own no means of production and must therefore sell their labour power in order to obtain the means of subsistence.",
+ detail:"Marx assigns it a historically specific role: it is the first exploited class whose emancipation would require abolishing class relations rather than installing itself as a new ruling class, because it owns no productive property to defend.",
+ cite:"The Communist Manifesto, part one; Economic and Philosophic Manuscripts of 1844",
+ misread:"As meaning manual industrial workers only. The definition turns on the sale of labour power, which includes a great deal of service and clerical work.",
+ critique:"The assigned historical role has been the most contested claim in the tradition, since the industrial working class in developed economies has generally pursued reform within capitalism rather than its abolition.",
+ linked:["class","classconsc","labourpower"]},
+
+{id:"classconsc", term:"Class consciousness", area:"Ideology and culture", who:"Marx, developed by Lukacs",
+ short:"The difference between a class in itself and for itself",
+ claim:"A class exists objectively by its position in production, and becomes a political actor only when its members understand that shared position and act on it.",
+ detail:"Lukacs developed this into a distinction between the empirical consciousness workers actually have and the consciousness imputed to their structural position. The gap between the two became the central problem of twentieth century Marxist politics.",
+ cite:"The Poverty of Philosophy, on class for itself; Lukacs, History and Class Consciousness",
+ misread:"As simply knowing which class you belong to. The concept concerns collective political self-understanding, not self-description on a survey.",
+ critique:"The imputed consciousness move is criticised as unfalsifiable and politically dangerous: if actual workers disagree, their view can be dismissed as false consciousness, which licenses a party to speak for a class against its expressed wishes.",
+ linked:["class","ideology","falseconsc","hegemony"]},
+
+{id:"ltv", term:"Labour theory of value", area:"Economics", who:"Marx, after Smith and Ricardo",
+ short:"Value is determined by socially necessary labour time",
+ claim:"The value of a commodity is determined by the socially necessary labour time required to produce it under average conditions of skill and intensity prevailing at the time.",
+ detail:"Marx inherits the theory from classical political economy and modifies it substantially, distinguishing labour from labour power and introducing the qualifier socially necessary to handle differences in efficiency. Value in his sense is not price, and the relation between the two occupies volume three.",
+ cite:"Capital volume one, chapter one; Value, Price and Profit",
+ misread:"As a theory of price. Marx states repeatedly that prices diverge from values systematically, and volume three is largely an attempt to explain how.",
+ critique:"The marginalist critique holds that value derives from subjective marginal utility rather than embodied labour, and that this explains price behaviour more economically. Bohm-Bawerk pressed the transformation problem, arguing that Marx's own volume three solution is inconsistent with volume one. Later writers including Sraffa and Steedman argued that prices and profits can be derived without value magnitudes at all, making the labour category redundant for the purpose it was introduced to serve.",
+ linked:["snlt","surplus","exploitation","transform","marginal"]},
+
+{id:"snlt", term:"Socially necessary labour time", area:"Economics", who:"Marx",
+ short:"The average, not the actual, labour a thing took",
+ claim:"Value is set by the labour time required under socially average conditions, not by the time any individual producer happened to spend.",
+ detail:"The qualifier does essential work: without it, an inefficient producer would create more value by being slower, which is obviously wrong. It also makes value a social magnitude established across a market rather than a property of an individual act of making.",
+ cite:"Capital volume one, chapter one, section one",
+ misread:"As the time it actually took. The whole point is that individual labour time and value diverge, and the divergence is what disciplines producers.",
+ critique:"Critics ask how the average is determined without reference to prices, and argue that if market outcomes fix what counts as socially necessary, the theory is using price to define value while claiming to explain price by value.",
+ linked:["ltv","abstract"]},
+
+{id:"usevalue", term:"Use value and exchange value", area:"Economics", who:"Marx, after Aristotle",
+ short:"What a thing does against what it trades for",
+ claim:"Every commodity has a use value, its capacity to satisfy some want, and an exchange value, the proportion in which it exchanges against other commodities.",
+ detail:"Marx opens Capital with this distinction and moves quickly past it to a third term, value, arguing that exchange value is the form in which value appears rather than value itself. Missing that third term is the most common error in reading chapter one.",
+ cite:"Capital volume one, chapter one, section one",
+ misread:"As a two term distinction. Marx has three terms, use value, value, and exchange value as the form of appearance of value, and the argument does not work with only two.",
+ critique:"Marginalists argue the distinction dissolves once value is understood as marginal utility, since a thing's usefulness at the margin then explains its exchange ratio directly without a separate substance of value.",
+ linked:["ltv","valueform","commodity"]},
+
+{id:"valueform", term:"The value form", area:"Economics", who:"Marx",
+ short:"How value comes to appear as money",
+ claim:"Value must take an external form to be expressed, and the analysis of that form leads from simple exchange through an expanded form to a general equivalent, which is money.",
+ detail:"This derivation is what distinguishes Marx from Ricardo. Ricardo treats money as a convenience; Marx argues money is the necessary form of appearance of value in a society of independent producers, which is why the analysis has to move through it rather than around it.",
+ cite:"Capital volume one, chapter one section three and chapter two",
+ misread:"As a historical account of how money arose. It is a logical derivation of what money must be given commodity production, not an anthropology of barter.",
+ critique:"Anthropologists have argued the barter to money sequence the derivation implies is not supported by the evidence, and that credit relations predate coinage, which challenges the picture even as a logical reconstruction.",
+ linked:["ltv","usevalue","fetish","money"]},
+
+{id:"money", term:"Money", area:"Economics", who:"Marx",
+ short:"The general equivalent, not merely a medium of exchange",
+ claim:"Money is the commodity that comes to serve as the general equivalent in which all other commodities express their value, and it functions as measure of value, means of circulation, and store of value.",
+ detail:"Because money is derived from the value form rather than assumed, Marx can treat monetary crisis as internal to commodity production rather than as an external disturbance, which is the basis of his account of crisis.",
+ cite:"Capital volume one, chapter three; Grundrisse, the chapter on money",
+ misread:"As simply a convenient token. The derivation matters because it makes money constitutive of the system rather than a veil over real exchange.",
+ critique:"The commodity theory of money sits awkwardly with fiat currency and modern credit creation, and Marxist economists disagree substantially about how much of the analysis survives the change.",
+ linked:["valueform","fetish","crisis"]},
+
+{id:"commodity", term:"Commodity", area:"Economics", who:"Marx",
+ short:"A good produced for exchange rather than for use",
+ claim:"A commodity is an external object produced not for the producer's own consumption but for exchange, and it is the elementary form in which the wealth of capitalist societies presents itself.",
+ detail:"Beginning Capital with the commodity rather than with production, class or the state is a deliberate methodological choice: Marx starts from the simplest form in which the whole system appears and unfolds the rest from it.",
+ cite:"Capital volume one, chapter one, opening",
+ misread:"As any useful object. Production for exchange is the defining condition, which is why the same physical object may or may not be a commodity depending on the relations it is produced under.",
+ critique:"Critics of the method argue that beginning from the commodity smuggles in the conclusion, since starting elsewhere would produce a different picture of what capitalism essentially is.",
+ linked:["usevalue","fetish","ltv"]},
+
+{id:"fetish", term:"Commodity fetishism", area:"Ideology and culture", who:"Marx",
+ short:"Social relations appearing as relations between things",
+ claim:"In commodity production, the social relations between producers appear to them as relations between the products of their labour, so that a social property, value, appears as a natural property of a thing.",
+ detail:"This is not an error individuals make but a real appearance generated by the structure: producers work independently and their labour is socially related only through exchange, so the relation genuinely does present itself in the product. That is why the illusion persists in people who understand it.",
+ cite:"Capital volume one, chapter one, section four",
+ misread:"As consumerism or as an attachment to possessions. The concept concerns how value appears as a natural property of objects, not how much people like buying things.",
+ critique:"Critics argue the concept requires a standard of undistorted appearance that Marx never provides, and that describing an appearance as objectively generated while also calling it an illusion is difficult to make coherent.",
+ linked:["commodity","ideology","valueform","alienation"]},
+
+{id:"labourpower", term:"Labour power", area:"Economics", who:"Marx",
+ short:"The commodity the worker actually sells",
+ claim:"What the worker sells is not labour but labour power, the capacity to work for a period, and this distinction is what allows surplus value to arise without any violation of exchange.",
+ detail:"This is Marx's central innovation over Ricardo. Labour power has a value like any commodity, set by the labour needed to reproduce it, and its use produces more value than it costs. The employer buys at full value and still gains, so exploitation is compatible with fair exchange.",
+ cite:"Capital volume one, chapters four to six",
+ misread:"As a pedantic relabelling of labour. The distinction is what makes the theory of surplus value work at all, and without it the account collapses into unequal exchange.",
+ critique:"Critics accept the distinction as ingenious and question the value magnitudes it rests on, arguing that once the labour theory of value is rejected the elegance of the move does not survive the loss of its foundation.",
+ linked:["ltv","surplus","exploitation","prole"]},
+
+{id:"surplus", term:"Surplus value", area:"Economics", who:"Marx",
+ short:"Value produced beyond the cost of labour power",
+ claim:"Surplus value is the difference between the value produced by labour power in use and the value of labour power itself, and it is the source of profit, interest and rent.",
+ detail:"Marx distinguishes absolute surplus value, obtained by extending the working day, from relative surplus value, obtained by cheapening the goods workers consume so that less of the day is needed to reproduce labour power. The second becomes dominant as productivity rises.",
+ cite:"Capital volume one, parts three, four and five",
+ misread:"As theft or as overcharging. The whole point is that it arises when every commodity trades at its value, which is why the analysis is structural rather than moral.",
+ critique:"If value is not determined by labour time, the magnitude has no independent basis, and critics argue that profit is adequately explained by time preference, risk bearing and the marginal productivity of capital without a surplus category.",
+ linked:["labourpower","exploitation","ltv","rate"]},
+
+{id:"exploitation", term:"Exploitation", area:"Economics", who:"Marx",
+ short:"A structural relation, not a moral accusation",
+ claim:"Exploitation is the appropriation of surplus labour by those who control the means of production, and it occurs in capitalism through voluntary exchange at full value rather than through force or fraud.",
+ detail:"The claim is deliberately technical. Marx is describing a rate, the ratio of surplus to necessary labour, and the moral language readers hear is largely supplied by them rather than by the text.",
+ cite:"Capital volume one, part three; Wages, Price and Profit",
+ misread:"As synonymous with mistreatment or low pay. On the definition a well paid worker is exploited and a badly treated self-employed person is not, which is counterintuitive and deliberate.",
+ critique:"Critics argue that without the labour theory of value the concept has no measurable content, and that Roemer's later work, itself within the Marxist tradition, redefined exploitation in terms of unequal initial asset distribution rather than surplus labour precisely because of this difficulty.",
+ linked:["surplus","labourpower","rate","ltv"]},
+
+{id:"rate", term:"Rate of exploitation and rate of profit", area:"Economics", who:"Marx",
+ short:"Two ratios that move differently",
+ claim:"The rate of exploitation is surplus value over variable capital, while the rate of profit is surplus value over total capital including constant capital, so the two diverge as the composition of capital changes.",
+ detail:"The divergence is what generates the tendency of the rate of profit to fall: as mechanisation raises constant capital relative to variable, the same rate of exploitation yields a lower rate of profit.",
+ cite:"Capital volume one, chapter nine; Capital volume three, part three",
+ misread:"As interchangeable measures of how badly workers are treated. They answer different questions and can move in opposite directions.",
+ critique:"The falling rate thesis is among the most disputed claims in the tradition. Okishio's theorem is widely read as showing that profit-maximising technical change cannot lower the equilibrium rate of profit, and Marxist economists remain divided on whether the argument survives.",
+ linked:["surplus","exploitation","falling","transform"]},
+
+{id:"falling", term:"Tendency of the rate of profit to fall", area:"Economics", who:"Marx",
+ short:"A tendency with countervailing tendencies attached",
+ claim:"As capitalists mechanise, the ratio of constant to variable capital rises, and since only living labour produces surplus value, the general rate of profit tends to fall.",
+ detail:"Marx sets out countervailing tendencies in the same part, including raising the rate of exploitation, cheapening constant capital, and foreign trade. The claim is therefore about a tendency in a system with counter-forces, not a prediction of a date.",
+ cite:"Capital volume three, part three, including the chapter on counteracting influences",
+ misread:"As a prediction that capitalism will collapse by a certain point. Marx explicitly lists forces working the other way, which makes the thesis structural rather than prophetic.",
+ critique:"Okishio's theorem is the standard technical objection. Empirically, profit rates have fallen and risen across long periods in ways that do not track the composition of capital straightforwardly, and a tendency with enough listed counter-tendencies risks being unfalsifiable.",
+ linked:["rate","crisis","transform"]},
+
+{id:"transform", term:"The transformation problem", area:"Economics", who:"Marx, pressed by Bohm-Bawerk",
+ short:"How values become prices, and whether it works",
+ claim:"Prices of production diverge systematically from values because capitals of different composition would otherwise earn different profit rates, and Marx offers a procedure in volume three for transforming one into the other.",
+ detail:"Marx transforms outputs while leaving inputs valued at their values, which Bortkiewicz argued is inconsistent. A century of proposed solutions followed, including simultaneous approaches and the temporal single system interpretation.",
+ cite:"Capital volume three, part two; Bohm-Bawerk, Karl Marx and the Close of His System",
+ misread:"As a minor technical footnote. It bears directly on whether the labour theory of value does any explanatory work, which is why it has consumed so much attention.",
+ critique:"Sraffa's framework and Steedman's argument in Marx after Sraffa hold that prices and profits are determined by physical technique and the real wage without any need for value magnitudes, which would make the transformation not merely difficult but unnecessary.",
+ linked:["ltv","rate","marginal"]},
+
+{id:"marginal", term:"The marginalist alternative", area:"Economics", who:"Jevons, Menger, Walras",
+ short:"The rival account of value that displaced the classical one",
+ claim:"Value derives from the subjective marginal utility a good has for consumers rather than from labour embodied in it, and price is determined by the interaction of marginal utility with marginal cost.",
+ detail:"The marginal revolution of the 1870s resolved the classical paradox of value, why water is cheap and diamonds expensive, by relocating value in the margin rather than in totals or in production. Mainstream economics has followed it since.",
+ cite:"Jevons, Theory of Political Economy; Menger, Principles of Economics",
+ misread:"As having refuted Marx by assertion. The two theories are answering partly different questions, and Marxist writers argue marginalism explains price while declining to ask about the social relations that produce the goods.",
+ critique:"From the other direction, Marxist economists argue marginal utility is unmeasurable and circular, since preferences are inferred from the choices they are used to explain, and that the framework takes the distribution of initial endowments as given rather than as something to be explained.",
+ linked:["ltv","transform"]},
+
+{id:"alienation", term:"Alienation", area:"Ideology and culture", who:"Early Marx",
+ short:"Four separations produced by wage labour",
+ claim:"Under wage labour the worker is estranged from the product of labour, from the activity of labouring, from species being, and from other people.",
+ detail:"The concept comes from the 1844 manuscripts, unpublished until 1932, and its rediscovery reshaped twentieth century readings of Marx by supplying a humanist vocabulary the mature economic works largely lack.",
+ cite:"Economic and Philosophic Manuscripts of 1844, the section on estranged labour",
+ misread:"As a feeling of dissatisfaction at work. Marx describes an objective relation produced by the structure of wage labour, which a contented worker is in no less than a miserable one.",
+ critique:"Althusser argued for an epistemological break separating the humanist early Marx from the scientific mature Marx, and held that reading Capital through alienation imports a philosophical anthropology that the later work had abandoned. Others reply that the concept persists in Capital under different names.",
+ linked:["fetish","species","labourpower","break"]},
+
+{id:"species", term:"Species being", area:"Ideology and culture", who:"Early Marx, after Feuerbach",
+ short:"The human capacity for free conscious production",
+ claim:"Humans are distinguished by the capacity to produce consciously, universally, and beyond immediate need, and alienated labour turns this defining capacity into a mere means of survival.",
+ detail:"The term is taken from Feuerbach and reworked. It supplies the standard against which alienation is a loss, which is why the two concepts have to be read together.",
+ cite:"Economic and Philosophic Manuscripts of 1844",
+ misread:"As a claim about human nature in a fixed sense. Marx presents the capacity as historically developed rather than as a fixed essence, though the reading is genuinely disputed.",
+ critique:"Critics argue the concept is a philosophical anthropology of exactly the kind Marx later criticised in others, and that it requires a normative account of human flourishing which the mature work does not supply.",
+ linked:["alienation","break"]},
+
+{id:"ideology", term:"Ideology", area:"Ideology and culture", who:"Marx and Engels",
+ short:"Ideas that arise from and serve a social position",
+ claim:"The ruling ideas of any epoch are the ideas of its ruling class, because the class controlling material production also controls the means of mental production.",
+ detail:"The German Ideology gives a strong version in which ideas invert the real relation, as in a camera obscura. Later writers weakened and complicated this considerably, and the tradition contains several incompatible theories under one word.",
+ cite:"The German Ideology, part one; The Communist Manifesto, part two",
+ misread:"As deliberate deception by elites. The stronger and more interesting claim is that people who sincerely hold the ideas are nonetheless expressing a social position they did not choose.",
+ critique:"The reflexivity objection is the standard one: if all ideas express class position, so does Marxism, and the theory owes an account of why its own claims escape the acid it applies to everyone else's. Mannheim pressed this at length.",
+ linked:["base","falseconsc","hegemony","fetish"]},
+
+{id:"falseconsc", term:"False consciousness", area:"Ideology and culture", who:"Engels, not Marx",
+ short:"A term Marx never used",
+ claim:"Subordinate groups may hold beliefs that misrepresent their own situation and interests, sustaining arrangements that work against them.",
+ detail:"The phrase appears in a letter of Engels rather than anywhere in Marx, and it has done a great deal of work in the tradition and attracted a great deal of criticism for it.",
+ cite:"Engels, letter to Franz Mehring, 1893",
+ misread:"As Marx's own term and as a settled part of the theory. Attributing it to Marx is a factual error that examiners notice.",
+ critique:"The concept licenses dismissing what people actually say about their own lives in favour of what a theorist says they should think, and there is no agreed test for distinguishing false consciousness from disagreement. Scott's work on everyday resistance argues subordinate groups understand their position perfectly well and act strategically within constraints.",
+ linked:["ideology","classconsc","hegemony"]},
+
+{id:"hegemony", term:"Hegemony", area:"Politics and the state", who:"Gramsci",
+ short:"Rule by consent rather than by force",
+ claim:"A dominant group rules not primarily by coercion but by establishing its worldview as common sense across civil society, so that its leadership is experienced as natural.",
+ detail:"Gramsci developed the concept in prison to explain why revolution succeeded in Russia and failed in western Europe: in the west, civil society was dense, and the state was defended by a network of institutions that had to be contested before power could be taken.",
+ cite:"Gramsci, Prison Notebooks, the notes on state and civil society",
+ misread:"As simply propaganda or media influence. Hegemony involves genuine concessions and real leadership rather than manipulation alone, which is why it is stable.",
+ critique:"Critics argue the concept is elastic enough to explain any outcome: consent indicates hegemony, and dissent indicates a crisis of hegemony, so no observation could count against it. Others note it drifts far from the economic determinacy the tradition began with.",
+ linked:["ideology","state","falseconsc","classconsc"]},
+
+{id:"state", term:"The state", area:"Politics and the state", who:"Marx, Engels, Lenin, Miliband, Poulantzas",
+ short:"Instrument, or relatively autonomous structure",
+ claim:"The state in class society functions to maintain the conditions of the dominant mode of production, whatever the intentions of those who staff it.",
+ detail:"The Manifesto's instrumental formulation was complicated by Marx's own analysis of Bonapartism, where the state acts against the immediate wishes of the bourgeoisie while preserving its position. The Miliband and Poulantzas exchange of the 1970s turned on exactly this.",
+ cite:"The Communist Manifesto, part one; The Eighteenth Brumaire; Lenin, The State and Revolution",
+ misread:"As a claim that capitalists give orders to governments. The structural version holds that a state dependent on tax revenue from private investment is constrained regardless of who holds office.",
+ critique:"Critics argue the theory cannot account for durable welfare states, labour law, and regulation that plainly constrain capital, and that the relative autonomy qualification is added precisely when the instrumental version fails, which weakens the theory rather than saving it.",
+ linked:["base","hegemony","revolution","dotp"]},
+
+{id:"revolution", term:"Revolution", area:"Politics and the state", who:"Marx, Engels, Lenin, Luxemburg",
+ short:"A transformation of relations, not merely a change of government",
+ claim:"Social revolution occurs when the relations of production become a fetter on the forces of production, and it involves transforming the whole structure rather than replacing personnel.",
+ detail:"The tradition divided sharply on method. Lenin argued for a vanguard party in conditions of illegality; Luxemburg warned that substituting the party for the class would end in the dictatorship of a handful; Bernstein argued the goal could be reached by parliamentary reform.",
+ cite:"A Contribution to the Critique of Political Economy, 1859 preface; Lenin, What Is To Be Done; Luxemburg, The Russian Revolution",
+ misread:"As necessarily violent insurrection. Marx allowed publicly that in some countries with democratic institutions the transition might be achieved by other means.",
+ critique:"The historical record of revolutions conducted in the name of the theory is the most serious objection any Marxist account has to answer, and the tradition itself is divided on whether the outcomes followed from the doctrine or betrayed it. Luxemburg's warning was written in 1918, before most of it happened.",
+ linked:["state","classstruggle","dotp","reform"]},
+
+{id:"dotp", term:"Dictatorship of the proletariat", area:"Politics and the state", who:"Marx, developed by Lenin",
+ short:"A transitional form, defined differently by different writers",
+ claim:"Between capitalist and communist society lies a transition period in which the state is the revolutionary dictatorship of the proletariat.",
+ detail:"Marx uses the phrase rarely and points to the Paris Commune, with recallable delegates and no standing army, as its form. Lenin's development is considerably more centralised, and the distance between the two is a live question.",
+ cite:"Critique of the Gotha Programme; The Civil War in France; Lenin, The State and Revolution",
+ misread:"Reading dictatorship in the modern sense. In nineteenth century usage it denoted class rule rather than the rule of an individual, and Marx's model was a highly democratic commune.",
+ critique:"Whatever Marx intended, the phrase supplied a vocabulary that was used to justify one party rule, and critics argue a theory should be assessed partly by what it has licensed in practice as well as by its author's intentions.",
+ linked:["state","revolution","commune"]},
+
+{id:"commune", term:"The Paris Commune", area:"Politics and the state", who:"Marx",
+ short:"The one concrete model he offered",
+ claim:"The Commune of 1871 demonstrated that the working class cannot simply take over the existing state machinery but must transform it, replacing standing army and bureaucracy with armed people and recallable delegates.",
+ detail:"Marx wrote about it within days of its suppression, and it is the closest thing in his work to a description of what a post-capitalist political form would look like, which is why it carries weight out of proportion to its length.",
+ cite:"The Civil War in France",
+ misread:"As a detailed blueprint. Marx is drawing conclusions from a defeated experiment that lasted about ten weeks.",
+ critique:"Critics note that a model drawn from a short-lived and militarily defeated municipal government is thin evidence for how a modern economy of hundreds of millions might be governed.",
+ linked:["dotp","state","revolution"]},
+
+{id:"crisis", term:"Crisis theory", area:"Economics", who:"Marx and later writers",
+ short:"Several incompatible theories under one heading",
+ claim:"Capitalism generates crises internally rather than suffering them as external shocks, through disproportion between sectors, underconsumption, or a falling rate of profit.",
+ detail:"Marx did not settle on one mechanism, and the tradition contains at least three families of explanation that are not obviously compatible. Which one a writer adopts usually determines the rest of their politics.",
+ cite:"Capital volume two, on reproduction schemas; Capital volume three, part three; Theories of Surplus Value",
+ misread:"As a single prediction of terminal collapse. Marx describes crises as recurrent and as mechanisms by which the system restores conditions for accumulation.",
+ critique:"Critics argue that a theory offering three alternative mechanisms and treating every downturn as confirmation is not making a testable claim, and that mainstream business cycle theory accounts for the same observations with fewer assumptions.",
+ linked:["falling","rate","accumulation"]},
+
+{id:"accumulation", term:"Accumulation", area:"Economics", who:"Marx",
+ short:"Surplus reinvested rather than consumed",
+ claim:"Capital is self-expanding value, and competition compels each capital to reinvest surplus in expanding production rather than consuming it, which makes growth structurally compulsory rather than chosen.",
+ detail:"This is why Marx treats capital as a process rather than a stock of goods. A capitalist who stops accumulating is competed out, so the drive to expand is imposed by the relation rather than by individual greed.",
+ cite:"Capital volume one, part seven",
+ misread:"As a claim about capitalist psychology. Marx is explicit that he treats individuals as personifications of economic categories, not as morally distinctive people.",
+ critique:"Critics note that firms routinely return capital to shareholders rather than reinvesting, and that the compulsion described is weaker in concentrated or regulated markets than the model implies.",
+ linked:["surplus","falling","primitive","crisis"]},
+
+{id:"primitive", term:"Primitive accumulation", area:"History and society", who:"Marx",
+ short:"How the initial separation was actually made",
+ claim:"The precondition of capitalism was the forcible separation of producers from the means of production, accomplished through enclosure, dispossession, colonial plunder and slavery rather than through thrift.",
+ detail:"Part eight of volume one is a polemic against the political economists' story of an original saving class, and it is the most historical and most rhetorically direct writing in the book.",
+ cite:"Capital volume one, part eight",
+ misread:"As only a stage that has ended. Later writers including Luxemburg and Harvey argue the process is continuous rather than a one-off origin.",
+ critique:"Economic historians dispute the weight given to enclosure and colonial extraction relative to agricultural productivity, demography and institutional change in explaining why industrialisation happened where it did.",
+ linked:["accumulation","mop","relations"]},
+
+{id:"reform", term:"Reform against revolution", area:"Politics and the state", who:"Bernstein, Luxemburg, Kautsky",
+ short:"The argument that split the tradition",
+ claim:"Bernstein argued that capitalism was stabilising rather than polarising, that workers' conditions were improving, and that socialism should be pursued through parliamentary reform.",
+ detail:"Luxemburg replied that reforms are worth fighting for as a means of building capacity but cannot themselves change the mode of production, and that treating them as a route to socialism abandons the goal in practice while retaining it in words.",
+ cite:"Bernstein, Evolutionary Socialism; Luxemburg, Reform or Revolution",
+ misread:"As a dispute about tactics. Both sides understood it as a disagreement about whether the underlying economic analysis was correct.",
+ critique:"The subsequent record is genuinely ambiguous and both sides claim it. Social democratic parties delivered substantial material improvement without abolishing capitalism, which vindicates Bernstein on the possibility of reform and Luxemburg on its limits.",
+ linked:["revolution","state","classstruggle"]},
+
+{id:"break", term:"The epistemological break", area:"Method", who:"Althusser",
+ short:"Whether there are two Marxes",
+ claim:"Althusser argued for a decisive break around 1845 separating an early humanist Marx working with alienation and species being from a mature scientific Marx working with structural categories.",
+ detail:"The claim carries political weight, since it licenses reading Capital without the humanist vocabulary and treating the 1844 manuscripts as pre-Marxist. The German Ideology is placed at the hinge.",
+ cite:"Althusser, For Marx; Althusser and Balibar, Reading Capital",
+ misread:"As a settled matter of dating. It is a contested interpretive thesis, and many scholars argue for substantial continuity across the whole body of work.",
+ critique:"Critics point to alienation reappearing in the Grundrisse and in Capital's treatment of fetishism, and argue the break is imposed to serve Althusser's own structuralist commitments rather than found in the texts.",
+ linked:["alienation","species","hm"]},
+
+{id:"relative", term:"Relative autonomy", area:"Method", who:"Althusser, Poulantzas",
+ short:"The qualification that rescues or dilutes the theory",
+ claim:"Superstructural elements possess relative autonomy from the economic base, with the economy determinant only in the last instance.",
+ detail:"The formulation is Althusser's, developing Engels' late letters. It permits the theory to accommodate the evident causal power of law, politics and culture without abandoning the priority of the economic.",
+ cite:"Althusser, For Marx, the essay on contradiction and overdetermination; Engels, letter to Joseph Bloch, 1890",
+ misread:"As a minor clarification. It substantially changes what the theory predicts, and how much remains of the original claim is exactly what is at issue.",
+ critique:"The standard objection is that the last instance never arrives, and that a theory conceding independent force to everything above the base while insisting the base is ultimately decisive has made itself compatible with any observation.",
+ linked:["base","hm","break","ideology"]},
+
+{id:"reserve", term:"The reserve army of labour", area:"Economics", who:"Marx",
+ short:"Unemployment as a function, not a failure",
+ claim:"Capitalism systematically produces a surplus population of unemployed and underemployed workers whose existence disciplines wages and makes labour available for expansion.",
+ detail:"The argument turns unemployment from a malfunction into a requirement of the system, and it is one of the parts of Marx's economics with the clearest contemporary application.",
+ cite:"Capital volume one, chapter twenty five, the general law of capitalist accumulation",
+ misread:"As a claim that unemployment always rises. Marx describes it as fluctuating with the accumulation cycle rather than trending in one direction.",
+ critique:"Sustained near-full employment in several economies over long periods sits awkwardly with the thesis, and mainstream accounts explain the wage-discipline effect through search and matching frictions without needing a structural surplus population.",
+ linked:["accumulation","exploitation","crisis"]},
+
+{id:"abstract", term:"Abstract labour", area:"Method", who:"Marx",
+ short:"Labour considered without regard to its particular form",
+ claim:"Value is created by labour considered in abstraction from its concrete character, as a mere expenditure of human labour power in general.",
+ detail:"The abstraction is not one the analyst performs but one the market performs: exchange really does equate a weaver's hour with a joiner's, and abstract labour names that real social process rather than a mental convenience.",
+ cite:"Capital volume one, chapter one, section two",
+ misread:"As an analytical simplification. Marx insists the abstraction is carried out by society in exchange, which is the claim that carries the weight.",
+ critique:"Critics argue that a labour that exists only as a market outcome cannot then explain market outcomes without circularity, and that the doctrine is metaphysical rather than economic.",
+ linked:["ltv","snlt","valueform"]},
+
+{id:"dialectic", term:"Dialectical method", area:"Method", who:"Hegel, reworked by Marx",
+ short:"Contradiction as internal to the object",
+ claim:"Social forms contain internal contradictions that drive their development, and analysis should trace those contradictions rather than describing states of affairs from outside.",
+ detail:"Marx describes his method as the inversion of Hegel's, retaining the movement through contradiction while locating it in material relations rather than in the development of spirit.",
+ cite:"Capital volume one, afterword to the second German edition; Hegel, Science of Logic",
+ misread:"As the thesis, antithesis, synthesis formula. That triad comes from Fichte by way of Chalybaus and is not Marx's own vocabulary, and using it is a mistake examiners notice.",
+ critique:"Critics argue dialectical reasoning permits any conclusion by describing tensions as contradictions, and that the method resists the specification of what would count as evidence against a claim.",
+ linked:["hm","break","abstract"]},
+
+{id:"feudalism", term:"Feudalism and the transition", area:"History and society", who:"Marx, Dobb, Sweezy, Brenner",
+ short:"The test case for the whole theory",
+ claim:"The transition from feudalism to capitalism is the transformation the theory must explain, and it is explained by contradictions internal to feudal relations rather than by external commerce.",
+ detail:"The Dobb and Sweezy exchange, and later the Brenner debate, turned on whether the motor was internal class conflict over surplus extraction or the expansion of trade. It is the most productive argument the tradition has had with itself.",
+ cite:"Dobb, Studies in the Development of Capitalism; the Brenner debate, collected as The Brenner Debate",
+ misread:"As a settled account. Marxist historians have disagreed with each other about this more sharply than with anyone outside the tradition.",
+ critique:"Non-Marxist historians point to demography, institutions, legal development and contingent political events as doing much of the work the class conflict account assigns to surplus extraction.",
+ linked:["mop","primitive","hm","classstruggle"]}
+];
+
+/* DEBATE SCHEMA
+   id, q      the question, phrased so both answers are available
+   forT/forB  the label and body of the first position
+   agT/agB    the label and body of the second position
+   where      where the argument has been conducted
+   note       what a strong essay does with it                     */
+MX.debates = [
+{id:"d1", q:"Does the labour theory of value do any explanatory work?",
+ forT:"It identifies what price cannot",
+ forB:"Defenders argue the theory is not a price theory and was never offered as one. Its work is to show that profit originates in production rather than exchange, which locates a systematic social relation that a price theory taking preferences as given cannot see. Temporal single system interpretations argue the transformation objection dissolves once inputs and outputs are dated rather than treated simultaneously.",
+ agT:"It is redundant to the results it claims",
+ agB:"Critics argue that Sraffa's framework derives prices and profit rates from physical technique and the real wage alone, so value magnitudes add nothing. Steedman pressed this directly. On this view Marx's insight about the origin of profit can be restated without the labour category, and a category that can be dropped without loss is not doing explanatory work.",
+ where:"Bohm-Bawerk 1896; Bortkiewicz 1907; Sraffa 1960; Steedman 1977; the temporal single system literature from the 1980s",
+ note:"A strong answer states which question the theory is being asked to answer before assessing it, because most of the disagreement is about that rather than about the mathematics."},
+
+{id:"d2", q:"Is historical materialism a testable theory?",
+ forT:"It generates real predictions",
+ forB:"Defenders point to specific claims that could have failed: that capitalism would become global, that production would concentrate, that agricultural populations would shrink, that crises would recur. These were unusual predictions in 1867 and they largely held. Cohen's reconstruction gives the theory a precise functional form that can be assessed.",
+ agT:"Its failures are always absorbed",
+ agB:"Popper argued the theory was rendered unfalsifiable by auxiliary adjustment: when revolution failed to occur in the most developed economies, the concepts of false consciousness, relative autonomy and determination in the last instance were deployed to absorb the result rather than count it as evidence.",
+ where:"Popper, The Poverty of Historicism; Cohen, Karl Marx's Theory of History; Elster, Making Sense of Marx",
+ note:"Say which version you are assessing. Cohen's functional reconstruction and Althusser's overdetermined version are different theories and Popper's objection lands very differently on each."},
+
+{id:"d3", q:"How much independent force does the superstructure have?",
+ forT:"The economic is decisive in the last instance",
+ forB:"Engels' late letters and Althusser's development hold that superstructural elements act with real force, while the economic sets the limits within which they act. This preserves the explanatory priority of production while accounting for the evident causal power of law, religion and politics.",
+ agT:"The qualification empties the claim",
+ agB:"Critics reply that the last instance never arrives, and that once law and politics are granted independent efficacy the residual claim about economic primacy makes no testable difference. Weber's work on religion and economic development is the standard counter-case.",
+ where:"Engels to Bloch 1890; Althusser, For Marx; Thompson, The Poverty of Theory; Weber, The Protestant Ethic",
+ note:"The productive move is to ask what observation would distinguish the two positions, and to notice how hard that is to answer."},
+
+{id:"d4", q:"Is there a break between the early and the mature Marx?",
+ forT:"Two distinct problematics",
+ forB:"Althusser argued that the 1844 manuscripts operate with a philosophical anthropology of human essence, and that Capital operates with structural categories in which individuals are personifications of economic relations. The vocabulary of alienation and species being does not survive into the mature economics.",
+ agT:"Continuity under different names",
+ agB:"Critics point to alienation reappearing in the Grundrisse and to commodity fetishism performing much the same analytical work in Capital, and argue the break is a thesis Althusser needed for his own structuralist programme rather than one the texts support.",
+ where:"Althusser, For Marx; the Grundrisse, published in the west from 1953; Ollman, Alienation",
+ note:"The publication history matters. The 1844 manuscripts appeared in 1932 and the Grundrisse in the 1950s, so every reading before those dates was working from an incomplete body of work."},
+
+{id:"d5", q:"Is the state an instrument of a class or a structure with its own logic?",
+ forT:"Instrumental and personnel-based",
+ forB:"Miliband argued from evidence about the social composition of elites, the movement of personnel between business and government, and the concrete channels of business influence, holding that the state serves capital because the people who run it share a background and outlook with those who own it.",
+ agT:"Structural and impersonal",
+ agB:"Poulantzas replied that focusing on who staffs the state concedes the terrain to methodological individualism, and that a state dependent on private investment for its revenue is constrained regardless of who holds office, which explains why governments of the left behave much like governments of the right in office.",
+ where:"The Miliband and Poulantzas exchange in New Left Review, 1969 to 1976",
+ note:"Both positions are compatible with the same observations, which is itself the interesting fact and worth saying in an essay."},
+
+{id:"d6", q:"Can socialism be reached through parliamentary reform?",
+ forT:"Bernstein's revisionist case",
+ forB:"Bernstein argued from evidence that capitalism was not polarising as predicted, that the middle strata were growing, that crises were becoming less severe, and that workers' conditions were improving. He concluded the movement should pursue its aims through democratic institutions rather than await a collapse that was not coming.",
+ agT:"Luxemburg's reply",
+ agB:"Luxemburg answered that reforms are worth fighting for because the struggle builds the capacity of the class, but that they operate within the wage relation rather than altering it, and that treating them as a route to socialism abandons the destination while keeping the word.",
+ where:"Bernstein, Evolutionary Socialism 1899; Luxemburg, Reform or Revolution 1900",
+ note:"The record supports both partially, which is why the debate is still live and why an essay that picks a side without acknowledging that is weaker than one that does not."},
+
+{id:"d7", q:"Does the record of twentieth century states count as evidence against the theory?",
+ forT:"It is decisive evidence",
+ forB:"Critics argue that a political theory must be assessed partly by what it has licensed, and that the concentration of economic and political power the doctrine implies produced comparable outcomes across very different countries and cultures, which suggests the cause was structural rather than local. Hayek and the economic calculation argument predicted a version of the failure in advance.",
+ agT:"The cases were not the theory",
+ agB:"Defenders reply that Marx wrote about developed industrial economies transitioning democratically, that revolutions occurred in agrarian societies under invasion and blockade, and that Luxemburg criticised the Bolshevik path in 1918 from within the tradition. On this view the outcomes falsify a particular strategy rather than the analysis of capitalism.",
+ where:"Hayek, The Road to Serfdom and the socialist calculation debate; Luxemburg, The Russian Revolution 1918; Kolakowski, Main Currents of Marxism",
+ note:"This is the objection every essay on Marxist politics has to meet. Neither ignoring it nor treating it as settling the matter will do."},
+
+{id:"d8", q:"Was the transition to capitalism driven by trade or by class conflict?",
+ forT:"Commerce and exchange",
+ forB:"Sweezy argued that the expansion of long-distance trade dissolved feudal relations from outside, drawing production into the market and undermining an essentially self-sufficient manorial economy.",
+ agT:"Internal class relations",
+ agB:"Dobb, and later Brenner more sharply, argued that trade existed in many societies without producing capitalism, and that what mattered was the specific outcome of class conflict over surplus extraction in the English countryside, which produced a landless labour force and competitive tenancy.",
+ where:"The Dobb and Sweezy debate from 1950; Brenner in Past and Present 1976, collected as The Brenner Debate",
+ note:"This is the tradition arguing with itself at its most rigorous, and it is a good model of what a Marxist historical argument looks like when it is done well."},
+
+{id:"d9", q:"Does the rate of profit tend to fall?",
+ forT:"The tendency holds",
+ forB:"Defenders argue that only living labour produces surplus value, so a rising ratio of constant to variable capital must depress the general rate of profit unless counteracted. Temporal single system writers argue Okishio's result depends on a simultaneous valuation that misrepresents the actual sequence of investment.",
+ agT:"Okishio refutes it",
+ agB:"Okishio's theorem is widely read as showing that any technical change a profit-maximising capitalist would adopt, at constant real wages, raises rather than lowers the equilibrium rate of profit. On this view the tendency does not follow from Marx's own premises.",
+ where:"Capital volume three part three; Okishio 1961; Shaikh, Kliman and the temporal single system replies",
+ note:"An essay here needs to state the assumption Okishio makes about simultaneous valuation, because that is precisely where the disagreement sits."},
+
+{id:"d10", q:"Is exploitation a moral concept or a technical one?",
+ forT:"Technical and descriptive",
+ forB:"Marx presents exploitation as a ratio and denies that capitalists cheat, insisting the transaction occurs at full value. On this reading the concept measures the appropriation of surplus labour and carries no built-in condemnation, and Marx explicitly criticised moralising socialists.",
+ agT:"Implicitly normative",
+ agB:"Critics and some sympathisers argue the concept plainly carries evaluative force, that Marx's rhetoric throughout Capital is indignant, and that a purely descriptive reading cannot explain why anyone should care. Cohen and the analytical Marxists argued the tradition needs an explicit theory of justice it never developed.",
+ where:"Capital volume one part three; Critique of the Gotha Programme; Cohen, Self-Ownership Freedom and Equality; Geras on Marx and justice",
+ note:"Marx's own statements point both ways, which is why this is a genuine interpretive problem rather than a matter of finding the right passage."}
+];
+
+/* TEXT SCHEMA
+   id, author, title, year, kind, status, what, route, warn        */
+MX.texts = [
+{id:"t1", author:"Marx", title:"Economic and Philosophic Manuscripts", year:"written 1844, published 1932", kind:"Notebooks",
+ status:"Unpublished drafts Marx never revised or released.",
+ what:"The source of alienation and species being, written under the influence of Feuerbach and Hegel. Its publication in 1932 reshaped twentieth century reception by supplying a humanist Marx the mature economics does not obviously contain.",
+ route:"Read the section on estranged labour. It is short and it is the part everything else refers to.",
+ warn:"Cite it as a manuscript rather than as a published statement of position. Marx abandoned this vocabulary and whether he abandoned the thought is exactly what is disputed."},
+{id:"t2", author:"Marx and Engels", title:"The German Ideology", year:"written 1845 to 1846, published 1932", kind:"Polemic",
+ status:"Left to what Marx called the gnawing criticism of the mice.",
+ what:"The first extended statement of the materialist conception of history, and the text where ideology receives its strong formulation.",
+ route:"Part one on Feuerbach carries nearly all the value. The rest is polemic against figures nobody now reads.",
+ warn:"The manuscript order is an editorial reconstruction and different editions arrange it differently, so cite by section rather than by page."},
+{id:"t3", author:"Marx and Engels", title:"The Communist Manifesto", year:"1848", kind:"Pamphlet",
+ status:"Published, and the only major text written for a mass audience.",
+ what:"A political pamphlet compressing the historical argument into a few pages, with a strikingly admiring account of capitalism's transformative power in part one.",
+ route:"Parts one and two. Part three is a critique of rival socialisms of the 1840s and is largely of historical interest.",
+ warn:"It is a manifesto rather than an analysis, and quoting it for a theoretical claim that Capital states more carefully is a common weakness in essays."},
+{id:"t4", author:"Marx", title:"A Contribution to the Critique of Political Economy", year:"1859", kind:"Treatise",
+ status:"Published, superseded by Capital except for the preface.",
+ what:"The 1859 preface contains the single most quoted statement of historical materialism, including the base and superstructure formulation and the fetters thesis.",
+ route:"Read the preface. It is about two pages and it is the most cited passage in the tradition.",
+ warn:"The preface is a compressed retrospective summary, not a demonstration. Treating it as the argument rather than as a statement of conclusions is a frequent error."},
+{id:"t5", author:"Marx", title:"Grundrisse", year:"written 1857 to 1858, published 1939 and widely from 1953", kind:"Notebooks",
+ status:"Rough working notebooks never intended for publication.",
+ what:"Where Marx works out the categories that become Capital, including a fuller treatment of precapitalist forms and the much discussed fragment on machines.",
+ route:"The introduction on method and the section on precapitalist economic formations. The fragment on machines if you are interested in automation arguments.",
+ warn:"Extremely difficult and unrevised. It is evidence about how Marx thought rather than a statement of settled positions."},
+{id:"t6", author:"Marx", title:"Capital, volume one", year:"1867", kind:"Treatise",
+ status:"Published and revised by Marx himself, the only volume he saw through the press.",
+ what:"The central work. Commodities and money, the transformation of money into capital, absolute and relative surplus value, wages, accumulation, and the historical chapters on primitive accumulation.",
+ route:"Many readers start at part three and return to chapter one afterwards, because chapter one is the hardest writing in the book and stops more first readings than any other obstacle. The historical chapters in parts four and eight are the most accessible.",
+ warn:"The French edition of 1872 to 1875 contains revisions Marx approved and it differs from the German. Editions vary, so cite by chapter and section."},
+{id:"t7", author:"Marx, edited by Engels", title:"Capital, volumes two and three", year:"1885 and 1894", kind:"Treatise",
+ status:"Assembled by Engels from manuscripts after Marx's death.",
+ what:"Volume two covers circulation and the reproduction schemas. Volume three contains the transformation of values into prices, the falling rate of profit, rent, and the unfinished chapter on classes.",
+ route:"Volume three part two on transformation and part three on the falling rate are what most disputes concern.",
+ warn:"Editorial status matters here more than anywhere else in the corpus. Engels selected and arranged from drafts, and the Marx Engels Gesamtausgabe has shown the extent of his intervention, which affects how much weight a given passage can carry."},
+{id:"t8", author:"Marx", title:"The Civil War in France", year:"1871", kind:"Address",
+ status:"Published, written within days of the Commune's suppression.",
+ what:"The analysis of the Paris Commune, and the closest Marx comes to describing a post-capitalist political form.",
+ route:"The third section on the Commune itself.",
+ warn:"Written in the immediate aftermath as a political intervention, so read it as advocacy as well as analysis."},
+{id:"t9", author:"Marx", title:"Critique of the Gotha Programme", year:"written 1875, published 1891", kind:"Marginal notes",
+ status:"Private notes on a party programme, published after his death.",
+ what:"Contains the phrase about the dictatorship of the proletariat, the distinction between lower and higher phases of communist society, and the formula on needs and abilities.",
+ route:"Short, and section one and section four carry the substance.",
+ warn:"These are critical marginal notes on somebody else's document rather than a constructive statement, which affects how much can be built on them."},
+{id:"t10", author:"Engels", title:"Socialism, Utopian and Scientific", year:"1880", kind:"Pamphlet",
+ status:"Published, extracted by Engels from a longer polemic.",
+ what:"The most widely read introduction to the tradition in the nineteenth century, and the source of much of what is popularly taken to be Marx's own position.",
+ route:"Read it whole, it is short.",
+ warn:"Engels systematised and simplified, and several formulations attributed to Marx originate here. Distinguishing Engels from Marx is worth marks."},
+{id:"t11", author:"Lenin", title:"The State and Revolution", year:"1917", kind:"Treatise",
+ status:"Published, written on the eve of the October revolution.",
+ what:"The most influential reading of Marx and Engels on the state, arguing the existing state machinery must be smashed rather than captured.",
+ route:"Chapters one and five.",
+ warn:"Read as an intervention in a specific situation. Whether it accurately reports Marx's own position is one of the most contested questions in the field."},
+{id:"t12", author:"Luxemburg", title:"Reform or Revolution", year:"1900", kind:"Polemic",
+ status:"Published, a direct reply to Bernstein.",
+ what:"The classic statement of the case that reforms are necessary and insufficient, and that treating them as a route to socialism abandons the goal.",
+ route:"Part one, chapters one to four.",
+ warn:"Her later criticism of the Bolsheviks in 1918 is essential context and is frequently omitted by both her admirers and her critics."},
+{id:"t13", author:"Gramsci", title:"Prison Notebooks", year:"written 1929 to 1935", kind:"Notebooks",
+ status:"Written under censorship in prison, in deliberately coded language.",
+ what:"The source of hegemony, war of position, the integral state, and organic intellectuals.",
+ route:"The selections on state and civil society and on the intellectuals. Use a scholarly selection rather than attempting the full critical edition.",
+ warn:"Written to evade a prison censor, so terminology is deliberately oblique and the notebooks are fragmentary and sometimes contradictory."},
+{id:"t14", author:"Cohen", title:"Karl Marx's Theory of History: A Defence", year:"1978", kind:"Secondary",
+ status:"Published, the founding work of analytical Marxism.",
+ what:"A reconstruction of historical materialism in the language of analytic philosophy, giving the forces of production explanatory primacy through functional explanation.",
+ route:"Chapters on the primacy thesis and on functional explanation.",
+ warn:"It is a reconstruction rather than an exposition, and other Marxists dispute whether the theory it defends is the one Marx held."}
+];
+
+MX.method = [
+{t:"Say which Marx you mean", body:"The 1844 manuscripts, the 1859 preface, Capital volume one and the Engels-edited volume three are documents of very different status written across forty years, several unpublished in his lifetime. An essay that treats the corpus as one seamless position will be caught by anyone who knows the publication history, and one that dates its evidence gains credibility immediately."},
+{t:"Distinguish Marx from Engels from Lenin", body:"False consciousness is Engels. The dialectical materialism of the textbooks is largely Engels and Plekhanov. Vanguard party theory is Lenin. Attributing any of these to Marx is a factual error, and noticing the attribution is one of the fastest ways to demonstrate real familiarity."},
+{t:"State the claim before assessing it", body:"Most weak essays argue against a version nobody holds. Set out the strongest form of the position, in the terms its defenders use, and then assess that. This is also why every concept on this page carries a claim field and a critique field rather than a verdict."},
+{t:"Use the critique, do not merely append it", body:"A paragraph of criticism bolted onto the end is visibly decorative. Integrate the objection into the analysis so that your reading of the concept is shaped by having met it, which is what distinguishes evaluation from acknowledgement."},
+{t:"Cite by chapter and section, never by page", body:"Editions of Capital differ substantially, translations vary, and the French edition contains authorial revisions absent from the German. A chapter and section reference is checkable in any edition and a page number is checkable in one."},
+{t:"Keep value and price separate", body:"Marx says repeatedly that prices diverge from values, and volume three exists largely to explain how. An essay that treats the labour theory of value as a prediction about prices has misread the claim it is assessing, and it is the single most common error in undergraduate work on the subject."},
+{t:"Do not use thesis, antithesis, synthesis", body:"The triad comes from Fichte by way of Chalybaus, and neither Hegel nor Marx used it as a formula. It is a reliable marker of second-hand knowledge and examiners recognise it as such."},
+{t:"Handle the twentieth century directly", body:"Any essay on Marxist politics must engage with what states acting in the theory's name did. Ignoring it looks evasive and treating it as automatically decisive skips the question of whether the outcomes followed from the analysis or from a specific strategy under specific conditions."},
+{t:"Separate the analysis from the politics", body:"Marx's account of how capitalism works and his expectations about what would replace it are different claims with different evidence. Many economists who reject the political conclusions accept parts of the analysis, and an essay that keeps them apart can be far more precise than one that treats accepting or rejecting as a single choice."}
+];
+
+MX.extend = [
+{t:"Where the data lives",
+ code:"MX.concepts  one object per concept\nMX.debates   one object per open question\nMX.texts     one object per primary work\nMX.method    essay method entries\nMX.areas     the area vocabulary used for filtering",
+ body:"Every panel renders from these arrays. The application code makes no assumption about how many entries any array holds, so adding twenty concepts requires no code change and no new filter buttons written by hand."},
+{t:"Adding a concept",
+ code:'{id:"realsub", term:"Real subsumption",\n area:"Economics", who:"Marx",\n short:"One line for the card",\n claim:"The claim as its proponents state it",\n detail:"How the argument works, two or three sentences",\n cite:"Work, part or chapter. Never a page number.",\n misread:"The reading students give and why it is thin",\n critique:"The strongest objection raised against it",\n linked:["accumulation","surplus"]}',
+ body:"Append to MX.concepts. The id must be unique. Any value in linked that does not match an existing concept is skipped and logged to the console rather than breaking the page, so a partial addition is safe."},
+{t:"Adding a debate",
+ code:'{id:"d11", q:"The question, phrased so both answers are available",\n forT:"Label for the first position",\n forB:"The first position in its own strongest terms",\n agT:"Label for the second position",\n agB:"The second position in its own strongest terms",\n where:"Where the argument has actually been conducted",\n note:"What a strong essay does with it"}',
+ body:"Append to MX.debates. The rule for this array is strict: both bodies must state the position as its holders would state it, and neither may be written as a straw man for the other. If you cannot write the second one convincingly, the debate is not ready to add."},
+{t:"Adding a text",
+ code:'{id:"t15", author:"Author", title:"Title",\n year:"written and published dates where they differ",\n kind:"Treatise, Notebooks, Pamphlet, Polemic, Secondary",\n status:"Editorial status, which matters in this field",\n what:"What is in it",\n route:"A realistic route through it",\n warn:"What a citation of it can and cannot support"}',
+ body:"Append to MX.texts. It appears in the Texts panel and in the reading list dropdown automatically. The status and warn fields are the ones that distinguish this from a bibliography, because several central works were assembled posthumously."},
+{t:"The editorial rule",
+ code:"claim     as its proponents state it\ncritique  the strongest objection, stated fairly\nneither   argues for a verdict",
+ body:"This is what the page is for. A summary site gives you the concept; a hostile site gives you the objection; a partisan site gives you neither honestly. Holding both without adjudicating is harder to write and it is the only reason a reader would choose this over the alternatives. Do not add a concept without a critique, and do not write a critique you would not accept if you held the position."},
+{t:"Citations, and why no page numbers",
+ code:"GOOD  Capital volume one, chapter one, section four\nBAD   Capital, p. 163",
+ body:"Editions and translations differ substantially, and the French edition of Capital contains revisions Marx approved that are absent from the German. A chapter and section reference is verifiable in any edition. Every cite field on this page follows the rule and additions should too."},
+{t:"Suggested order of expansion",
+ code:"1  Frankfurt School: Adorno, Horkheimer, Marcuse\n2  Dependency and world systems: Frank, Wallerstein\n3  Marxist feminism: social reproduction theory\n4  Analytical Marxism: Roemer, Elster, Wright\n5  Value form theory and the new readings of Marx",
+ body:"The concepts currently here cover Marx himself, the classical debates, and the interpretive positions that appear on most syllabuses. The five areas above are the highest value additions, and each brings its own internal critiques, which suits the format."}
+];
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var K_N="vb_mx_notes_v1", K_R="vb_mx_reading_v1";
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function put(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function get(k,f){ try{ var r=localStorage.getItem(k); return r?JSON.parse(r):f; }catch(e){ return f; } }
+  function flash(id,m){ var el=$(id); if(!el) return; el.textContent=m; setTimeout(function(){el.textContent="";},2600); }
+  function download(name,text){
+    var b=new Blob([text],{type:"text/plain;charset=utf-8"});
+    var u=URL.createObjectURL(b); var a=document.createElement("a");
+    a.href=u; a.download=name; document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(u);
+  }
+  function conceptById(id){ for(var i=0;i<MX.concepts.length;i++){ if(MX.concepts[i].id===id) return MX.concepts[i]; } return null; }
+  function textById(id){ for(var i=0;i<MX.texts.length;i++){ if(MX.texts[i].id===id) return MX.texts[i]; } return null; }
+
+  /* Broken cross references are skipped and logged rather than breaking the page. */
+  MX.concepts.forEach(function(c){
+    c.linked=(c.linked||[]).filter(function(l){
+      if(conceptById(l)) return true;
+      console.warn("Marxism notes: concept "+c.id+" links to unknown concept "+l);
+      return false;
+    });
+  });
+
+  var N=get(K_N,{}), RL=get(K_R,[]);
+  var openId=null;
+
+  function initTabs(){
+    var btns=document.querySelectorAll(".mx-btn[data-tab]");
+    Array.prototype.forEach.call(btns, function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(btns, function(x){
+          x.classList.remove("is-active"); x.setAttribute("aria-selected","false");
+        });
+        b.classList.add("is-active"); b.setAttribute("aria-selected","true");
+        Array.prototype.forEach.call(document.querySelectorAll(".mx-panel"), function(p){ p.classList.remove("is-active"); });
+        var t=$("mxp-"+b.getAttribute("data-tab"));
+        if(t) t.classList.add("is-active");
+        if(b.getAttribute("data-tab")==="reading") renderReading();
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+    });
+  }
+
+  /* ---------- concepts ---------- */
+  function renderGrid(){
+    var q=($("mxFind").value||"").toLowerCase();
+    var area=$("mxArea").value, who=$("mxWho").value;
+    var list=MX.concepts.filter(function(c){
+      if(area && c.area!==area) return false;
+      if(who && c.who!==who) return false;
+      if(q && (c.term+" "+c.short+" "+c.claim+" "+c.detail+" "+c.critique+" "+c.misread+" "+c.who).toLowerCase().indexOf(q)<0) return false;
+      return true;
+    });
+    $("mxGrid").innerHTML = list.length ? list.map(function(c){
+      return '<div class="mx-cc" data-area="'+esc(c.area)+'" data-open="'+esc(c.id)+'">'+
+        '<div class="mx-cn">'+esc(c.term)+(N[c.id]?' <span class="mx-chip">noted</span>':"")+"</div>"+
+        '<div class="mx-cm">'+esc(c.area)+" . "+esc(c.who)+"</div>"+
+        '<div class="mx-cm" style="margin-top:7px;color:var(--text);opacity:.78">'+esc(c.short)+"</div></div>";
+    }).join("") : '<div class="mx-empty">No concept matches those filters.</div>';
+    $("mxCount").textContent=list.length+" of "+MX.concepts.length+" concepts";
+    $("mxGrid").querySelectorAll("[data-open]").forEach(function(el){
+      el.addEventListener("click", function(){ openConcept(el.getAttribute("data-open")); });
+    });
+  }
+
+  function openConcept(id){
+    var c=conceptById(id); if(!c) return;
+    openId=id;
+    var linked=c.linked.map(function(l){
+      return '<span class="mx-chip" style="cursor:pointer" data-goto="'+esc(l)+'">'+esc(conceptById(l).term)+"</span>";
+    }).join("");
+    $("mxDetail").innerHTML='<div class="mx-card" style="margin-top:18px">'+
+      '<div class="mx-flex" style="justify-content:space-between;align-items:flex-start">'+
+      "<div><h3 style='font-size:21px;margin:0'>"+esc(c.term)+"</h3>"+
+      "<div class='mx-tiny' style='margin-top:4px'>"+esc(c.area)+" . "+esc(c.who)+"</div></div>"+
+      '<button class="mx-b sm" id="mxClose" type="button">Close</button></div>'+
+      '<div style="margin-top:16px">'+
+      '<div class="mx-dl"><div class="k">The claim</div><div>'+esc(c.claim)+"</div></div>"+
+      '<div class="mx-dl"><div class="k">How it works</div><div>'+esc(c.detail)+"</div></div>"+
+      '<div class="mx-dl"><div class="k">Where it is set out</div><div><span class="mx-cite">'+esc(c.cite)+"</span></div></div>"+
+      '<div class="mx-dl"><div class="k">Common misreading</div><div><div class="mx-mis">'+esc(c.misread)+"</div></div></div>"+
+      '<div class="mx-dl"><div class="k">The strongest objection</div><div><div class="mx-against">'+esc(c.critique)+"</div></div></div>"+
+      (linked?'<div class="mx-dl"><div class="k">Related</div><div>'+linked+"</div></div>":"")+
+      '<div class="mx-dl"><div class="k">My note</div><div>'+
+      '<textarea class="mx-txt" id="mxNote" placeholder="Your note. It is saved automatically and exported with the reading list.">'+esc(N[id]||"")+"</textarea>"+
+      '<div class="mx-tiny" style="margin-top:6px" id="mxNoteMsg"></div></div></div>'+
+      "</div></div>";
+    $("mxClose").addEventListener("click", function(){ openId=null; $("mxDetail").innerHTML=""; renderGrid(); });
+    $("mxNote").addEventListener("input", function(){
+      var v=$("mxNote").value;
+      if(v.trim()) N[id]=v; else delete N[id];
+      put(K_N,N); flash("mxNoteMsg","Saved on this device."); renderReading();
+    });
+    $("mxDetail").querySelectorAll("[data-goto]").forEach(function(el){
+      el.addEventListener("click", function(){ openConcept(el.getAttribute("data-goto")); });
+    });
+    $("mxDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  /* ---------- debates, texts, method, extend ---------- */
+  function renderDebates(){
+    $("mxDebates").innerHTML = MX.debates.map(function(d){
+      return '<div class="mx-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px;line-height:1.45'>"+esc(d.q)+"</div>"+
+        '<div class="mx-for"><strong>'+esc(d.forT)+".</strong> "+esc(d.forB)+"</div>"+
+        '<div class="mx-against"><strong>'+esc(d.agT)+".</strong> "+esc(d.agB)+"</div>"+
+        '<div class="mx-dl" style="margin-top:12px"><div class="k">Where it happened</div><div><span class="mx-cite">'+esc(d.where)+"</span></div></div>"+
+        '<div class="mx-dl"><div class="k">In an essay</div><div>'+esc(d.note)+"</div></div></div>";
+    }).join("");
+  }
+
+  function renderTexts(){
+    $("mxTexts").innerHTML = MX.texts.map(function(t){
+      return '<div class="mx-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px'>"+esc(t.author)+", "+esc(t.title)+"</div>"+
+        '<div class="mx-tiny" style="margin-top:4px">'+esc(t.year)+" . "+esc(t.kind)+"</div>"+
+        '<div class="mx-dl" style="margin-top:12px"><div class="k">Editorial status</div><div>'+esc(t.status)+"</div></div>"+
+        '<div class="mx-dl"><div class="k">What is in it</div><div>'+esc(t.what)+"</div></div>"+
+        '<div class="mx-dl"><div class="k">A route through</div><div>'+esc(t.route)+"</div></div>"+
+        '<div class="mx-dl"><div class="k">Citing it</div><div><div class="mx-warn">'+esc(t.warn)+"</div></div></div></div>";
+    }).join("");
+  }
+
+  function renderMethod(){
+    $("mxMethod").innerHTML='<div class="mx-card">'+ MX.method.map(function(m,i){
+      return '<div class="mx-dl"><div class="k">Move '+(i+1)+"</div><div><strong>"+esc(m.t)+
+        '</strong><div style="margin-top:6px;color:var(--muted)">'+esc(m.body)+"</div></div></div>";
+    }).join("")+"</div>";
+  }
+
+  function renderExtend(){
+    var counts='<div class="mx-card" style="margin-bottom:14px"><div style="font-weight:700;font-size:17px;margin-bottom:12px">Currently covered</div>'+
+      '<div class="mx-stat">'+
+      '<div class="mx-stat-c"><div class="mx-stat-n">'+MX.concepts.length+'</div><div class="mx-stat-l">Concepts</div></div>'+
+      '<div class="mx-stat-c"><div class="mx-stat-n">'+MX.debates.length+'</div><div class="mx-stat-l">Debates</div></div>'+
+      '<div class="mx-stat-c"><div class="mx-stat-n">'+MX.texts.length+'</div><div class="mx-stat-l">Texts</div></div>'+
+      '<div class="mx-stat-c"><div class="mx-stat-n">'+MX.areas.length+'</div><div class="mx-stat-l">Areas</div></div>'+
+      "</div></div>";
+    $("mxExtend").innerHTML = counts + MX.extend.map(function(x){
+      return '<div class="mx-card" style="margin-bottom:14px">'+
+        "<div style='font-weight:700;font-size:17px;margin-bottom:10px'>"+esc(x.t)+"</div>"+
+        '<div style="font-size:14.5px;line-height:1.8;margin-bottom:12px;color:var(--muted)">'+esc(x.body)+"</div>"+
+        '<div class="mx-code">'+esc(x.code)+"</div></div>";
+    }).join("");
+  }
+
+  /* ---------- reading list ---------- */
+  function citation(item, style){
+    if(style==="note"){
+      return item.author+", "+item.title+" ("+item.year+")"+(item.part?", "+item.part:"");
+    }
+    return item.author+" ("+item.year+") "+item.title+(item.part?", "+item.part:"")+".";
+  }
+
+  function renderReading(){
+    var style=$("rlStyle").value;
+    $("rlN").textContent=RL.length;
+    $("rlNotes").textContent=RL.filter(function(x){ return (x.note||"").trim(); }).length;
+    $("rlConcepts").textContent=Object.keys(N).length;
+    $("rlOwn").textContent=RL.filter(function(x){ return x.own; }).length;
+
+    $("rlList").innerHTML = RL.length ? RL.map(function(item,i){
+      return '<div class="mx-card" style="margin-bottom:12px">'+
+        '<div class="mx-flex" style="justify-content:space-between;align-items:flex-start;gap:12px">'+
+        "<div style='flex:1'><div style='font-weight:700;font-size:15.5px'>"+esc(item.title)+
+        (item.own?' <span class="mx-chip">own source</span>':"")+"</div>"+
+        '<div class="mx-tiny" style="margin-top:4px">'+esc(item.author)+" . "+esc(item.year)+
+        (item.part?" . "+esc(item.part):"")+"</div>"+
+        (item.why?'<div class="mx-tiny" style="margin-top:6px;color:var(--muted)">'+esc(item.why)+"</div>":"")+
+        '<div class="mx-cite" style="margin-top:8px">'+esc(citation(item,style))+"</div></div>"+
+        '<button class="mx-b sm" data-rdel="'+i+'" type="button">Remove</button></div>'+
+        '<textarea class="mx-txt" data-rnote="'+i+'" style="margin-top:10px;min-height:64px" placeholder="Notes on this reading">'+esc(item.note||"")+"</textarea></div>";
+    }).join("") : '<div class="mx-empty">Nothing on the list yet. Add a text from the library above, or your own source.</div>';
+
+    $("rlList").querySelectorAll("[data-rdel]").forEach(function(b){
+      b.addEventListener("click", function(){
+        RL.splice(parseInt(b.getAttribute("data-rdel"),10),1); put(K_R,RL); renderReading();
+      });
+    });
+    $("rlList").querySelectorAll("[data-rnote]").forEach(function(t){
+      t.addEventListener("input", function(){
+        RL[parseInt(t.getAttribute("data-rnote"),10)].note=t.value; put(K_R,RL);
+      });
+    });
+
+    var keys=Object.keys(N);
+    $("rlConceptNotes").innerHTML = keys.length
+      ? '<div class="mx-card"><div style="font-weight:700;font-size:17px;margin-bottom:10px">Concept notes</div>'+
+        keys.map(function(k){
+          var c=conceptById(k); if(!c) return "";
+          return '<div class="mx-dl"><div class="k">'+esc(c.term)+"</div><div>"+esc(N[k])+
+            '<div class="mx-cite" style="margin-top:7px">'+esc(c.cite)+"</div></div></div>";
+        }).join("")+"</div>"
+      : "";
+  }
+
+  function readingText(){
+    var style=$("rlStyle").value;
+    var out=["Reading list and notes",""];
+    if(RL.length){
+      out.push("READING LIST");
+      RL.forEach(function(item,i){
+        out.push("  "+(i+1)+". "+citation(item,style));
+        if(item.why) out.push("      Purpose: "+item.why);
+        if((item.note||"").trim()) out.push("      Notes:   "+item.note);
+        out.push("");
+      });
+    } else { out.push("Reading list is empty.",""); }
+    var keys=Object.keys(N);
+    if(keys.length){
+      out.push("=".repeat(56),"","CONCEPT NOTES","");
+      keys.forEach(function(k){
+        var c=conceptById(k); if(!c) return;
+        out.push("  "+c.term+"   ["+c.area+"]");
+        out.push("      Source: "+c.cite);
+        out.push("      Note:   "+N[k]);
+        out.push("");
+      });
+    }
+    out.push("Citations give work and part rather than page numbers, because editions differ.");
+    return out.join("\n");
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    initTabs();
+    MX.areas.forEach(function(a){ var o=document.createElement("option"); o.value=a; o.textContent=a; $("mxArea").appendChild(o); });
+    MX.concepts.map(function(c){ return c.who; }).filter(function(v,i,a){ return a.indexOf(v)===i; }).sort()
+      .forEach(function(w){ var o=document.createElement("option"); o.value=w; o.textContent=w; $("mxWho").appendChild(o); });
+    MX.texts.forEach(function(t){
+      var o=document.createElement("option"); o.value=t.id; o.textContent=t.author+", "+t.title; $("rlPick").appendChild(o);
+    });
+
+    $("mxFind").addEventListener("input", renderGrid);
+    $("mxArea").addEventListener("change", renderGrid);
+    $("mxWho").addEventListener("change", renderGrid);
+
+    $("rlAdd").addEventListener("click", function(){
+      var t=textById($("rlPick").value);
+      if(!t){ flash("rlMsg","Pick a text first."); return; }
+      RL.push({author:t.author, title:t.title, year:t.year, part:$("rlPart").value.trim(),
+               why:$("rlWhy").value.trim(), note:"", own:false});
+      put(K_R,RL); $("rlPart").value=""; $("rlWhy").value="";
+      renderReading(); flash("rlMsg","Added.");
+    });
+    $("rlAddOwn").addEventListener("click", function(){
+      var a=$("rlOwnA").value.trim(), t=$("rlOwnT").value.trim(), y=$("rlOwnY").value.trim();
+      if(!a || !t){ flash("rlMsg","Author and title are needed."); return; }
+      RL.push({author:a, title:t, year:y||"n.d.", part:$("rlPart").value.trim(),
+               why:$("rlWhy").value.trim(), note:"", own:true});
+      put(K_R,RL); $("rlOwnA").value=""; $("rlOwnT").value=""; $("rlOwnY").value="";
+      renderReading(); flash("rlMsg","Added.");
+    });
+    $("rlStyle").addEventListener("change", renderReading);
+    $("rlExport").addEventListener("click", function(){
+      download("marxism-reading-list.txt", readingText()); flash("rlMsg","Exported.");
+    });
+    $("rlClear").addEventListener("click", function(){
+      if(!confirm("Clear the reading list? Concept notes are kept.")) return;
+      RL=[]; put(K_R,RL); renderReading();
+    });
+
+    renderGrid();
+    renderDebates();
+    renderTexts();
+    renderMethod();
+    renderExtend();
+    renderReading();
+  });
+})();
+</script>

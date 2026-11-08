@@ -3,6 +3,8 @@ title: "VaultBook vs Bear for Tax Preparers: A Private Client Vault for Tax Seas
 description: "Bear is a beautiful notes app for Apple devices. Tax work needs more: a client vault that handles PDFs, deadlines, portal passwords and sensitive records on any machine, with no cloud in between. Here is the honest comparison."
 date: 2026-11-02 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
+lang: en
+ref: vaultbook-vs-bear-for-tax-preparers
 ---
 Every tax practice has two archives, whether it admits it or not. The first is the official one: filed returns, signed engagement letters, the documents the firm can produce on demand. The second is the working archive, and it is where the season is actually won or lost. It holds the per-client checklist with three items still missing, the note that a spouse answers email from a different address, the portal login that only one person in the office knows, the photograph of a paper form a client sent sideways, and the reminder that one family's return cannot be finished until a brokerage statement arrives in mid-March. That second archive is sensitive, deadline-driven, and scattered by default. The question this article answers is simple: which notes tool should hold it — Bear, the polished Markdown app for Mac, iPhone and iPad, or VaultBook, the single-file, offline, encrypted vault built for exactly this kind of high-stakes record keeping?
 

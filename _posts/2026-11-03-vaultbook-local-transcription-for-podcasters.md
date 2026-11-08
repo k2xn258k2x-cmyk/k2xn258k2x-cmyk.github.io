@@ -3,6 +3,8 @@ title: "Local Audio Transcription Without the Cloud: VaultBook for Podcasters an
 description: "Cloud transcription meters your minutes, caps your files and trains on your recordings. VaultBook cuts, transcribes with local Whisper and searches your audio inside one encrypted, offline vault — here is the full workflow for podcasters and oral historians."
 date: 2026-11-03 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
+lang: en
+ref: vaultbook-local-transcription-for-podcasters
 ---
 Maya has two archives, and only one of them is allowed to leave her laptop.
 

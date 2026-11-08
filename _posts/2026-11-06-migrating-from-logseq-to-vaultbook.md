@@ -3,6 +3,8 @@ title: "How to Migrate from Logseq to VaultBook: A Complete Step-by-Step Guide"
 description: "Your Logseq graph was built on plain Markdown files — and that portability is exactly what makes migrating now the cheap moment, before the database version closes the door. This step-by-step guide moves a working graph into VaultBook's encrypted single-file vault: the audit, the structure translation, the hard cases like block references and queries, the assets, and the first 30 days."
 date: 2026-11-06 17:00:00 -0600
 cover: /assets/img/feature-screenshot-placeholder.svg
+lang: en
+ref: migrating-from-logseq-to-vaultbook
 ---
 
 Elena Marsh did not decide to leave Logseq because of a feature comparison chart. She decided on a Tuesday morning, standing in her kitchen with a phone in one hand and a client deadline in the other, watching a small sync indicator refuse to move.

@@ -345,12 +345,13 @@ permalink: /blog/
   </div>
 </section>
 
-{% if site.posts.size > 0 %}
+{% assign en_posts = site.posts | where_exp: "post", "post.lang != 'de'" %}
+{% if en_posts.size > 0 %}
 
 <!-- ════════════════════════════════════════════════════════════════
      FEATURED (LATEST POST)
      ════════════════════════════════════════════════════════════════ -->
-{% assign latest = site.posts.first %}
+{% assign latest = en_posts.first %}
 <section class="bl-section">
   <div class="container" data-reveal>
     <div class="bl-section-label">Latest</div>
@@ -385,7 +386,7 @@ permalink: /blog/
 <!-- ════════════════════════════════════════════════════════════════
      OLDER POSTS GRID
      ════════════════════════════════════════════════════════════════ -->
-{% assign older = site.posts | slice: 1, 9999 %}
+{% assign older = en_posts | slice: 1, 9999 %}
 {% if older.size > 0 %}
 <section class="bl-section">
   <div class="container">

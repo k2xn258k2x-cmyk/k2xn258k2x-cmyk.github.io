@@ -141,8 +141,8 @@ permalink: /download/linux/
       and your offline workspace is ready — no packages, no dependencies.
     </p>
     <div class="dlp-hero-actions">
-      <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
-      <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
+      <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
+      <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
     </div>
   </div>
 </section>
@@ -184,7 +184,7 @@ permalink: /download/linux/
 
     <div class="dlp-code" data-reveal>
       <span class="comment"># Quick start from terminal</span><br>
-      <span class="cmd">wget</span> https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip<br>
+      <span class="cmd">wget</span> https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip<br>
       <span class="cmd">unzip</span> VaultBook_Pro.zip -d ~/VaultBook<br>
       <span class="cmd">google-chrome</span> ~/VaultBook/VaultBook.html
     </div>

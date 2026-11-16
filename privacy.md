@@ -405,7 +405,7 @@ permalink: /privacy/
 
   <h3>6.4 Download links</h3>
 
-  <p>Application download links point to files hosted on GitHub (raw.githubusercontent.com). Downloading a file may be logged by GitHub's infrastructure. We do not add tracking parameters, redirects, or analytics wrappers to download URLs.</p>
+  <p>Application download links point to files hosted on GitHub (github.com). Downloading a file may be logged by GitHub's infrastructure. We do not add tracking parameters, redirects, or analytics wrappers to download URLs.</p>
 
   <hr class="pv-divider">
 

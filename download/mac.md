@@ -123,8 +123,8 @@ permalink: /download/mac/
       Chromium browser and your workspace is ready — no install, no Gatekeeper prompts.
     </p>
     <div class="dlp-hero-actions">
-      <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
-      <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
+      <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
+      <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
     </div>
   </div>
 </section>

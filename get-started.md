@@ -307,7 +307,7 @@ permalink: /get-started/
           <div class="gs-plan-list-item">Labels &amp; favorites</div>
           <div class="gs-plan-list-item">Basic search &amp; typeahead</div>
         </div>
-        <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
+        <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
       </div>
 
       <div class="gs-plan featured">
@@ -323,7 +323,7 @@ permalink: /get-started/
           <div class="gs-plan-list-item">Inline OCR, analytics &amp; timetable</div>
           <div class="gs-plan-list-item">Version history (60-day retention)</div>
         </div>
-        <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
+        <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
       </div>
     </div>
   </div>
@@ -614,8 +614,8 @@ permalink: /get-started/
     </div>
 
     <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:28px;" data-reveal>
-      <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
-      <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
+      <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
+      <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
     </div>
   </div>
 </section>
@@ -685,8 +685,8 @@ permalink: /get-started/
         <div class="muted">Download VaultBook, unzip, and open. You'll be writing your first note in seconds.</div>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
-        <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
+        <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
+        <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
       </div>
     </div>
   </div>

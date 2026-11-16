@@ -246,7 +246,7 @@ permalink: /download/
           <div class="dl-ed-item">File attachments &amp; basic indexing</div>
           <div class="dl-ed-item">Labels, favorites &amp; search</div>
         </div>
-        <a class="btn btn-ghost" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Plus.zip" download>Download Plus</a>
+        <a class="btn btn-ghost" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Plus.zip" download>Download Plus</a>
       </div>
 
       <div class="dl-ed featured">
@@ -260,7 +260,7 @@ permalink: /download/
           <div class="dl-ed-item">12+ built-in tools &amp; analytics</div>
           <div class="dl-ed-item">Version history &amp; timetable</div>
         </div>
-        <a class="btn btn-primary" href="https://raw.githubusercontent.com/k2xn258k2x-cmyk/Note/main/VaultBook_Pro.zip" download>Download Pro</a>
+        <a class="btn btn-primary" href="https://github.com/k2xn258k2x-cmyk/Note/releases/download/VaultBook/VaultBook_Pro.zip" download>Download Pro</a>
       </div>
     </div>
 
